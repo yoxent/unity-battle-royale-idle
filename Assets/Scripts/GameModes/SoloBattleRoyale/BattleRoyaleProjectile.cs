@@ -12,6 +12,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private float lifetime;
         private float elapsed;
         private float blockerPlaneY;
+        private Vector3 impactPoint;
         private bool inFlight;
 
         public void Bind(BattleRoyaleProjectilePool projectilePool)
@@ -44,6 +45,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             transform.SetParent(null, true);
             transform.position = origin;
             transform.localScale = Vector3.one * Mathf.Max(0.2f, visualScale);
+            ResolveImpact();
         }
 
         private void Update()
@@ -53,33 +55,44 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return;
             }
 
-            elapsed += Time.deltaTime;
-            if (elapsed >= lifetime)
+            var step = Mathf.Min(Time.deltaTime, Mathf.Max(0f, lifetime - elapsed));
+            elapsed += step;
+            var toImpact = impactPoint - transform.position;
+            var remaining = toImpact.magnitude;
+            var travel = speed * step;
+            if (step <= 0f || remaining <= travel)
             {
+                transform.position = impactPoint;
                 Release();
                 return;
             }
 
-            var previousPosition = transform.position;
-            var nextPosition = previousPosition + direction * speed * Time.deltaTime;
-            var travel = nextPosition - previousPosition;
+            transform.position += toImpact / remaining * travel;
+        }
+
+        private void ResolveImpact()
+        {
+            var origin = transform.position;
+            var travelDistance = speed * lifetime;
+            var travel = direction * travelDistance;
+            impactPoint = origin + travel;
             if (travel.sqrMagnitude <= 0.0001f)
             {
                 return;
             }
 
             var wallBlocks = BattleRoyaleLineOfSight.TryGetObstacleHit(
-                previousPosition,
-                nextPosition,
+                origin,
+                impactPoint,
                 blockerPlaneY,
                 out var wallHit);
             var wallDistance = wallBlocks
-                ? HorizontalDistance(previousPosition, wallHit.point)
+                ? HorizontalDistance(origin, wallHit.point)
                 : float.PositiveInfinity;
             var hits = Physics.RaycastAll(
-                previousPosition,
-                travel.normalized,
-                travel.magnitude,
+                origin,
+                direction,
+                travelDistance,
                 Physics.DefaultRaycastLayers,
                 QueryTriggerInteraction.Ignore);
             System.Array.Sort(
@@ -87,7 +100,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 (first, second) => first.distance.CompareTo(second.distance));
             foreach (var hit in hits)
             {
-                if (HorizontalDistance(previousPosition, hit.point) >= wallDistance)
+                if (HorizontalDistance(origin, hit.point) >= wallDistance)
                 {
                     break;
                 }
@@ -104,21 +117,17 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                     character.ApplyDamage(damage, owner);
                 }
 
-                Release();
+                impactPoint = hit.point;
                 return;
             }
 
-            if (wallBlocks)
+            if (!wallBlocks)
             {
-                var stop = nextPosition;
-                stop.x = wallHit.point.x;
-                stop.z = wallHit.point.z;
-                transform.position = stop;
-                Release();
                 return;
             }
 
-            transform.position = nextPosition;
+            impactPoint.x = wallHit.point.x;
+            impactPoint.z = wallHit.point.z;
         }
 
         private static float HorizontalDistance(Vector3 first, Vector3 second)

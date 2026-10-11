@@ -6,6 +6,12 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
     [DisallowMultipleComponent]
     public sealed class BattleRoyaleWeapon : MonoBehaviour
     {
+        // Authored speeds take about a second to cross weapon range, so both
+        // fighters can shoot before either round arrives. This scale makes
+        // the shot connect before a return shot. Lifetime shrinks by the
+        // same amount, so the round still stops at its authored distance.
+        private const float ProjectileSpeedScale = 40f;
+
         private BattleRoyaleCharacter owner;
         private WeaponProfile profile;
         private WeaponProfile runtimeProfile;
@@ -160,8 +166,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 origin,
                 direction,
                 stats.damage * owner.WeaponDamageMultiplier,
-                stats.projectileSpeed,
-                stats.projectileLifetime,
+                stats.projectileSpeed * ProjectileSpeedScale,
+                stats.projectileLifetime / ProjectileSpeedScale,
                 Mathf.Max(0.05f, stats.projectileScale) * ownerScale);
         }
 
