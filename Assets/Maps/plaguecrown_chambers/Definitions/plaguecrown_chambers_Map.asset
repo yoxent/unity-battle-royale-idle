@@ -29,8 +29,8 @@ MonoBehaviour:
   generateBuildingWalls: 0
   generateTreeColliders: 0
   useImageCornerFit: 1
-  imageUpperLeftUv: {x: 0.03332172, y: 1}
-  imageLowerRightUv: {x: 0.9672529, y: 0.032069605}
+  imageUpperLeftUv: {x: 0.036160167, y: 1}
+  imageLowerRightUv: {x: 0.96657664, y: 0.033453442}
   editImageCornersInScene: 1
   showDungeonWalls: 1
   overrideNavMeshVoxelSize: 0

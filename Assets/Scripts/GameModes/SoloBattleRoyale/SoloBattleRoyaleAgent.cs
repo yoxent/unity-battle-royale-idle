@@ -135,6 +135,14 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 target = null;
             }
 
+            if (target != null &&
+                !BattleRoyaleLineOfSight.IsClear(character, target))
+            {
+                target = null;
+                Think();
+                return;
+            }
+
             switch (character.State)
             {
                 case BattleRoyaleCharacterState.MovingToSafeZone:
@@ -168,16 +176,16 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return;
             }
 
-            var combatPosition = GetCombatPosition();
-            if (HorizontalDistance(transform.position, combatPosition) > 1f)
+            StopMoving();
+            FacePosition(target.transform.position);
+            var toTarget = target.transform.position - transform.position;
+            toTarget.y = 0f;
+            if (toTarget.sqrMagnitude <= 0.001f ||
+                Vector3.Angle(transform.forward, toTarget) > 12f)
             {
-                MoveTo(combatPosition);
-                character.Weapon?.TryFire(target);
                 return;
             }
 
-            StopMoving();
-            FacePosition(target.transform.position);
             character.Weapon?.TryFire(target);
         }
 
@@ -200,7 +208,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 var distance = HorizontalDistance(
                     transform.position,
                     candidate.transform.position);
-                if (distance > perceptionRange)
+                if (distance > perceptionRange ||
+                    !BattleRoyaleLineOfSight.IsClear(character, candidate))
                 {
                     continue;
                 }

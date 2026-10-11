@@ -18,6 +18,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         [SerializeField] private float currentHealth;
         [SerializeField] private bool isBot = true;
 
+        private static readonly Color FiringColor = new(1f, 0.45f, 0.1f);
+
         private Renderer characterRenderer;
         private BattleRoyaleWeapon weapon;
         private SoloBattleRoyaleGameMode match;
@@ -200,6 +202,10 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
 
             State = nextState;
+            if (nextState != BattleRoyaleCharacterState.Eliminated)
+            {
+                ApplyStateColor();
+            }
         }
 
         public void ApplyDamage(
@@ -237,6 +243,18 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
             Eliminated?.Invoke(this, damageSource);
             match?.NotifyCharacterEliminated(this, damageSource);
+        }
+
+        private void ApplyStateColor()
+        {
+            if (characterRenderer == null || profile == null)
+            {
+                return;
+            }
+
+            characterRenderer.material.color = State == BattleRoyaleCharacterState.Engaging
+                ? FiringColor
+                : profile.visualColor;
         }
 
         private void ConfigureAgent()

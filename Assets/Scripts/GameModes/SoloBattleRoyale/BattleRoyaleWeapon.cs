@@ -9,7 +9,10 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private BattleRoyaleCharacter owner;
         private WeaponProfile profile;
         private WeaponProfile runtimeProfile;
+        private Renderer muzzleFlash;
+        private Material muzzleFlashMaterial;
         private float nextFireTime;
+        private float muzzleFlashUntil;
         private float reloadReadyTime;
         private int roundsRemaining;
 
@@ -38,6 +41,20 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             roundsRemaining = MagazineCapacity;
             reloadReadyTime = 0f;
             CreatePrimitiveVisual();
+            EnsureMuzzleFlash();
+        }
+
+        private void Update()
+        {
+            if (muzzleFlash == null || !muzzleFlash.enabled)
+            {
+                return;
+            }
+
+            if (Time.time >= muzzleFlashUntil)
+            {
+                muzzleFlash.enabled = false;
+            }
         }
 
         public bool TryFire(BattleRoyaleCharacter target)
@@ -83,31 +100,9 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
 
             direction /= distance;
-            var visibilityHits = Physics.RaycastAll(
-                origin,
-                direction,
-                distance,
-                Physics.DefaultRaycastLayers,
-                QueryTriggerInteraction.Ignore);
-            System.Array.Sort(
-                visibilityHits,
-                (first, second) => first.distance.CompareTo(second.distance));
-            foreach (var visibilityHit in visibilityHits)
+            if (!BattleRoyaleLineOfSight.IsClear(owner, target))
             {
-                var hitCharacter =
-                    visibilityHit.collider.GetComponentInParent<
-                        BattleRoyaleCharacter>();
-                if (hitCharacter == owner)
-                {
-                    continue;
-                }
-
-                if (hitCharacter != target)
-                {
-                    return false;
-                }
-
-                break;
+                return false;
             }
 
             nextFireTime = Time.time + 1f /
@@ -130,6 +125,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 reloadReadyTime = Time.time + ReloadDuration;
             }
 
+            ShowMuzzleFlash(origin);
             return true;
         }
 
@@ -148,26 +144,25 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             Vector3 direction,
             WeaponStats stats)
         {
-            var bulletObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            bulletObject.name = $"Bullet_{owner.name}";
-            bulletObject.transform.position = origin;
-            bulletObject.transform.localScale = Vector3.one *
-                                                Mathf.Max(
-                                                    0.05f,
-                                                    stats.projectileScale);
-            var bulletCollider = bulletObject.GetComponent<Collider>();
-            if (bulletCollider != null)
+            var pool = owner.Match == null
+                ? null
+                : owner.Match.Projectiles;
+            if (pool == null)
             {
-                Object.Destroy(bulletCollider);
+                return;
             }
 
-            var projectile = bulletObject.AddComponent<BattleRoyaleProjectile>();
-            projectile.Initialize(
+            var ownerScale = owner.Profile == null
+                ? 1f
+                : Mathf.Max(0.1f, owner.Profile.visualScale);
+            pool.Spawn(
                 owner,
+                origin,
                 direction,
                 stats.damage * owner.WeaponDamageMultiplier,
                 stats.projectileSpeed,
-                stats.projectileLifetime);
+                stats.projectileLifetime,
+                Mathf.Max(0.05f, stats.projectileScale) * ownerScale);
         }
 
         private Vector3 ApplyAccuracy(
@@ -202,10 +197,69 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
         private Vector3 GetMuzzlePosition()
         {
+            var gun = transform.Find("GunCube");
+            if (gun != null)
+            {
+                return gun.position + gun.forward * (gun.lossyScale.z * 0.5f);
+            }
+
             var scale = owner == null || owner.Profile == null
                 ? 1f
                 : Mathf.Max(0.1f, owner.Profile.visualScale);
             return transform.position + Vector3.up * (0.75f * scale);
+        }
+
+        private void EnsureMuzzleFlash()
+        {
+            if (muzzleFlash != null)
+            {
+                return;
+            }
+
+            var flashObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            flashObject.name = "MuzzleFlash";
+            flashObject.transform.SetParent(transform, false);
+            var collider = flashObject.GetComponent<Collider>();
+            if (collider != null)
+            {
+                DestroyImmediate(collider);
+            }
+
+            muzzleFlash = flashObject.GetComponent<Renderer>();
+            var shader = Shader.Find("Universal Render Pipeline/Unlit") ??
+                         Shader.Find("Universal Render Pipeline/Lit") ??
+                         Shader.Find("Standard");
+            if (shader != null && muzzleFlash != null)
+            {
+                muzzleFlashMaterial = new Material(shader);
+                var flashColor = new Color(1f, 0.95f, 0.6f, 1f);
+                muzzleFlashMaterial.color = flashColor;
+                if (muzzleFlashMaterial.HasProperty("_BaseColor"))
+                {
+                    muzzleFlashMaterial.SetColor("_BaseColor", flashColor);
+                }
+
+                muzzleFlash.material = muzzleFlashMaterial;
+            }
+
+            var scale = owner == null || owner.Profile == null
+                ? 1f
+                : Mathf.Max(0.1f, owner.Profile.visualScale);
+            flashObject.transform.localScale = Vector3.one * (0.45f * scale);
+            muzzleFlash.enabled = false;
+        }
+
+        private void ShowMuzzleFlash(Vector3 position)
+        {
+            EnsureMuzzleFlash();
+            if (muzzleFlash == null)
+            {
+                return;
+            }
+
+            muzzleFlash.transform.position = position;
+            muzzleFlash.enabled = true;
+            muzzleFlashUntil = Time.time + 0.08f;
         }
 
         private void CreatePrimitiveVisual()
@@ -221,19 +275,21 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             var scale = owner == null || owner.Profile == null
                 ? 1f
                 : Mathf.Max(0.1f, owner.Profile.visualScale);
+            var proportions = GetVisualProportions();
+            var length = 1.6f * proportions.x * scale;
+            var thickness = 0.25f * proportions.y * scale;
             gun.transform.localPosition = new Vector3(
                 0.85f * scale,
                 0.5f * scale,
-                0f);
-            var proportions = GetVisualProportions();
+                length * 0.5f);
             gun.transform.localScale = new Vector3(
-                1.6f * proportions.x * scale,
-                0.25f * proportions.y * scale,
-                0.25f * proportions.y * scale);
+                thickness,
+                thickness,
+                length);
             var collider = gun.GetComponent<Collider>();
             if (collider != null)
             {
-                Object.Destroy(collider);
+                DestroyImmediate(collider);
             }
 
             var renderer = gun.GetComponent<Renderer>();
@@ -281,6 +337,11 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             if (runtimeProfile != null)
             {
                 Destroy(runtimeProfile);
+            }
+
+            if (muzzleFlashMaterial != null)
+            {
+                Destroy(muzzleFlashMaterial);
             }
         }
     }

@@ -1779,6 +1779,7 @@ namespace BattleRoyale.Maps.EditorTools
                         ? new Material(template)
                         : new Material(Shader.Find("Universal Render Pipeline/Lit"));
                     material.name = $"{mapName}_Visual";
+                    ConfigureCreatedVisualMaterial(material);
                     AssetDatabase.CreateAsset(material, materialPath);
                 }
             }
@@ -1808,6 +1809,30 @@ namespace BattleRoyale.Maps.EditorTools
             EditorUtility.SetDirty(mapDefinition);
             AssetDatabase.SaveAssets();
             return material;
+        }
+
+        private static void ConfigureCreatedVisualMaterial(Material material)
+        {
+            if (material.HasProperty("_AlphaClip"))
+            {
+                material.SetFloat("_AlphaClip", 1f);
+            }
+
+            if (material.HasProperty("_AlphaToMask"))
+            {
+                material.SetFloat("_AlphaToMask", 1f);
+            }
+
+            material.EnableKeyword("_ALPHATEST_ON");
+            material.SetOverrideTag("RenderType", "TransparentCutout");
+            material.renderQueue = (int)RenderQueue.AlphaTest;
+
+            if (material.HasProperty("_ReceiveShadows"))
+            {
+                material.SetFloat("_ReceiveShadows", 0f);
+            }
+
+            material.EnableKeyword("_RECEIVE_SHADOWS_OFF");
         }
 
         private static MapFeatureSummary[] CreateFeatureSummaries(

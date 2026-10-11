@@ -62,17 +62,23 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         [Header("Runtime")]
         [SerializeField] private bool autoStart = true;
         [SerializeField] private bool drawSafeZone = true;
+        [SerializeField] private bool drawLineOfSight = true;
 
         private readonly List<BattleRoyaleCharacter> characters = new();
+        private BattleRoyaleProjectilePool projectilePool;
         private BattleRoyaleCharacterProfile runtimeDefaultProfile;
         private float elapsedMatchTime;
         private Vector3 safeZoneCenter;
         private float safeZoneStartRadius;
         private float safeZoneRadius;
         private float safeZoneFinalRadius;
+        private readonly List<LineRenderer> sightLines = new();
+        private Material sightLineMaterial;
+        private MaterialPropertyBlock sightLineBlock;
         private bool matchStarted;
         private bool winnerAnnounced;
 
+        public BattleRoyaleProjectilePool Projectiles => projectilePool;
         public MapInstance ActiveMap => activeMap;
         public MapModeConfiguration ModeConfiguration => modeConfiguration;
         public TeamPlaystyle TeamPlaystyle => teamPlaystyle;
@@ -134,6 +140,11 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             CheckForWinner();
         }
 
+        private void LateUpdate()
+        {
+            UpdateSightLines();
+        }
+
         public bool BeginMatch()
         {
             if (matchStarted)
@@ -150,6 +161,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             PrepareSafeZone();
             EnsureCharacterParent();
             EnsureDefaultProfile();
+            EnsureProjectilePool();
 
             var spawnCount = botCount + (spawnTestPlayer ? 1 : 0);
             for (var index = 0; index < spawnCount; index++)
@@ -550,6 +562,20 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             return StrategyRotation[index % StrategyRotation.Length];
         }
 
+        private void EnsureProjectilePool()
+        {
+            if (projectilePool != null)
+            {
+                projectilePool.Prewarm();
+                return;
+            }
+
+            var poolObject = new GameObject("BattleRoyaleProjectiles");
+            poolObject.transform.SetParent(transform, false);
+            projectilePool = poolObject.AddComponent<BattleRoyaleProjectilePool>();
+            projectilePool.Prewarm();
+        }
+
         private void EnsureCharacterParent()
         {
             if (characterParent != null)
@@ -603,6 +629,107 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             if (runtimeDefaultProfile != null)
             {
                 Destroy(runtimeDefaultProfile);
+            }
+
+            if (sightLineMaterial != null)
+            {
+                Destroy(sightLineMaterial);
+            }
+        }
+
+        private void UpdateSightLines()
+        {
+            var usedLines = 0;
+            if (drawLineOfSight && matchStarted)
+            {
+                RefreshRoster();
+                for (var sourceIndex = 0; sourceIndex < characters.Count; sourceIndex++)
+                {
+                    var source = characters[sourceIndex];
+                    if (source == null || !source.IsAlive)
+                    {
+                        continue;
+                    }
+
+                    for (var targetIndex = 0; targetIndex < characters.Count; targetIndex++)
+                    {
+                        var target = characters[targetIndex];
+                        if (target == null || target == source || !target.IsAlive)
+                        {
+                            continue;
+                        }
+
+                        var clear = BattleRoyaleLineOfSight.Evaluate(
+                            source,
+                            target,
+                            out var origin,
+                            out var end);
+                        var line = GetSightLine(usedLines);
+                        usedLines++;
+                        line.enabled = true;
+                        line.positionCount = 2;
+                        line.SetPosition(0, origin);
+                        line.SetPosition(1, end);
+                        var color = clear
+                            ? new Color(0.2f, 1f, 0.35f, 0.9f)
+                            : new Color(1f, 0.2f, 0.15f, 0.9f);
+                        line.startColor = color;
+                        line.endColor = color;
+                        sightLineBlock ??= new MaterialPropertyBlock();
+                        sightLineBlock.Clear();
+                        sightLineBlock.SetColor("_BaseColor", color);
+                        sightLineBlock.SetColor("_Color", color);
+                        line.SetPropertyBlock(sightLineBlock);
+                    }
+                }
+            }
+
+            for (var index = usedLines; index < sightLines.Count; index++)
+            {
+                sightLines[index].enabled = false;
+            }
+        }
+
+        private LineRenderer GetSightLine(int index)
+        {
+            while (sightLines.Count <= index)
+            {
+                var lineObject = new GameObject($"SightLine_{sightLines.Count:00}");
+                lineObject.transform.SetParent(transform, false);
+                var line = lineObject.AddComponent<LineRenderer>();
+                line.useWorldSpace = true;
+                line.alignment = LineAlignment.View;
+                line.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                line.receiveShadows = false;
+                line.numCapVertices = 4;
+                line.widthMultiplier = 0.8f;
+                line.material = SightLineMaterial;
+                line.enabled = false;
+                sightLines.Add(line);
+            }
+
+            return sightLines[index];
+        }
+
+        private Material SightLineMaterial
+        {
+            get
+            {
+                if (sightLineMaterial != null)
+                {
+                    return sightLineMaterial;
+                }
+
+                var shader = Shader.Find("Sprites/Default") ??
+                             Shader.Find("Universal Render Pipeline/Unlit") ??
+                             Shader.Find("Universal Render Pipeline/Lit");
+                sightLineMaterial = new Material(shader);
+                if (sightLineMaterial.HasProperty("_BaseColor"))
+                {
+                    sightLineMaterial.SetColor("_BaseColor", Color.white);
+                }
+
+                return sightLineMaterial;
             }
         }
 
