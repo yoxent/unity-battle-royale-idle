@@ -1,4 +1,5 @@
 using BattleRoyale.GameModes;
+using BattleRoyale.GameModes.TeamDeathmatch;
 using UnityEngine;
 
 namespace BattleRoyale.GameModes.SoloBattleRoyale
@@ -11,7 +12,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         [SerializeField] private Vector3 currentDestination;
         [SerializeField] private float decisionTimeRemaining;
 
-        private SoloBattleRoyaleGameMode match;
+        private IMatch match;
+        private IMatchNavigation navigation;
         private BattleRoyaleStrategyTuning tuning;
         private Vector3 lastPathDestination;
         private bool hasPathDestination;
@@ -27,10 +29,11 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                   $"{character.State}";
 
         public void Initialize(
-            SoloBattleRoyaleGameMode owningMatch,
+            IMatch owningMatch,
             BattleRoyaleCharacter owningCharacter)
         {
             match = owningMatch;
+            navigation = owningMatch as IMatchNavigation;
             character = owningCharacter;
             decisionTimeRemaining = 0f;
             RefreshTuning();
@@ -54,6 +57,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             if (match == null)
             {
                 match = character.Match;
+                navigation = match as IMatchNavigation;
             }
 
             if (match == null)
@@ -77,18 +81,21 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         {
             RefreshTuning();
 
-            if (!match.IsInsideSafeZone(transform.position))
+            if (navigation != null &&
+                navigation.TryGetHazardDestination(transform.position, out var hazard))
             {
                 target = null;
                 character.SetState(BattleRoyaleCharacterState.MovingToSafeZone);
-                currentDestination = match.GetSafeZonePoint(transform.position);
+                currentDestination = hazard;
                 return;
             }
 
             if (character.HealthPercent <= tuning.RetreatHealthPercent)
             {
                 character.SetState(BattleRoyaleCharacterState.Retreating);
-                currentDestination = match.GetRetreatPoint(
+                currentDestination = navigation == null
+                    ? transform.position
+                    : navigation.GetRetreatPoint(
                     transform.position,
                     target == null ? transform.position : target.transform.position);
                 return;
@@ -115,7 +122,9 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
 
             character.SetState(BattleRoyaleCharacterState.Exploring);
-            currentDestination = match.GetRandomPointWithinSafeZone();
+            currentDestination = navigation == null
+                ? transform.position
+                : navigation.GetWanderPoint();
         }
 
         private void RefreshTuning()
@@ -199,7 +208,10 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             {
                 if (candidate == null ||
                     candidate == character ||
-                    !candidate.IsAlive)
+                    !candidate.IsAlive ||
+                    TeamDeathmatchRules.SharesTeam(
+                        character.TeamIndex,
+                        candidate.TeamIndex))
                 {
                     continue;
                 }

@@ -63,7 +63,14 @@ namespace BattleRoyale.Maps
 
         public bool disableOtherGeneratedMaps = true;
 
+        [Tooltip(
+            "When dungeon generation is enabled for this option, the baked prefab is placed as the shared active map.")]
         public bool setAsActiveCameraMap = true;
+
+        [Header("Bake")]
+        [Tooltip(
+            "Baked floor, walls, colliders, and NavMesh. The active map manager places one instance of this prefab.")]
+        public GameObject bakedPrefab;
 
         [Header("Imported Metadata")]
         public string generator;

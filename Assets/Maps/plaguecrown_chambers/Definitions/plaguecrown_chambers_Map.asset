@@ -38,6 +38,7 @@ MonoBehaviour:
   replaceGeneratedRoot: 1
   disableOtherGeneratedMaps: 1
   setAsActiveCameraMap: 1
+  bakedPrefab: {fileID: 2347153640022771022, guid: 039799ea86027fa4496ae96edb459bbf, type: 3}
   generator: dungeon
   generatorVersion: 1.2.7
   features:
@@ -57,6 +58,7 @@ MonoBehaviour:
     type: Columns
     geometryCount: 16
     coordinateCount: 16
-  supportedGameModes: 00000000
+  supportedGameModes: 0000000002000000
   modeConfigurations:
   - {fileID: 11400000, guid: 947605ec3bec154459da194a93d98122, type: 2}
+  - {fileID: 11400000, guid: c3026b515b360324294ca0638d147e6a, type: 2}

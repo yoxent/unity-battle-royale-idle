@@ -1,15 +1,17 @@
+using BattleRoyale.Events;
 using BattleRoyale.Maps;
 using UnityEngine;
 
 namespace BattleRoyale.CameraSystems
 {
     [DisallowMultipleComponent]
+    [ExecuteAlways]
     [RequireComponent(typeof(Camera))]
     public sealed class SimulationCameraController : MonoBehaviour
     {
         [Header("Active Map")]
+        [Tooltip("Assigned by the Active Map manager.")]
         [SerializeField] private MapInstance activeMap;
-        [SerializeField] private bool findMapOnStart = true;
 
         [Header("Map Framing")]
         [Min(1f)]
@@ -38,22 +40,49 @@ namespace BattleRoyale.CameraSystems
             simulationCamera = GetComponent<Camera>();
         }
 
+        private void OnEnable()
+        {
+            EventBus.Subscribe<ActiveMapChanged>(HandleActiveMapChanged);
+            SyncFromManager();
+        }
+
+        private void OnDisable()
+        {
+            EventBus.Unsubscribe<ActiveMapChanged>(HandleActiveMapChanged);
+        }
+
         private void Start()
         {
-            RefreshActiveMap();
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
+            SyncFromManager(logIfMissing: true);
         }
 
         public void SetActiveMap(MapInstance map)
         {
-            activeMap = map;
-            RefreshActiveMap();
+            var manager = ActiveMapManager.Find();
+            if (manager == null)
+            {
+                ApplyActiveMap(map);
+                return;
+            }
+
+            manager.SetActiveMap(map);
+        }
+
+        public void SyncFromManager()
+        {
+            SyncFromManager(logIfMissing: false);
         }
 
         public void RefreshActiveMap()
         {
-            if (activeMap == null && findMapOnStart)
+            if (activeMap == null)
             {
-                activeMap = Object.FindFirstObjectByType<MapInstance>();
+                activeMap = ActiveMapManager.Find()?.ActiveMap;
             }
 
             if (activeMap == null || activeMap.definition == null)
@@ -73,6 +102,53 @@ namespace BattleRoyale.CameraSystems
             }
 
             ApplyMapFraming(activeMap.definition);
+        }
+
+        private void HandleActiveMapChanged(ActiveMapChanged change)
+        {
+            if (change.CurrentIsTemporary &&
+                (gameObject.hideFlags & HideFlags.HideAndDontSave) == 0)
+            {
+                return;
+            }
+
+            ApplyActiveMap(change.Current);
+        }
+
+        private void SyncFromManager(bool logIfMissing)
+        {
+            var manager = ActiveMapManager.Find();
+            if (manager == null || manager.ActiveMap == null)
+            {
+                if (logIfMissing)
+                {
+                    Debug.LogWarning(
+                        $"{nameof(SimulationCameraController)} could not find an active map.",
+                        this);
+                }
+
+                return;
+            }
+
+            if (activeMap == manager.ActiveMap)
+            {
+                return;
+            }
+
+            ApplyActiveMap(manager.ActiveMap);
+        }
+
+        private void ApplyActiveMap(MapInstance map)
+        {
+            activeMap = map;
+            RefreshActiveMap();
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                UnityEditor.EditorUtility.SetDirty(this);
+                UnityEditor.EditorUtility.SetDirty(transform);
+            }
+#endif
         }
 
         private void ApplyMapFraming(MapDefinition map)

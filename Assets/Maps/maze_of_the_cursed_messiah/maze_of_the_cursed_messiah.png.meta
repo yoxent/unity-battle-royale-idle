@@ -1,0 +1,3978 @@
+fileFormatVersion: 2
+guid: 8a688feeb0f17b94f978252d6e5f314f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4038631990253681891
+    second: maze_of_the_cursed_messiah2_0
+  - first:
+      213: -8558955062916707806
+    second: maze_of_the_cursed_messiah2_1
+  - first:
+      213: 2095668839365868764
+    second: maze_of_the_cursed_messiah2_2
+  - first:
+      213: 6752794816297649456
+    second: maze_of_the_cursed_messiah2_3
+  - first:
+      213: -6432617744968599894
+    second: maze_of_the_cursed_messiah2_4
+  - first:
+      213: 7805526184062719695
+    second: maze_of_the_cursed_messiah2_5
+  - first:
+      213: -2166601994172979238
+    second: maze_of_the_cursed_messiah2_6
+  - first:
+      213: -9160708271850822513
+    second: maze_of_the_cursed_messiah2_7
+  - first:
+      213: 3711390876385227364
+    second: maze_of_the_cursed_messiah2_8
+  - first:
+      213: 6271692938837788351
+    second: maze_of_the_cursed_messiah2_9
+  - first:
+      213: 8559938525521044365
+    second: maze_of_the_cursed_messiah2_10
+  - first:
+      213: 1465117960095365852
+    second: maze_of_the_cursed_messiah2_11
+  - first:
+      213: -5047390911826348590
+    second: maze_of_the_cursed_messiah2_12
+  - first:
+      213: 5489312506324611460
+    second: maze_of_the_cursed_messiah2_13
+  - first:
+      213: -93262913813246814
+    second: maze_of_the_cursed_messiah2_14
+  - first:
+      213: 7035093549121017488
+    second: maze_of_the_cursed_messiah2_15
+  - first:
+      213: -5678258217156820392
+    second: maze_of_the_cursed_messiah2_16
+  - first:
+      213: -6213393563023635501
+    second: maze_of_the_cursed_messiah2_17
+  - first:
+      213: 5819936842037380501
+    second: maze_of_the_cursed_messiah2_18
+  - first:
+      213: 3326302111413315608
+    second: maze_of_the_cursed_messiah2_19
+  - first:
+      213: 3627245510140536449
+    second: maze_of_the_cursed_messiah2_20
+  - first:
+      213: -4564925930634242163
+    second: maze_of_the_cursed_messiah2_21
+  - first:
+      213: -579579576657866329
+    second: maze_of_the_cursed_messiah2_22
+  - first:
+      213: 4924592097422959625
+    second: maze_of_the_cursed_messiah2_23
+  - first:
+      213: 3539857070962388939
+    second: maze_of_the_cursed_messiah2_24
+  - first:
+      213: -9316236788286909
+    second: maze_of_the_cursed_messiah2_25
+  - first:
+      213: 1980778029903313183
+    second: maze_of_the_cursed_messiah2_26
+  - first:
+      213: -7124383704469599445
+    second: maze_of_the_cursed_messiah2_27
+  - first:
+      213: 4289278160070595805
+    second: maze_of_the_cursed_messiah2_28
+  - first:
+      213: -8162795369855912626
+    second: maze_of_the_cursed_messiah2_29
+  - first:
+      213: 3631872015262999014
+    second: maze_of_the_cursed_messiah2_30
+  - first:
+      213: 5164765088782804486
+    second: maze_of_the_cursed_messiah2_31
+  - first:
+      213: 4754474375903083212
+    second: maze_of_the_cursed_messiah2_32
+  - first:
+      213: 6397092470438409705
+    second: maze_of_the_cursed_messiah2_33
+  - first:
+      213: -598490610357754857
+    second: maze_of_the_cursed_messiah2_34
+  - first:
+      213: 2595072542676133153
+    second: maze_of_the_cursed_messiah2_35
+  - first:
+      213: 5322981718945733395
+    second: maze_of_the_cursed_messiah2_36
+  - first:
+      213: -5435366578231843186
+    second: maze_of_the_cursed_messiah2_37
+  - first:
+      213: 2611291440651524994
+    second: maze_of_the_cursed_messiah2_38
+  - first:
+      213: 6344250585512194303
+    second: maze_of_the_cursed_messiah2_39
+  - first:
+      213: -347587309306046430
+    second: maze_of_the_cursed_messiah2_40
+  - first:
+      213: -1395726922178530106
+    second: maze_of_the_cursed_messiah2_41
+  - first:
+      213: 1531889319545855711
+    second: maze_of_the_cursed_messiah2_42
+  - first:
+      213: 2896351974180886118
+    second: maze_of_the_cursed_messiah2_43
+  - first:
+      213: 4154974328057300501
+    second: maze_of_the_cursed_messiah2_44
+  - first:
+      213: 2058503172108048760
+    second: maze_of_the_cursed_messiah2_45
+  - first:
+      213: -4056696117164172551
+    second: maze_of_the_cursed_messiah2_46
+  - first:
+      213: 2472703622521608255
+    second: maze_of_the_cursed_messiah2_47
+  - first:
+      213: -6621465003057767667
+    second: maze_of_the_cursed_messiah2_48
+  - first:
+      213: -2123475245902118528
+    second: maze_of_the_cursed_messiah2_49
+  - first:
+      213: 2723027060748433878
+    second: maze_of_the_cursed_messiah2_50
+  - first:
+      213: -3291356363954544151
+    second: maze_of_the_cursed_messiah2_51
+  - first:
+      213: -6521333575818406786
+    second: maze_of_the_cursed_messiah2_52
+  - first:
+      213: -2180995648111980837
+    second: maze_of_the_cursed_messiah2_53
+  - first:
+      213: -4416028045561484705
+    second: maze_of_the_cursed_messiah2_54
+  - first:
+      213: 8865150565233678775
+    second: maze_of_the_cursed_messiah2_55
+  - first:
+      213: -2230241314001166193
+    second: maze_of_the_cursed_messiah2_56
+  - first:
+      213: 7145953457548515892
+    second: maze_of_the_cursed_messiah2_57
+  - first:
+      213: 3095949620780634744
+    second: maze_of_the_cursed_messiah2_58
+  - first:
+      213: 1183801077711332472
+    second: maze_of_the_cursed_messiah2_59
+  - first:
+      213: -4001298829880278056
+    second: maze_of_the_cursed_messiah2_60
+  - first:
+      213: -1978158871214318805
+    second: maze_of_the_cursed_messiah2_61
+  - first:
+      213: -704923939484448245
+    second: maze_of_the_cursed_messiah2_62
+  - first:
+      213: 4528533039418902793
+    second: maze_of_the_cursed_messiah2_63
+  - first:
+      213: 861812367373870668
+    second: maze_of_the_cursed_messiah2_64
+  - first:
+      213: 459941690190468738
+    second: maze_of_the_cursed_messiah2_65
+  - first:
+      213: -7240887823864299033
+    second: maze_of_the_cursed_messiah2_66
+  - first:
+      213: 2050363743957564192
+    second: maze_of_the_cursed_messiah2_67
+  - first:
+      213: 916039340457645919
+    second: maze_of_the_cursed_messiah2_68
+  - first:
+      213: -8389283969754789630
+    second: maze_of_the_cursed_messiah2_69
+  - first:
+      213: -7524673373368665411
+    second: maze_of_the_cursed_messiah2_70
+  - first:
+      213: -3211640764440818865
+    second: maze_of_the_cursed_messiah2_71
+  - first:
+      213: 786182373651617757
+    second: maze_of_the_cursed_messiah2_72
+  - first:
+      213: -5382143730805967634
+    second: maze_of_the_cursed_messiah2_73
+  - first:
+      213: -8512959978515875665
+    second: maze_of_the_cursed_messiah2_74
+  - first:
+      213: 1373803303123469977
+    second: maze_of_the_cursed_messiah2_75
+  - first:
+      213: 4286360708459069273
+    second: maze_of_the_cursed_messiah2_76
+  - first:
+      213: 7552107531342893733
+    second: maze_of_the_cursed_messiah2_77
+  - first:
+      213: 7905188833732933497
+    second: maze_of_the_cursed_messiah2_78
+  - first:
+      213: 7446964546173600689
+    second: maze_of_the_cursed_messiah2_79
+  - first:
+      213: 3440118044764174743
+    second: maze_of_the_cursed_messiah2_80
+  - first:
+      213: -7217979204618790107
+    second: maze_of_the_cursed_messiah2_81
+  - first:
+      213: -5173458567897439297
+    second: maze_of_the_cursed_messiah2_82
+  - first:
+      213: 3606053786576355810
+    second: maze_of_the_cursed_messiah2_83
+  - first:
+      213: 8509128214195296729
+    second: maze_of_the_cursed_messiah2_84
+  - first:
+      213: -7642827163372848292
+    second: maze_of_the_cursed_messiah2_85
+  - first:
+      213: 3285830734750652175
+    second: maze_of_the_cursed_messiah2_86
+  - first:
+      213: 6606059610851195374
+    second: maze_of_the_cursed_messiah2_87
+  - first:
+      213: 4527442356235947299
+    second: maze_of_the_cursed_messiah2_88
+  - first:
+      213: -6727557586137202087
+    second: maze_of_the_cursed_messiah2_89
+  - first:
+      213: -845606044629781455
+    second: maze_of_the_cursed_messiah2_90
+  - first:
+      213: 1916304299249189522
+    second: maze_of_the_cursed_messiah2_91
+  - first:
+      213: -7171718858446098825
+    second: maze_of_the_cursed_messiah2_92
+  - first:
+      213: 6646501480721474911
+    second: maze_of_the_cursed_messiah2_93
+  - first:
+      213: -2397312606093918001
+    second: maze_of_the_cursed_messiah2_94
+  - first:
+      213: 4775482238195384817
+    second: maze_of_the_cursed_messiah2_95
+  - first:
+      213: 5710611718469624081
+    second: maze_of_the_cursed_messiah2_96
+  - first:
+      213: 7525346886939486706
+    second: maze_of_the_cursed_messiah2_97
+  - first:
+      213: -4580779973099712224
+    second: maze_of_the_cursed_messiah2_98
+  - first:
+      213: -3928067847281126538
+    second: maze_of_the_cursed_messiah2_99
+  - first:
+      213: 1490923151181984889
+    second: maze_of_the_cursed_messiah2_100
+  - first:
+      213: -4084950310209399851
+    second: maze_of_the_cursed_messiah2_101
+  - first:
+      213: -1232719148386360230
+    second: maze_of_the_cursed_messiah2_102
+  - first:
+      213: 1598575862181493398
+    second: maze_of_the_cursed_messiah2_103
+  - first:
+      213: -6724033101072813239
+    second: maze_of_the_cursed_messiah2_104
+  - first:
+      213: 4404690455725951380
+    second: maze_of_the_cursed_messiah2_105
+  - first:
+      213: 7352319606731852836
+    second: maze_of_the_cursed_messiah2_106
+  - first:
+      213: 1844168316889784947
+    second: maze_of_the_cursed_messiah2_107
+  - first:
+      213: 2648182392527728347
+    second: maze_of_the_cursed_messiah2_108
+  - first:
+      213: -4023328505475568332
+    second: maze_of_the_cursed_messiah2_109
+  - first:
+      213: 2032189728809845666
+    second: maze_of_the_cursed_messiah2_110
+  - first:
+      213: -7525545395282147804
+    second: maze_of_the_cursed_messiah2_111
+  - first:
+      213: 4949390680136629220
+    second: maze_of_the_cursed_messiah2_112
+  - first:
+      213: -5838719391419772435
+    second: maze_of_the_cursed_messiah2_113
+  - first:
+      213: -6146352721792056104
+    second: maze_of_the_cursed_messiah2_114
+  - first:
+      213: 4646495382182563289
+    second: maze_of_the_cursed_messiah2_115
+  - first:
+      213: 5467893540107323918
+    second: maze_of_the_cursed_messiah2_116
+  - first:
+      213: 1718515989273135695
+    second: maze_of_the_cursed_messiah2_117
+  - first:
+      213: -3912174802461087183
+    second: maze_of_the_cursed_messiah2_118
+  - first:
+      213: -890794814917249890
+    second: maze_of_the_cursed_messiah2_119
+  - first:
+      213: -986910060597556629
+    second: maze_of_the_cursed_messiah2_120
+  - first:
+      213: -6969746517407545837
+    second: maze_of_the_cursed_messiah2_121
+  - first:
+      213: -4343876788629765556
+    second: maze_of_the_cursed_messiah2_122
+  - first:
+      213: -6503197720236188972
+    second: maze_of_the_cursed_messiah2_123
+  - first:
+      213: 3984412278092927252
+    second: maze_of_the_cursed_messiah2_124
+  - first:
+      213: -5817372784982725086
+    second: maze_of_the_cursed_messiah2_125
+  - first:
+      213: -8526669012549260144
+    second: maze_of_the_cursed_messiah2_126
+  - first:
+      213: -3717554173294858253
+    second: maze_of_the_cursed_messiah2_127
+  - first:
+      213: -5999635100284629867
+    second: maze_of_the_cursed_messiah2_128
+  - first:
+      213: 476201972705794822
+    second: maze_of_the_cursed_messiah2_129
+  - first:
+      213: -266634853023833901
+    second: maze_of_the_cursed_messiah2_130
+  - first:
+      213: -2230960650930946241
+    second: maze_of_the_cursed_messiah2_131
+  - first:
+      213: -3611806262545638944
+    second: maze_of_the_cursed_messiah2_132
+  - first:
+      213: 2786599357187596220
+    second: maze_of_the_cursed_messiah2_133
+  - first:
+      213: 7118371741254454114
+    second: maze_of_the_cursed_messiah2_134
+  - first:
+      213: 2278444769214292374
+    second: maze_of_the_cursed_messiah2_135
+  - first:
+      213: 386315143774144877
+    second: maze_of_the_cursed_messiah2_136
+  - first:
+      213: -9162844441323330101
+    second: maze_of_the_cursed_messiah2_137
+  - first:
+      213: -6446724470305655112
+    second: maze_of_the_cursed_messiah2_138
+  - first:
+      213: -1528167735737257154
+    second: maze_of_the_cursed_messiah2_139
+  - first:
+      213: -2417175616841886206
+    second: maze_of_the_cursed_messiah2_140
+  - first:
+      213: -5935975661384205951
+    second: maze_of_the_cursed_messiah2_141
+  - first:
+      213: 2097046895534991117
+    second: maze_of_the_cursed_messiah2_142
+  - first:
+      213: -6720190526054201543
+    second: maze_of_the_cursed_messiah2_143
+  - first:
+      213: -7983937641197970207
+    second: maze_of_the_cursed_messiah2_144
+  - first:
+      213: 781959043097326283
+    second: maze_of_the_cursed_messiah2_145
+  - first:
+      213: -7256858647353236998
+    second: maze_of_the_cursed_messiah2_146
+  - first:
+      213: 561582511168421584
+    second: maze_of_the_cursed_messiah2_147
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6
+        width: 4200
+        height: 3487
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ec7995c56a1c0830800000000000000
+      internalID: 4038631990253681891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_1
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 3480
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22a8152b7bb783980800000000000000
+      internalID: -8558955062916707806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_2
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 3477
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdcf141c4bf451d10800000000000000
+      internalID: 2095668839365868764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_3
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 3460
+        width: 24
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 035458a8b1fb6bd50800000000000000
+      internalID: 6752794816297649456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_4
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 3477
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa6b54f0e30cab6a0800000000000000
+      internalID: -6432617744968599894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_5
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 3477
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc6911e75bcc25c60800000000000000
+      internalID: 7805526184062719695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_6
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 3463
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad7aaa727feaee1e0800000000000000
+      internalID: -2166601994172979238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_7
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 3472
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f84695dbc50aed080800000000000000
+      internalID: -9160708271850822513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_8
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 3465
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46231999652818330800000000000000
+      internalID: 3711390876385227364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_9
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 3464
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb680cfbf77890750800000000000000
+      internalID: 6271692938837788351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_10
+      rect:
+        serializedVersion: 2
+        x: 701
+        y: 3469
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d83ecd88cb20bc670800000000000000
+      internalID: 8559938525521044365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_11
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 3467
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cda778da505255410800000000000000
+      internalID: 1465117960095365852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_12
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 3468
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d53e0a35b014f9b0800000000000000
+      internalID: -5047390911826348590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_13
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 3463
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 481769014a4fd2c40800000000000000
+      internalID: 5489312506324611460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_14
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 3472
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ac817fbfd9a4bef0800000000000000
+      internalID: -93262913813246814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_15
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 3465
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09610053f4ca1a160800000000000000
+      internalID: 7035093549121017488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_16
+      rect:
+        serializedVersion: 2
+        x: 1001
+        y: 3464
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 852cc677c36c231b0800000000000000
+      internalID: -5678258217156820392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_17
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 3469
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3db0742797795c9a0800000000000000
+      internalID: -6213393563023635501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_18
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 3467
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 595c8d4f8b194c050800000000000000
+      internalID: 5819936842037380501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_19
+      rect:
+        serializedVersion: 2
+        x: 1072
+        y: 3468
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8182c669526692e20800000000000000
+      internalID: 3326302111413315608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_20
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 3460
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 186ae01d290965230800000000000000
+      internalID: 3627245510140536449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_21
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 3462
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8793965d0026a0c0800000000000000
+      internalID: -4564925930634242163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_22
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 3455
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a19c3e127be4f7f0800000000000000
+      internalID: -579579576657866329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_23
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 3459
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9046796cb6aa75440800000000000000
+      internalID: 4924592097422959625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_24
+      rect:
+        serializedVersion: 2
+        x: 873
+        y: 3462
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcf2e564049102130800000000000000
+      internalID: 3539857070962388939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_25
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 2224
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34a37979ee6eedff0800000000000000
+      internalID: -9316236788286909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_26
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 2206
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f19f843af132d7b10800000000000000
+      internalID: 1980778029903313183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_27
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 2184
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2b028374ca112d90800000000000000
+      internalID: -7124383704469599445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_28
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 2150
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd459d1d2c3968b30800000000000000
+      internalID: 4289278160070595805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_29
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 2096
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e45f8850cdce7be80800000000000000
+      internalID: -8162795369855912626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_30
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 2065
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e1ee6bfa50076230800000000000000
+      internalID: 3631872015262999014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_31
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 2045
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 606ec31fb7eeca740800000000000000
+      internalID: 5164765088782804486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_32
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 2026
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cca766d21494bf140800000000000000
+      internalID: 4754474375903083212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_33
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 2005
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e5bec765b907c850800000000000000
+      internalID: 6397092470438409705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_34
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 1993
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7142838f5fbb1b7f0800000000000000
+      internalID: -598490610357754857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_35
+      rect:
+        serializedVersion: 2
+        x: 4181
+        y: 1487
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 125a4907abc830420800000000000000
+      internalID: 2595072542676133153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_36
+      rect:
+        serializedVersion: 2
+        x: 4172
+        y: 1457
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31b98a7cba70fd940800000000000000
+      internalID: 5322981718945733395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_37
+      rect:
+        serializedVersion: 2
+        x: 4160
+        y: 1436
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e86e57815e2b194b0800000000000000
+      internalID: -5435366578231843186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_38
+      rect:
+        serializedVersion: 2
+        x: 4177
+        y: 1421
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28b5d05eabb2d3420800000000000000
+      internalID: 2611291440651524994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_39
+      rect:
+        serializedVersion: 2
+        x: 4161
+        y: 1405
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff0b4835b4e4b0850800000000000000
+      internalID: 6344250585512194303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_40
+      rect:
+        serializedVersion: 2
+        x: 4182
+        y: 1396
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 228116c0f2f1d2bf0800000000000000
+      internalID: -347587309306046430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_41
+      rect:
+        serializedVersion: 2
+        x: 4169
+        y: 1366
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c4791852c161ace0800000000000000
+      internalID: -1395726922178530106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_42
+      rect:
+        serializedVersion: 2
+        x: 4169
+        y: 1344
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdedeb6483d524510800000000000000
+      internalID: 1531889319545855711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_43
+      rect:
+        serializedVersion: 2
+        x: 4175
+        y: 1312
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6669d8566c8e13820800000000000000
+      internalID: 2896351974180886118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_44
+      rect:
+        serializedVersion: 2
+        x: 4164
+        y: 1290
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51609ba232f69a930800000000000000
+      internalID: 4154974328057300501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_45
+      rect:
+        serializedVersion: 2
+        x: 4178
+        y: 1269
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 879d3868ab5419c10800000000000000
+      internalID: 2058503172108048760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_46
+      rect:
+        serializedVersion: 2
+        x: 4178
+        y: 1244
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fa19beef58b3b7c0800000000000000
+      internalID: -4056696117164172551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_47
+      rect:
+        serializedVersion: 2
+        x: 4163
+        y: 1226
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f38d83ff7dec05220800000000000000
+      internalID: 2472703622521608255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_48
+      rect:
+        serializedVersion: 2
+        x: 4167
+        y: 1205
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0b9f0869a4db14a0800000000000000
+      internalID: -6621465003057767667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_49
+      rect:
+        serializedVersion: 2
+        x: 4181
+        y: 1162
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0814ba6b386e782e0800000000000000
+      internalID: -2123475245902118528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_50
+      rect:
+        serializedVersion: 2
+        x: 4172
+        y: 1133
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d9bfad3fa22ac520800000000000000
+      internalID: 2723027060748433878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_51
+      rect:
+        serializedVersion: 2
+        x: 4160
+        y: 1111
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e1a44943d0c252d0800000000000000
+      internalID: -3291356363954544151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_52
+      rect:
+        serializedVersion: 2
+        x: 4177
+        y: 1097
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e74148f0aa19f75a0800000000000000
+      internalID: -6521333575818406786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_53
+      rect:
+        serializedVersion: 2
+        x: 4161
+        y: 1080
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdecc91730c8bb1e0800000000000000
+      internalID: -2180995648111980837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_54
+      rect:
+        serializedVersion: 2
+        x: 4182
+        y: 1072
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5a2522c3ed17b2c0800000000000000
+      internalID: -4416028045561484705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_55
+      rect:
+        serializedVersion: 2
+        x: 4169
+        y: 1042
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b95b113877570b70800000000000000
+      internalID: 8865150565233678775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_56
+      rect:
+        serializedVersion: 2
+        x: 4169
+        y: 1020
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f806f8b57579c01e0800000000000000
+      internalID: -2230241314001166193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_57
+      rect:
+        serializedVersion: 2
+        x: 4175
+        y: 987
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43a57aa0fc68b2360800000000000000
+      internalID: 7145953457548515892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_58
+      rect:
+        serializedVersion: 2
+        x: 4164
+        y: 966
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 872922de6c507fa20800000000000000
+      internalID: 3095949620780634744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_59
+      rect:
+        serializedVersion: 2
+        x: 4178
+        y: 945
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87465b1eec4bd6010800000000000000
+      internalID: 1183801077711332472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_60
+      rect:
+        serializedVersion: 2
+        x: 4164
+        y: 903
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d3ccccf9e78878c0800000000000000
+      internalID: -4001298829880278056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_61
+      rect:
+        serializedVersion: 2
+        x: 4167
+        y: 880
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2b9bf3ccfa2c84e0800000000000000
+      internalID: -1978158871214318805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_62
+      rect:
+        serializedVersion: 2
+        x: 4181
+        y: 838
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0a4c51796b9736f0800000000000000
+      internalID: -704923939484448245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_63
+      rect:
+        serializedVersion: 2
+        x: 4172
+        y: 808
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9090f206ec498de30800000000000000
+      internalID: 4528533039418902793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_64
+      rect:
+        serializedVersion: 2
+        x: 4160
+        y: 787
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c46ab5438c5c5fb00800000000000000
+      internalID: 861812367373870668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_65
+      rect:
+        serializedVersion: 2
+        x: 4177
+        y: 772
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2861235c78a026600800000000000000
+      internalID: 459941690190468738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_66
+      rect:
+        serializedVersion: 2
+        x: 4161
+        y: 756
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e10e1853e2338b90800000000000000
+      internalID: -7240887823864299033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_67
+      rect:
+        serializedVersion: 2
+        x: 4182
+        y: 747
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02b3eea36fa547c10800000000000000
+      internalID: 2050363743957564192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_68
+      rect:
+        serializedVersion: 2
+        x: 4169
+        y: 717
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f57d2404dec66bc00800000000000000
+      internalID: 916039340457645919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_69
+      rect:
+        serializedVersion: 2
+        x: 4169
+        y: 696
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20903e68da6439b80800000000000000
+      internalID: -8389283969754789630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_70
+      rect:
+        serializedVersion: 2
+        x: 4175
+        y: 663
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dba35813f6df29790800000000000000
+      internalID: -7524673373368665411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_71
+      rect:
+        serializedVersion: 2
+        x: 4164
+        y: 642
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4b4751adb5fd63d0800000000000000
+      internalID: -3211640764440818865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_72
+      rect:
+        serializedVersion: 2
+        x: 4178
+        y: 620
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd79d2614b419ea00800000000000000
+      internalID: 786182373651617757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_73
+      rect:
+        serializedVersion: 2
+        x: 4178
+        y: 595
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee4f63beac8ce45b0800000000000000
+      internalID: -5382143730805967634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_74
+      rect:
+        serializedVersion: 2
+        x: 4163
+        y: 577
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa8b17dc004ebd980800000000000000
+      internalID: -8512959978515875665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_75
+      rect:
+        serializedVersion: 2
+        x: 4167
+        y: 556
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 996cee153dab01310800000000000000
+      internalID: 1373803303123469977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_76
+      rect:
+        serializedVersion: 2
+        x: 4181
+        y: 513
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95ff4eeaa563c7b30800000000000000
+      internalID: 4286360708459069273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_77
+      rect:
+        serializedVersion: 2
+        x: 4172
+        y: 484
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a2de3779c97ec860800000000000000
+      internalID: 7552107531342893733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_78
+      rect:
+        serializedVersion: 2
+        x: 4160
+        y: 462
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 977390d5c5fd4bd60800000000000000
+      internalID: 7905188833732933497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_79
+      rect:
+        serializedVersion: 2
+        x: 4177
+        y: 448
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b30b9d8ccee85760800000000000000
+      internalID: 7446964546173600689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_80
+      rect:
+        serializedVersion: 2
+        x: 4161
+        y: 431
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 799749b9221cdbf20800000000000000
+      internalID: 3440118044764174743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_81
+      rect:
+        serializedVersion: 2
+        x: 4182
+        y: 423
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52b5a88e72694db90800000000000000
+      internalID: -7217979204618790107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_82
+      rect:
+        serializedVersion: 2
+        x: 4169
+        y: 393
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb3a548b7de2438b0800000000000000
+      internalID: -5173458567897439297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_83
+      rect:
+        serializedVersion: 2
+        x: 4169
+        y: 371
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e106dd20d64b0230800000000000000
+      internalID: 3606053786576355810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_84
+      rect:
+        serializedVersion: 2
+        x: 4175
+        y: 338
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d95d5b070f761670800000000000000
+      internalID: 8509128214195296729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_85
+      rect:
+        serializedVersion: 2
+        x: 1854
+        y: 34
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5b747730393fe590800000000000000
+      internalID: -7642827163372848292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_86
+      rect:
+        serializedVersion: 2
+        x: 1880
+        y: 32
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f079fd8e4ad999d20800000000000000
+      internalID: 3285830734750652175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_87
+      rect:
+        serializedVersion: 2
+        x: 1913
+        y: 31
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee937d537307dab50800000000000000
+      internalID: 6606059610851195374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_88
+      rect:
+        serializedVersion: 2
+        x: 1932
+        y: 35
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32d4088e5d4b4de30800000000000000
+      internalID: 4527442356235947299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_89
+      rect:
+        serializedVersion: 2
+        x: 2020
+        y: 27
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 952ce40050ae2a2a0800000000000000
+      internalID: -6727557586137202087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_90
+      rect:
+        serializedVersion: 2
+        x: 2063
+        y: 31
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1343be958cdc344f0800000000000000
+      internalID: -845606044629781455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_91
+      rect:
+        serializedVersion: 2
+        x: 2088
+        y: 30
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2924d4e6b94189a10800000000000000
+      internalID: 1916304299249189522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_92
+      rect:
+        serializedVersion: 2
+        x: 2177
+        y: 33
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77ea95512bfe87c90800000000000000
+      internalID: -7171718858446098825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_93
+      rect:
+        serializedVersion: 2
+        x: 2205
+        y: 32
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f55e28dc1ed1d3c50800000000000000
+      internalID: 6646501480721474911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_94
+      rect:
+        serializedVersion: 2
+        x: 2237
+        y: 31
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc0c432e2e80bbed0800000000000000
+      internalID: -2397312606093918001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_95
+      rect:
+        serializedVersion: 2
+        x: 2257
+        y: 35
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f1c2d64bcbe54240800000000000000
+      internalID: 4775482238195384817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_96
+      rect:
+        serializedVersion: 2
+        x: 2345
+        y: 27
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 111a0911a1b204f40800000000000000
+      internalID: 5710611718469624081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_97
+      rect:
+        serializedVersion: 2
+        x: 2387
+        y: 31
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f9ae976f176f6860800000000000000
+      internalID: 7525346886939486706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_98
+      rect:
+        serializedVersion: 2
+        x: 2412
+        y: 30
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0211b2d62eccd60c0800000000000000
+      internalID: -4580779973099712224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_99
+      rect:
+        serializedVersion: 2
+        x: 2501
+        y: 33
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 673dc2dca13bc79c0800000000000000
+      internalID: -3928067847281126538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_100
+      rect:
+        serializedVersion: 2
+        x: 2529
+        y: 32
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 974bb9de4b2d0b410800000000000000
+      internalID: 1490923151181984889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_101
+      rect:
+        serializedVersion: 2
+        x: 2562
+        y: 31
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d3d8daf5575f47c0800000000000000
+      internalID: -4084950310209399851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_102
+      rect:
+        serializedVersion: 2
+        x: 2581
+        y: 35
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a54eb9c377084eee0800000000000000
+      internalID: -1232719148386360230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_103
+      rect:
+        serializedVersion: 2
+        x: 2711
+        y: 31
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69a77dbe6484f2610800000000000000
+      internalID: 1598575862181493398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_104
+      rect:
+        serializedVersion: 2
+        x: 2737
+        y: 30
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9433690258f6fa2a0800000000000000
+      internalID: -6724033101072813239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_105
+      rect:
+        serializedVersion: 2
+        x: 2826
+        y: 33
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4994917e1aa902d30800000000000000
+      internalID: 4404690455725951380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_106
+      rect:
+        serializedVersion: 2
+        x: 2854
+        y: 32
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42c44626abfa80660800000000000000
+      internalID: 7352319606731852836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_107
+      rect:
+        serializedVersion: 2
+        x: 2886
+        y: 31
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 372ee3a305dc79910800000000000000
+      internalID: 1844168316889784947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_108
+      rect:
+        serializedVersion: 2
+        x: 2906
+        y: 35
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bde2f07fadb30c420800000000000000
+      internalID: 2648182392527728347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_109
+      rect:
+        serializedVersion: 2
+        x: 2994
+        y: 27
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43dec607a044a28c0800000000000000
+      internalID: -4023328505475568332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_110
+      rect:
+        serializedVersion: 2
+        x: 3036
+        y: 31
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a388e59ac9c33c10800000000000000
+      internalID: 2032189728809845666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_111
+      rect:
+        serializedVersion: 2
+        x: 3061
+        y: 30
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4268125c554ef8790800000000000000
+      internalID: -7525545395282147804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_112
+      rect:
+        serializedVersion: 2
+        x: 3150
+        y: 33
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4eb3c20c994cfa440800000000000000
+      internalID: 4949390680136629220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_113
+      rect:
+        serializedVersion: 2
+        x: 3178
+        y: 32
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de15d3bf5a3b8fea0800000000000000
+      internalID: -5838719391419772435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_114
+      rect:
+        serializedVersion: 2
+        x: 3211
+        y: 31
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d44459a3c4c3baa0800000000000000
+      internalID: -6146352721792056104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_115
+      rect:
+        serializedVersion: 2
+        x: 3230
+        y: 35
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dd0c719eeaab7040800000000000000
+      internalID: 4646495382182563289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_116
+      rect:
+        serializedVersion: 2
+        x: 3318
+        y: 27
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0a00cf543cd1eb40800000000000000
+      internalID: 5467893540107323918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_117
+      rect:
+        serializedVersion: 2
+        x: 3360
+        y: 31
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4a4479ef2569d710800000000000000
+      internalID: 1718515989273135695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_118
+      rect:
+        serializedVersion: 2
+        x: 3386
+        y: 30
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13aa218aeb925b9c0800000000000000
+      internalID: -3912174802461087183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_119
+      rect:
+        serializedVersion: 2
+        x: 1948
+        y: 20
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e94f811e5d243a3f0800000000000000
+      internalID: -890794814917249890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_120
+      rect:
+        serializedVersion: 2
+        x: 1978
+        y: 26
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6ac2dc578acd42f0800000000000000
+      internalID: -986910060597556629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_121
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 25
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 316486f387c764f90800000000000000
+      internalID: -6969746517407545837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_122
+      rect:
+        serializedVersion: 2
+        x: 2041
+        y: 22
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4288a9531377b3c0800000000000000
+      internalID: -4343876788629765556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_123
+      rect:
+        serializedVersion: 2
+        x: 2126
+        y: 25
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4da113df02000c5a0800000000000000
+      internalID: -6503197720236188972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_124
+      rect:
+        serializedVersion: 2
+        x: 2153
+        y: 25
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4111f6a4bd97b4730800000000000000
+      internalID: 3984412278092927252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_125
+      rect:
+        serializedVersion: 2
+        x: 2273
+        y: 20
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22e6419164a844fa0800000000000000
+      internalID: -5817372784982725086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_126
+      rect:
+        serializedVersion: 2
+        x: 2302
+        y: 26
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09caba595bf2ba980800000000000000
+      internalID: -8526669012549260144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_127
+      rect:
+        serializedVersion: 2
+        x: 2325
+        y: 25
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ff2d730d28986cc0800000000000000
+      internalID: -3717554173294858253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_128
+      rect:
+        serializedVersion: 2
+        x: 2366
+        y: 22
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59cc199e9a30dbca0800000000000000
+      internalID: -5999635100284629867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_129
+      rect:
+        serializedVersion: 2
+        x: 2451
+        y: 25
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60b1870db2fcb9600800000000000000
+      internalID: 476201972705794822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_130
+      rect:
+        serializedVersion: 2
+        x: 2478
+        y: 25
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d0a6cc8309bc4cf0800000000000000
+      internalID: -266634853023833901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_131
+      rect:
+        serializedVersion: 2
+        x: 2597
+        y: 20
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3ff26dab190a01e0800000000000000
+      internalID: -2230960650930946241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_132
+      rect:
+        serializedVersion: 2
+        x: 2627
+        y: 26
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e99f63275940edc0800000000000000
+      internalID: -3611806262545638944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_133
+      rect:
+        serializedVersion: 2
+        x: 2690
+        y: 22
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbf9f70f95dfba620800000000000000
+      internalID: 2786599357187596220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_134
+      rect:
+        serializedVersion: 2
+        x: 2775
+        y: 25
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26b86a8426989c260800000000000000
+      internalID: 7118371741254454114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_135
+      rect:
+        serializedVersion: 2
+        x: 2802
+        y: 25
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6916d552279ae9f10800000000000000
+      internalID: 2278444769214292374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_136
+      rect:
+        serializedVersion: 2
+        x: 2922
+        y: 20
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d69030493977c5500800000000000000
+      internalID: 386315143774144877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_137
+      rect:
+        serializedVersion: 2
+        x: 2951
+        y: 26
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc5a2c6078907d080800000000000000
+      internalID: -9162844441323330101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_138
+      rect:
+        serializedVersion: 2
+        x: 2974
+        y: 25
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b6fc9e1042a886a0800000000000000
+      internalID: -6446724470305655112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_139
+      rect:
+        serializedVersion: 2
+        x: 3015
+        y: 22
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e33fa2a7a8bdacae0800000000000000
+      internalID: -1528167735737257154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_140
+      rect:
+        serializedVersion: 2
+        x: 3100
+        y: 25
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 206576e4597747ed0800000000000000
+      internalID: -2417175616841886206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_141
+      rect:
+        serializedVersion: 2
+        x: 3127
+        y: 25
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18974db069d2f9da0800000000000000
+      internalID: -5935975661384205951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_142
+      rect:
+        serializedVersion: 2
+        x: 3246
+        y: 20
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d07e2b57a053a1d10800000000000000
+      internalID: 2097046895534991117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_143
+      rect:
+        serializedVersion: 2
+        x: 3276
+        y: 26
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 937089752561db2a0800000000000000
+      internalID: -6720190526054201543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_144
+      rect:
+        serializedVersion: 2
+        x: 3298
+        y: 25
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ec568b140b533190800000000000000
+      internalID: -7983937641197970207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_145
+      rect:
+        serializedVersion: 2
+        x: 3339
+        y: 22
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc278b05b931ada00800000000000000
+      internalID: 781959043097326283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_146
+      rect:
+        serializedVersion: 2
+        x: 3424
+        y: 25
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af1e94b32857a4b90800000000000000
+      internalID: -7256858647353236998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: maze_of_the_cursed_messiah2_147
+      rect:
+        serializedVersion: 2
+        x: 3451
+        y: 25
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0def34a81542bc700800000000000000
+      internalID: 561582511168421584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      maze_of_the_cursed_messiah2_0: 4038631990253681891
+      maze_of_the_cursed_messiah2_1: -8558955062916707806
+      maze_of_the_cursed_messiah2_10: 8559938525521044365
+      maze_of_the_cursed_messiah2_100: 1490923151181984889
+      maze_of_the_cursed_messiah2_101: -4084950310209399851
+      maze_of_the_cursed_messiah2_102: -1232719148386360230
+      maze_of_the_cursed_messiah2_103: 1598575862181493398
+      maze_of_the_cursed_messiah2_104: -6724033101072813239
+      maze_of_the_cursed_messiah2_105: 4404690455725951380
+      maze_of_the_cursed_messiah2_106: 7352319606731852836
+      maze_of_the_cursed_messiah2_107: 1844168316889784947
+      maze_of_the_cursed_messiah2_108: 2648182392527728347
+      maze_of_the_cursed_messiah2_109: -4023328505475568332
+      maze_of_the_cursed_messiah2_11: 1465117960095365852
+      maze_of_the_cursed_messiah2_110: 2032189728809845666
+      maze_of_the_cursed_messiah2_111: -7525545395282147804
+      maze_of_the_cursed_messiah2_112: 4949390680136629220
+      maze_of_the_cursed_messiah2_113: -5838719391419772435
+      maze_of_the_cursed_messiah2_114: -6146352721792056104
+      maze_of_the_cursed_messiah2_115: 4646495382182563289
+      maze_of_the_cursed_messiah2_116: 5467893540107323918
+      maze_of_the_cursed_messiah2_117: 1718515989273135695
+      maze_of_the_cursed_messiah2_118: -3912174802461087183
+      maze_of_the_cursed_messiah2_119: -890794814917249890
+      maze_of_the_cursed_messiah2_12: -5047390911826348590
+      maze_of_the_cursed_messiah2_120: -986910060597556629
+      maze_of_the_cursed_messiah2_121: -6969746517407545837
+      maze_of_the_cursed_messiah2_122: -4343876788629765556
+      maze_of_the_cursed_messiah2_123: -6503197720236188972
+      maze_of_the_cursed_messiah2_124: 3984412278092927252
+      maze_of_the_cursed_messiah2_125: -5817372784982725086
+      maze_of_the_cursed_messiah2_126: -8526669012549260144
+      maze_of_the_cursed_messiah2_127: -3717554173294858253
+      maze_of_the_cursed_messiah2_128: -5999635100284629867
+      maze_of_the_cursed_messiah2_129: 476201972705794822
+      maze_of_the_cursed_messiah2_13: 5489312506324611460
+      maze_of_the_cursed_messiah2_130: -266634853023833901
+      maze_of_the_cursed_messiah2_131: -2230960650930946241
+      maze_of_the_cursed_messiah2_132: -3611806262545638944
+      maze_of_the_cursed_messiah2_133: 2786599357187596220
+      maze_of_the_cursed_messiah2_134: 7118371741254454114
+      maze_of_the_cursed_messiah2_135: 2278444769214292374
+      maze_of_the_cursed_messiah2_136: 386315143774144877
+      maze_of_the_cursed_messiah2_137: -9162844441323330101
+      maze_of_the_cursed_messiah2_138: -6446724470305655112
+      maze_of_the_cursed_messiah2_139: -1528167735737257154
+      maze_of_the_cursed_messiah2_14: -93262913813246814
+      maze_of_the_cursed_messiah2_140: -2417175616841886206
+      maze_of_the_cursed_messiah2_141: -5935975661384205951
+      maze_of_the_cursed_messiah2_142: 2097046895534991117
+      maze_of_the_cursed_messiah2_143: -6720190526054201543
+      maze_of_the_cursed_messiah2_144: -7983937641197970207
+      maze_of_the_cursed_messiah2_145: 781959043097326283
+      maze_of_the_cursed_messiah2_146: -7256858647353236998
+      maze_of_the_cursed_messiah2_147: 561582511168421584
+      maze_of_the_cursed_messiah2_15: 7035093549121017488
+      maze_of_the_cursed_messiah2_16: -5678258217156820392
+      maze_of_the_cursed_messiah2_17: -6213393563023635501
+      maze_of_the_cursed_messiah2_18: 5819936842037380501
+      maze_of_the_cursed_messiah2_19: 3326302111413315608
+      maze_of_the_cursed_messiah2_2: 2095668839365868764
+      maze_of_the_cursed_messiah2_20: 3627245510140536449
+      maze_of_the_cursed_messiah2_21: -4564925930634242163
+      maze_of_the_cursed_messiah2_22: -579579576657866329
+      maze_of_the_cursed_messiah2_23: 4924592097422959625
+      maze_of_the_cursed_messiah2_24: 3539857070962388939
+      maze_of_the_cursed_messiah2_25: -9316236788286909
+      maze_of_the_cursed_messiah2_26: 1980778029903313183
+      maze_of_the_cursed_messiah2_27: -7124383704469599445
+      maze_of_the_cursed_messiah2_28: 4289278160070595805
+      maze_of_the_cursed_messiah2_29: -8162795369855912626
+      maze_of_the_cursed_messiah2_3: 6752794816297649456
+      maze_of_the_cursed_messiah2_30: 3631872015262999014
+      maze_of_the_cursed_messiah2_31: 5164765088782804486
+      maze_of_the_cursed_messiah2_32: 4754474375903083212
+      maze_of_the_cursed_messiah2_33: 6397092470438409705
+      maze_of_the_cursed_messiah2_34: -598490610357754857
+      maze_of_the_cursed_messiah2_35: 2595072542676133153
+      maze_of_the_cursed_messiah2_36: 5322981718945733395
+      maze_of_the_cursed_messiah2_37: -5435366578231843186
+      maze_of_the_cursed_messiah2_38: 2611291440651524994
+      maze_of_the_cursed_messiah2_39: 6344250585512194303
+      maze_of_the_cursed_messiah2_4: -6432617744968599894
+      maze_of_the_cursed_messiah2_40: -347587309306046430
+      maze_of_the_cursed_messiah2_41: -1395726922178530106
+      maze_of_the_cursed_messiah2_42: 1531889319545855711
+      maze_of_the_cursed_messiah2_43: 2896351974180886118
+      maze_of_the_cursed_messiah2_44: 4154974328057300501
+      maze_of_the_cursed_messiah2_45: 2058503172108048760
+      maze_of_the_cursed_messiah2_46: -4056696117164172551
+      maze_of_the_cursed_messiah2_47: 2472703622521608255
+      maze_of_the_cursed_messiah2_48: -6621465003057767667
+      maze_of_the_cursed_messiah2_49: -2123475245902118528
+      maze_of_the_cursed_messiah2_5: 7805526184062719695
+      maze_of_the_cursed_messiah2_50: 2723027060748433878
+      maze_of_the_cursed_messiah2_51: -3291356363954544151
+      maze_of_the_cursed_messiah2_52: -6521333575818406786
+      maze_of_the_cursed_messiah2_53: -2180995648111980837
+      maze_of_the_cursed_messiah2_54: -4416028045561484705
+      maze_of_the_cursed_messiah2_55: 8865150565233678775
+      maze_of_the_cursed_messiah2_56: -2230241314001166193
+      maze_of_the_cursed_messiah2_57: 7145953457548515892
+      maze_of_the_cursed_messiah2_58: 3095949620780634744
+      maze_of_the_cursed_messiah2_59: 1183801077711332472
+      maze_of_the_cursed_messiah2_6: -2166601994172979238
+      maze_of_the_cursed_messiah2_60: -4001298829880278056
+      maze_of_the_cursed_messiah2_61: -1978158871214318805
+      maze_of_the_cursed_messiah2_62: -704923939484448245
+      maze_of_the_cursed_messiah2_63: 4528533039418902793
+      maze_of_the_cursed_messiah2_64: 861812367373870668
+      maze_of_the_cursed_messiah2_65: 459941690190468738
+      maze_of_the_cursed_messiah2_66: -7240887823864299033
+      maze_of_the_cursed_messiah2_67: 2050363743957564192
+      maze_of_the_cursed_messiah2_68: 916039340457645919
+      maze_of_the_cursed_messiah2_69: -8389283969754789630
+      maze_of_the_cursed_messiah2_7: -9160708271850822513
+      maze_of_the_cursed_messiah2_70: -7524673373368665411
+      maze_of_the_cursed_messiah2_71: -3211640764440818865
+      maze_of_the_cursed_messiah2_72: 786182373651617757
+      maze_of_the_cursed_messiah2_73: -5382143730805967634
+      maze_of_the_cursed_messiah2_74: -8512959978515875665
+      maze_of_the_cursed_messiah2_75: 1373803303123469977
+      maze_of_the_cursed_messiah2_76: 4286360708459069273
+      maze_of_the_cursed_messiah2_77: 7552107531342893733
+      maze_of_the_cursed_messiah2_78: 7905188833732933497
+      maze_of_the_cursed_messiah2_79: 7446964546173600689
+      maze_of_the_cursed_messiah2_8: 3711390876385227364
+      maze_of_the_cursed_messiah2_80: 3440118044764174743
+      maze_of_the_cursed_messiah2_81: -7217979204618790107
+      maze_of_the_cursed_messiah2_82: -5173458567897439297
+      maze_of_the_cursed_messiah2_83: 3606053786576355810
+      maze_of_the_cursed_messiah2_84: 8509128214195296729
+      maze_of_the_cursed_messiah2_85: -7642827163372848292
+      maze_of_the_cursed_messiah2_86: 3285830734750652175
+      maze_of_the_cursed_messiah2_87: 6606059610851195374
+      maze_of_the_cursed_messiah2_88: 4527442356235947299
+      maze_of_the_cursed_messiah2_89: -6727557586137202087
+      maze_of_the_cursed_messiah2_9: 6271692938837788351
+      maze_of_the_cursed_messiah2_90: -845606044629781455
+      maze_of_the_cursed_messiah2_91: 1916304299249189522
+      maze_of_the_cursed_messiah2_92: -7171718858446098825
+      maze_of_the_cursed_messiah2_93: 6646501480721474911
+      maze_of_the_cursed_messiah2_94: -2397312606093918001
+      maze_of_the_cursed_messiah2_95: 4775482238195384817
+      maze_of_the_cursed_messiah2_96: 5710611718469624081
+      maze_of_the_cursed_messiah2_97: 7525346886939486706
+      maze_of_the_cursed_messiah2_98: -4580779973099712224
+      maze_of_the_cursed_messiah2_99: -3928067847281126538
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

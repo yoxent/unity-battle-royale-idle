@@ -1,51 +1,19 @@
 using System.Collections.Generic;
 using BattleRoyale.GameModes;
-using BattleRoyale.Maps;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace BattleRoyale.GameModes.SoloBattleRoyale
 {
     [DisallowMultipleComponent]
-    public sealed class SoloBattleRoyaleGameMode : MonoBehaviour
+    [DefaultExecutionOrder(-50)]
+    public sealed class SoloBattleRoyaleGameMode : SimulationMatch
     {
-        private static readonly BattleRoyaleAIStrategy[] StrategyRotation =
-        {
-            BattleRoyaleAIStrategy.AggressiveHunter,
-            BattleRoyaleAIStrategy.AggressiveSkirmisher,
-            BattleRoyaleAIStrategy.NeutralOpportunist,
-            BattleRoyaleAIStrategy.NeutralScout,
-            BattleRoyaleAIStrategy.DefensiveAnchor,
-            BattleRoyaleAIStrategy.DefensiveSurvivor
-        };
-
-        [Header("Map")]
-        [SerializeField] private MapInstance activeMap;
-        [SerializeField] private MapModeConfiguration modeConfiguration;
-        [SerializeField] private bool findMapOnStart = true;
-
-        [Header("Team Management")]
-        [Tooltip(
-            "Player-selected behavior applied to every managed AI agent. " +
-            "Individual bot strategies still provide variation.")]
-        [SerializeField] private TeamPlaystyle teamPlaystyle =
-            TeamPlaystyle.Neutral;
-
         [Header("Characters")]
-        [SerializeField] private BattleRoyaleCharacter characterPrefab;
-        [SerializeField] private BattleRoyaleCharacterProfile defaultProfile;
         [Tooltip(
             "Set from the loaded mode configuration: team count times players per team, " +
             "excluding the test player when that slot is enabled.")]
         [Min(0)]
         [SerializeField] private int botCount = 8;
-        [SerializeField] private bool spawnTestPlayer;
-        [SerializeField] private bool distributeStrategies = true;
-        [SerializeField] private BattleRoyaleAIStrategy fallbackStrategy =
-            BattleRoyaleAIStrategy.NeutralOpportunist;
-        [SerializeField] private Transform characterParent;
-        [Min(0.1f)]
-        [SerializeField] private float navMeshSnapDistance = 20f;
 
         [Header("Safe Zone")]
         [Min(0f)]
@@ -60,13 +28,9 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         [SerializeField] private float outsideSafeZoneDamagePerSecond = 5f;
 
         [Header("Runtime")]
-        [SerializeField] private bool autoStart = true;
         [SerializeField] private bool drawSafeZone = true;
         [SerializeField] private bool drawLineOfSight = true;
 
-        private readonly List<BattleRoyaleCharacter> characters = new();
-        private BattleRoyaleProjectilePool projectilePool;
-        private BattleRoyaleCharacterProfile runtimeDefaultProfile;
         private float elapsedMatchTime;
         private Vector3 safeZoneCenter;
         private float safeZoneStartRadius;
@@ -75,30 +39,20 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private readonly List<LineRenderer> sightLines = new();
         private Material sightLineMaterial;
         private MaterialPropertyBlock sightLineBlock;
-        private bool matchStarted;
         private bool winnerAnnounced;
 
-        public BattleRoyaleProjectilePool Projectiles => projectilePool;
-        public MapInstance ActiveMap => activeMap;
-        public MapModeConfiguration ModeConfiguration => modeConfiguration;
-        public TeamPlaystyle TeamPlaystyle => teamPlaystyle;
-        public IReadOnlyList<BattleRoyaleCharacter> Characters
-        {
-            get
-            {
-                RefreshRoster();
-                return characters;
-            }
-        }
+        protected override string CharacterRootName => "BattleRoyaleCharacters";
+        protected override string ProjectileRootName => "BattleRoyaleProjectiles";
+        protected override string RuntimeProfileName => "Runtime Battle Royale Profile";
+
         public BattleRoyaleCharacter Winner { get; private set; }
-        public bool IsMatchStarted => matchStarted;
         public int AliveCount
         {
             get
             {
                 RefreshRoster();
                 var count = 0;
-                foreach (var character in characters)
+                foreach (var character in Roster)
                 {
                     if (character != null && character.IsAlive)
                     {
@@ -113,22 +67,9 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         public Vector3 SafeZoneCenter => safeZoneCenter;
         public float SafeZoneRadius => safeZoneRadius;
 
-        public void SetTeamPlaystyle(TeamPlaystyle playstyle)
-        {
-            teamPlaystyle = playstyle;
-        }
-
-        private void Start()
-        {
-            if (autoStart)
-            {
-                BeginMatch();
-            }
-        }
-
         private void Update()
         {
-            if (!matchStarted)
+            if (!MatchStarted)
             {
                 return;
             }
@@ -145,9 +86,9 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             UpdateSightLines();
         }
 
-        public bool BeginMatch()
+        public override bool BeginMatch()
         {
-            if (matchStarted)
+            if (MatchStarted)
             {
                 return false;
             }
@@ -159,42 +100,44 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
             ApplyLoadedModeConfiguration();
             PrepareSafeZone();
-            EnsureCharacterParent();
-            EnsureDefaultProfile();
-            EnsureProjectilePool();
+            EnsureSimulation();
 
-            var spawnCount = botCount + (spawnTestPlayer ? 1 : 0);
+            var spawnCount = botCount + (SpawnTestPlayer ? 1 : 0);
             for (var index = 0; index < spawnCount; index++)
             {
-                var isPlayer = spawnTestPlayer && index == 0;
+                var isPlayer = SpawnTestPlayer && index == 0;
                 var strategy = isPlayer
-                    ? fallbackStrategy
-                    : GetStrategy(index - (spawnTestPlayer ? 1 : 0));
+                    ? FallbackStrategy
+                    : GetStrategy(index - (SpawnTestPlayer ? 1 : 0));
                 var spawnPosition = GetSpawnPosition(index);
-                SpawnCharacter(index, spawnPosition, strategy, !isPlayer);
+                SpawnCharacter(
+                    $"BR_{index + 1:00}_{strategy}",
+                    spawnPosition,
+                    strategy,
+                    !isPlayer);
             }
 
-            if (characters.Count == 0)
+            if (Roster.Count == 0)
             {
-                Debug.LogError("The solo Battle Royale could not spawn any characters.", this);
+                Debug.LogError("The solo Battle Royale could not spawn any Roster.", this);
                 return false;
             }
 
             elapsedMatchTime = 0f;
-            matchStarted = true;
+            MatchStarted = true;
             winnerAnnounced = false;
             Winner = null;
             Debug.Log(
-                $"Solo Battle Royale started with {characters.Count} characters.",
+                $"Solo Battle Royale started with {Roster.Count} Roster.",
                 this);
             return true;
         }
 
-        public void NotifyCharacterEliminated(
+        public override void NotifyCharacterEliminated(
             BattleRoyaleCharacter eliminated,
             BattleRoyaleCharacter damageSource)
         {
-            if (!matchStarted)
+            if (!MatchStarted)
             {
                 return;
             }
@@ -234,7 +177,21 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             return SnapToNavigation(point);
         }
 
-        public Vector3 GetRetreatPoint(Vector3 fromPosition, Vector3 threatPosition)
+        public override bool TryGetHazardDestination(
+            Vector3 fromPosition,
+            out Vector3 destination)
+        {
+            if (IsInsideSafeZone(fromPosition))
+            {
+                destination = fromPosition;
+                return false;
+            }
+
+            destination = GetSafeZonePoint(fromPosition);
+            return true;
+        }
+
+        public override Vector3 GetRetreatPoint(Vector3 fromPosition, Vector3 threatPosition)
         {
             var awayFromThreat = fromPosition - threatPosition;
             awayFromThreat.y = 0f;
@@ -267,7 +224,12 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             return SnapToNavigation(point);
         }
 
-        public Vector3 GetRandomPointWithinSafeZone()
+        public override Vector3 GetWanderPoint()
+        {
+            return GetRandomPointWithinSafeZone();
+        }
+
+        private Vector3 GetRandomPointWithinSafeZone()
         {
             var random = Random.insideUnitCircle *
                          Mathf.Max(1f, safeZoneRadius * 0.8f);
@@ -278,42 +240,35 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
         private bool ResolveMapAndConfiguration()
         {
-            if (activeMap == null && findMapOnStart)
+            if (!TryBindActiveMap(
+                    "Solo Battle Royale requires an active map from the Active Map manager."))
             {
-                activeMap = Object.FindFirstObjectByType<MapInstance>();
-            }
-
-            if (activeMap == null || activeMap.definition == null)
-            {
-                Debug.LogError(
-                    "Solo Battle Royale requires an active MapInstance with a definition.",
-                    this);
                 return false;
             }
 
-            if (modeConfiguration == null ||
-                modeConfiguration.map != activeMap.definition ||
-                !modeConfiguration.IsBattleRoyale)
+            if (ModeConfiguration == null ||
+                ModeConfiguration.map != ActiveMap.definition ||
+                !ModeConfiguration.IsBattleRoyale)
             {
-                modeConfiguration = FindBattleRoyaleConfiguration(
-                    activeMap.definition);
+                SetModeConfiguration(
+                    FindConfiguration(configuration => configuration.IsBattleRoyale));
             }
 
-            if (modeConfiguration == null)
+            if (ModeConfiguration == null)
             {
                 Debug.LogError(
-                    $"Map '{activeMap.definition.name}' has no Battle Royale configuration.",
-                    activeMap);
+                    $"Map '{ActiveMap.definition.name}' has no Battle Royale configuration.",
+                    ActiveMap);
                 return false;
             }
 
-            if (modeConfiguration.battleRoyaleSpawnPoints == null ||
-                modeConfiguration.battleRoyaleSpawnPoints.Count == 0)
+            if (ModeConfiguration.battleRoyaleSpawnPoints == null ||
+                ModeConfiguration.battleRoyaleSpawnPoints.Count == 0)
             {
                 Debug.LogWarning(
                     "No Battle Royale spawn points are configured. " +
                     "Characters will use random positions inside the map bounds.",
-                    modeConfiguration);
+                    ModeConfiguration);
             }
 
             return true;
@@ -321,26 +276,26 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
         private void ApplyLoadedModeConfiguration()
         {
-            if (modeConfiguration == null)
+            if (ModeConfiguration == null)
             {
                 return;
             }
 
-            var rosterSize = Mathf.Max(1, modeConfiguration.teamCount) *
-                             Mathf.Max(1, modeConfiguration.teamSize);
-            var playerSlots = spawnTestPlayer ? 1 : 0;
+            var rosterSize = Mathf.Max(1, ModeConfiguration.teamCount) *
+                             Mathf.Max(1, ModeConfiguration.teamSize);
+            var playerSlots = SpawnTestPlayer ? 1 : 0;
             botCount = Mathf.Max(0, rosterSize - playerSlots);
         }
 
         private void PrepareSafeZone()
         {
-            var definition = activeMap.definition;
-            safeZoneCenter = activeMap.transform.TransformPoint(
+            var definition = ActiveMap.definition;
+            safeZoneCenter = ActiveMap.transform.TransformPoint(
                 definition.WorldCenter);
             var localWidth = definition.WorldSize.x *
-                             Mathf.Abs(activeMap.transform.lossyScale.x);
+                             Mathf.Abs(ActiveMap.transform.lossyScale.x);
             var localDepth = definition.WorldSize.z *
-                             Mathf.Abs(activeMap.transform.lossyScale.z);
+                             Mathf.Abs(ActiveMap.transform.lossyScale.z);
             safeZoneStartRadius = Mathf.Max(
                 1f,
                 Mathf.Min(localWidth, localDepth) *
@@ -376,7 +331,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
 
             var damage = outsideSafeZoneDamagePerSecond * Time.deltaTime;
-            foreach (var character in characters)
+            foreach (var character in Roster)
             {
                 if (character != null &&
                     character.IsAlive &&
@@ -398,7 +353,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             RefreshRoster();
             BattleRoyaleCharacter lastAlive = null;
             var aliveCount = 0;
-            foreach (var character in characters)
+            foreach (var character in Roster)
             {
                 if (character == null || !character.IsAlive)
                 {
@@ -426,14 +381,14 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
         }
 
-        private void RefreshRoster()
+        protected override void RefreshRoster()
         {
-            if (!matchStarted)
+            if (!MatchStarted)
             {
                 return;
             }
 
-            if (characters.Count > 0)
+            if (Roster.Count > 0)
             {
                 return;
             }
@@ -445,79 +400,18 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                     candidate.Match != this ||
                     !candidate.gameObject.scene.IsValid() ||
                     !candidate.gameObject.scene.isLoaded ||
-                    characters.Contains(candidate))
+                    Roster.Contains(candidate))
                 {
                     continue;
                 }
 
-                characters.Add(candidate);
+                Roster.Add(candidate);
             }
-        }
-
-        private void SpawnCharacter(
-            int index,
-            Vector3 position,
-            BattleRoyaleAIStrategy strategy,
-            bool isBot)
-        {
-            var characterObject = CreateCharacterObject(index, strategy);
-            characterObject.transform.SetParent(characterParent, true);
-            characterObject.transform.position = position;
-
-            var agent = characterObject.GetComponent<NavMeshAgent>();
-            if (agent == null)
-            {
-                agent = characterObject.AddComponent<NavMeshAgent>();
-            }
-
-            var character = characterObject.GetComponent<BattleRoyaleCharacter>();
-            if (character == null)
-            {
-                character = characterObject.AddComponent<BattleRoyaleCharacter>();
-            }
-            character.Initialize(
-                this,
-                defaultProfile != null ? defaultProfile : runtimeDefaultProfile,
-                strategy,
-                isBot);
-
-            var snappedPosition = SnapToNavigation(position);
-            if (agent.enabled && agent.Warp(snappedPosition))
-            {
-                characterObject.transform.position = snappedPosition;
-            }
-            else
-            {
-                characterObject.transform.position = snappedPosition;
-            }
-
-            if (isBot)
-            {
-                var ai = characterObject.AddComponent<SoloBattleRoyaleAgent>();
-                ai.Initialize(this, character);
-            }
-
-            characters.Add(character);
-        }
-
-        private GameObject CreateCharacterObject(
-            int index,
-            BattleRoyaleAIStrategy strategy)
-        {
-            var objectName = $"BR_{index + 1:00}_{strategy}";
-            if (characterPrefab == null)
-            {
-                return new GameObject(objectName);
-            }
-
-            var characterObject = Instantiate(characterPrefab).gameObject;
-            characterObject.name = objectName;
-            return characterObject;
         }
 
         private Vector3 GetSpawnPosition(int index)
         {
-            var points = modeConfiguration.battleRoyaleSpawnPoints;
+            var points = ModeConfiguration.battleRoyaleSpawnPoints;
             if (points != null && points.Count > 0)
             {
                 var point = points[index % points.Count];
@@ -527,7 +421,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                     var localPosition = point.position +
                                          new Vector3(offset.x, 0f, offset.y);
                     return SnapToNavigation(
-                        activeMap.transform.TransformPoint(localPosition));
+                        ActiveMap.transform.TransformPoint(localPosition));
                 }
             }
 
@@ -538,99 +432,9 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             return SnapToNavigation(fallbackPosition);
         }
 
-        private Vector3 SnapToNavigation(Vector3 position)
+        protected override void OnDestroy()
         {
-            if (NavMesh.SamplePosition(
-                    position,
-                    out var hit,
-                    navMeshSnapDistance,
-                    NavMesh.AllAreas))
-            {
-                return hit.position;
-            }
-
-            return position;
-        }
-
-        private BattleRoyaleAIStrategy GetStrategy(int index)
-        {
-            if (!distributeStrategies)
-            {
-                return fallbackStrategy;
-            }
-
-            return StrategyRotation[index % StrategyRotation.Length];
-        }
-
-        private void EnsureProjectilePool()
-        {
-            if (projectilePool != null)
-            {
-                projectilePool.Prewarm();
-                return;
-            }
-
-            var poolObject = new GameObject("BattleRoyaleProjectiles");
-            poolObject.transform.SetParent(transform, false);
-            projectilePool = poolObject.AddComponent<BattleRoyaleProjectilePool>();
-            projectilePool.Prewarm();
-        }
-
-        private void EnsureCharacterParent()
-        {
-            if (characterParent != null)
-            {
-                return;
-            }
-
-            var parentObject = new GameObject("BattleRoyaleCharacters");
-            parentObject.transform.SetParent(transform, false);
-            characterParent = parentObject.transform;
-        }
-
-        private void EnsureDefaultProfile()
-        {
-            if (defaultProfile != null)
-            {
-                return;
-            }
-
-            runtimeDefaultProfile =
-                ScriptableObject.CreateInstance<BattleRoyaleCharacterProfile>();
-            runtimeDefaultProfile.name = "Runtime Battle Royale Profile";
-            runtimeDefaultProfile.displayName = "Prototype Bot";
-            runtimeDefaultProfile.defaultStrategy = fallbackStrategy;
-            runtimeDefaultProfile.hideFlags = HideFlags.DontSave;
-        }
-
-        private static MapModeConfiguration FindBattleRoyaleConfiguration(
-            MapDefinition definition)
-        {
-            if (definition.modeConfigurations == null)
-            {
-                return null;
-            }
-
-            foreach (var configuration in definition.modeConfigurations)
-            {
-                if (configuration != null &&
-                    configuration.map == definition &&
-                    configuration.IsBattleRoyale)
-                {
-                    return configuration;
-                }
-            }
-
-            return null;
-        }
-
-        private void OnDestroy()
-        {
-            if (runtimeDefaultProfile != null)
-            {
-                Destroy(runtimeDefaultProfile);
-            }
-
+            base.OnDestroy();
             if (sightLineMaterial != null)
             {
                 Destroy(sightLineMaterial);
@@ -640,20 +444,20 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private void UpdateSightLines()
         {
             var usedLines = 0;
-            if (drawLineOfSight && matchStarted)
+            if (drawLineOfSight && MatchStarted)
             {
                 RefreshRoster();
-                for (var sourceIndex = 0; sourceIndex < characters.Count; sourceIndex++)
+                for (var sourceIndex = 0; sourceIndex < Roster.Count; sourceIndex++)
                 {
-                    var source = characters[sourceIndex];
+                    var source = Roster[sourceIndex];
                     if (source == null || !source.IsAlive)
                     {
                         continue;
                     }
 
-                    for (var targetIndex = 0; targetIndex < characters.Count; targetIndex++)
+                    for (var targetIndex = 0; targetIndex < Roster.Count; targetIndex++)
                     {
-                        var target = characters[targetIndex];
+                        var target = Roster[targetIndex];
                         if (target == null || target == source || !target.IsAlive)
                         {
                             continue;
@@ -753,11 +557,11 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             Gizmos.DrawWireSphere(safeZoneCenter, safeZoneRadius);
         }
 
-        private void OnValidate()
+        protected override void OnValidate()
         {
+            base.OnValidate();
             ApplyLoadedModeConfiguration();
-            botCount = Mathf.Max(spawnTestPlayer ? 0 : 1, botCount);
-            navMeshSnapDistance = Mathf.Max(0.1f, navMeshSnapDistance);
+            botCount = Mathf.Max(SpawnTestPlayer ? 0 : 1, botCount);
             safeZoneStartDelay = Mathf.Max(0f, safeZoneStartDelay);
             safeZoneShrinkDuration = Mathf.Max(0.1f, safeZoneShrinkDuration);
             outsideSafeZoneDamagePerSecond = Mathf.Max(

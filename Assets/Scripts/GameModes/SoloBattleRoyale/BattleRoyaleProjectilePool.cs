@@ -9,9 +9,11 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         [Min(1)]
         [SerializeField] private int initialCapacity = 64;
 
+        [SerializeField] private BattleRoyaleProjectile bulletPrefab;
+
         private readonly Stack<BattleRoyaleProjectile> available = new();
-        private Material sharedMaterial;
         private bool prewarmed;
+        private bool reportedMissingPrefab;
 
         public void Prewarm()
         {
@@ -20,7 +22,11 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return;
             }
 
-            EnsureMaterial();
+            if (!ResolvePrefab())
+            {
+                return;
+            }
+
             for (var index = 0; index < initialCapacity; index++)
             {
                 available.Push(CreateProjectile());
@@ -38,7 +44,16 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             float lifetime,
             float visualScale)
         {
-            EnsureMaterial();
+            if (!prewarmed)
+            {
+                Prewarm();
+            }
+
+            if (bulletPrefab == null)
+            {
+                return;
+            }
+
             var projectile = available.Count > 0
                 ? available.Pop()
                 : CreateProjectile();
@@ -65,56 +80,38 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             available.Push(projectile);
         }
 
+        private bool ResolvePrefab()
+        {
+            if (bulletPrefab != null)
+            {
+                return true;
+            }
+
+            var catalog = CombatVfxCatalog.Load();
+            bulletPrefab = catalog == null ? null : catalog.bullet;
+            if (bulletPrefab != null)
+            {
+                return true;
+            }
+
+            if (reportedMissingPrefab)
+            {
+                return false;
+            }
+
+            reportedMissingPrefab = true;
+            Debug.LogError(
+                "Combat VFX is missing the bullet prefab.",
+                this);
+            return false;
+        }
+
         private BattleRoyaleProjectile CreateProjectile()
         {
-            var bulletObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            bulletObject.name = "PooledBullet";
-            bulletObject.transform.SetParent(transform, false);
-            var collider = bulletObject.GetComponent<Collider>();
-            if (collider != null)
-            {
-                DestroyImmediate(collider);
-            }
-
-            var renderer = bulletObject.GetComponent<Renderer>();
-            if (renderer != null)
-            {
-                renderer.sharedMaterial = sharedMaterial;
-            }
-
-            var projectile = bulletObject.AddComponent<BattleRoyaleProjectile>();
+            var projectile = Instantiate(bulletPrefab, transform);
             projectile.Bind(this);
-            bulletObject.SetActive(false);
+            projectile.gameObject.SetActive(false);
             return projectile;
-        }
-
-        private void EnsureMaterial()
-        {
-            if (sharedMaterial != null)
-            {
-                return;
-            }
-
-            var shader = Shader.Find("Universal Render Pipeline/Unlit") ??
-                         Shader.Find("Universal Render Pipeline/Lit") ??
-                         Shader.Find("Standard");
-            sharedMaterial = shader == null
-                ? new Material(Shader.Find("Sprites/Default"))
-                : new Material(shader);
-            var tracerColor = new Color(1f, 0.85f, 0.15f, 1f);
-            sharedMaterial.color = tracerColor;
-            if (sharedMaterial.HasProperty("_BaseColor"))
-            {
-                sharedMaterial.SetColor("_BaseColor", tracerColor);
-            }
-        }
-
-        private void OnDestroy()
-        {
-            if (sharedMaterial != null)
-            {
-                Destroy(sharedMaterial);
-            }
         }
     }
 }

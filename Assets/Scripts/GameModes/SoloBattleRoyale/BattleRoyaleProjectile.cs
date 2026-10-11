@@ -1,3 +1,4 @@
+using BattleRoyale.GameModes.TeamDeathmatch;
 using UnityEngine;
 
 namespace BattleRoyale.GameModes.SoloBattleRoyale
@@ -107,7 +108,11 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
                 var character =
                     hit.collider.GetComponentInParent<BattleRoyaleCharacter>();
-                if (character == owner)
+                if (character == owner ||
+                    (character != null &&
+                     TeamDeathmatchRules.SharesTeam(
+                         owner == null ? -1 : owner.TeamIndex,
+                         character.TeamIndex)))
                 {
                     continue;
                 }

@@ -1,0 +1,245 @@
+using System.Collections.Generic;
+using BattleRoyale.CameraSystems;
+using BattleRoyale.Events;
+using BattleRoyale.GameModes.SoloBattleRoyale;
+using BattleRoyale.Maps;
+using NUnit.Framework;
+using UnityEngine;
+
+namespace BattleRoyale.Tests.EditMode
+{
+    public sealed class ActiveMapSyncTests
+    {
+        private readonly List<Object> created = new();
+
+        [TearDown]
+        public void TearDown()
+        {
+            foreach (var instance in created)
+            {
+                if (instance != null)
+                {
+                    Object.DestroyImmediate(instance);
+                }
+            }
+
+            created.Clear();
+        }
+
+        [Test]
+        public void PublishedEventReachesSubscriber()
+        {
+            ActiveMapChanged received = null;
+            void Handler(ActiveMapChanged change) => received = change;
+            EventBus.Subscribe<ActiveMapChanged>(Handler);
+            try
+            {
+                var payload = new ActiveMapChanged(null, null);
+                EventBus.Publish(payload);
+                Assert.AreSame(payload, received);
+            }
+            finally
+            {
+                EventBus.Unsubscribe<ActiveMapChanged>(Handler);
+            }
+        }
+
+        [Test]
+        public void UnsubscribedHandlerDoesNotReceiveLaterEvents()
+        {
+            var count = 0;
+            void Handler(ActiveMapChanged change) => count++;
+            EventBus.Subscribe<ActiveMapChanged>(Handler);
+            EventBus.Unsubscribe<ActiveMapChanged>(Handler);
+            EventBus.Publish(new ActiveMapChanged(null, null));
+            Assert.AreEqual(0, count);
+        }
+
+        [Test]
+        public void EventTypesStaySeparate()
+        {
+            var mapCount = 0;
+            var probeCount = 0;
+            void MapHandler(ActiveMapChanged change) => mapCount++;
+            void ProbeHandler(ProbeEvent change) => probeCount++;
+            EventBus.Subscribe<ActiveMapChanged>(MapHandler);
+            EventBus.Subscribe<ProbeEvent>(ProbeHandler);
+            try
+            {
+                EventBus.Publish(new ProbeEvent { Value = 3 });
+                Assert.AreEqual(0, mapCount);
+                Assert.AreEqual(1, probeCount);
+            }
+            finally
+            {
+                EventBus.Unsubscribe<ActiveMapChanged>(MapHandler);
+                EventBus.Unsubscribe<ProbeEvent>(ProbeHandler);
+            }
+        }
+
+        [Test]
+        public void SettingTheSameMapDoesNotPublishAgain()
+        {
+            var definition = CreateDefinition();
+            var map = CreateMap("Map", definition);
+            var manager = Create<ActiveMapManager>("Active Map");
+            var count = 0;
+            void Handler(ActiveMapChanged change) => count++;
+            EventBus.Subscribe<ActiveMapChanged>(Handler);
+            try
+            {
+                manager.SetActiveMap(map);
+                manager.SetActiveMap(map);
+                Assert.AreEqual(1, count);
+                Assert.AreSame(map, manager.ActiveMap);
+            }
+            finally
+            {
+                EventBus.Unsubscribe<ActiveMapChanged>(Handler);
+            }
+        }
+
+        [Test]
+        public void CameraAndGameModeFollowManagerMap()
+        {
+            var definition = CreateDefinition();
+            var first = CreateMap("Older Map", definition);
+            var second = CreateMap("New Map", definition);
+            var manager = Create<ActiveMapManager>("Active Map");
+            var camera = CreateCamera();
+            var mode = Create<SoloBattleRoyaleGameMode>("Solo Battle Royale");
+
+            manager.SetActiveMap(first);
+            Assert.AreSame(first, camera.ActiveMap);
+            Assert.AreSame(first, mode.ActiveMap);
+
+            manager.SetActiveMap(second);
+            Assert.AreSame(second, camera.ActiveMap);
+            Assert.AreSame(second, mode.ActiveMap);
+        }
+
+        [Test]
+        public void ActivateBakedMapReplacesThePreviousInstance()
+        {
+            var firstTemplate = CreateMap("First Template", CreateDefinition());
+            var secondTemplate = CreateMap("Second Template", CreateDefinition());
+            var manager = Create<ActiveMapManager>("Active Map");
+
+            var first = manager.ActivateBakedMap(firstTemplate.gameObject);
+            created.Add(first.gameObject);
+            var second = manager.ActivateBakedMap(secondTemplate.gameObject);
+            created.Add(second.gameObject);
+
+            Assert.AreSame(second, manager.ActiveMap);
+            Assert.AreSame(secondTemplate.definition, second.definition);
+            Assert.IsTrue(first == null);
+            Assert.AreSame(second, manager.ActivateBakedMap(secondTemplate.gameObject));
+        }
+
+        [Test]
+        public void ActivateForModeKeepsAReadyMapThatSupportsIt()
+        {
+            var battle = CreateReadyMap(MapGameMode.BattleRoyale);
+            var team = CreateReadyMap(MapGameMode.TeamDeathmatch);
+            var manager = CreateManager(battle.definition, team.definition);
+
+            var placed = manager.ActivatePlayableMap(battle.definition);
+            created.Add(placed.gameObject);
+
+            Assert.AreSame(placed, manager.ActivateForMode(MapGameMode.BattleRoyale));
+        }
+
+        [Test]
+        public void ActivateForModeSwitchesWhenTheCurrentMapDoesNotSupportIt()
+        {
+            var battle = CreateReadyMap(MapGameMode.BattleRoyale);
+            var team = CreateReadyMap(MapGameMode.TeamDeathmatch);
+            var manager = CreateManager(battle.definition, team.definition);
+            var placed = manager.ActivatePlayableMap(battle.definition);
+            created.Add(placed.gameObject);
+
+            var switched = manager.ActivateForMode(MapGameMode.TeamDeathmatch);
+            created.Add(switched.gameObject);
+
+            Assert.AreSame(team.definition, switched.definition);
+            Assert.IsTrue(placed == null);
+        }
+
+        [Test]
+        public void ActivatePlayableMapIgnoresAMapThatIsNotReady()
+        {
+            var battle = CreateReadyMap(MapGameMode.BattleRoyale);
+            var manager = CreateManager(battle.definition);
+            var placed = manager.ActivatePlayableMap(battle.definition);
+            created.Add(placed.gameObject);
+
+            var outsider = CreateReadyMap(MapGameMode.BattleRoyale);
+            Assert.AreSame(placed, manager.ActivatePlayableMap(outsider.definition));
+            Assert.AreSame(placed, manager.ActiveMap);
+        }
+
+        private MapInstance CreateReadyMap(MapGameMode mode)
+        {
+            var definition = CreateDefinition();
+            definition.supportedGameModes.Add(mode);
+            var map = CreateMap(mode.ToString(), definition);
+            definition.bakedPrefab = map.gameObject;
+            return map;
+        }
+
+        private ActiveMapManager CreateManager(params MapDefinition[] definitions)
+        {
+            var catalog = ScriptableObject.CreateInstance<PlayableMapCatalog>();
+            catalog.hideFlags = HideFlags.HideAndDontSave;
+            created.Add(catalog);
+            catalog.maps.AddRange(definitions);
+            var manager = Create<ActiveMapManager>("Active Map");
+            manager.SetPlayableMaps(catalog);
+            return manager;
+        }
+
+        private MapDefinition CreateDefinition()
+        {
+            var definition = ScriptableObject.CreateInstance<MapDefinition>();
+            definition.hideFlags = HideFlags.HideAndDontSave;
+            definition.sourceMin = Vector2.zero;
+            definition.sourceMax = new Vector2(20f, 20f);
+            definition.worldScale = 1f;
+            created.Add(definition);
+            return definition;
+        }
+
+        private MapInstance CreateMap(string name, MapDefinition definition)
+        {
+            var map = Create<MapInstance>(name);
+            map.definition = definition;
+            return map;
+        }
+
+        private SimulationCameraController CreateCamera()
+        {
+            var cameraObject = new GameObject("Simulation Camera")
+            {
+                hideFlags = HideFlags.HideAndDontSave
+            };
+            created.Add(cameraObject);
+            cameraObject.AddComponent<Camera>();
+            return cameraObject.AddComponent<SimulationCameraController>();
+        }
+
+        private T Create<T>(string name) where T : Component
+        {
+            var gameObject = new GameObject(name)
+            {
+                hideFlags = HideFlags.HideAndDontSave
+            };
+            created.Add(gameObject);
+            return gameObject.AddComponent<T>();
+        }
+
+        private sealed class ProbeEvent
+        {
+            public int Value;
+        }
+    }
+}

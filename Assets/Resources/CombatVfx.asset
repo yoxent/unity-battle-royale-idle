@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7c3e1b94d2f4a6e8c0b5d7f1a394860, type: 3}
+  m_Name: CombatVfx
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.GameModes.SoloBattleRoyale.CombatVfxCatalog
+  bullet: {fileID: 810000005, guid: 03c9e7b50d8f40c2e26b13df70850426, type: 3}
+  muzzleFlash: {fileID: 820000005, guid: 14dae8c61e9041d3f37c24e081961537, type: 3}

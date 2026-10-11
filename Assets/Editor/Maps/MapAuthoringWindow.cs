@@ -52,9 +52,22 @@ namespace BattleRoyale.Maps.EditorTools
         [MenuItem("Tools/Maps/Village Map Authoring")]
         public static void Open()
         {
+            Open(null);
+        }
+
+        public static void Open(MapDefinition definition)
+        {
             var window = GetWindow<MapAuthoringWindow>();
             window.titleContent = new GUIContent("Village Map Authoring");
             window.minSize = new Vector2(420f, 600f);
+            if (definition == null)
+            {
+                return;
+            }
+
+            window.mapDefinition = definition;
+            window.LoadDefinitionIntoWindow();
+            window.Repaint();
         }
 
         private void OnDisable()
@@ -160,7 +173,9 @@ namespace BattleRoyale.Maps.EditorTools
                 "Generate Tree Colliders",
                 generateTreeColliders);
             replaceGeneratedRoot = EditorGUILayout.Toggle(
-                "Replace Existing Generated Root",
+                new GUIContent(
+                    "Replace Existing Map Prefab",
+                    "Generating saves a baked prefab beside the map definition and places it as the one map in the scene."),
                 replaceGeneratedRoot);
             if (EditorGUI.EndChangeCheck())
             {
@@ -631,9 +646,15 @@ namespace BattleRoyale.Maps.EditorTools
 
         private void GenerateMapRoot()
         {
+            if (EditorApplication.isPlaying)
+            {
+                SetStatus("Stop Play Mode before generating a map prefab.", MessageType.Error);
+                return;
+            }
+
             if (!IsMapReady())
             {
-                SetStatus("Create a map definition before generating a map root.", MessageType.Error);
+                SetStatus("Create a map definition before generating a map prefab.", MessageType.Error);
                 return;
             }
 
@@ -658,24 +679,20 @@ namespace BattleRoyale.Maps.EditorTools
                 return;
             }
 
-            var rootName = $"Map_{mapDefinition.name.Replace("_Map", string.Empty)}";
-            var existingRoot = GameObject.Find(rootName);
-            if (existingRoot != null)
+            var prefabPath = MapBakeOutput.GetPrefabPath(mapDefinition);
+            if (!replaceGeneratedRoot &&
+                !string.IsNullOrEmpty(prefabPath) &&
+                AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath) != null)
             {
-                if (!replaceGeneratedRoot)
-                {
-                    SetStatus(
-                        $"A generated root named {rootName} already exists.",
-                        MessageType.Warning);
-                    Selection.activeGameObject = existingRoot;
-                    return;
-                }
-
-                Undo.DestroyObjectImmediate(existingRoot);
+                SetStatus(
+                    $"A map prefab already exists at {prefabPath}.",
+                    MessageType.Warning);
+                Selection.activeObject = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+                return;
             }
 
-            var root = new GameObject(rootName);
-            Undo.RegisterCreatedObjectUndo(root, "Generate Map Root");
+            var root = new GameObject("Map");
+            Undo.RegisterCreatedObjectUndo(root, "Generate Map Prefab");
             var mapInstance = root.AddComponent<MapInstance>();
             mapInstance.definition = mapDefinition;
 
@@ -688,12 +705,13 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             modeAuthoring.GenerateMarkers(root.transform, mapDefinition);
-            EditorSceneManager.MarkSceneDirty(root.scene);
-            EditorSceneManager.SaveOpenScenes();
-            Selection.activeGameObject = root;
+            var vertexCount = surface.vertexCount;
+            var placed = MapBakeOutput.Commit(root, mapDefinition, true);
             SetStatus(
-                $"Generated {rootName} with {surface.vertexCount} terrain vertices.",
-                MessageType.Info);
+                placed != null
+                    ? $"Saved {prefabPath} and placed it as the active map. {vertexCount} terrain vertices."
+                    : "The terrain was built, but its prefab was not placed as the active map.",
+                placed != null ? MessageType.Info : MessageType.Error);
         }
 
         private Mesh CreateSurface(Transform parent)

@@ -1,4 +1,5 @@
 using System;
+using BattleRoyale.GameModes;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,12 +18,15 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         [SerializeField] private float killBuffRemaining;
         [SerializeField] private float currentHealth;
         [SerializeField] private bool isBot = true;
+        [SerializeField] private int teamIndex = -1;
 
         private static readonly Color FiringColor = new(1f, 0.45f, 0.1f);
 
         private Renderer characterRenderer;
         private BattleRoyaleWeapon weapon;
-        private SoloBattleRoyaleGameMode match;
+        private IMatch match;
+        private bool hasTeamColor;
+        private Color teamColor = Color.white;
         private BattleRoyaleSpecialtyModifiers specialtyModifiers =
             BattleRoyaleAgentSpecialtyRules.GetModifiers(
                 BattleRoyaleAgentSpecialty.Balanced);
@@ -40,7 +44,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         public BattleRoyaleCharacterStats AgentStats => profile?.stats;
         public NavMeshAgent Agent => agent;
         public BattleRoyaleWeapon Weapon => weapon;
-        public SoloBattleRoyaleGameMode Match => match;
+        public IMatch Match => match;
+        public int TeamIndex => teamIndex;
         public float MaxHealth =>
             AgentStats == null
                 ? 0f
@@ -112,7 +117,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                     profile.ai.holdingPositionActivationTime);
 
         public void Initialize(
-            SoloBattleRoyaleGameMode owningMatch,
+            IMatch owningMatch,
             BattleRoyaleCharacterProfile characterProfile,
             BattleRoyaleAIStrategy characterStrategy,
             bool bot)
@@ -121,6 +126,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             profile = characterProfile;
             strategy = characterStrategy;
             isBot = bot;
+            teamIndex = -1;
+            hasTeamColor = false;
             agent = GetComponent<NavMeshAgent>();
             if (profile == null)
             {
@@ -160,6 +167,41 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
 
             weapon.Initialize(this, profile.defaultWeapon);
+        }
+
+        public void AssignTeam(int index)
+        {
+            teamIndex = index;
+        }
+
+        public void SetTeamColor(Color color)
+        {
+            hasTeamColor = true;
+            teamColor = color;
+            ApplyStateColor();
+        }
+
+        public void Respawn(Vector3 position)
+        {
+            currentHealth = Mathf.Max(1f, MaxHealth);
+            killBuffRemaining = 0f;
+            stationaryDuration = 0f;
+            State = BattleRoyaleCharacterState.Spawned;
+            transform.position = position;
+            lastPosition = position;
+            if (agent == null)
+            {
+                agent = GetComponent<NavMeshAgent>();
+            }
+
+            if (agent != null)
+            {
+                agent.enabled = true;
+                agent.isStopped = false;
+                agent.Warp(position);
+            }
+
+            ApplyStateColor();
         }
 
         private void Update()
@@ -252,9 +294,10 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return;
             }
 
+            var bodyColor = hasTeamColor ? teamColor : profile.visualColor;
             characterRenderer.material.color = State == BattleRoyaleCharacterState.Engaging
                 ? FiringColor
-                : profile.visualColor;
+                : bodyColor;
         }
 
         private void ConfigureAgent()

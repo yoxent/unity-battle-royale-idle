@@ -1,3 +1,4 @@
+using BattleRoyale.Events;
 using BattleRoyale.Weapons;
 using UnityEngine;
 
@@ -15,10 +16,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private BattleRoyaleCharacter owner;
         private WeaponProfile profile;
         private WeaponProfile runtimeProfile;
-        private Renderer muzzleFlash;
-        private Material muzzleFlashMaterial;
         private float nextFireTime;
-        private float muzzleFlashUntil;
         private float reloadReadyTime;
         private int roundsRemaining;
 
@@ -47,20 +45,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             roundsRemaining = MagazineCapacity;
             reloadReadyTime = 0f;
             CreatePrimitiveVisual();
-            EnsureMuzzleFlash();
-        }
-
-        private void Update()
-        {
-            if (muzzleFlash == null || !muzzleFlash.enabled)
-            {
-                return;
-            }
-
-            if (Time.time >= muzzleFlashUntil)
-            {
-                muzzleFlash.enabled = false;
-            }
         }
 
         public bool TryFire(BattleRoyaleCharacter target)
@@ -131,7 +115,12 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 reloadReadyTime = Time.time + ReloadDuration;
             }
 
-            ShowMuzzleFlash(origin);
+            var ownerScale = owner.Profile == null
+                ? 1f
+                : Mathf.Max(0.1f, owner.Profile.visualScale);
+            EventBus.Publish(new MuzzleFlashRequested(
+                origin,
+                0.45f * ownerScale));
             return true;
         }
 
@@ -215,59 +204,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             return transform.position + Vector3.up * (0.75f * scale);
         }
 
-        private void EnsureMuzzleFlash()
-        {
-            if (muzzleFlash != null)
-            {
-                return;
-            }
-
-            var flashObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            flashObject.name = "MuzzleFlash";
-            flashObject.transform.SetParent(transform, false);
-            var collider = flashObject.GetComponent<Collider>();
-            if (collider != null)
-            {
-                DestroyImmediate(collider);
-            }
-
-            muzzleFlash = flashObject.GetComponent<Renderer>();
-            var shader = Shader.Find("Universal Render Pipeline/Unlit") ??
-                         Shader.Find("Universal Render Pipeline/Lit") ??
-                         Shader.Find("Standard");
-            if (shader != null && muzzleFlash != null)
-            {
-                muzzleFlashMaterial = new Material(shader);
-                var flashColor = new Color(1f, 0.95f, 0.6f, 1f);
-                muzzleFlashMaterial.color = flashColor;
-                if (muzzleFlashMaterial.HasProperty("_BaseColor"))
-                {
-                    muzzleFlashMaterial.SetColor("_BaseColor", flashColor);
-                }
-
-                muzzleFlash.material = muzzleFlashMaterial;
-            }
-
-            var scale = owner == null || owner.Profile == null
-                ? 1f
-                : Mathf.Max(0.1f, owner.Profile.visualScale);
-            flashObject.transform.localScale = Vector3.one * (0.45f * scale);
-            muzzleFlash.enabled = false;
-        }
-
-        private void ShowMuzzleFlash(Vector3 position)
-        {
-            EnsureMuzzleFlash();
-            if (muzzleFlash == null)
-            {
-                return;
-            }
-
-            muzzleFlash.transform.position = position;
-            muzzleFlash.enabled = true;
-            muzzleFlashUntil = Time.time + 0.08f;
-        }
-
         private void CreatePrimitiveVisual()
         {
             if (transform.Find("GunCube") != null)
@@ -343,11 +279,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             if (runtimeProfile != null)
             {
                 Destroy(runtimeProfile);
-            }
-
-            if (muzzleFlashMaterial != null)
-            {
-                Destroy(muzzleFlashMaterial);
             }
         }
     }

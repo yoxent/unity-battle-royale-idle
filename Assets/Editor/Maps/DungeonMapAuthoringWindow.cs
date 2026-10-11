@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using BattleRoyale.CameraSystems;
 using BattleRoyale.Maps;
 using BattleRoyale.Movement;
 using Newtonsoft.Json.Linq;
@@ -57,9 +56,22 @@ namespace BattleRoyale.Maps.EditorTools
         [MenuItem("Tools/Maps/Dungeon Map Authoring")]
         public static void Open()
         {
+            Open(null);
+        }
+
+        public static void Open(MapDefinition definition)
+        {
             var window = GetWindow<DungeonMapAuthoringWindow>();
             window.titleContent = new GUIContent("Dungeon Map Authoring");
             window.minSize = new Vector2(420f, 620f);
+            if (definition == null)
+            {
+                return;
+            }
+
+            window.mapDefinition = definition;
+            window.LoadDefinitionIntoWindow();
+            window.Repaint();
         }
 
         private void OnDisable()
@@ -73,7 +85,7 @@ namespace BattleRoyale.Maps.EditorTools
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
 
             EditorGUILayout.HelpBox(
-                "Start with the generator JSON and PNG. Create the map, generate it into the scene, then align the image and place mode points.",
+                "Start with the generator JSON and PNG. Create the map, then generate its baked prefab. Set As Active Map places that prefab as the one map in the scene.",
                 MessageType.Info);
             if (!string.IsNullOrWhiteSpace(statusMessage))
             {
@@ -229,13 +241,12 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             replaceGeneratedRoot = EditorGUILayout.Toggle(
-                "Replace Existing Generated Root",
+                "Replace Existing Map Prefab",
                 replaceGeneratedRoot);
-            disableOtherGeneratedMaps = EditorGUILayout.Toggle(
-                "Disable Other Generated Maps",
-                disableOtherGeneratedMaps);
             setAsActiveCameraMap = EditorGUILayout.Toggle(
-                "Set As Active Camera Map",
+                new GUIContent(
+                    "Set As Active Map",
+                    "Saves the bake as a prefab and places that prefab on the Active Map manager. The simulation camera and solo Battle Royale both follow it. Leave this off to save the prefab without changing the map under test."),
                 setAsActiveCameraMap);
             if (EditorGUI.EndChangeCheck())
             {
@@ -516,28 +527,19 @@ namespace BattleRoyale.Maps.EditorTools
                 return;
             }
 
-            var rootName = $"Map_{mapDefinition.name.Replace("_Map", string.Empty)}";
-            var existingRoot = FindSceneObject(rootName);
-            if (existingRoot != null)
+            var prefabPath = MapBakeOutput.GetPrefabPath(mapDefinition);
+            if (!replaceGeneratedRoot &&
+                !string.IsNullOrEmpty(prefabPath) &&
+                AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath) != null)
             {
-                if (!replaceGeneratedRoot)
-                {
-                    SetStatus(
-                        $"A generated root named {rootName} already exists.",
-                        MessageType.Warning);
-                    Selection.activeGameObject = existingRoot;
-                    return;
-                }
-
-                Undo.DestroyObjectImmediate(existingRoot);
+                SetStatus(
+                    $"A map prefab already exists at {prefabPath}.",
+                    MessageType.Warning);
+                Selection.activeObject = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+                return;
             }
 
-            if (disableOtherGeneratedMaps)
-            {
-                DisableOtherGeneratedMaps();
-            }
-
-            var root = new GameObject(rootName);
+            var root = new GameObject("Map");
             Undo.RegisterCreatedObjectUndo(root, "Generate Dungeon Map Root");
             var mapInstance = root.AddComponent<MapInstance>();
             mapInstance.definition = mapDefinition;
@@ -555,7 +557,7 @@ namespace BattleRoyale.Maps.EditorTools
             CreateVisualMap(root.transform);
             if (useImageCornerFit)
             {
-                SyncImageCornerMarkers();
+                SyncImageCornerMarkers(root.transform);
             }
 
             CreateFloorCollider(root.transform);
@@ -564,19 +566,22 @@ namespace BattleRoyale.Maps.EditorTools
             CreateNavigation(root);
             modeAuthoring.GenerateMarkers(root.transform, mapDefinition);
             var scaledUnitCount = ApplyDungeonUnitScale();
-
-            if (setAsActiveCameraMap)
+            var placed = MapBakeOutput.Commit(root, mapDefinition, setAsActiveCameraMap);
+            if (setAsActiveCameraMap && placed == null)
             {
-                SetActiveCameraMap(mapInstance);
+                SetStatus(
+                    "The dungeon was built, but its prefab was not placed as the active map.",
+                    MessageType.Error);
+                return;
             }
 
-            EditorSceneManager.MarkSceneDirty(root.scene);
-            EditorSceneManager.SaveOpenScenes();
-            Selection.activeGameObject = root;
-
             SetStatus(
-                $"Generated {rootName} with {analyzedLayout.FloorCells.Count} walkable cells. " +
-                $"Applied unit scale {dungeonUnitScale:0.##} to {scaledUnitCount} unit(s).",
+                setAsActiveCameraMap
+                    ? $"Saved {prefabPath} and placed it as the active map. " +
+                      $"{analyzedLayout.FloorCells.Count} walkable cells. " +
+                      $"Applied unit scale {dungeonUnitScale:0.##} to {scaledUnitCount} unit(s)."
+                    : $"Saved {prefabPath}. The scene map was left unchanged. " +
+                      $"{analyzedLayout.FloorCells.Count} walkable cells.",
                 MessageType.Info);
         }
 
@@ -796,42 +801,6 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             return agentRadius / RecommendedVoxelSizeDivisor;
-        }
-
-        private void SetActiveCameraMap(MapInstance mapInstance)
-        {
-            var cameraObject = FindSceneObject("Simulation Camera");
-            if (cameraObject == null)
-            {
-                return;
-            }
-
-            var cameraController = cameraObject.GetComponent<SimulationCameraController>();
-            if (cameraController == null)
-            {
-                return;
-            }
-
-            var serialized = new SerializedObject(cameraController);
-            serialized.FindProperty("activeMap").objectReferenceValue = mapInstance;
-            serialized.ApplyModifiedPropertiesWithoutUndo();
-            cameraController.SetActiveMap(mapInstance);
-        }
-
-        private void DisableOtherGeneratedMaps()
-        {
-            foreach (var candidate in Resources.FindObjectsOfTypeAll<GameObject>())
-            {
-                if (!candidate.scene.IsValid() ||
-                    !candidate.scene.isLoaded ||
-                    !candidate.name.StartsWith("Map_") ||
-                    candidate.name == "Map")
-                {
-                    continue;
-                }
-
-                candidate.SetActive(false);
-            }
         }
 
         private Mesh BuildFloorMesh()
@@ -1216,7 +1185,7 @@ namespace BattleRoyale.Maps.EditorTools
             {
                 dragging = true;
                 draggedPosition = moved;
-                PlaceImageCornerMarker(markerName, moved, color);
+                PlaceImageCornerMarker(FindGeneratedMapRoot(), markerName, moved, color);
                 EditorApplication.QueuePlayerLoopUpdate();
             }
 
@@ -1293,7 +1262,7 @@ namespace BattleRoyale.Maps.EditorTools
 
         private static Mesh cornerDiscMesh;
 
-        private void SyncImageCornerMarkers()
+        private void SyncImageCornerMarkers(Transform explicitRoot = null)
         {
             if (!useImageCornerFit ||
                 !HasValidImageCorners() ||
@@ -1307,16 +1276,19 @@ namespace BattleRoyale.Maps.EditorTools
                 AnalyzeLayout();
             }
 
-            if (analyzedLayout == null || FindGeneratedMapRoot() == null)
+            var root = explicitRoot != null ? explicitRoot : FindGeneratedMapRoot();
+            if (analyzedLayout == null || root == null)
             {
                 return;
             }
 
             var changed = PlaceImageCornerMarker(
+                root,
                 UpperLeftMarkerName,
                 ImageUvToWorld(imageUpperLeftUv),
                 new Color(1f, 0.85f, 0.2f));
             changed |= PlaceImageCornerMarker(
+                root,
                 LowerRightMarkerName,
                 ImageUvToWorld(imageLowerRightUv),
                 new Color(0.3f, 0.75f, 1f));
@@ -1325,19 +1297,15 @@ namespace BattleRoyale.Maps.EditorTools
                 return;
             }
 
-            var root = FindGeneratedMapRoot();
-            if (root != null)
-            {
-                EditorSceneManager.MarkSceneDirty(root.gameObject.scene);
-            }
+            EditorSceneManager.MarkSceneDirty(root.gameObject.scene);
         }
 
         private bool PlaceImageCornerMarker(
+            Transform root,
             string markerName,
             Vector3 worldPosition,
             Color color)
         {
-            var root = FindGeneratedMapRoot();
             if (root == null)
             {
                 return false;
@@ -1431,6 +1399,27 @@ namespace BattleRoyale.Maps.EditorTools
             if (mapDefinition == null)
             {
                 return null;
+            }
+
+            var manager = ActiveMapManager.Find();
+            if (manager != null &&
+                manager.ActiveMap != null &&
+                manager.ActiveMap.definition == mapDefinition)
+            {
+                return manager.ActiveMap.transform;
+            }
+
+            var maps = UnityEngine.Object.FindObjectsByType<MapInstance>(
+                FindObjectsInactive.Include,
+                FindObjectsSortMode.None);
+            foreach (var map in maps)
+            {
+                if (map != null &&
+                    map.definition == mapDefinition &&
+                    map.gameObject.scene.IsValid())
+                {
+                    return map.transform;
+                }
             }
 
             var rootName = $"Map_{mapDefinition.name.Replace("_Map", string.Empty)}";

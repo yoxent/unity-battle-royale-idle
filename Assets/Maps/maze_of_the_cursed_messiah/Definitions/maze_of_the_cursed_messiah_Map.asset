@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3503e613d5c33349941d0854c67e07a, type: 3}
+  m_Name: maze_of_the_cursed_messiah_Map
+  m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Maps.MapDefinition
+  layoutJson: {fileID: 4900000, guid: 0942a2686a9e78941ba42f27da171a5e, type: 3}
+  narrativeMarkdown: {fileID: 4900000, guid: 082584aa0fc45dc46a85b71da7f32121, type: 3}
+  visualMap: {fileID: 2800000, guid: 8a688feeb0f17b94f978252d6e5f314f, type: 3}
+  heightMap: {fileID: 0}
+  visualMaterial: {fileID: 2100000, guid: ecaa1bfb710e589458a9f85f24a35560, type: 2}
+  worldScale: 20
+  flipHeightY: 0
+  sourceMin: {x: -1, y: -7}
+  sourceMax: {x: 39, y: 26}
+  baseHeight: 0
+  heightScale: 0
+  heightResolution: 2
+  wallHeight: 3
+  wallThickness: 0.7
+  generateBuildingWalls: 0
+  generateTreeColliders: 0
+  useImageCornerFit: 1
+  imageUpperLeftUv: {x: 0.010598207, y: 0.99265367}
+  imageLowerRightUv: {x: 0.99098855, y: 0.014611707}
+  editImageCornersInScene: 1
+  showDungeonWalls: 1
+  overrideNavMeshVoxelSize: 0
+  navMeshVoxelSize: 0.16666667
+  replaceGeneratedRoot: 1
+  disableOtherGeneratedMaps: 1
+  setAsActiveCameraMap: 1
+  bakedPrefab: {fileID: 1589974080845029949, guid: 812aadb55746b5240ae6b59ecf27bda1, type: 3}
+  generator: dungeon
+  generatorVersion: 1.2.7
+  features:
+  - id: rects
+    type: Rooms
+    geometryCount: 77
+    coordinateCount: 308
+  - id: doors
+    type: Doors
+    geometryCount: 44
+    coordinateCount: 44
+  - id: water
+    type: BlockedCells
+    geometryCount: 0
+    coordinateCount: 0
+  - id: columns
+    type: Columns
+    geometryCount: 34
+    coordinateCount: 34
+  supportedGameModes: 00000000
+  modeConfigurations:
+  - {fileID: 11400000, guid: a89d5b7633314b04a9dbc424c2c4da32, type: 2}
