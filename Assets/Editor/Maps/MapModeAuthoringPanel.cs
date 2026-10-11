@@ -1,0 +1,1388 @@
+#if UNITY_EDITOR
+using System;
+using System.Collections.Generic;
+using System.IO;
+using BattleRoyale.Maps;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Rendering;
+
+namespace BattleRoyale.Maps.EditorTools
+{
+    [Serializable]
+    internal sealed class MapModeAuthoringPanel
+    {
+        private const string MarkerRootName = "GameModePoints";
+        private const string MarkerDiscName = "MarkerDisc";
+        private const float MinimumMarkerDiameter = 8f;
+        private const float NewSpawnRingRadius = 36f;
+        private const string MarkerMaterialPath = "Assets/Materials/MarkerCube.mat";
+
+        [SerializeField] private MapGameMode selectedMode = MapGameMode.BattleRoyale;
+        [SerializeField] private MapModeConfiguration selectedConfiguration;
+        [SerializeField] private string variantName = "Solo";
+        [SerializeField] private int teamCount = 20;
+        [SerializeField] private int teamSize = 1;
+        [SerializeField] private bool editPointsInSceneView = true;
+
+        [NonSerialized] private MapDefinition activeMap;
+        [NonSerialized] private MapDefinition lastMap;
+        [NonSerialized] private bool allowAutomaticConfigurationSelection = true;
+        [NonSerialized] private bool sceneGuiRegistered;
+
+        public void Draw(MapDefinition mapDefinition, string definitionsFolder)
+        {
+            activeMap = mapDefinition;
+            if (lastMap != mapDefinition)
+            {
+                lastMap = mapDefinition;
+                selectedConfiguration = null;
+                allowAutomaticConfigurationSelection = true;
+                InitializeDraftForMode();
+                StopSceneGui();
+            }
+
+            if (mapDefinition == null)
+            {
+                StopSceneGui();
+                return;
+            }
+
+            mapDefinition.supportedGameModes ??= new List<MapGameMode>();
+            mapDefinition.modeConfigurations ??= new List<MapModeConfiguration>();
+
+            EditorGUILayout.LabelField("Game Modes", EditorStyles.boldLabel);
+            DrawSupportedModes(mapDefinition);
+
+            var supportedModes = GetSupportedModes(mapDefinition);
+            if (supportedModes.Count == 0)
+            {
+                StopSceneGui();
+                EditorGUILayout.HelpBox(
+                    "Select at least one game mode that this map supports.",
+                    MessageType.None);
+                EditorGUILayout.Space(8f);
+                return;
+            }
+
+            if (!mapDefinition.SupportsMode(selectedMode))
+            {
+                selectedMode = supportedModes[0];
+                selectedConfiguration = FindConfiguration(mapDefinition, selectedMode);
+                allowAutomaticConfigurationSelection = true;
+            }
+
+            var previousMode = selectedMode;
+            selectedMode = (MapGameMode)EditorGUILayout.EnumPopup(
+                "Mode",
+                selectedMode);
+            if (previousMode != selectedMode)
+            {
+                InitializeDraftForMode();
+                selectedConfiguration = FindConfiguration(mapDefinition, selectedMode);
+                allowAutomaticConfigurationSelection = true;
+                LoadSelectedConfiguration();
+            }
+
+            if (selectedConfiguration == null &&
+                allowAutomaticConfigurationSelection)
+            {
+                var existingConfiguration = FindConfiguration(mapDefinition, selectedMode);
+                if (existingConfiguration != null)
+                {
+                    selectedConfiguration = existingConfiguration;
+                    LoadSelectedConfiguration();
+                }
+            }
+
+            var previousConfiguration = selectedConfiguration;
+            selectedConfiguration = (MapModeConfiguration)EditorGUILayout.ObjectField(
+                "Mode Configuration",
+                selectedConfiguration,
+                typeof(MapModeConfiguration),
+                false);
+            if (previousConfiguration != selectedConfiguration)
+            {
+                allowAutomaticConfigurationSelection = selectedConfiguration != null;
+                LoadSelectedConfiguration();
+            }
+
+            if (selectedConfiguration != null &&
+                (selectedConfiguration.map != mapDefinition ||
+                 selectedConfiguration.mode != selectedMode))
+            {
+                EditorGUILayout.HelpBox(
+                    "The selected configuration belongs to a different map or mode.",
+                    MessageType.Error);
+                StopSceneGui();
+                EditorGUILayout.Space(8f);
+                return;
+            }
+
+            DrawConfigurationSettings(mapDefinition, definitionsFolder);
+            DrawConfigurationPoints(mapDefinition);
+            if (selectedConfiguration != null)
+            {
+                EnsureMarkerDiscs(selectedConfiguration);
+            }
+
+            if (selectedConfiguration != null &&
+                GUILayout.Button("Save Point Positions To Map Data"))
+            {
+                SaveScenePointsToConfiguration();
+            }
+
+            editPointsInSceneView = EditorGUILayout.Toggle(
+                new GUIContent(
+                    "Edit Points In Scene View",
+                    "Show position handles for the selected configuration in the Scene view."),
+                editPointsInSceneView);
+
+            UpdateSceneGuiRegistration();
+            EditorGUILayout.Space(8f);
+        }
+
+        public void Dispose()
+        {
+            StopSceneGui();
+        }
+
+        public bool ValidateForGeneration(
+            MapDefinition mapDefinition,
+            out string errorMessage)
+        {
+            errorMessage = string.Empty;
+            if (mapDefinition == null ||
+                mapDefinition.modeConfigurations == null)
+            {
+                return true;
+            }
+
+            foreach (var configuration in mapDefinition.modeConfigurations)
+            {
+                if (configuration == null ||
+                    configuration.map != mapDefinition ||
+                    !mapDefinition.SupportsMode(configuration.mode))
+                {
+                    continue;
+                }
+
+                if (configuration.IsBattleRoyale &&
+                    (configuration.battleRoyaleSpawnPoints == null ||
+                     configuration.battleRoyaleSpawnPoints.Count == 0))
+                {
+                    errorMessage =
+                        $"Battle Royale configuration '{configuration.name}' needs at least one starting spawn point.";
+                    return false;
+                }
+
+                if (configuration.IsCaptureTheFlag &&
+                    (configuration.captureTheFlagTeams == null ||
+                     configuration.captureTheFlagTeams.Count <
+                     Mathf.Max(2, configuration.teamCount)))
+                {
+                    errorMessage =
+                        $"Capture the Flag configuration '{configuration.name}' needs spawn, base, and flag points for every team.";
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public void GenerateMarkers(Transform mapRoot, MapDefinition mapDefinition)
+        {
+            if (mapRoot == null || mapDefinition == null)
+            {
+                return;
+            }
+
+            var existingMarkerRoot = mapRoot.Find(MarkerRootName);
+            if (existingMarkerRoot != null)
+            {
+                Undo.DestroyObjectImmediate(existingMarkerRoot.gameObject);
+            }
+
+            if (mapDefinition.modeConfigurations == null ||
+                mapDefinition.modeConfigurations.Count == 0)
+            {
+                return;
+            }
+
+            var markerRoot = new GameObject(MarkerRootName);
+            markerRoot.transform.SetParent(mapRoot, false);
+
+            foreach (var configuration in mapDefinition.modeConfigurations)
+            {
+                if (configuration == null ||
+                    configuration.map != mapDefinition ||
+                    !mapDefinition.SupportsMode(configuration.mode))
+                {
+                    continue;
+                }
+
+                var configurationRoot = new GameObject(
+                    $"{configuration.mode}_{SanitizeName(configuration.variantName)}");
+                configurationRoot.transform.SetParent(markerRoot.transform, false);
+
+                if (configuration.IsBattleRoyale)
+                {
+                    AddBattleRoyaleMarkers(configurationRoot.transform, configuration);
+                }
+                else if (configuration.IsCaptureTheFlag)
+                {
+                    AddCaptureTheFlagMarkers(configurationRoot.transform, configuration);
+                }
+            }
+        }
+
+        private void DrawSupportedModes(MapDefinition mapDefinition)
+        {
+            foreach (MapGameMode mode in Enum.GetValues(typeof(MapGameMode)))
+            {
+                var isSupported = mapDefinition.SupportsMode(mode);
+                var shouldSupport = EditorGUILayout.ToggleLeft(
+                    ObjectNames.NicifyVariableName(mode.ToString()),
+                    isSupported);
+                if (shouldSupport == isSupported)
+                {
+                    continue;
+                }
+
+                Undo.RecordObject(mapDefinition, "Change Supported Map Modes");
+                if (shouldSupport)
+                {
+                    mapDefinition.supportedGameModes.Add(mode);
+                }
+                else
+                {
+                    mapDefinition.supportedGameModes.Remove(mode);
+                    if (selectedMode == mode)
+                    {
+                        selectedConfiguration = null;
+                        allowAutomaticConfigurationSelection = true;
+                    }
+                }
+
+                EditorUtility.SetDirty(mapDefinition);
+                AssetDatabase.SaveAssets();
+            }
+        }
+
+        private void DrawConfigurationSettings(
+            MapDefinition mapDefinition,
+            string definitionsFolder)
+        {
+            EditorGUILayout.LabelField(
+                $"{ObjectNames.NicifyVariableName(selectedMode.ToString())} Settings",
+                EditorStyles.boldLabel);
+
+            variantName = EditorGUILayout.TextField("Variant", variantName);
+            teamCount = Mathf.Max(
+                selectedMode == MapGameMode.CaptureTheFlag ? 2 : 1,
+                EditorGUILayout.IntField("Team Count", teamCount));
+            teamSize = Mathf.Max(
+                1,
+                EditorGUILayout.IntField("Players Per Team", teamSize));
+            if (selectedMode == MapGameMode.BattleRoyale)
+            {
+                EditorGUILayout.HelpBox(
+                    "Battle Royale creates one starting spawn point for each team. Move the circles in the scene, then save those positions back to the map data.",
+                    MessageType.None);
+            }
+
+            if (selectedConfiguration != null)
+            {
+                ApplySettingsToConfiguration();
+            }
+
+            if (GUILayout.Button(
+                    selectedConfiguration == null
+                        ? "Create Mode Configuration"
+                        : "Save Mode Configuration"))
+            {
+                CreateOrUpdateConfiguration(mapDefinition, definitionsFolder);
+            }
+
+            if (selectedConfiguration != null &&
+                GUILayout.Button("Create New Mode Variant"))
+            {
+                selectedConfiguration = null;
+                allowAutomaticConfigurationSelection = false;
+                InitializeDraftForMode();
+                StopSceneGui();
+            }
+
+            if (selectedConfiguration == null)
+            {
+                EditorGUILayout.HelpBox(
+                    "Create a mode configuration to place this mode's points.",
+                    MessageType.None);
+            }
+        }
+
+        private void DrawConfigurationPoints(MapDefinition mapDefinition)
+        {
+            if (selectedConfiguration == null)
+            {
+                return;
+            }
+
+            if (selectedConfiguration.IsBattleRoyale)
+            {
+                DrawBattleRoyalePoints(mapDefinition);
+            }
+            else if (selectedConfiguration.IsCaptureTheFlag)
+            {
+                DrawCaptureTheFlagPoints(mapDefinition);
+            }
+        }
+
+        private void DrawBattleRoyalePoints(MapDefinition mapDefinition)
+        {
+            selectedConfiguration.battleRoyaleSpawnPoints ??= new List<MapModePoint>();
+            EditorGUILayout.LabelField("Starting Spawn Points", EditorStyles.boldLabel);
+
+            for (var i = 0; i < selectedConfiguration.battleRoyaleSpawnPoints.Count; i++)
+            {
+                var point = selectedConfiguration.battleRoyaleSpawnPoints[i];
+                if (point == null)
+                {
+                    point = new MapModePoint();
+                    selectedConfiguration.battleRoyaleSpawnPoints[i] = point;
+                }
+
+                using (new EditorGUILayout.HorizontalScope())
+                {
+                    EditorGUILayout.LabelField($"Spawn {i + 1}", GUILayout.Width(60f));
+                    EditorGUI.BeginChangeCheck();
+                    var pointId = EditorGUILayout.TextField(point.id);
+                    var pointIdChanged = EditorGUI.EndChangeCheck();
+                    if (GUILayout.Button("Remove", GUILayout.Width(70f)))
+                    {
+                        teamCount = Mathf.Max(1, teamCount - 1);
+                        Undo.RecordObject(selectedConfiguration, "Remove Battle Royale Spawn Point");
+                        selectedConfiguration.teamCount = teamCount;
+                        EnsureBattleRoyaleSpawnPoints(selectedConfiguration);
+                        EditorUtility.SetDirty(selectedConfiguration);
+                        SyncBattleRoyaleMarkers(selectedConfiguration);
+                        i--;
+                        continue;
+                    }
+
+                    if (pointIdChanged)
+                    {
+                        Undo.RecordObject(
+                            selectedConfiguration,
+                            "Rename Battle Royale Spawn Point");
+                        point.id = pointId;
+                        EditorUtility.SetDirty(selectedConfiguration);
+                    }
+                }
+
+                DrawPointPosition(selectedConfiguration, point, "Position");
+                EditorGUI.BeginChangeCheck();
+                var radius = Mathf.Max(
+                    0f,
+                    EditorGUILayout.FloatField("Scatter Radius", point.radius));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    Undo.RecordObject(
+                        selectedConfiguration,
+                        "Edit Battle Royale Spawn Radius");
+                    point.radius = radius;
+                    EditorUtility.SetDirty(selectedConfiguration);
+                    UpdateMarkerDiscDiameter(selectedConfiguration, i, radius);
+                }
+            }
+
+            if (GUILayout.Button("Add Battle Royale Spawn Point"))
+            {
+                teamCount++;
+                Undo.RecordObject(selectedConfiguration, "Add Battle Royale Spawn Point");
+                selectedConfiguration.teamCount = teamCount;
+                EnsureBattleRoyaleSpawnPoints(selectedConfiguration);
+                EditorUtility.SetDirty(selectedConfiguration);
+                SyncBattleRoyaleMarkers(selectedConfiguration);
+            }
+        }
+
+        private void DrawCaptureTheFlagPoints(MapDefinition mapDefinition)
+        {
+            selectedConfiguration.captureTheFlagTeams ??= new List<MapModeTeamPoints>();
+            EnsureCaptureTheFlagTeams(selectedConfiguration);
+            EditorGUILayout.LabelField("Team Points", EditorStyles.boldLabel);
+
+            for (var i = 0; i < selectedConfiguration.captureTheFlagTeams.Count; i++)
+            {
+                var team = selectedConfiguration.captureTheFlagTeams[i];
+                EditorGUI.BeginChangeCheck();
+                EditorGUILayout.LabelField(team.teamId, EditorStyles.miniBoldLabel);
+                var teamId = EditorGUILayout.TextField("Team Id", team.teamId);
+                var spawnPosition = EditorGUILayout.Vector3Field(
+                    "Team Spawn",
+                    team.spawnPosition);
+                var basePosition = EditorGUILayout.Vector3Field(
+                    "Base",
+                    team.basePosition);
+                var flagPosition = EditorGUILayout.Vector3Field(
+                    "Flag",
+                    team.flagPosition);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    Undo.RecordObject(
+                        selectedConfiguration,
+                        "Edit Capture The Flag Points");
+                    team.teamId = teamId;
+                    team.spawnPosition = spawnPosition;
+                    team.basePosition = basePosition;
+                    team.flagPosition = flagPosition;
+                    EditorUtility.SetDirty(selectedConfiguration);
+                    UpdateMarkerTransform(
+                        selectedConfiguration,
+                        MapModePointType.TeamSpawn,
+                        i,
+                        i,
+                        spawnPosition);
+                    UpdateMarkerTransform(
+                        selectedConfiguration,
+                        MapModePointType.TeamBase,
+                        i,
+                        i,
+                        basePosition);
+                    UpdateMarkerTransform(
+                        selectedConfiguration,
+                        MapModePointType.TeamFlag,
+                        i,
+                        i,
+                        flagPosition);
+                }
+                EditorGUILayout.Space(4f);
+            }
+
+            if (GUILayout.Button("Reset Team Points To Map Center"))
+            {
+                Undo.RecordObject(selectedConfiguration, "Reset Capture The Flag Points");
+                for (var i = 0; i < selectedConfiguration.captureTheFlagTeams.Count; i++)
+                {
+                    var center = GetMapCenter(mapDefinition);
+                    selectedConfiguration.captureTheFlagTeams[i].spawnPosition = center;
+                    selectedConfiguration.captureTheFlagTeams[i].basePosition = center;
+                    selectedConfiguration.captureTheFlagTeams[i].flagPosition = center;
+                }
+
+                EditorUtility.SetDirty(selectedConfiguration);
+            }
+        }
+
+        private void DrawPointPosition(
+            MapModeConfiguration configuration,
+            MapModePoint point,
+            string label)
+        {
+            EditorGUI.BeginChangeCheck();
+            var position = EditorGUILayout.Vector3Field(label, point.position);
+            if (!EditorGUI.EndChangeCheck())
+            {
+                return;
+            }
+
+            Undo.RecordObject(configuration, "Move Battle Royale Spawn Point");
+            point.position = position;
+            EditorUtility.SetDirty(configuration);
+            UpdateMarkerTransform(
+                configuration,
+                MapModePointType.BattleRoyaleSpawn,
+                configuration.battleRoyaleSpawnPoints.IndexOf(point),
+                -1,
+                position);
+        }
+
+        private void CreateOrUpdateConfiguration(
+            MapDefinition mapDefinition,
+            string definitionsFolder)
+        {
+            var normalizedVariantName = string.IsNullOrWhiteSpace(variantName)
+                ? "Default"
+                : variantName.Trim();
+            var safeVariantName = SanitizeName(normalizedVariantName);
+            if (selectedConfiguration == null)
+            {
+                var mapName = mapDefinition.name.Replace("_Map", string.Empty);
+                var path = AssetDatabase.GenerateUniqueAssetPath(
+                    $"{definitionsFolder}/{mapName}_{selectedMode}_{safeVariantName}.asset");
+                selectedConfiguration =
+                    ScriptableObject.CreateInstance<MapModeConfiguration>();
+                selectedConfiguration.name =
+                    $"{mapName}_{selectedMode}_{safeVariantName}";
+                AssetDatabase.CreateAsset(selectedConfiguration, path);
+            }
+
+            selectedConfiguration.map = mapDefinition;
+            selectedConfiguration.mode = selectedMode;
+            selectedConfiguration.variantName = normalizedVariantName;
+            selectedConfiguration.teamCount = teamCount;
+            selectedConfiguration.teamSize = teamSize;
+            EnsureLists(selectedConfiguration);
+            ApplySettingsToConfiguration();
+
+            if (!mapDefinition.supportedGameModes.Contains(selectedMode))
+            {
+                mapDefinition.supportedGameModes.Add(selectedMode);
+            }
+
+            if (!mapDefinition.modeConfigurations.Contains(selectedConfiguration))
+            {
+                mapDefinition.modeConfigurations.Add(selectedConfiguration);
+            }
+
+            allowAutomaticConfigurationSelection = true;
+            EditorUtility.SetDirty(selectedConfiguration);
+            EditorUtility.SetDirty(mapDefinition);
+            AssetDatabase.SaveAssets();
+            Selection.activeObject = selectedConfiguration;
+        }
+
+        private void ApplySettingsToConfiguration()
+        {
+            if (selectedConfiguration == null)
+            {
+                return;
+            }
+
+            EnsureLists(selectedConfiguration);
+            var nextVariant = string.IsNullOrWhiteSpace(variantName)
+                ? "Default"
+                : variantName.Trim();
+            var nextTeamCount = Mathf.Max(
+                selectedMode == MapGameMode.CaptureTheFlag ? 2 : 1,
+                teamCount);
+            var nextTeamSize = Mathf.Max(1, teamSize);
+            var spawnCountChanged = false;
+            if (selectedConfiguration.variantName == nextVariant &&
+                selectedConfiguration.teamCount == nextTeamCount &&
+                selectedConfiguration.teamSize == nextTeamSize)
+            {
+                if (selectedConfiguration.IsCaptureTheFlag)
+                {
+                    EnsureCaptureTheFlagTeams(selectedConfiguration);
+                }
+                else if (selectedConfiguration.IsBattleRoyale &&
+                         SpawnCountNeedsUpdate(selectedConfiguration))
+                {
+                    Undo.RecordObject(
+                        selectedConfiguration,
+                        "Update Battle Royale Spawn Points");
+                    spawnCountChanged = EnsureBattleRoyaleSpawnPoints(
+                        selectedConfiguration);
+                }
+
+                if (spawnCountChanged)
+                {
+                    EditorUtility.SetDirty(selectedConfiguration);
+                    SyncBattleRoyaleMarkers(selectedConfiguration);
+                }
+
+                return;
+            }
+
+            Undo.RecordObject(selectedConfiguration, "Update Map Mode Settings");
+            selectedConfiguration.variantName = nextVariant;
+            selectedConfiguration.teamCount = nextTeamCount;
+            selectedConfiguration.teamSize = nextTeamSize;
+            if (selectedConfiguration.IsCaptureTheFlag)
+            {
+                EnsureCaptureTheFlagTeams(selectedConfiguration);
+            }
+            else if (selectedConfiguration.IsBattleRoyale)
+            {
+                spawnCountChanged = EnsureBattleRoyaleSpawnPoints(
+                    selectedConfiguration);
+            }
+
+            EditorUtility.SetDirty(selectedConfiguration);
+            if (spawnCountChanged)
+            {
+                SyncBattleRoyaleMarkers(selectedConfiguration);
+            }
+        }
+
+        private void LoadSelectedConfiguration()
+        {
+            if (selectedConfiguration == null)
+            {
+                InitializeDraftForMode();
+                return;
+            }
+
+            selectedMode = selectedConfiguration.mode;
+            variantName = selectedConfiguration.variantName;
+            teamCount = selectedConfiguration.teamCount;
+            teamSize = selectedConfiguration.teamSize;
+            EnsureLists(selectedConfiguration);
+            if (selectedConfiguration.IsCaptureTheFlag)
+            {
+                EnsureCaptureTheFlagTeams(selectedConfiguration);
+            }
+        }
+
+        private void InitializeDraftForMode()
+        {
+            if (selectedMode == MapGameMode.BattleRoyale)
+            {
+                variantName = "Solo";
+                teamCount = 20;
+                teamSize = 1;
+            }
+            else
+            {
+                variantName = "Default";
+                teamCount = 2;
+                teamSize = 3;
+            }
+        }
+
+        private void UpdateSceneGuiRegistration()
+        {
+            var shouldRegister = editPointsInSceneView &&
+                                 selectedConfiguration != null &&
+                                 selectedConfiguration.map == activeMap &&
+                                 selectedConfiguration.mode == selectedMode;
+            if (shouldRegister == sceneGuiRegistered)
+            {
+                return;
+            }
+
+            if (shouldRegister)
+            {
+                SceneView.duringSceneGui += OnSceneGUI;
+                sceneGuiRegistered = true;
+            }
+            else
+            {
+                StopSceneGui();
+            }
+
+            SceneView.RepaintAll();
+        }
+
+        private void StopSceneGui()
+        {
+            if (!sceneGuiRegistered)
+            {
+                return;
+            }
+
+            SceneView.duringSceneGui -= OnSceneGUI;
+            sceneGuiRegistered = false;
+        }
+
+        private void OnSceneGUI(SceneView sceneView)
+        {
+            if (selectedConfiguration == null ||
+                selectedConfiguration.map == null ||
+                selectedConfiguration.map != activeMap)
+            {
+                return;
+            }
+
+            var mapRoot = FindMapRoot(selectedConfiguration.map);
+            if (mapRoot == null)
+            {
+                Handles.BeginGUI();
+                EditorGUILayout.HelpBox(
+                    "Generate this map root to edit mode points in the Scene view.",
+                    MessageType.Info);
+                Handles.EndGUI();
+                return;
+            }
+
+            if (selectedConfiguration.IsBattleRoyale)
+            {
+                DrawBattleRoyaleHandles(mapRoot);
+            }
+            else if (selectedConfiguration.IsCaptureTheFlag)
+            {
+                DrawCaptureTheFlagHandles(mapRoot);
+            }
+        }
+
+        private void DrawBattleRoyaleHandles(Transform mapRoot)
+        {
+            if (selectedConfiguration.battleRoyaleSpawnPoints == null)
+            {
+                return;
+            }
+
+            for (var i = 0; i < selectedConfiguration.battleRoyaleSpawnPoints.Count; i++)
+            {
+                var point = selectedConfiguration.battleRoyaleSpawnPoints[i];
+                if (point == null)
+                {
+                    continue;
+                }
+
+                DrawPositionHandle(
+                    mapRoot,
+                    selectedConfiguration,
+                    MapModePointType.BattleRoyaleSpawn,
+                    i,
+                    -1,
+                    $"BR Spawn {i + 1}",
+                    Color.cyan,
+                    ref point.position);
+            }
+        }
+
+        private void DrawCaptureTheFlagHandles(Transform mapRoot)
+        {
+            if (selectedConfiguration.captureTheFlagTeams == null)
+            {
+                return;
+            }
+
+            for (var i = 0; i < selectedConfiguration.captureTheFlagTeams.Count; i++)
+            {
+                var team = selectedConfiguration.captureTheFlagTeams[i];
+                if (team == null)
+                {
+                    continue;
+                }
+
+                DrawPositionHandle(
+                    mapRoot,
+                    selectedConfiguration,
+                    MapModePointType.TeamSpawn,
+                    i,
+                    i,
+                    $"{team.teamId} Spawn",
+                    Color.green,
+                    ref team.spawnPosition);
+                DrawPositionHandle(
+                    mapRoot,
+                    selectedConfiguration,
+                    MapModePointType.TeamBase,
+                    i,
+                    i,
+                    $"{team.teamId} Base",
+                    Color.yellow,
+                    ref team.basePosition);
+                DrawPositionHandle(
+                    mapRoot,
+                    selectedConfiguration,
+                    MapModePointType.TeamFlag,
+                    i,
+                    i,
+                    $"{team.teamId} Flag",
+                    Color.red,
+                    ref team.flagPosition);
+            }
+        }
+
+        private static void DrawPositionHandle(
+            Transform mapRoot,
+            MapModeConfiguration configuration,
+            MapModePointType pointType,
+            int index,
+            int teamIndex,
+            string label,
+            Color color,
+            ref Vector3 localPosition)
+        {
+            var worldPosition = mapRoot.TransformPoint(localPosition);
+            Handles.color = color;
+            Handles.SphereHandleCap(
+                0,
+                worldPosition,
+                Quaternion.identity,
+                HandleUtility.GetHandleSize(worldPosition) * 0.2f,
+                EventType.Repaint);
+            Handles.Label(worldPosition + Vector3.up * 2f, label);
+
+            EditorGUI.BeginChangeCheck();
+            var newWorldPosition = Handles.PositionHandle(
+                worldPosition,
+                Quaternion.identity);
+            if (!EditorGUI.EndChangeCheck())
+            {
+                return;
+            }
+
+            Undo.RecordObject(configuration, $"Move {label}");
+            localPosition = mapRoot.InverseTransformPoint(newWorldPosition);
+            EditorUtility.SetDirty(configuration);
+            UpdateMarkerTransform(
+                configuration,
+                pointType,
+                index,
+                teamIndex,
+                localPosition);
+        }
+
+        private static void UpdateMarkerTransform(
+            MapModeConfiguration configuration,
+            MapModePointType pointType,
+            int index,
+            int teamIndex,
+            Vector3 localPosition)
+        {
+            foreach (var marker in Resources.FindObjectsOfTypeAll<MapModePointMarker>())
+            {
+                if (marker.configuration != configuration ||
+                    marker.pointType != pointType ||
+                    marker.index != index ||
+                    marker.teamIndex != teamIndex ||
+                    !marker.gameObject.scene.IsValid() ||
+                    !marker.gameObject.scene.isLoaded)
+                {
+                    continue;
+                }
+
+                marker.transform.localPosition = localPosition;
+                EditorUtility.SetDirty(marker.transform);
+            }
+        }
+
+        private static Transform FindMapRoot(MapDefinition mapDefinition)
+        {
+            foreach (var mapInstance in Resources.FindObjectsOfTypeAll<MapInstance>())
+            {
+                if (mapInstance.definition == mapDefinition &&
+                    mapInstance.gameObject.scene.IsValid() &&
+                    mapInstance.gameObject.scene.isLoaded)
+                {
+                    return mapInstance.transform;
+                }
+            }
+
+            return null;
+        }
+
+        private static void AddBattleRoyaleMarkers(
+            Transform parent,
+            MapModeConfiguration configuration)
+        {
+            if (configuration.battleRoyaleSpawnPoints == null)
+            {
+                return;
+            }
+
+            for (var i = 0; i < configuration.battleRoyaleSpawnPoints.Count; i++)
+            {
+                var point = configuration.battleRoyaleSpawnPoints[i];
+                if (point == null)
+                {
+                    continue;
+                }
+
+                AddMarker(
+                    parent,
+                    configuration,
+                    MapModePointType.BattleRoyaleSpawn,
+                    i,
+                    -1,
+                    point.id,
+                    point.position);
+            }
+        }
+
+        private static void AddCaptureTheFlagMarkers(
+            Transform parent,
+            MapModeConfiguration configuration)
+        {
+            if (configuration.captureTheFlagTeams == null)
+            {
+                return;
+            }
+
+            for (var i = 0; i < configuration.captureTheFlagTeams.Count; i++)
+            {
+                var team = configuration.captureTheFlagTeams[i];
+                if (team == null)
+                {
+                    continue;
+                }
+
+                AddMarker(
+                    parent,
+                    configuration,
+                    MapModePointType.TeamSpawn,
+                    i,
+                    i,
+                    $"{team.teamId}_Spawn",
+                    team.spawnPosition);
+                AddMarker(
+                    parent,
+                    configuration,
+                    MapModePointType.TeamBase,
+                    i,
+                    i,
+                    $"{team.teamId}_Base",
+                    team.basePosition);
+                AddMarker(
+                    parent,
+                    configuration,
+                    MapModePointType.TeamFlag,
+                    i,
+                    i,
+                    $"{team.teamId}_Flag",
+                    team.flagPosition);
+            }
+        }
+
+        private static void AddMarker(
+            Transform parent,
+            MapModeConfiguration configuration,
+            MapModePointType pointType,
+            int index,
+            int teamIndex,
+            string label,
+            Vector3 localPosition)
+        {
+            var markerObject = new GameObject(
+                $"{pointType}_{SanitizeName(label)}");
+            markerObject.transform.SetParent(parent, false);
+            markerObject.transform.localPosition = localPosition;
+            var marker = markerObject.AddComponent<MapModePointMarker>();
+            marker.configuration = configuration;
+            marker.pointType = pointType;
+            marker.index = index;
+            marker.teamIndex = teamIndex;
+            var scatterRadius = pointType == MapModePointType.BattleRoyaleSpawn &&
+                                configuration.battleRoyaleSpawnPoints != null &&
+                                index >= 0 &&
+                                index < configuration.battleRoyaleSpawnPoints.Count &&
+                                configuration.battleRoyaleSpawnPoints[index] != null
+                ? configuration.battleRoyaleSpawnPoints[index].radius
+                : 0f;
+            AddMarkerDisc(
+                markerObject.transform,
+                scatterRadius,
+                MapModePointMarker.GetColor(pointType));
+        }
+
+        private void SaveScenePointsToConfiguration()
+        {
+            if (selectedConfiguration == null)
+            {
+                return;
+            }
+
+            Undo.RecordObject(selectedConfiguration, "Save Point Positions To Map Data");
+            EnsureLists(selectedConfiguration);
+            foreach (var marker in Resources.FindObjectsOfTypeAll<MapModePointMarker>())
+            {
+                if (marker.configuration != selectedConfiguration ||
+                    !marker.gameObject.scene.IsValid() ||
+                    !marker.gameObject.scene.isLoaded)
+                {
+                    continue;
+                }
+
+                var position = marker.transform.localPosition;
+                if (marker.pointType == MapModePointType.BattleRoyaleSpawn &&
+                    selectedConfiguration.battleRoyaleSpawnPoints != null &&
+                    marker.index >= 0 &&
+                    marker.index < selectedConfiguration.battleRoyaleSpawnPoints.Count &&
+                    selectedConfiguration.battleRoyaleSpawnPoints[marker.index] != null)
+                {
+                    selectedConfiguration.battleRoyaleSpawnPoints[marker.index].position =
+                        position;
+                    continue;
+                }
+
+                if (selectedConfiguration.captureTheFlagTeams == null ||
+                    marker.teamIndex < 0 ||
+                    marker.teamIndex >= selectedConfiguration.captureTheFlagTeams.Count)
+                {
+                    continue;
+                }
+
+                var team = selectedConfiguration.captureTheFlagTeams[marker.teamIndex];
+                if (team == null)
+                {
+                    continue;
+                }
+
+                if (marker.pointType == MapModePointType.TeamSpawn)
+                {
+                    team.spawnPosition = position;
+                }
+                else if (marker.pointType == MapModePointType.TeamBase)
+                {
+                    team.basePosition = position;
+                }
+                else if (marker.pointType == MapModePointType.TeamFlag)
+                {
+                    team.flagPosition = position;
+                }
+            }
+
+            EditorUtility.SetDirty(selectedConfiguration);
+            AssetDatabase.SaveAssets();
+        }
+
+        private static bool SpawnCountNeedsUpdate(MapModeConfiguration configuration)
+        {
+            if (configuration == null || !configuration.IsBattleRoyale)
+            {
+                return false;
+            }
+
+            var count = configuration.battleRoyaleSpawnPoints == null
+                ? 0
+                : configuration.battleRoyaleSpawnPoints.Count;
+            return count != Mathf.Max(1, configuration.teamCount);
+        }
+
+        private static bool EnsureBattleRoyaleSpawnPoints(
+            MapModeConfiguration configuration)
+        {
+            if (configuration == null || !configuration.IsBattleRoyale)
+            {
+                return false;
+            }
+
+            EnsureLists(configuration);
+            var requiredCount = Mathf.Max(1, configuration.teamCount);
+            var changed = false;
+            var center = GetMapCenter(configuration.map);
+            while (configuration.battleRoyaleSpawnPoints.Count < requiredCount)
+            {
+                var index = configuration.battleRoyaleSpawnPoints.Count;
+                var angle = (index + 0.5f) / requiredCount * Mathf.PI * 2f;
+                configuration.battleRoyaleSpawnPoints.Add(
+                    new MapModePoint
+                    {
+                        id = $"Spawn {index + 1}",
+                        position = center + new Vector3(
+                            Mathf.Cos(angle) * NewSpawnRingRadius,
+                            0f,
+                            Mathf.Sin(angle) * NewSpawnRingRadius)
+                    });
+                changed = true;
+            }
+
+            while (configuration.battleRoyaleSpawnPoints.Count > requiredCount)
+            {
+                configuration.battleRoyaleSpawnPoints.RemoveAt(
+                    configuration.battleRoyaleSpawnPoints.Count - 1);
+                changed = true;
+            }
+
+            return changed;
+        }
+
+        private static void SyncBattleRoyaleMarkers(
+            MapModeConfiguration configuration)
+        {
+            if (configuration == null || !configuration.IsBattleRoyale)
+            {
+                return;
+            }
+
+            var parent = FindConfigurationMarkerParent(configuration, true);
+            if (parent == null)
+            {
+                return;
+            }
+
+            var points = configuration.battleRoyaleSpawnPoints;
+            var existing = new Dictionary<int, MapModePointMarker>();
+            for (var childIndex = parent.childCount - 1; childIndex >= 0; childIndex--)
+            {
+                var child = parent.GetChild(childIndex);
+                var marker = child.GetComponent<MapModePointMarker>();
+                if (marker == null ||
+                    marker.pointType != MapModePointType.BattleRoyaleSpawn)
+                {
+                    continue;
+                }
+
+                if (points == null ||
+                    marker.index < 0 ||
+                    marker.index >= points.Count ||
+                    existing.ContainsKey(marker.index))
+                {
+                    Undo.DestroyObjectImmediate(child.gameObject);
+                    continue;
+                }
+
+                existing.Add(marker.index, marker);
+            }
+
+            if (points == null)
+            {
+                return;
+            }
+
+            for (var i = 0; i < points.Count; i++)
+            {
+                var point = points[i];
+                if (point == null || existing.ContainsKey(i))
+                {
+                    continue;
+                }
+
+                AddMarker(
+                    parent,
+                    configuration,
+                    MapModePointType.BattleRoyaleSpawn,
+                    i,
+                    -1,
+                    point.id,
+                    point.position);
+            }
+        }
+
+        private static Transform FindConfigurationMarkerParent(
+            MapModeConfiguration configuration,
+            bool createIfMissing)
+        {
+            var mapRoot = FindMapRoot(configuration.map);
+            if (mapRoot == null)
+            {
+                return null;
+            }
+
+            var markerRoot = mapRoot.Find(MarkerRootName);
+            if (markerRoot == null)
+            {
+                if (!createIfMissing)
+                {
+                    return null;
+                }
+
+                var markerRootObject = new GameObject(MarkerRootName);
+                Undo.RegisterCreatedObjectUndo(markerRootObject, "Create Mode Markers");
+                markerRootObject.transform.SetParent(mapRoot, false);
+                markerRoot = markerRootObject.transform;
+            }
+
+            var configurationName =
+                $"{configuration.mode}_{SanitizeName(configuration.variantName)}";
+            var configurationRoot = markerRoot.Find(configurationName);
+            if (configurationRoot == null && createIfMissing)
+            {
+                var configurationObject = new GameObject(configurationName);
+                Undo.RegisterCreatedObjectUndo(
+                    configurationObject,
+                    "Create Mode Markers");
+                configurationObject.transform.SetParent(markerRoot, false);
+                configurationRoot = configurationObject.transform;
+            }
+
+            return configurationRoot;
+        }
+
+        private static void EnsureMarkerDiscs(MapModeConfiguration configuration)
+        {
+            foreach (var marker in Resources.FindObjectsOfTypeAll<MapModePointMarker>())
+            {
+                if (marker.configuration != configuration ||
+                    marker.transform.Find(MarkerDiscName) != null ||
+                    !marker.gameObject.scene.IsValid() ||
+                    !marker.gameObject.scene.isLoaded)
+                {
+                    continue;
+                }
+
+                var radius = 0f;
+                if (marker.pointType == MapModePointType.BattleRoyaleSpawn &&
+                    configuration.battleRoyaleSpawnPoints != null &&
+                    marker.index >= 0 &&
+                    marker.index < configuration.battleRoyaleSpawnPoints.Count &&
+                    configuration.battleRoyaleSpawnPoints[marker.index] != null)
+                {
+                    radius = configuration.battleRoyaleSpawnPoints[marker.index].radius;
+                }
+
+                AddMarkerDisc(
+                    marker.transform,
+                    radius,
+                    MapModePointMarker.GetColor(marker.pointType));
+                Undo.RegisterCreatedObjectUndo(
+                    marker.transform.Find(MarkerDiscName).gameObject,
+                    "Show Spawn Marker");
+            }
+        }
+
+        private static void UpdateMarkerDiscDiameter(
+            MapModeConfiguration configuration,
+            int index,
+            float scatterRadius)
+        {
+            var diameter = Mathf.Max(MinimumMarkerDiameter, scatterRadius * 2f);
+            foreach (var marker in Resources.FindObjectsOfTypeAll<MapModePointMarker>())
+            {
+                if (marker.configuration != configuration ||
+                    marker.pointType != MapModePointType.BattleRoyaleSpawn ||
+                    marker.index != index ||
+                    !marker.gameObject.scene.IsValid() ||
+                    !marker.gameObject.scene.isLoaded)
+                {
+                    continue;
+                }
+
+                var disc = marker.transform.Find(MarkerDiscName);
+                if (disc == null)
+                {
+                    continue;
+                }
+
+                disc.localScale = new Vector3(diameter, disc.localScale.y, diameter);
+            }
+        }
+
+        private static Mesh discMesh;
+
+        private static void AddMarkerDisc(
+            Transform marker,
+            float scatterRadius,
+            Color color)
+        {
+            if (marker.Find(MarkerDiscName) != null)
+            {
+                return;
+            }
+
+            var disc = new GameObject(MarkerDiscName);
+            disc.transform.SetParent(marker, false);
+            disc.transform.localPosition = new Vector3(0f, 0.25f, 0f);
+            var diameter = Mathf.Max(MinimumMarkerDiameter, scatterRadius * 2f);
+            disc.transform.localScale = new Vector3(diameter, 0.04f, diameter);
+            var meshFilter = disc.AddComponent<MeshFilter>();
+            meshFilter.sharedMesh = GetDiscMesh();
+            var renderer = disc.AddComponent<MeshRenderer>();
+            renderer.sharedMaterial = GetMarkerMaterial();
+            renderer.shadowCastingMode = ShadowCastingMode.Off;
+            renderer.receiveShadows = false;
+            var block = new MaterialPropertyBlock();
+            block.SetColor("_BaseColor", color);
+            block.SetColor("_Color", color);
+            renderer.SetPropertyBlock(block);
+        }
+
+        private static Mesh GetDiscMesh()
+        {
+            if (discMesh != null)
+            {
+                return discMesh;
+            }
+
+            var temp = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            discMesh = temp.GetComponent<MeshFilter>().sharedMesh;
+            UnityEngine.Object.DestroyImmediate(temp);
+            return discMesh;
+        }
+
+        private static Material GetMarkerMaterial()
+        {
+            var material = AssetDatabase.LoadAssetAtPath<Material>(MarkerMaterialPath);
+            if (material != null)
+            {
+                return material;
+            }
+
+            var shader = Shader.Find("Universal Render Pipeline/Lit");
+            return shader != null ? new Material(shader) : null;
+        }
+
+        private static void EnsureLists(MapModeConfiguration configuration)
+        {
+            configuration.battleRoyaleSpawnPoints ??= new List<MapModePoint>();
+            configuration.captureTheFlagTeams ??= new List<MapModeTeamPoints>();
+        }
+
+        private static void EnsureCaptureTheFlagTeams(
+            MapModeConfiguration configuration)
+        {
+            EnsureLists(configuration);
+            var requiredCount = Mathf.Max(2, configuration.teamCount);
+            while (configuration.captureTheFlagTeams.Count < requiredCount)
+            {
+                var index = configuration.captureTheFlagTeams.Count;
+                configuration.captureTheFlagTeams.Add(
+                    new MapModeTeamPoints
+                    {
+                        teamId = $"Team {index + 1}"
+                    });
+            }
+
+            while (configuration.captureTheFlagTeams.Count > requiredCount)
+            {
+                configuration.captureTheFlagTeams.RemoveAt(
+                    configuration.captureTheFlagTeams.Count - 1);
+            }
+        }
+
+        private static List<MapGameMode> GetSupportedModes(MapDefinition mapDefinition)
+        {
+            var modes = new List<MapGameMode>();
+            foreach (MapGameMode mode in Enum.GetValues(typeof(MapGameMode)))
+            {
+                if (mapDefinition.SupportsMode(mode))
+                {
+                    modes.Add(mode);
+                }
+            }
+
+            return modes;
+        }
+
+        private static MapModeConfiguration FindConfiguration(
+            MapDefinition mapDefinition,
+            MapGameMode mode)
+        {
+            if (mapDefinition.modeConfigurations == null)
+            {
+                return null;
+            }
+
+            foreach (var configuration in mapDefinition.modeConfigurations)
+            {
+                if (configuration != null &&
+                    configuration.map == mapDefinition &&
+                    configuration.mode == mode)
+                {
+                    return configuration;
+                }
+            }
+
+            return null;
+        }
+
+        private static Vector3 GetMapCenter(MapDefinition mapDefinition)
+        {
+            return mapDefinition != null
+                ? mapDefinition.WorldCenter
+                : Vector3.zero;
+        }
+
+        private static string SanitizeName(string value)
+        {
+            var result = string.IsNullOrWhiteSpace(value)
+                ? "Default"
+                : value.Trim();
+            foreach (var invalidCharacter in Path.GetInvalidFileNameChars())
+            {
+                result = result.Replace(invalidCharacter, '_');
+            }
+
+            return result.Replace(' ', '_');
+        }
+
+        public static TextAsset FindSiblingMarkdown(TextAsset jsonAsset)
+        {
+            if (jsonAsset == null)
+            {
+                return null;
+            }
+
+            var jsonPath = AssetDatabase.GetAssetPath(jsonAsset);
+            return AssetDatabase.LoadAssetAtPath<TextAsset>(
+                Path.ChangeExtension(jsonPath, ".md"));
+        }
+    }
+}
+#endif

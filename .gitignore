@@ -37,6 +37,9 @@
 # Visual Studio cache directory
 .vs/
 
+# Cursor project rules and local agent state
+.cursor/
+
 # Gradle cache directory
 .gradle/
 

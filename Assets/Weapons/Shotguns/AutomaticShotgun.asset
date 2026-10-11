@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99087997a3780e643ba01466b601eb99, type: 3}
+  m_Name: AutomaticShotgun
+  m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
+  displayName: Automatic Shotgun
+  category: 3
+  stats:
+    damage: 4
+    fireRate: 1.8
+    range: 22
+    projectileSpeed: 44
+    projectileLifetime: 0.75
+    projectileScale: 0.4
+    spreadDegrees: 8
+    pelletCount: 6
+  visualColor: {r: 0.7, g: 0.28, b: 0.18, a: 1}

@@ -1,0 +1,2282 @@
+#if UNITY_EDITOR
+using System;
+using System.Collections.Generic;
+using System.IO;
+using BattleRoyale.CameraSystems;
+using BattleRoyale.Maps;
+using BattleRoyale.Movement;
+using Newtonsoft.Json.Linq;
+using Unity.AI.Navigation;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Rendering;
+
+namespace BattleRoyale.Maps.EditorTools
+{
+    public sealed class DungeonMapAuthoringWindow : EditorWindow
+    {
+        private const string DefinitionsFolder = "Assets/Maps/Definitions";
+        private const string VisualMaterialTemplatePath = "Assets/Materials/MapPlane.mat";
+        private const string WallMaterialPath = "Assets/Materials/MarkerCube.mat";
+        private const int DungeonNavMeshAgentTypeId = 0;
+        private const float RecommendedVoxelSizeDivisor = 3f;
+
+        [SerializeField] private TextAsset layoutJson;
+        [SerializeField] private Texture2D visualMap;
+        [SerializeField] private MapDefinition mapDefinition;
+        [SerializeField] private MapModeAuthoringPanel modeAuthoring = new();
+        [SerializeField] private float cellWorldSize = 20f;
+        [SerializeField] private float baseHeight;
+        [SerializeField] private float wallHeight = 3f;
+        [SerializeField] private float wallThickness = 0.7f;
+        [SerializeField] private float columnSize = 1.5f;
+        [SerializeField] private float dungeonUnitScale = 10f;
+        [SerializeField] private bool showDungeonWalls;
+        [SerializeField] private bool overrideNavMeshVoxelSize;
+        [SerializeField] private float navMeshVoxelSize = 0.16666667f;
+        [SerializeField] private bool replaceGeneratedRoot = true;
+        [SerializeField] private bool disableOtherGeneratedMaps = true;
+        [SerializeField] private bool setAsActiveCameraMap = true;
+        [SerializeField] private bool useImageCornerFit;
+        [SerializeField] private Vector2 imageUpperLeftUv = new(0f, 1f);
+        [SerializeField] private Vector2 imageLowerRightUv = new(1f, 0f);
+        [SerializeField] private bool editImageCornersInScene;
+
+        private DungeonLayoutData analyzedLayout;
+        private DungeonVisualMapping visualMapping;
+        private string statusMessage;
+        private MessageType statusType = MessageType.Info;
+        private Vector2 scrollPosition;
+        [SerializeField] private bool geometryFoldout;
+        [SerializeField] private bool generationOptionsFoldout;
+        [SerializeField] private bool importFoldout;
+        private bool cornerSceneGuiRegistered;
+        private bool draggingUpperLeft;
+        private bool draggingLowerRight;
+        private Vector3 draggedUpperLeft;
+        private Vector3 draggedLowerRight;
+
+        [MenuItem("Tools/Maps/Dungeon Map Authoring")]
+        public static void Open()
+        {
+            var window = GetWindow<DungeonMapAuthoringWindow>();
+            window.titleContent = new GUIContent("Dungeon Map Authoring");
+            window.minSize = new Vector2(420f, 620f);
+        }
+
+        private void OnDisable()
+        {
+            StopCornerSceneGui();
+            modeAuthoring?.Dispose();
+        }
+
+        private void OnGUI()
+        {
+            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+
+            EditorGUILayout.HelpBox(
+                "Load a map, align the image to the floor, place mode points, then generate.",
+                MessageType.Info);
+            if (!string.IsNullOrWhiteSpace(statusMessage))
+            {
+                EditorGUILayout.HelpBox(statusMessage, statusType);
+            }
+
+            DrawMapSection();
+            EditorGUILayout.LabelField("Image Alignment", EditorStyles.boldLabel);
+            DrawImageCornerSection();
+            EditorGUILayout.Space(8f);
+            DrawGenerateSection();
+            modeAuthoring ??= new MapModeAuthoringPanel();
+            modeAuthoring.Draw(mapDefinition, DefinitionsFolder);
+            DrawGeometrySection();
+            DrawGenerationOptionsSection();
+            DrawImportSection();
+
+            EditorGUILayout.EndScrollView();
+        }
+
+        private void DrawMapSection()
+        {
+            EditorGUILayout.LabelField("Map", EditorStyles.boldLabel);
+            mapDefinition = (MapDefinition)EditorGUILayout.ObjectField(
+                "Map Asset",
+                mapDefinition,
+                typeof(MapDefinition),
+                false);
+
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                if (GUILayout.Button("Use Selected Asset"))
+                {
+                    LoadDefinitionIntoWindow();
+                }
+
+                if (GUILayout.Button("Create / Update Map Definition"))
+                {
+                    CreateOrUpdateDefinition();
+                }
+            }
+
+            if (IsMapReady())
+            {
+                EditorGUILayout.ObjectField(
+                    "Assigned JSON",
+                    mapDefinition.layoutJson,
+                    typeof(TextAsset),
+                    false);
+                EditorGUILayout.ObjectField(
+                    "Narrative Markdown",
+                    mapDefinition.narrativeMarkdown,
+                    typeof(TextAsset),
+                    false);
+                EditorGUILayout.ObjectField(
+                    "Assigned Visual",
+                    mapDefinition.visualMap,
+                    typeof(Texture2D),
+                    false);
+            }
+
+            EditorGUILayout.Space(8f);
+        }
+
+        private void DrawGenerateSection()
+        {
+            EditorGUILayout.LabelField("Generate", EditorStyles.boldLabel);
+            EditorGUI.BeginChangeCheck();
+            showDungeonWalls = EditorGUILayout.Toggle(
+                new GUIContent(
+                    "Show Dungeon Walls",
+                    "Add visible wall meshes while keeping their collision geometry available for navigation."),
+                showDungeonWalls);
+            if (EditorGUI.EndChangeCheck())
+            {
+                CopyImageCornersToDefinition();
+            }
+
+            using (new EditorGUI.DisabledScope(!IsMapReady()))
+            {
+                if (GUILayout.Button("Generate Dungeon Map Root"))
+                {
+                    GenerateMapRoot();
+                }
+            }
+
+            EditorGUILayout.Space(8f);
+        }
+
+        private void DrawGeometrySection()
+        {
+            geometryFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(
+                geometryFoldout,
+                "Geometry");
+            if (geometryFoldout)
+            {
+                cellWorldSize = Mathf.Max(
+                    0.01f,
+                    EditorGUILayout.FloatField(
+                        new GUIContent(
+                            "Cell World Size",
+                            "Logical dungeon grid cells are converted to this many Unity world units."),
+                        cellWorldSize));
+                baseHeight = EditorGUILayout.FloatField("Base Height", baseHeight);
+                wallHeight = Mathf.Max(
+                    0f,
+                    EditorGUILayout.FloatField("Wall Height", wallHeight));
+                wallThickness = Mathf.Max(
+                    0.001f,
+                    EditorGUILayout.FloatField("Wall Thickness", wallThickness));
+                columnSize = Mathf.Max(
+                    0.01f,
+                    EditorGUILayout.FloatField("Column Size", columnSize));
+                dungeonUnitScale = Mathf.Max(
+                    0.01f,
+                    EditorGUILayout.FloatField(
+                        new GUIContent(
+                            "Dungeon Unit Scale",
+                            "Local scale applied to every UnitMovement object when this dungeon map is generated."),
+                        dungeonUnitScale));
+                if (GUILayout.Button("Apply Dungeon Unit Scale To Loaded Scene"))
+                {
+                    var scaledUnitCount = ApplyDungeonUnitScale();
+                    EditorSceneManager.SaveOpenScenes();
+                    SetStatus(
+                        $"Applied unit scale {dungeonUnitScale:0.##} to {scaledUnitCount} unit(s).",
+                        MessageType.Info);
+                }
+
+                EditorGUILayout.HelpBox(
+                    "The default cell size is 20 world units to match the current movement prototype's character scale. Change it if this dungeon should use a different scale.",
+                    MessageType.None);
+            }
+
+            EditorGUILayout.EndFoldoutHeaderGroup();
+            EditorGUILayout.Space(8f);
+        }
+
+        private void DrawGenerationOptionsSection()
+        {
+            generationOptionsFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(
+                generationOptionsFoldout,
+                "Generation Options");
+            if (generationOptionsFoldout)
+            {
+                EditorGUI.BeginChangeCheck();
+                overrideNavMeshVoxelSize = EditorGUILayout.Toggle(
+                    new GUIContent(
+                        "Override NavMesh Voxel Size",
+                        "Use a custom voxel size instead of the selected NavMesh agent's project settings."),
+                    overrideNavMeshVoxelSize);
+                using (new EditorGUI.DisabledScope(!overrideNavMeshVoxelSize))
+                {
+                    navMeshVoxelSize = Mathf.Max(
+                        0.01f,
+                        EditorGUILayout.FloatField("NavMesh Voxel Size", navMeshVoxelSize));
+                }
+
+                replaceGeneratedRoot = EditorGUILayout.Toggle(
+                    "Replace Existing Generated Root",
+                    replaceGeneratedRoot);
+                disableOtherGeneratedMaps = EditorGUILayout.Toggle(
+                    "Disable Other Generated Maps",
+                    disableOtherGeneratedMaps);
+                setAsActiveCameraMap = EditorGUILayout.Toggle(
+                    "Set As Active Camera Map",
+                    setAsActiveCameraMap);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    CopyImageCornersToDefinition();
+                }
+
+                var recommendedVoxelSize = GetRecommendedNavMeshVoxelSize();
+                EditorGUILayout.HelpBox(
+                    overrideNavMeshVoxelSize
+                        ? $"Custom NavMesh voxel size will be limited to {recommendedVoxelSize:0.###} or less for the Humanoid agent."
+                        : $"NavMesh uses the Humanoid agent's project voxel settings. Recommended voxel size: {recommendedVoxelSize:0.###}.",
+                    MessageType.None);
+            }
+
+            EditorGUILayout.EndFoldoutHeaderGroup();
+            EditorGUILayout.Space(8f);
+        }
+
+        private void DrawImportSection()
+        {
+            importFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(
+                importFoldout,
+                "Import");
+            if (!importFoldout)
+            {
+                EditorGUILayout.EndFoldoutHeaderGroup();
+                return;
+            }
+
+            var previousJson = layoutJson;
+            layoutJson = (TextAsset)EditorGUILayout.ObjectField(
+                "Dungeon JSON",
+                layoutJson,
+                typeof(TextAsset),
+                false);
+            visualMap = (Texture2D)EditorGUILayout.ObjectField(
+                "Visual PNG (optional)",
+                visualMap,
+                typeof(Texture2D),
+                false);
+            if (layoutJson != previousJson)
+            {
+                analyzedLayout = null;
+                if (visualMap == null)
+                {
+                    visualMap = FindSiblingVisualMap(layoutJson);
+                }
+            }
+
+            if (GUILayout.Button("Analyze JSON"))
+            {
+                AnalyzeLayout();
+            }
+
+            if (analyzedLayout == null)
+            {
+                EditorGUILayout.HelpBox(
+                    "Analyze the dungeon JSON to calculate the logical bounds and inspect its room data.",
+                    MessageType.None);
+            }
+            else
+            {
+                EditorGUILayout.LabelField("Title", analyzedLayout.title);
+                EditorGUILayout.LabelField("Format Version", analyzedLayout.version);
+                EditorGUILayout.LabelField("Source Min", analyzedLayout.sourceMin.ToString("F0"));
+                EditorGUILayout.LabelField("Source Max", analyzedLayout.sourceMax.ToString("F0"));
+                EditorGUILayout.LabelField(
+                    "Logical Size",
+                    (analyzedLayout.sourceMax - analyzedLayout.sourceMin).ToString("F0"));
+                EditorGUILayout.LabelField("Rooms / Rects", analyzedLayout.rects.Count.ToString());
+                EditorGUILayout.LabelField("Doors", analyzedLayout.doors.Count.ToString());
+                EditorGUILayout.LabelField("Water Cells", analyzedLayout.water.Count.ToString());
+                EditorGUILayout.LabelField("Columns", analyzedLayout.columns.Count.ToString());
+                EditorGUILayout.LabelField("Notes", analyzedLayout.notes.Count.ToString());
+            }
+
+            EditorGUILayout.EndFoldoutHeaderGroup();
+        }
+
+        private void DrawImageCornerSection()
+        {
+            var previousFit = useImageCornerFit;
+            useImageCornerFit = EditorGUILayout.Toggle(
+                new GUIContent(
+                    "Fit Image To Corner Points",
+                    "Keep the full exported image, including the spacing around the drawing. Upper Left and Lower Right mark where the dungeon drawing sits inside that image."),
+                useImageCornerFit);
+            if (useImageCornerFit && !previousFit)
+            {
+                EnsureDefaultImageCorners();
+            }
+
+            if (!useImageCornerFit)
+            {
+                StopCornerSceneGui();
+                RemoveImageCornerMarkers();
+                if (previousFit)
+                {
+                    CopyImageCornersToDefinition();
+                }
+
+                return;
+            }
+
+            EditorGUI.BeginChangeCheck();
+            imageUpperLeftUv = EditorGUILayout.Vector2Field(
+                new GUIContent(
+                    "Upper Left",
+                    "Image coordinate of the dungeon drawing's top-left corner. X moves across the image. Y is 1 at the top."),
+                imageUpperLeftUv);
+            imageLowerRightUv = EditorGUILayout.Vector2Field(
+                new GUIContent(
+                    "Lower Right",
+                    "Image coordinate of the dungeon drawing's bottom-right corner. X moves across the image. Y is 0 at the bottom."),
+                imageLowerRightUv);
+            editImageCornersInScene = EditorGUILayout.Toggle(
+                new GUIContent(
+                    "Edit Corner Points In Scene",
+                    "Drag the two points onto the corners of the drawn dungeon. The full image, including its outer spacing, stays visible."),
+                editImageCornersInScene);
+            var fieldsChanged = EditorGUI.EndChangeCheck();
+            imageUpperLeftUv = ClampImageUv(imageUpperLeftUv);
+            imageLowerRightUv = ClampImageUv(imageLowerRightUv);
+
+            if (!HasValidImageCorners())
+            {
+                EditorGUILayout.HelpBox(
+                    "Upper Left must be above and to the left of Lower Right on the image.",
+                    MessageType.Warning);
+            }
+            else
+            {
+                EditorGUILayout.HelpBox(
+                    "Drag the Upper Left and Lower Right handles in the Scene view onto the corners of the drawn dungeon, then release. The picture moves to the floor. The discs show those points in the Game view.",
+                    MessageType.None);
+            }
+
+            if (GUILayout.Button("Apply Corner Points To Scene"))
+            {
+                fieldsChanged = true;
+            }
+
+            if (fieldsChanged || previousFit != useImageCornerFit)
+            {
+                CopyImageCornersToDefinition();
+                ApplyImageCornerFitToScene();
+            }
+
+            UpdateCornerSceneGui();
+            if (!draggingUpperLeft && !draggingLowerRight)
+            {
+                SyncImageCornerMarkers();
+            }
+        }
+
+        private void AnalyzeLayout()
+        {
+            if (layoutJson == null)
+            {
+                SetStatus("Assign a dungeon JSON before analyzing.", MessageType.Error);
+                return;
+            }
+
+            try
+            {
+                analyzedLayout = DungeonLayoutReader.Read(layoutJson.text);
+                if (visualMap == null)
+                {
+                    visualMap = FindSiblingVisualMap(layoutJson);
+                }
+
+                SetStatus(
+                    $"Analyzed {layoutJson.name}: {analyzedLayout.rects.Count} rooms found.",
+                    MessageType.Info);
+            }
+            catch (Exception exception)
+            {
+                analyzedLayout = null;
+                Debug.LogException(exception);
+                SetStatus(
+                    $"Could not parse {layoutJson.name}: {exception.Message}",
+                    MessageType.Error);
+            }
+        }
+
+        private void CreateOrUpdateDefinition()
+        {
+            if (analyzedLayout == null)
+            {
+                AnalyzeLayout();
+            }
+
+            if (analyzedLayout == null || layoutJson == null)
+            {
+                return;
+            }
+
+            EnsureDefinitionsFolder();
+
+            if (mapDefinition == null)
+            {
+                var mapName = Path.GetFileNameWithoutExtension(layoutJson.name);
+                var assetPath = AssetDatabase.GenerateUniqueAssetPath(
+                    $"{DefinitionsFolder}/{mapName}_Map.asset");
+                mapDefinition = CreateInstance<MapDefinition>();
+                mapDefinition.name = $"{mapName}_Map";
+                AssetDatabase.CreateAsset(mapDefinition, assetPath);
+            }
+
+            mapDefinition.layoutJson = layoutJson;
+            var narrativeMarkdown = MapModeAuthoringPanel.FindSiblingMarkdown(layoutJson);
+            if (narrativeMarkdown != null)
+            {
+                mapDefinition.narrativeMarkdown = narrativeMarkdown;
+            }
+            mapDefinition.visualMap = visualMap;
+            mapDefinition.worldScale = cellWorldSize;
+            mapDefinition.flipHeightY = false;
+            mapDefinition.sourceMin = analyzedLayout.sourceMin;
+            mapDefinition.sourceMax = analyzedLayout.sourceMax;
+            mapDefinition.baseHeight = baseHeight;
+            mapDefinition.heightScale = 0f;
+            mapDefinition.heightMap = null;
+            mapDefinition.heightResolution = 2;
+            mapDefinition.wallHeight = wallHeight;
+            mapDefinition.wallThickness = wallThickness;
+            CopyImageCornersToDefinition();
+            mapDefinition.generateBuildingWalls = false;
+            mapDefinition.generateTreeColliders = false;
+            mapDefinition.generator = "dungeon";
+            mapDefinition.generatorVersion = analyzedLayout.version;
+            mapDefinition.features = CreateFeatureSummaries(analyzedLayout);
+            mapDefinition.visualMaterial = GetOrCreateVisualMaterial();
+
+            EditorUtility.SetDirty(mapDefinition);
+            AssetDatabase.SaveAssets();
+            Selection.activeObject = mapDefinition;
+
+            SetStatus(
+                $"Map definition saved at {AssetDatabase.GetAssetPath(mapDefinition)}.",
+                MessageType.Info);
+        }
+
+        private void GenerateMapRoot()
+        {
+            if (EditorApplication.isPlaying)
+            {
+                SetStatus("Stop Play Mode before generating a dungeon map root.", MessageType.Error);
+                return;
+            }
+
+            if (!IsMapReady())
+            {
+                SetStatus("Create a map definition before generating a dungeon map root.", MessageType.Error);
+                return;
+            }
+
+            if (analyzedLayout == null ||
+                analyzedLayout.sourceMin != mapDefinition.sourceMin ||
+                analyzedLayout.sourceMax != mapDefinition.sourceMax)
+            {
+                layoutJson = mapDefinition.layoutJson;
+                visualMap = mapDefinition.visualMap;
+                AnalyzeLayout();
+            }
+
+            if (analyzedLayout == null)
+            {
+                return;
+            }
+
+            if (!modeAuthoring.ValidateForGeneration(
+                    mapDefinition,
+                    out var modeValidationError))
+            {
+                SetStatus(modeValidationError, MessageType.Error);
+                return;
+            }
+
+            var rootName = $"Map_{mapDefinition.name.Replace("_Map", string.Empty)}";
+            var existingRoot = FindSceneObject(rootName);
+            if (existingRoot != null)
+            {
+                if (!replaceGeneratedRoot)
+                {
+                    SetStatus(
+                        $"A generated root named {rootName} already exists.",
+                        MessageType.Warning);
+                    Selection.activeGameObject = existingRoot;
+                    return;
+                }
+
+                Undo.DestroyObjectImmediate(existingRoot);
+            }
+
+            if (disableOtherGeneratedMaps)
+            {
+                DisableOtherGeneratedMaps();
+            }
+
+            var root = new GameObject(rootName);
+            Undo.RegisterCreatedObjectUndo(root, "Generate Dungeon Map Root");
+            var mapInstance = root.AddComponent<MapInstance>();
+            mapInstance.definition = mapDefinition;
+
+            CopyImageCornersToDefinition();
+            if (useImageCornerFit)
+            {
+                visualMapping = default;
+            }
+            else
+            {
+                MeasureVisualMapping();
+            }
+
+            CreateVisualMap(root.transform);
+            if (useImageCornerFit)
+            {
+                SyncImageCornerMarkers();
+            }
+
+            CreateFloorCollider(root.transform);
+            CreateWalls(root.transform);
+            CreateColumnColliders(root.transform);
+            CreateNavigation(root);
+            modeAuthoring.GenerateMarkers(root.transform, mapDefinition);
+            var scaledUnitCount = ApplyDungeonUnitScale();
+
+            if (setAsActiveCameraMap)
+            {
+                SetActiveCameraMap(mapInstance);
+            }
+
+            EditorSceneManager.MarkSceneDirty(root.scene);
+            EditorSceneManager.SaveOpenScenes();
+            Selection.activeGameObject = root;
+
+            SetStatus(
+                $"Generated {rootName} with {analyzedLayout.FloorCells.Count} walkable cells. " +
+                $"Applied unit scale {dungeonUnitScale:0.##} to {scaledUnitCount} unit(s).",
+                MessageType.Info);
+        }
+
+        private void CreateVisualMap(Transform parent)
+        {
+            var visualObject = new GameObject("VisualMap");
+            visualObject.transform.SetParent(parent, false);
+            visualObject.transform.position = new Vector3(
+                0f,
+                baseHeight - 0.02f,
+                0f);
+
+            var meshFilter = visualObject.AddComponent<MeshFilter>();
+            var meshRenderer = visualObject.AddComponent<MeshRenderer>();
+            meshFilter.sharedMesh = BuildBoundsQuad();
+            meshRenderer.sharedMaterial = GetOrCreateVisualMaterial();
+        }
+
+        private void CreateFloorCollider(Transform parent)
+        {
+            var floorObject = new GameObject("DungeonFloor");
+            floorObject.transform.SetParent(parent, false);
+            floorObject.layer = LayerMask.NameToLayer("MapGround");
+
+            var meshFilter = floorObject.AddComponent<MeshFilter>();
+            var meshCollider = floorObject.AddComponent<MeshCollider>();
+            var mesh = BuildFloorMesh();
+            meshFilter.sharedMesh = mesh;
+            meshCollider.sharedMesh = mesh;
+        }
+
+        private void CreateWalls(Transform parent)
+        {
+            var wallRoot = new GameObject("DungeonWalls");
+            wallRoot.transform.SetParent(parent, false);
+            wallRoot.layer = LayerMask.NameToLayer("MapObstacle");
+
+            var wallIndex = 0;
+            foreach (var cell in analyzedLayout.FloorCells)
+            {
+                AddWallIfNeeded(
+                    wallRoot.transform,
+                    cell,
+                    new Vector2Int(0, -1),
+                    true,
+                    cell.y,
+                    cell.x,
+                    ref wallIndex);
+                AddWallIfNeeded(
+                    wallRoot.transform,
+                    cell,
+                    new Vector2Int(0, 1),
+                    true,
+                    cell.y + 1,
+                    cell.x,
+                    ref wallIndex);
+                AddWallIfNeeded(
+                    wallRoot.transform,
+                    cell,
+                    new Vector2Int(-1, 0),
+                    false,
+                    cell.x,
+                    cell.y,
+                    ref wallIndex);
+                AddWallIfNeeded(
+                    wallRoot.transform,
+                    cell,
+                    new Vector2Int(1, 0),
+                    false,
+                    cell.x + 1,
+                    cell.y,
+                    ref wallIndex);
+            }
+        }
+
+        private void AddWallIfNeeded(
+            Transform parent,
+            Vector2Int cell,
+            Vector2Int neighborOffset,
+            bool horizontal,
+            int boundary,
+            int segment,
+            ref int wallIndex)
+        {
+            var neighbor = cell + neighborOffset;
+            if (analyzedLayout.FloorCells.Contains(neighbor) ||
+                analyzedLayout.DoorBoundaries.Contains(
+                    new BoundaryKey(horizontal, boundary, segment)))
+            {
+                return;
+            }
+
+            var wallObject = new GameObject($"DungeonWall_{wallIndex:0000}");
+            wallObject.transform.SetParent(parent, false);
+            wallObject.layer = LayerMask.NameToLayer("MapObstacle");
+            var wallHeightCenter = baseHeight + wallHeight * 0.5f;
+            wallObject.transform.position = horizontal
+                ? GridToWorld(segment + 0.5f, boundary, wallHeightCenter)
+                : GridToWorld(boundary, segment + 0.5f, wallHeightCenter);
+
+            var collider = wallObject.AddComponent<BoxCollider>();
+            var wallSize = horizontal
+                ? new Vector3(cellWorldSize, wallHeight, wallThickness)
+                : new Vector3(wallThickness, wallHeight, cellWorldSize);
+            if (showDungeonWalls)
+            {
+                collider.size = Vector3.one;
+                wallObject.transform.localScale = wallSize;
+
+                var meshFilter = wallObject.AddComponent<MeshFilter>();
+                meshFilter.sharedMesh = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
+                var meshRenderer = wallObject.AddComponent<MeshRenderer>();
+                meshRenderer.sharedMaterial = GetDungeonWallMaterial();
+            }
+            else
+            {
+                collider.size = wallSize;
+            }
+            wallIndex++;
+        }
+
+        private static Material GetDungeonWallMaterial()
+        {
+            var material = AssetDatabase.LoadAssetAtPath<Material>(WallMaterialPath);
+            if (material != null)
+            {
+                return material;
+            }
+
+            return AssetDatabase.LoadAssetAtPath<Material>(VisualMaterialTemplatePath);
+        }
+
+        private void CreateColumnColliders(Transform parent)
+        {
+            if (analyzedLayout.columns.Count == 0)
+            {
+                return;
+            }
+
+            var columnRoot = new GameObject("DungeonColumns");
+            columnRoot.transform.SetParent(parent, false);
+            columnRoot.layer = LayerMask.NameToLayer("MapObstacle");
+
+            for (var i = 0; i < analyzedLayout.columns.Count; i++)
+            {
+                var cell = analyzedLayout.columns[i];
+                var column = new GameObject($"DungeonColumn_{i:0000}");
+                column.transform.SetParent(columnRoot.transform, false);
+                column.layer = LayerMask.NameToLayer("MapObstacle");
+                column.transform.position = GridToWorld(
+                    cell.x + 0.5f,
+                    cell.y + 0.5f,
+                    baseHeight + wallHeight * 0.5f);
+
+                var collider = column.AddComponent<BoxCollider>();
+                collider.size = new Vector3(columnSize, wallHeight, columnSize);
+            }
+        }
+
+        private void CreateNavigation(GameObject root)
+        {
+            var surface = root.AddComponent<NavMeshSurface>();
+            surface.agentTypeID = DungeonNavMeshAgentTypeId;
+            surface.collectObjects = CollectObjects.Children;
+            surface.layerMask = (1 << LayerMask.NameToLayer("MapGround")) |
+                                (1 << LayerMask.NameToLayer("MapObstacle"));
+            surface.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
+            surface.overrideVoxelSize = overrideNavMeshVoxelSize;
+            if (overrideNavMeshVoxelSize)
+            {
+                navMeshVoxelSize = GetSafeNavMeshVoxelSize();
+                surface.voxelSize = navMeshVoxelSize;
+            }
+
+            var navigation = root.AddComponent<MapNavigationController>();
+            var serialized = new SerializedObject(navigation);
+            serialized.FindProperty("surface").objectReferenceValue = surface;
+            serialized.FindProperty("rebuildOnAwake").boolValue = false;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            navigation.Rebuild();
+        }
+
+        private int ApplyDungeonUnitScale()
+        {
+            var scaledUnitCount = 0;
+            foreach (var unit in Resources.FindObjectsOfTypeAll<UnitMovement>())
+            {
+                if (!unit.gameObject.scene.IsValid() ||
+                    !unit.gameObject.scene.isLoaded)
+                {
+                    continue;
+                }
+
+                Undo.RecordObject(unit.transform, "Set Dungeon Unit Scale");
+                unit.transform.localScale = Vector3.one * dungeonUnitScale;
+                EditorUtility.SetDirty(unit.transform);
+                scaledUnitCount++;
+            }
+
+            return scaledUnitCount;
+        }
+
+        private float GetSafeNavMeshVoxelSize()
+        {
+            return Mathf.Min(
+                Mathf.Max(0.01f, navMeshVoxelSize),
+                GetRecommendedNavMeshVoxelSize());
+        }
+
+        private static float GetRecommendedNavMeshVoxelSize()
+        {
+            var agentSettings = NavMesh.GetSettingsByID(DungeonNavMeshAgentTypeId);
+            var agentRadius = agentSettings.agentRadius;
+            if (agentRadius <= 0f)
+            {
+                return 0.16666667f;
+            }
+
+            return agentRadius / RecommendedVoxelSizeDivisor;
+        }
+
+        private void SetActiveCameraMap(MapInstance mapInstance)
+        {
+            var cameraObject = FindSceneObject("Simulation Camera");
+            if (cameraObject == null)
+            {
+                return;
+            }
+
+            var cameraController = cameraObject.GetComponent<SimulationCameraController>();
+            if (cameraController == null)
+            {
+                return;
+            }
+
+            var serialized = new SerializedObject(cameraController);
+            serialized.FindProperty("activeMap").objectReferenceValue = mapInstance;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            cameraController.SetActiveMap(mapInstance);
+        }
+
+        private void DisableOtherGeneratedMaps()
+        {
+            foreach (var candidate in Resources.FindObjectsOfTypeAll<GameObject>())
+            {
+                if (!candidate.scene.IsValid() ||
+                    !candidate.scene.isLoaded ||
+                    !candidate.name.StartsWith("Map_") ||
+                    candidate.name == "Map")
+                {
+                    continue;
+                }
+
+                candidate.SetActive(false);
+            }
+        }
+
+        private Mesh BuildFloorMesh()
+        {
+            var mesh = new Mesh
+            {
+                name = $"{mapDefinition.name}_DungeonFloor"
+            };
+            var vertices = new List<Vector3>();
+            var uvs = new List<Vector2>();
+            var triangles = new List<int>();
+            var sourceSize = analyzedLayout.sourceMax - analyzedLayout.sourceMin;
+
+            foreach (var cell in analyzedLayout.FloorCells)
+            {
+                var vertexStart = vertices.Count;
+                var bottomLeft = GridToWorld(cell.x, cell.y + 1f, baseHeight);
+                var topLeft = GridToWorld(cell.x, cell.y, baseHeight);
+                var topRight = GridToWorld(cell.x + 1f, cell.y, baseHeight);
+                var bottomRight = GridToWorld(cell.x + 1f, cell.y + 1f, baseHeight);
+
+                vertices.Add(bottomLeft);
+                vertices.Add(topLeft);
+                vertices.Add(topRight);
+                vertices.Add(bottomRight);
+
+                uvs.Add(ToBoundsUv(new Vector2(cell.x, cell.y), sourceSize));
+                uvs.Add(ToBoundsUv(new Vector2(cell.x, cell.y + 1), sourceSize));
+                uvs.Add(ToBoundsUv(new Vector2(cell.x + 1, cell.y + 1), sourceSize));
+                uvs.Add(ToBoundsUv(new Vector2(cell.x + 1, cell.y), sourceSize));
+
+                triangles.Add(vertexStart);
+                triangles.Add(vertexStart + 1);
+                triangles.Add(vertexStart + 2);
+                triangles.Add(vertexStart);
+                triangles.Add(vertexStart + 2);
+                triangles.Add(vertexStart + 3);
+            }
+
+            if (vertices.Count > 65535)
+            {
+                mesh.indexFormat = IndexFormat.UInt32;
+            }
+
+            mesh.SetVertices(vertices);
+            mesh.SetUVs(0, uvs);
+            mesh.SetTriangles(triangles, 0);
+            mesh.RecalculateNormals();
+            mesh.RecalculateBounds();
+            return mesh;
+        }
+
+        private Mesh BuildBoundsQuad()
+        {
+            if (useImageCornerFit && HasValidImageCorners())
+            {
+                return BuildFullImageQuad();
+            }
+
+            var mesh = new Mesh
+            {
+                name = $"{mapDefinition.name}_Visual"
+            };
+            var min = analyzedLayout.sourceMin;
+            var max = analyzedLayout.sourceMax;
+            mesh.vertices = new[]
+            {
+                GridToWorld(min.x, max.y, 0f),
+                GridToWorld(min.x, min.y, 0f),
+                GridToWorld(max.x, min.y, 0f),
+                GridToWorld(max.x, max.y, 0f)
+            };
+            mesh.uv = new[]
+            {
+                GridToVisualUv(min.x, max.y),
+                GridToVisualUv(min.x, min.y),
+                GridToVisualUv(max.x, min.y),
+                GridToVisualUv(max.x, max.y)
+            };
+            mesh.triangles = new[] { 0, 1, 2, 0, 2, 3 };
+            mesh.RecalculateNormals();
+            mesh.RecalculateBounds();
+            return mesh;
+        }
+
+        private Mesh BuildFullImageQuad()
+        {
+            var mesh = new Mesh
+            {
+                name = $"{mapDefinition.name}_Visual"
+            };
+            mesh.vertices = new[]
+            {
+                ImageUvToLocal(new Vector2(0f, 0f)),
+                ImageUvToLocal(new Vector2(0f, 1f)),
+                ImageUvToLocal(new Vector2(1f, 1f)),
+                ImageUvToLocal(new Vector2(1f, 0f))
+            };
+            mesh.uv = new[]
+            {
+                new Vector2(0f, 0f),
+                new Vector2(0f, 1f),
+                new Vector2(1f, 1f),
+                new Vector2(1f, 0f)
+            };
+            mesh.triangles = new[] { 0, 1, 2, 0, 2, 3 };
+            mesh.RecalculateNormals();
+            mesh.RecalculateBounds();
+            return mesh;
+        }
+
+        private Vector3 ImageUvToLocal(Vector2 imageUv)
+        {
+            var upperLeft = GridToWorld(
+                analyzedLayout.sourceMin.x,
+                analyzedLayout.sourceMin.y,
+                0f);
+            var lowerRight = GridToWorld(
+                analyzedLayout.sourceMax.x,
+                analyzedLayout.sourceMax.y,
+                0f);
+            return new Vector3(
+                Mathf.LerpUnclamped(
+                    upperLeft.x,
+                    lowerRight.x,
+                    InverseLerpUnclamped(
+                        imageUpperLeftUv.x,
+                        imageLowerRightUv.x,
+                        imageUv.x)),
+                0f,
+                Mathf.LerpUnclamped(
+                    upperLeft.z,
+                    lowerRight.z,
+                    InverseLerpUnclamped(
+                        imageUpperLeftUv.y,
+                        imageLowerRightUv.y,
+                        imageUv.y)));
+        }
+
+        private Vector2 WorldToImageUv(Vector3 worldPosition)
+        {
+            var visual = FindVisualMap();
+            var local = visual != null
+                ? visual.InverseTransformPoint(worldPosition)
+                : worldPosition;
+            var upperLeft = GridToWorld(
+                analyzedLayout.sourceMin.x,
+                analyzedLayout.sourceMin.y,
+                0f);
+            var lowerRight = GridToWorld(
+                analyzedLayout.sourceMax.x,
+                analyzedLayout.sourceMax.y,
+                0f);
+            return ClampImageUv(new Vector2(
+                Mathf.LerpUnclamped(
+                    imageUpperLeftUv.x,
+                    imageLowerRightUv.x,
+                    InverseLerpUnclamped(upperLeft.x, lowerRight.x, local.x)),
+                Mathf.LerpUnclamped(
+                    imageUpperLeftUv.y,
+                    imageLowerRightUv.y,
+                    InverseLerpUnclamped(upperLeft.z, lowerRight.z, local.z))));
+        }
+
+        private Vector3 ImageUvToWorld(Vector2 imageUv)
+        {
+            var local = ImageUvToLocal(imageUv);
+            var visual = FindVisualMap();
+            if (visual == null)
+            {
+                return local + new Vector3(0f, baseHeight - 0.02f, 0f);
+            }
+
+            return visual.TransformPoint(local);
+        }
+
+        private void ApplyImageCornerFitToScene()
+        {
+            if (!useImageCornerFit ||
+                !HasValidImageCorners() ||
+                mapDefinition == null)
+            {
+                return;
+            }
+
+            if (analyzedLayout == null)
+            {
+                AnalyzeLayout();
+            }
+
+            if (analyzedLayout == null)
+            {
+                return;
+            }
+
+            var visual = FindVisualMap();
+            if (visual == null)
+            {
+                SetStatus(
+                    "Generate the dungeon map before applying image corner points.",
+                    MessageType.Warning);
+                return;
+            }
+
+            var meshFilter = visual.GetComponent<MeshFilter>();
+            if (meshFilter == null)
+            {
+                return;
+            }
+
+            var previousMesh = meshFilter.sharedMesh;
+            meshFilter.sharedMesh = BuildFullImageQuad();
+            if (previousMesh != null && !AssetDatabase.Contains(previousMesh))
+            {
+                DestroyImmediate(previousMesh);
+            }
+
+            EditorSceneManager.MarkSceneDirty(visual.gameObject.scene);
+            SyncImageCornerMarkers();
+            SetStatus(
+                "Fit the full image between the upper-left and lower-right corner points.",
+                MessageType.Info);
+        }
+
+        private void CopyImageCornersToDefinition()
+        {
+            if (mapDefinition == null)
+            {
+                return;
+            }
+
+            EnsureDefaultImageCorners();
+            mapDefinition.useImageCornerFit = useImageCornerFit;
+            mapDefinition.imageUpperLeftUv = imageUpperLeftUv;
+            mapDefinition.imageLowerRightUv = imageLowerRightUv;
+            mapDefinition.editImageCornersInScene = editImageCornersInScene;
+            mapDefinition.showDungeonWalls = showDungeonWalls;
+            mapDefinition.overrideNavMeshVoxelSize = overrideNavMeshVoxelSize;
+            mapDefinition.navMeshVoxelSize = navMeshVoxelSize;
+            mapDefinition.replaceGeneratedRoot = replaceGeneratedRoot;
+            mapDefinition.disableOtherGeneratedMaps = disableOtherGeneratedMaps;
+            mapDefinition.setAsActiveCameraMap = setAsActiveCameraMap;
+            EditorUtility.SetDirty(mapDefinition);
+            AssetDatabase.SaveAssets();
+        }
+
+        private void EnsureDefaultImageCorners()
+        {
+            if (HasValidImageCorners())
+            {
+                return;
+            }
+
+            imageUpperLeftUv = new Vector2(0f, 1f);
+            imageLowerRightUv = new Vector2(1f, 0f);
+        }
+
+        private bool HasValidImageCorners()
+        {
+            return imageLowerRightUv.x > imageUpperLeftUv.x + 0.001f &&
+                   imageUpperLeftUv.y > imageLowerRightUv.y + 0.001f;
+        }
+
+        private static Vector2 ClampImageUv(Vector2 imageUv)
+        {
+            return new Vector2(
+                Mathf.Clamp(imageUv.x, 0f, 1f),
+                Mathf.Clamp(imageUv.y, 0f, 1f));
+        }
+
+        private static float InverseLerpUnclamped(float from, float to, float value)
+        {
+            var span = to - from;
+            if (Mathf.Abs(span) <= 0.0001f)
+            {
+                return 0f;
+            }
+
+            return (value - from) / span;
+        }
+
+        private void UpdateCornerSceneGui()
+        {
+            var shouldRegister = editImageCornersInScene && useImageCornerFit;
+            if (shouldRegister == cornerSceneGuiRegistered)
+            {
+                return;
+            }
+
+            if (shouldRegister)
+            {
+                SceneView.duringSceneGui += OnCornerSceneGui;
+                cornerSceneGuiRegistered = true;
+            }
+            else
+            {
+                StopCornerSceneGui();
+            }
+
+            SceneView.RepaintAll();
+        }
+
+        private void StopCornerSceneGui()
+        {
+            if (!cornerSceneGuiRegistered)
+            {
+                return;
+            }
+
+            SceneView.duringSceneGui -= OnCornerSceneGui;
+            cornerSceneGuiRegistered = false;
+            draggingUpperLeft = false;
+            draggingLowerRight = false;
+        }
+
+        private void OnCornerSceneGui(SceneView sceneView)
+        {
+            if (!useImageCornerFit || !editImageCornersInScene)
+            {
+                return;
+            }
+
+            if (analyzedLayout == null)
+            {
+                AnalyzeLayout();
+            }
+
+            if (analyzedLayout == null || FindVisualMap() == null)
+            {
+                Handles.BeginGUI();
+                GUILayout.BeginArea(new Rect(12f, 12f, 360f, 48f));
+                EditorGUILayout.HelpBox(
+                    "Generate this dungeon map to place the image corner points.",
+                    MessageType.Info);
+                GUILayout.EndArea();
+                Handles.EndGUI();
+                return;
+            }
+
+            DrawImageCornerHandle(
+                "Upper Left",
+                UpperLeftMarkerName,
+                new Color(1f, 0.85f, 0.2f),
+                ref draggingUpperLeft,
+                ref draggedUpperLeft,
+                imageUpperLeftUv,
+                ApplyDraggedUpperLeft);
+            DrawImageCornerHandle(
+                "Lower Right",
+                LowerRightMarkerName,
+                new Color(0.3f, 0.75f, 1f),
+                ref draggingLowerRight,
+                ref draggedLowerRight,
+                imageLowerRightUv,
+                ApplyDraggedLowerRight);
+        }
+
+        private void DrawImageCornerHandle(
+            string label,
+            string markerName,
+            Color color,
+            ref bool dragging,
+            ref Vector3 draggedPosition,
+            Vector2 currentUv,
+            Action<Vector3> applyDrag)
+        {
+            var position = dragging
+                ? draggedPosition
+                : ImageUvToWorld(currentUv);
+            Handles.color = color;
+            Handles.SphereHandleCap(
+                0,
+                position,
+                Quaternion.identity,
+                HandleUtility.GetHandleSize(position) * 0.15f,
+                EventType.Repaint);
+            Handles.Label(position + Vector3.up * 1.5f, label);
+
+            EditorGUI.BeginChangeCheck();
+            var moved = Handles.PositionHandle(position, Quaternion.identity);
+            if (EditorGUI.EndChangeCheck())
+            {
+                dragging = true;
+                draggedPosition = moved;
+                PlaceImageCornerMarker(markerName, moved, color);
+                EditorApplication.QueuePlayerLoopUpdate();
+            }
+
+            if (!dragging || Event.current.rawType != EventType.MouseUp)
+            {
+                return;
+            }
+
+            dragging = false;
+            applyDrag(draggedPosition);
+        }
+
+        private void ApplyDraggedUpperLeft(Vector3 worldPosition)
+        {
+            TryApplyDraggedCorner(worldPosition, true);
+        }
+
+        private void ApplyDraggedLowerRight(Vector3 worldPosition)
+        {
+            TryApplyDraggedCorner(worldPosition, false);
+        }
+
+        private void TryApplyDraggedCorner(Vector3 worldPosition, bool upperLeft)
+        {
+            var updated = WorldToImageUv(worldPosition);
+            var previousUpperLeft = imageUpperLeftUv;
+            var previousLowerRight = imageLowerRightUv;
+            if (upperLeft)
+            {
+                imageUpperLeftUv = updated;
+            }
+            else
+            {
+                imageLowerRightUv = updated;
+            }
+
+            if (HasValidImageCorners())
+            {
+                FinishImageCornerDrag();
+                return;
+            }
+
+            imageUpperLeftUv = previousUpperLeft;
+            imageLowerRightUv = previousLowerRight;
+            SyncImageCornerMarkers();
+            SetStatus(
+                "Upper Left must stay above and to the left of Lower Right.",
+                MessageType.Warning);
+            Repaint();
+        }
+
+        private void FinishImageCornerDrag()
+        {
+            if (!HasValidImageCorners())
+            {
+                SetStatus(
+                    "Upper Left must stay above and to the left of Lower Right.",
+                    MessageType.Warning);
+                Repaint();
+                return;
+            }
+
+            CopyImageCornersToDefinition();
+            ApplyImageCornerFitToScene();
+            Repaint();
+            SceneView.RepaintAll();
+        }
+
+        private const string UpperLeftMarkerName = "ImageCornerUpperLeft";
+        private const string LowerRightMarkerName = "ImageCornerLowerRight";
+        private const string CornerDiscName = "MarkerDisc";
+        private const float CornerMarkerDiameter = 12f;
+        private const string CornerMarkerMaterialPath = "Assets/Materials/MarkerCube.mat";
+
+        private static Mesh cornerDiscMesh;
+
+        private void SyncImageCornerMarkers()
+        {
+            if (!useImageCornerFit ||
+                !HasValidImageCorners() ||
+                mapDefinition == null)
+            {
+                return;
+            }
+
+            if (analyzedLayout == null)
+            {
+                AnalyzeLayout();
+            }
+
+            if (analyzedLayout == null || FindGeneratedMapRoot() == null)
+            {
+                return;
+            }
+
+            var changed = PlaceImageCornerMarker(
+                UpperLeftMarkerName,
+                ImageUvToWorld(imageUpperLeftUv),
+                new Color(1f, 0.85f, 0.2f));
+            changed |= PlaceImageCornerMarker(
+                LowerRightMarkerName,
+                ImageUvToWorld(imageLowerRightUv),
+                new Color(0.3f, 0.75f, 1f));
+            if (!changed)
+            {
+                return;
+            }
+
+            var root = FindGeneratedMapRoot();
+            if (root != null)
+            {
+                EditorSceneManager.MarkSceneDirty(root.gameObject.scene);
+            }
+        }
+
+        private bool PlaceImageCornerMarker(
+            string markerName,
+            Vector3 worldPosition,
+            Color color)
+        {
+            var root = FindGeneratedMapRoot();
+            if (root == null)
+            {
+                return false;
+            }
+
+            var marker = root.Find(markerName);
+            var created = marker == null;
+            if (created)
+            {
+                var markerObject = new GameObject(markerName);
+                Undo.RegisterCreatedObjectUndo(markerObject, "Show Image Corner");
+                markerObject.transform.SetParent(root, true);
+                AddCornerDisc(markerObject.transform, color);
+                marker = markerObject.transform;
+            }
+
+            var moved = marker.position != worldPosition;
+            if (moved)
+            {
+                marker.position = worldPosition;
+            }
+
+            return created || moved;
+        }
+
+        private void RemoveImageCornerMarkers()
+        {
+            var root = FindGeneratedMapRoot();
+            if (root == null)
+            {
+                return;
+            }
+
+            var removed = RemoveCornerMarker(root, UpperLeftMarkerName);
+            removed |= RemoveCornerMarker(root, LowerRightMarkerName);
+            if (removed)
+            {
+                EditorSceneManager.MarkSceneDirty(root.gameObject.scene);
+            }
+        }
+
+        private static bool RemoveCornerMarker(Transform root, string markerName)
+        {
+            var marker = root.Find(markerName);
+            if (marker == null)
+            {
+                return false;
+            }
+
+            Undo.DestroyObjectImmediate(marker.gameObject);
+            return true;
+        }
+
+        private static void AddCornerDisc(Transform marker, Color color)
+        {
+            var disc = new GameObject(CornerDiscName);
+            disc.transform.SetParent(marker, false);
+            disc.transform.localPosition = new Vector3(0f, 0.4f, 0f);
+            disc.transform.localScale = new Vector3(
+                CornerMarkerDiameter,
+                0.04f,
+                CornerMarkerDiameter);
+            var meshFilter = disc.AddComponent<MeshFilter>();
+            meshFilter.sharedMesh = GetCornerDiscMesh();
+            var renderer = disc.AddComponent<MeshRenderer>();
+            renderer.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>(
+                CornerMarkerMaterialPath);
+            renderer.shadowCastingMode = ShadowCastingMode.Off;
+            renderer.receiveShadows = false;
+            var block = new MaterialPropertyBlock();
+            block.SetColor("_BaseColor", color);
+            block.SetColor("_Color", color);
+            renderer.SetPropertyBlock(block);
+        }
+
+        private static Mesh GetCornerDiscMesh()
+        {
+            if (cornerDiscMesh != null)
+            {
+                return cornerDiscMesh;
+            }
+
+            var temp = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            cornerDiscMesh = temp.GetComponent<MeshFilter>().sharedMesh;
+            UnityEngine.Object.DestroyImmediate(temp);
+            return cornerDiscMesh;
+        }
+
+        private Transform FindGeneratedMapRoot()
+        {
+            if (mapDefinition == null)
+            {
+                return null;
+            }
+
+            var rootName = $"Map_{mapDefinition.name.Replace("_Map", string.Empty)}";
+            var root = FindSceneObject(rootName);
+            return root == null ? null : root.transform;
+        }
+
+        private Transform FindVisualMap()
+        {
+            var root = FindGeneratedMapRoot();
+            return root == null ? null : root.Find("VisualMap");
+        }
+
+        private Vector3 GridToWorld(float gridX, float gridY, float height)
+        {
+            // Watabou grid Y grows downward from the top-left. Reflect it
+            // through the map center so the top of the exported image stays
+            // at the top of the top-down view, without moving that center.
+            var flippedGridY = analyzedLayout.sourceMin.y +
+                               analyzedLayout.sourceMax.y -
+                               gridY;
+            return new Vector3(
+                gridX * cellWorldSize,
+                height,
+                flippedGridY * cellWorldSize);
+        }
+
+        private Vector2 GridToVisualUv(float gridX, float gridY)
+        {
+            var sourceMin = analyzedLayout.sourceMin;
+            var sourceMax = analyzedLayout.sourceMax;
+            if (!visualMapping.valid)
+            {
+                return new Vector2(
+                    Mathf.InverseLerp(sourceMin.x, sourceMax.x, gridX),
+                    Mathf.InverseLerp(sourceMax.y, sourceMin.y, gridY));
+            }
+
+            var pixelX = visualMapping.originPixelX +
+                         (gridX - sourceMin.x) * visualMapping.cellPixelSize;
+            var pixelY = visualMapping.originPixelTop -
+                         (gridY - sourceMin.y) * visualMapping.cellPixelSize;
+            return new Vector2(
+                pixelX / visualMapping.textureWidth,
+                pixelY / visualMapping.textureHeight);
+        }
+
+        private void MeasureVisualMapping()
+        {
+            visualMapping = default;
+            if (visualMap == null || analyzedLayout == null)
+            {
+                return;
+            }
+
+            var sourceSize = analyzedLayout.sourceMax - analyzedLayout.sourceMin;
+            if (sourceSize.x <= 0f || sourceSize.y <= 0f)
+            {
+                return;
+            }
+
+            var readable = new Texture2D(
+                visualMap.width,
+                visualMap.height,
+                TextureFormat.RGBA32,
+                false);
+            var renderTexture = RenderTexture.GetTemporary(
+                visualMap.width,
+                visualMap.height,
+                0,
+                RenderTextureFormat.ARGB32);
+            Graphics.Blit(visualMap, renderTexture);
+            var previous = RenderTexture.active;
+            RenderTexture.active = renderTexture;
+            readable.ReadPixels(
+                new Rect(0f, 0f, visualMap.width, visualMap.height),
+                0,
+                0);
+            readable.Apply();
+            RenderTexture.active = previous;
+            RenderTexture.ReleaseTemporary(renderTexture);
+
+            var minX = readable.width;
+            var minY = readable.height;
+            var maxX = 0;
+            var maxY = 0;
+            var found = false;
+            var pixels = readable.GetPixels32();
+            var width = readable.width;
+            var height = readable.height;
+            for (var y = 0; y < height; y += 2)
+            {
+                var row = y * width;
+                for (var x = 0; x < width; x += 2)
+                {
+                    var pixel = pixels[row + x];
+                    var luminance =
+                        (pixel.r * 0.3f + pixel.g * 0.59f + pixel.b * 0.11f) /
+                        255f;
+                    if (luminance >= 0.62f)
+                    {
+                        continue;
+                    }
+
+                    found = true;
+                    if (x < minX)
+                    {
+                        minX = x;
+                    }
+
+                    if (y < minY)
+                    {
+                        minY = y;
+                    }
+
+                    if (x > maxX)
+                    {
+                        maxX = x;
+                    }
+
+                    if (y > maxY)
+                    {
+                        maxY = y;
+                    }
+                }
+            }
+
+            DestroyImmediate(readable);
+            if (!found || maxX <= minX || maxY <= minY)
+            {
+                return;
+            }
+
+            var cellPixelX = (maxX - minX) / sourceSize.x;
+            var cellPixelY = (maxY - minY) / sourceSize.y;
+            if (cellPixelX < 1f || cellPixelY < 1f)
+            {
+                return;
+            }
+
+            var aspectError = Mathf.Abs(cellPixelX - cellPixelY) /
+                              Mathf.Max(cellPixelX, cellPixelY);
+            if (aspectError > 0.2f)
+            {
+                return;
+            }
+
+            var wallCenters = CollectWallCenters();
+            var baseCell = (cellPixelX + cellPixelY) * 0.5f;
+            var bestScore = -1f;
+            var bestCell = baseCell;
+            var bestOriginX = (minX + maxX) * 0.5f - sourceSize.x * 0.5f * baseCell;
+            var bestOriginTop = (minY + maxY) * 0.5f + sourceSize.y * 0.5f * baseCell;
+            if (wallCenters.Count > 0)
+            {
+                for (var cellStep = -4; cellStep <= 4; cellStep++)
+                {
+                    var cell = baseCell + cellStep * 0.5f;
+                    if (cell < 1f)
+                    {
+                        continue;
+                    }
+
+                    for (var originX = minX - 20; originX <= minX + 20; originX += 2)
+                    {
+                        for (var originTop = maxY - 20; originTop <= maxY + 20; originTop += 2)
+                        {
+                            var score = ScoreWallInk(
+                                pixels,
+                                width,
+                                height,
+                                wallCenters,
+                                sourceMinX: analyzedLayout.sourceMin.x,
+                                sourceMinY: analyzedLayout.sourceMin.y,
+                                originX,
+                                originTop,
+                                cell);
+                            if (score > bestScore)
+                            {
+                                bestScore = score;
+                                bestCell = cell;
+                                bestOriginX = originX;
+                                bestOriginTop = originTop;
+                            }
+                        }
+                    }
+                }
+            }
+
+            visualMapping = new DungeonVisualMapping
+            {
+                valid = true,
+                originPixelX = bestOriginX,
+                originPixelTop = bestOriginTop,
+                cellPixelSize = bestCell,
+                textureWidth = width,
+                textureHeight = height
+            };
+        }
+
+        private List<Vector3> CollectWallCenters()
+        {
+            var centers = new List<Vector3>();
+            foreach (var cell in analyzedLayout.FloorCells)
+            {
+                TryAddWallCenter(
+                    centers,
+                    cell,
+                    new Vector2Int(0, -1),
+                    true,
+                    cell.y,
+                    cell.x);
+                TryAddWallCenter(
+                    centers,
+                    cell,
+                    new Vector2Int(0, 1),
+                    true,
+                    cell.y + 1,
+                    cell.x);
+                TryAddWallCenter(
+                    centers,
+                    cell,
+                    new Vector2Int(-1, 0),
+                    false,
+                    cell.x,
+                    cell.y);
+                TryAddWallCenter(
+                    centers,
+                    cell,
+                    new Vector2Int(1, 0),
+                    false,
+                    cell.x + 1,
+                    cell.y);
+            }
+
+            return centers;
+        }
+
+        private void TryAddWallCenter(
+            List<Vector3> centers,
+            Vector2Int cell,
+            Vector2Int neighborOffset,
+            bool horizontal,
+            int boundary,
+            int segment)
+        {
+            var neighbor = cell + neighborOffset;
+            if (analyzedLayout.FloorCells.Contains(neighbor) ||
+                analyzedLayout.DoorBoundaries.Contains(
+                    new BoundaryKey(horizontal, boundary, segment)))
+            {
+                return;
+            }
+
+            centers.Add(horizontal
+                ? new Vector3(segment + 0.5f, boundary, 1f)
+                : new Vector3(boundary, segment + 0.5f, 0f));
+        }
+
+        private static float ScoreWallInk(
+            Color32[] pixels,
+            int width,
+            int height,
+            List<Vector3> wallCenters,
+            float sourceMinX,
+            float sourceMinY,
+            int originX,
+            int originTop,
+            float cell)
+        {
+            var darkness = 0f;
+            var samples = 0;
+            for (var i = 0; i < wallCenters.Count; i += 2)
+            {
+                var center = wallCenters[i];
+                var pixelX = originX + (center.x - sourceMinX) * cell;
+                var pixelY = originTop - (center.y - sourceMinY) * cell;
+                var horizontal = center.z > 0.5f;
+                var worst = 1f;
+                for (var band = -4; band <= 4; band += 2)
+                {
+                    var x = Mathf.RoundToInt(horizontal ? pixelX : pixelX + band);
+                    var y = Mathf.RoundToInt(horizontal ? pixelY + band : pixelY);
+                    if (x < 0 || y < 0 || x >= width || y >= height)
+                    {
+                        continue;
+                    }
+
+                    var pixel = pixels[y * width + x];
+                    var luminance =
+                        (pixel.r * 0.3f + pixel.g * 0.59f + pixel.b * 0.11f) /
+                        255f;
+                    if (luminance < worst)
+                    {
+                        worst = luminance;
+                    }
+                }
+
+                darkness += 1f - worst;
+                samples++;
+            }
+
+            return samples == 0 ? 0f : darkness / samples;
+        }
+
+        private Vector2 ToBoundsUv(Vector2 source, Vector2 sourceSize)
+        {
+            return new Vector2(
+                Mathf.InverseLerp(
+                    analyzedLayout.sourceMin.x,
+                    analyzedLayout.sourceMax.x,
+                    source.x),
+                Mathf.InverseLerp(
+                    analyzedLayout.sourceMin.y,
+                    analyzedLayout.sourceMax.y,
+                    source.y));
+        }
+
+        private Material GetOrCreateVisualMaterial()
+        {
+            if (mapDefinition == null)
+            {
+                return AssetDatabase.LoadAssetAtPath<Material>(VisualMaterialTemplatePath);
+            }
+
+            var material = mapDefinition.visualMaterial;
+            if (material == null)
+            {
+                var mapName = mapDefinition.name.Replace("_Map", string.Empty);
+                var materialPath = $"{DefinitionsFolder}/{mapName}_Visual.mat";
+                material = AssetDatabase.LoadAssetAtPath<Material>(materialPath);
+
+                if (material == null)
+                {
+                    var template = AssetDatabase.LoadAssetAtPath<Material>(
+                        VisualMaterialTemplatePath);
+                    material = template != null
+                        ? new Material(template)
+                        : new Material(Shader.Find("Universal Render Pipeline/Lit"));
+                    material.name = $"{mapName}_Visual";
+                    AssetDatabase.CreateAsset(material, materialPath);
+                }
+            }
+
+            if (material.HasProperty("_BaseMap"))
+            {
+                material.SetTexture("_BaseMap", visualMap);
+            }
+
+            if (material.HasProperty("_MainTex"))
+            {
+                material.SetTexture("_MainTex", visualMap);
+            }
+
+            if (material.HasProperty("_BaseColor"))
+            {
+                material.SetColor("_BaseColor", Color.white);
+            }
+
+            if (material.HasProperty("_Color"))
+            {
+                material.SetColor("_Color", Color.white);
+            }
+
+            mapDefinition.visualMaterial = material;
+            EditorUtility.SetDirty(material);
+            EditorUtility.SetDirty(mapDefinition);
+            AssetDatabase.SaveAssets();
+            return material;
+        }
+
+        private static MapFeatureSummary[] CreateFeatureSummaries(
+            DungeonLayoutData layout)
+        {
+            return new[]
+            {
+                new MapFeatureSummary
+                {
+                    id = "rects",
+                    type = "Rooms",
+                    geometryCount = layout.rects.Count,
+                    coordinateCount = layout.rects.Count * 4
+                },
+                new MapFeatureSummary
+                {
+                    id = "doors",
+                    type = "Doors",
+                    geometryCount = layout.doors.Count,
+                    coordinateCount = layout.doors.Count
+                },
+                new MapFeatureSummary
+                {
+                    id = "water",
+                    type = "BlockedCells",
+                    geometryCount = layout.water.Count,
+                    coordinateCount = layout.water.Count
+                },
+                new MapFeatureSummary
+                {
+                    id = "columns",
+                    type = "Columns",
+                    geometryCount = layout.columns.Count,
+                    coordinateCount = layout.columns.Count
+                }
+            };
+        }
+
+        private bool IsMapReady()
+        {
+            return mapDefinition != null &&
+                   mapDefinition.layoutJson != null &&
+                   mapDefinition.HasBounds;
+        }
+
+        private void LoadDefinitionIntoWindow()
+        {
+            if (mapDefinition == null)
+            {
+                SetStatus("Select a MapDefinition asset first.", MessageType.Warning);
+                return;
+            }
+
+            layoutJson = mapDefinition.layoutJson;
+            visualMap = mapDefinition.visualMap;
+            cellWorldSize = mapDefinition.worldScale;
+            baseHeight = mapDefinition.baseHeight;
+            wallHeight = mapDefinition.wallHeight;
+            wallThickness = mapDefinition.wallThickness;
+            useImageCornerFit = mapDefinition.useImageCornerFit;
+            imageUpperLeftUv = mapDefinition.imageUpperLeftUv;
+            imageLowerRightUv = mapDefinition.imageLowerRightUv;
+            editImageCornersInScene = mapDefinition.editImageCornersInScene;
+            showDungeonWalls = mapDefinition.showDungeonWalls;
+            overrideNavMeshVoxelSize = mapDefinition.overrideNavMeshVoxelSize;
+            navMeshVoxelSize = mapDefinition.navMeshVoxelSize;
+            replaceGeneratedRoot = mapDefinition.replaceGeneratedRoot;
+            disableOtherGeneratedMaps = mapDefinition.disableOtherGeneratedMaps;
+            setAsActiveCameraMap = mapDefinition.setAsActiveCameraMap;
+            EnsureDefaultImageCorners();
+            AnalyzeLayout();
+        }
+
+        private static Texture2D FindSiblingVisualMap(TextAsset jsonAsset)
+        {
+            if (jsonAsset == null)
+            {
+                return null;
+            }
+
+            var jsonPath = AssetDatabase.GetAssetPath(jsonAsset);
+            return AssetDatabase.LoadAssetAtPath<Texture2D>(
+                Path.ChangeExtension(jsonPath, ".png"));
+        }
+
+        private static GameObject FindSceneObject(string objectName)
+        {
+            foreach (var candidate in Resources.FindObjectsOfTypeAll<GameObject>())
+            {
+                if (candidate.name == objectName &&
+                    candidate.scene.IsValid() &&
+                    candidate.scene.isLoaded)
+                {
+                    return candidate;
+                }
+            }
+
+            return null;
+        }
+
+        private static void EnsureDefinitionsFolder()
+        {
+            if (!AssetDatabase.IsValidFolder("Assets/Maps"))
+            {
+                AssetDatabase.CreateFolder("Assets", "Maps");
+            }
+
+            if (!AssetDatabase.IsValidFolder(DefinitionsFolder))
+            {
+                AssetDatabase.CreateFolder("Assets/Maps", "Definitions");
+            }
+        }
+
+        private void SetStatus(string message, MessageType type)
+        {
+            statusMessage = message;
+            statusType = type;
+        }
+
+        private struct DungeonVisualMapping
+        {
+            public bool valid;
+            public float originPixelX;
+            public float originPixelTop;
+            public float cellPixelSize;
+            public int textureWidth;
+            public int textureHeight;
+        }
+
+        private sealed class DungeonLayoutData
+        {
+            public string version;
+            public string title;
+            public Vector2 sourceMin;
+            public Vector2 sourceMax;
+            public readonly List<DungeonRect> rects = new();
+            public readonly List<DungeonDoor> doors = new();
+            public readonly HashSet<Vector2Int> water = new();
+            public readonly List<Vector2Int> columns = new();
+            public readonly List<DungeonNote> notes = new();
+            public readonly HashSet<Vector2Int> FloorCells = new();
+            public readonly HashSet<BoundaryKey> DoorBoundaries = new();
+        }
+
+        private sealed class DungeonRect
+        {
+            public int x;
+            public int y;
+            public int width;
+            public int height;
+        }
+
+        private sealed class DungeonDoor
+        {
+            public int x;
+            public int y;
+            public Vector2Int direction;
+        }
+
+        private sealed class DungeonNote
+        {
+            public string text;
+            public string reference;
+        }
+
+        private readonly struct BoundaryKey : IEquatable<BoundaryKey>
+        {
+            private readonly bool horizontal;
+            private readonly int boundary;
+            private readonly int segment;
+
+            public BoundaryKey(bool horizontal, int boundary, int segment)
+            {
+                this.horizontal = horizontal;
+                this.boundary = boundary;
+                this.segment = segment;
+            }
+
+            public bool Equals(BoundaryKey other)
+            {
+                return horizontal == other.horizontal &&
+                       boundary == other.boundary &&
+                       segment == other.segment;
+            }
+
+            public override bool Equals(object obj)
+            {
+                return obj is BoundaryKey other && Equals(other);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    var hash = horizontal ? 1 : 0;
+                    hash = hash * 397 ^ boundary;
+                    hash = hash * 397 ^ segment;
+                    return hash;
+                }
+            }
+        }
+
+        private static class DungeonLayoutReader
+        {
+            public static DungeonLayoutData Read(string json)
+            {
+                var root = JObject.Parse(json);
+                var rectTokens = root["rects"] as JArray;
+                if (rectTokens == null || rectTokens.Count == 0)
+                {
+                    throw new InvalidDataException(
+                        "The dungeon JSON does not contain a non-empty rects array.");
+                }
+
+                var data = new DungeonLayoutData
+                {
+                    version = root.Value<string>("version") ?? string.Empty,
+                    title = root.Value<string>("title") ?? string.Empty
+                };
+
+                var minX = int.MaxValue;
+                var minY = int.MaxValue;
+                var maxX = int.MinValue;
+                var maxY = int.MinValue;
+
+                foreach (var token in rectTokens)
+                {
+                    var rect = new DungeonRect
+                    {
+                        x = RequiredInt(token, "x"),
+                        y = RequiredInt(token, "y"),
+                        width = RequiredInt(token, "w"),
+                        height = RequiredInt(token, "h")
+                    };
+                    if (rect.width <= 0 || rect.height <= 0)
+                    {
+                        throw new InvalidDataException("Dungeon rects must have positive size.");
+                    }
+
+                    data.rects.Add(rect);
+                    minX = Mathf.Min(minX, rect.x);
+                    minY = Mathf.Min(minY, rect.y);
+                    maxX = Mathf.Max(maxX, rect.x + rect.width);
+                    maxY = Mathf.Max(maxY, rect.y + rect.height);
+
+                    for (var y = rect.y; y < rect.y + rect.height; y++)
+                    {
+                        for (var x = rect.x; x < rect.x + rect.width; x++)
+                        {
+                            data.FloorCells.Add(new Vector2Int(x, y));
+                        }
+                    }
+                }
+
+                ReadWater(root["water"], data, ref minX, ref minY, ref maxX, ref maxY);
+                ReadColumns(root["columns"], data, ref minX, ref minY, ref maxX, ref maxY);
+                ReadDoors(root["doors"], data);
+                ReadNotes(root["notes"], data);
+
+                foreach (var waterCell in data.water)
+                {
+                    data.FloorCells.Remove(waterCell);
+                }
+
+                foreach (var door in data.doors)
+                {
+                    AddDoorBoundary(data, door);
+                }
+
+                data.sourceMin = new Vector2(minX, minY);
+                data.sourceMax = new Vector2(maxX, maxY);
+                if (data.sourceMax.x <= data.sourceMin.x ||
+                    data.sourceMax.y <= data.sourceMin.y)
+                {
+                    throw new InvalidDataException("The calculated dungeon bounds are invalid.");
+                }
+
+                return data;
+            }
+
+            private static void ReadWater(
+                JToken token,
+                DungeonLayoutData data,
+                ref int minX,
+                ref int minY,
+                ref int maxX,
+                ref int maxY)
+            {
+                if (!(token is JArray array))
+                {
+                    return;
+                }
+
+                foreach (var point in array)
+                {
+                    if (!TryReadGridPoint(point, out var cell))
+                    {
+                        continue;
+                    }
+
+                    data.water.Add(cell);
+                    IncludeCell(cell, ref minX, ref minY, ref maxX, ref maxY);
+                }
+            }
+
+            private static void ReadColumns(
+                JToken token,
+                DungeonLayoutData data,
+                ref int minX,
+                ref int minY,
+                ref int maxX,
+                ref int maxY)
+            {
+                if (!(token is JArray array))
+                {
+                    return;
+                }
+
+                foreach (var point in array)
+                {
+                    if (!TryReadGridPoint(point, out var cell))
+                    {
+                        continue;
+                    }
+
+                    data.columns.Add(cell);
+                    IncludeCell(cell, ref minX, ref minY, ref maxX, ref maxY);
+                }
+            }
+
+            private static void ReadDoors(JToken token, DungeonLayoutData data)
+            {
+                if (!(token is JArray array))
+                {
+                    return;
+                }
+
+                foreach (var doorToken in array)
+                {
+                    if (!(doorToken is JObject doorObject) ||
+                        !TryReadGridPoint(doorObject, out var position))
+                    {
+                        continue;
+                    }
+
+                    var direction = doorObject["dir"] as JObject;
+                    if (direction == null)
+                    {
+                        continue;
+                    }
+
+                    data.doors.Add(new DungeonDoor
+                    {
+                        x = position.x,
+                        y = position.y,
+                        direction = new Vector2Int(
+                            direction.Value<int?>("x") ?? 0,
+                            direction.Value<int?>("y") ?? 0)
+                    });
+                }
+            }
+
+            private static void ReadNotes(JToken token, DungeonLayoutData data)
+            {
+                if (!(token is JArray array))
+                {
+                    return;
+                }
+
+                foreach (var noteToken in array)
+                {
+                    if (!(noteToken is JObject noteObject))
+                    {
+                        continue;
+                    }
+
+                    data.notes.Add(new DungeonNote
+                    {
+                        text = noteObject.Value<string>("text") ?? string.Empty,
+                        reference = noteObject.Value<string>("ref") ?? string.Empty
+                    });
+                }
+            }
+
+            private static void AddDoorBoundary(
+                DungeonLayoutData data,
+                DungeonDoor door)
+            {
+                if (door.direction.x > 0)
+                {
+                    data.DoorBoundaries.Add(
+                        new BoundaryKey(false, door.x + 1, door.y));
+                }
+                else if (door.direction.x < 0)
+                {
+                    data.DoorBoundaries.Add(
+                        new BoundaryKey(false, door.x, door.y));
+                }
+                else if (door.direction.y > 0)
+                {
+                    data.DoorBoundaries.Add(
+                        new BoundaryKey(true, door.y + 1, door.x));
+                }
+                else if (door.direction.y < 0)
+                {
+                    data.DoorBoundaries.Add(
+                        new BoundaryKey(true, door.y, door.x));
+                }
+            }
+
+            private static bool TryReadGridPoint(
+                JToken token,
+                out Vector2Int point)
+            {
+                point = default;
+                if (token is JArray array &&
+                    array.Count >= 2 &&
+                    IsNumber(array[0]) &&
+                    IsNumber(array[1]))
+                {
+                    point = new Vector2Int(
+                        array[0].Value<int>(),
+                        array[1].Value<int>());
+                    return true;
+                }
+
+                if (token is JObject objectToken &&
+                    IsNumber(objectToken["x"]) &&
+                    IsNumber(objectToken["y"]))
+                {
+                    point = new Vector2Int(
+                        objectToken.Value<int>("x"),
+                        objectToken.Value<int>("y"));
+                    return true;
+                }
+
+                return false;
+            }
+
+            private static int RequiredInt(JToken token, string propertyName)
+            {
+                if (!IsNumber(token[propertyName]))
+                {
+                    throw new InvalidDataException(
+                        $"Dungeon rect is missing numeric '{propertyName}'.");
+                }
+
+                return token.Value<int>(propertyName);
+            }
+
+            private static bool IsNumber(JToken token)
+            {
+                return token != null &&
+                       (token.Type == JTokenType.Integer ||
+                        token.Type == JTokenType.Float);
+            }
+
+            private static void IncludeCell(
+                Vector2Int cell,
+                ref int minX,
+                ref int minY,
+                ref int maxX,
+                ref int maxY)
+            {
+                minX = Mathf.Min(minX, cell.x);
+                minY = Mathf.Min(minY, cell.y);
+                maxX = Mathf.Max(maxX, cell.x + 1);
+                maxY = Mathf.Max(maxY, cell.y + 1);
+            }
+        }
+    }
+}
+#endif
