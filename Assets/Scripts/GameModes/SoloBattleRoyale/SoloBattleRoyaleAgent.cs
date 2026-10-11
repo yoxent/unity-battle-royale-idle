@@ -191,8 +191,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
         private BattleRoyaleCharacter FindTarget()
         {
-            var perceptionRange = character.PerceptionRange *
-                                  tuning.PerceptionMultiplier;
+            var sightRange = character.WeaponRange;
             var bestScore = float.MaxValue;
             BattleRoyaleCharacter bestTarget = null;
 
@@ -208,7 +207,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 var distance = HorizontalDistance(
                     transform.position,
                     candidate.transform.position);
-                if (distance > perceptionRange ||
+                if (distance > sightRange ||
                     !BattleRoyaleLineOfSight.IsClear(character, candidate))
                 {
                     continue;

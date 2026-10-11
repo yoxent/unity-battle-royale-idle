@@ -13,12 +13,14 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             BattleRoyaleCharacter from,
             BattleRoyaleCharacter to)
         {
-            return Evaluate(from, to, out _, out _);
+            var range = from == null ? 0f : from.WeaponRange;
+            return Evaluate(from, to, range, out _, out _);
         }
 
         public static bool Evaluate(
             BattleRoyaleCharacter from,
             BattleRoyaleCharacter to,
+            float maxDistance,
             out Vector3 origin,
             out Vector3 end)
         {
@@ -34,10 +36,23 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             end = to.transform.position;
             end.y = origin.y;
             var offset = end - origin;
-            var distance = offset.magnitude;
+            var targetDistance = offset.magnitude;
+            var reach = Mathf.Max(0f, maxDistance);
+            var withinReach = targetDistance <= reach;
+            if (targetDistance <= 0.05f)
+            {
+                return withinReach;
+            }
+
+            var distance = withinReach ? targetDistance : reach;
+            if (!withinReach)
+            {
+                end = origin + offset / targetDistance * distance;
+            }
+
             if (distance <= 0.05f)
             {
-                return true;
+                return false;
             }
 
             var hits = Physics.RaycastAll(
@@ -62,7 +77,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return character == to;
             }
 
-            return true;
+            return withinReach;
         }
 
         public static bool TryGetObstacleHit(

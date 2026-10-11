@@ -659,9 +659,18 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                             continue;
                         }
 
+                        var sightRange = source.WeaponRange;
+                        var flatOffset = target.transform.position - source.transform.position;
+                        flatOffset.y = 0f;
+                        if (flatOffset.sqrMagnitude > sightRange * sightRange)
+                        {
+                            continue;
+                        }
+
                         var clear = BattleRoyaleLineOfSight.Evaluate(
                             source,
                             target,
+                            sightRange,
                             out var origin,
                             out var end);
                         var line = GetSightLine(usedLines);
