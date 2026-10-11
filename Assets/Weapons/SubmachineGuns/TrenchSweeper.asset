@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Trench Sweeper
   category: 2
+  cost: 1100
   stats:
-    damage: 7
-    fireRate: 6.5
-    range: 38
-    projectileSpeed: 62
-    projectileLifetime: 0.86
-    projectileScale: 0.2
-    spreadDegrees: 5.5
+    damage: 28
+    fireRate: 15
+    range: 34
+    projectileSpeed: 72
+    projectileLifetime: 0.75
+    projectileScale: 0.18
+    spreadDegrees: 6.5
     pelletCount: 1
+    reloadDuration: 2.4
+    magazineSize: 30
   visualColor: {r: 0.72, g: 0.48, b: 0.18, a: 1}

@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Machine Pistol
   category: 1
+  cost: 500
   stats:
-    damage: 6
-    fireRate: 6.5
-    range: 26
-    projectileSpeed: 56
+    damage: 31
+    fireRate: 9.5
+    range: 32
+    projectileSpeed: 64
     projectileLifetime: 0.75
     projectileScale: 0.15
-    spreadDegrees: 6.8
+    spreadDegrees: 5.5
     pelletCount: 1
+    reloadDuration: 2.4
+    magazineSize: 18
   visualColor: {r: 0.75, g: 0.78, b: 0.45, a: 1}

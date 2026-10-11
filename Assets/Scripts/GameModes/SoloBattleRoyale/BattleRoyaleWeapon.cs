@@ -10,8 +10,12 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private WeaponProfile profile;
         private WeaponProfile runtimeProfile;
         private float nextFireTime;
+        private float reloadReadyTime;
+        private int roundsRemaining;
 
         public WeaponProfile Profile => profile;
+        public int RoundsRemaining => roundsRemaining;
+        public bool IsReloading => Time.time < reloadReadyTime;
         public float Range => profile == null || profile.stats == null
             ? 0f
             : profile.stats.range;
@@ -31,6 +35,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 profile = runtimeProfile;
             }
 
+            roundsRemaining = MagazineCapacity;
+            reloadReadyTime = 0f;
             CreatePrimitiveVisual();
         }
 
@@ -41,8 +47,22 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 !owner.IsAlive ||
                 !target.IsAlive ||
                 profile == null ||
-                profile.stats == null ||
-                Time.time < nextFireTime)
+                profile.stats == null)
+            {
+                return false;
+            }
+
+            if (Time.time < reloadReadyTime)
+            {
+                return false;
+            }
+
+            if (roundsRemaining <= 0)
+            {
+                roundsRemaining = MagazineCapacity;
+            }
+
+            if (Time.time < nextFireTime)
             {
                 return false;
             }
@@ -104,8 +124,24 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                     stats);
             }
 
+            roundsRemaining = Mathf.Max(0, roundsRemaining - 1);
+            if (roundsRemaining == 0)
+            {
+                reloadReadyTime = Time.time + ReloadDuration;
+            }
+
             return true;
         }
+
+        private int MagazineCapacity =>
+            profile == null || profile.stats == null
+                ? 1
+                : Mathf.Max(1, profile.stats.magazineSize);
+
+        private float ReloadDuration =>
+            profile == null || profile.stats == null
+                ? 2.5f
+                : Mathf.Max(0.05f, profile.stats.reloadDuration);
 
         private void SpawnProjectile(
             Vector3 origin,

@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Suppression Gun
   category: 4
+  cost: 1650
   stats:
-    damage: 7
-    fireRate: 4.8
-    range: 78
-    projectileSpeed: 58
-    projectileLifetime: 1.88
-    projectileScale: 0.36
-    spreadDegrees: 4.6
+    damage: 33
+    fireRate: 13
+    range: 80
+    projectileSpeed: 78
+    projectileLifetime: 1.38
+    projectileScale: 0.38
+    spreadDegrees: 4.8
     pelletCount: 1
+    reloadDuration: 4.5
+    magazineSize: 100
   visualColor: {r: 0.4, g: 0.42, b: 0.16, a: 1}

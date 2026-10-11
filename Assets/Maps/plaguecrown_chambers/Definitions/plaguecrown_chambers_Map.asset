@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3503e613d5c33349941d0854c67e07a, type: 3}
+  m_Name: plaguecrown_chambers_Map
+  m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Maps.MapDefinition
+  layoutJson: {fileID: 4900000, guid: 41da5ca2080a5d648ae2c0a467000cb5, type: 3}
+  narrativeMarkdown: {fileID: 4900000, guid: c67d474ae58bd334bbac563be140e489, type: 3}
+  visualMap: {fileID: 2800000, guid: e08206082fe19cc47976547651c2bdf9, type: 3}
+  heightMap: {fileID: 0}
+  visualMaterial: {fileID: 2100000, guid: 3f56b2c199a24af41ac33d1ef85917ee, type: 2}
+  worldScale: 20
+  flipHeightY: 0
+  sourceMin: {x: -17, y: -19}
+  sourceMax: {x: 10, y: 11}
+  baseHeight: 0
+  heightScale: 0
+  heightResolution: 2
+  wallHeight: 3
+  wallThickness: 0.7
+  generateBuildingWalls: 0
+  generateTreeColliders: 0
+  useImageCornerFit: 1
+  imageUpperLeftUv: {x: 0.03332172, y: 1}
+  imageLowerRightUv: {x: 0.9672529, y: 0.032069605}
+  editImageCornersInScene: 1
+  showDungeonWalls: 1
+  overrideNavMeshVoxelSize: 0
+  navMeshVoxelSize: 0.16666667
+  replaceGeneratedRoot: 1
+  disableOtherGeneratedMaps: 1
+  setAsActiveCameraMap: 1
+  generator: dungeon
+  generatorVersion: 1.2.7
+  features:
+  - id: rects
+    type: Rooms
+    geometryCount: 54
+    coordinateCount: 216
+  - id: doors
+    type: Doors
+    geometryCount: 30
+    coordinateCount: 30
+  - id: water
+    type: BlockedCells
+    geometryCount: 0
+    coordinateCount: 0
+  - id: columns
+    type: Columns
+    geometryCount: 16
+    coordinateCount: 16
+  supportedGameModes: 00000000
+  modeConfigurations:
+  - {fileID: 11400000, guid: 947605ec3bec154459da194a93d98122, type: 2}

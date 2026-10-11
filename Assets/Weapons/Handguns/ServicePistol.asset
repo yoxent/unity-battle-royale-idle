@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Service Pistol
   category: 1
+  cost: 200
   stats:
-    damage: 14
-    fireRate: 2.2
-    range: 34
-    projectileSpeed: 50
-    projectileLifetime: 0.95
-    projectileScale: 0.22
-    spreadDegrees: 3.2
+    damage: 30
+    fireRate: 6.67
+    range: 42
+    projectileSpeed: 58
+    projectileLifetime: 0.98
+    projectileScale: 0.2
+    spreadDegrees: 2.4
     pelletCount: 1
+    reloadDuration: 2
+    magazineSize: 20
   visualColor: {r: 0.55, g: 0.62, b: 0.7, a: 1}

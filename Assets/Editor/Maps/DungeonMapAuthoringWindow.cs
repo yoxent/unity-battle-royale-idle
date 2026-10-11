@@ -17,7 +17,6 @@ namespace BattleRoyale.Maps.EditorTools
 {
     public sealed class DungeonMapAuthoringWindow : EditorWindow
     {
-        private const string DefinitionsFolder = "Assets/Maps/Definitions";
         private const string VisualMaterialTemplatePath = "Assets/Materials/MapPlane.mat";
         private const string WallMaterialPath = "Assets/Materials/MarkerCube.mat";
         private const int DungeonNavMeshAgentTypeId = 0;
@@ -49,9 +48,6 @@ namespace BattleRoyale.Maps.EditorTools
         private string statusMessage;
         private MessageType statusType = MessageType.Info;
         private Vector2 scrollPosition;
-        [SerializeField] private bool geometryFoldout;
-        [SerializeField] private bool generationOptionsFoldout;
-        [SerializeField] private bool importFoldout;
         private bool cornerSceneGuiRegistered;
         private bool draggingUpperLeft;
         private bool draggingLowerRight;
@@ -77,23 +73,30 @@ namespace BattleRoyale.Maps.EditorTools
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
 
             EditorGUILayout.HelpBox(
-                "Load a map, align the image to the floor, place mode points, then generate.",
+                "Start with the generator JSON and PNG. Create the map, generate it into the scene, then align the image and place mode points.",
                 MessageType.Info);
             if (!string.IsNullOrWhiteSpace(statusMessage))
             {
                 EditorGUILayout.HelpBox(statusMessage, statusType);
             }
 
+            DrawImportSection();
             DrawMapSection();
+            DrawGeometrySection();
+            DrawGenerationOptionsSection();
+            DrawGenerateSection();
             EditorGUILayout.LabelField("Image Alignment", EditorStyles.boldLabel);
             DrawImageCornerSection();
             EditorGUILayout.Space(8f);
-            DrawGenerateSection();
             modeAuthoring ??= new MapModeAuthoringPanel();
-            modeAuthoring.Draw(mapDefinition, DefinitionsFolder);
-            DrawGeometrySection();
-            DrawGenerationOptionsSection();
-            DrawImportSection();
+            modeAuthoring.Draw(
+                mapDefinition,
+                MapModeAuthoringPanel.GetDefinitionsFolder(
+                    layoutJson != null
+                        ? layoutJson
+                        : mapDefinition != null
+                            ? mapDefinition.layoutJson
+                            : null));
 
             EditorGUILayout.EndScrollView();
         }
@@ -169,110 +172,88 @@ namespace BattleRoyale.Maps.EditorTools
 
         private void DrawGeometrySection()
         {
-            geometryFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(
-                geometryFoldout,
-                "Geometry");
-            if (geometryFoldout)
+            EditorGUILayout.LabelField("Geometry", EditorStyles.boldLabel);
+            cellWorldSize = Mathf.Max(
+                0.01f,
+                EditorGUILayout.FloatField(
+                    new GUIContent(
+                        "Cell World Size",
+                        "Logical dungeon grid cells are converted to this many Unity world units."),
+                    cellWorldSize));
+            baseHeight = EditorGUILayout.FloatField("Base Height", baseHeight);
+            wallHeight = Mathf.Max(
+                0f,
+                EditorGUILayout.FloatField("Wall Height", wallHeight));
+            wallThickness = Mathf.Max(
+                0.001f,
+                EditorGUILayout.FloatField("Wall Thickness", wallThickness));
+            columnSize = Mathf.Max(
+                0.01f,
+                EditorGUILayout.FloatField("Column Size", columnSize));
+            dungeonUnitScale = Mathf.Max(
+                0.01f,
+                EditorGUILayout.FloatField(
+                    new GUIContent(
+                        "Dungeon Unit Scale",
+                        "Local scale applied to every UnitMovement object when this dungeon map is generated."),
+                    dungeonUnitScale));
+            if (GUILayout.Button("Apply Dungeon Unit Scale To Loaded Scene"))
             {
-                cellWorldSize = Mathf.Max(
-                    0.01f,
-                    EditorGUILayout.FloatField(
-                        new GUIContent(
-                            "Cell World Size",
-                            "Logical dungeon grid cells are converted to this many Unity world units."),
-                        cellWorldSize));
-                baseHeight = EditorGUILayout.FloatField("Base Height", baseHeight);
-                wallHeight = Mathf.Max(
-                    0f,
-                    EditorGUILayout.FloatField("Wall Height", wallHeight));
-                wallThickness = Mathf.Max(
-                    0.001f,
-                    EditorGUILayout.FloatField("Wall Thickness", wallThickness));
-                columnSize = Mathf.Max(
-                    0.01f,
-                    EditorGUILayout.FloatField("Column Size", columnSize));
-                dungeonUnitScale = Mathf.Max(
-                    0.01f,
-                    EditorGUILayout.FloatField(
-                        new GUIContent(
-                            "Dungeon Unit Scale",
-                            "Local scale applied to every UnitMovement object when this dungeon map is generated."),
-                        dungeonUnitScale));
-                if (GUILayout.Button("Apply Dungeon Unit Scale To Loaded Scene"))
-                {
-                    var scaledUnitCount = ApplyDungeonUnitScale();
-                    EditorSceneManager.SaveOpenScenes();
-                    SetStatus(
-                        $"Applied unit scale {dungeonUnitScale:0.##} to {scaledUnitCount} unit(s).",
-                        MessageType.Info);
-                }
-
-                EditorGUILayout.HelpBox(
-                    "The default cell size is 20 world units to match the current movement prototype's character scale. Change it if this dungeon should use a different scale.",
-                    MessageType.None);
+                var scaledUnitCount = ApplyDungeonUnitScale();
+                EditorSceneManager.SaveOpenScenes();
+                SetStatus(
+                    $"Applied unit scale {dungeonUnitScale:0.##} to {scaledUnitCount} unit(s).",
+                    MessageType.Info);
             }
 
-            EditorGUILayout.EndFoldoutHeaderGroup();
+            EditorGUILayout.HelpBox(
+                "The default cell size is 20 world units to match the current movement prototype's character scale. Change it if this dungeon should use a different scale.",
+                MessageType.None);
             EditorGUILayout.Space(8f);
         }
 
         private void DrawGenerationOptionsSection()
         {
-            generationOptionsFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(
-                generationOptionsFoldout,
-                "Generation Options");
-            if (generationOptionsFoldout)
+            EditorGUILayout.LabelField("Generation Options", EditorStyles.boldLabel);
+            EditorGUI.BeginChangeCheck();
+            overrideNavMeshVoxelSize = EditorGUILayout.Toggle(
+                new GUIContent(
+                    "Override NavMesh Voxel Size",
+                    "Use a custom voxel size instead of the selected NavMesh agent's project settings."),
+                overrideNavMeshVoxelSize);
+            using (new EditorGUI.DisabledScope(!overrideNavMeshVoxelSize))
             {
-                EditorGUI.BeginChangeCheck();
-                overrideNavMeshVoxelSize = EditorGUILayout.Toggle(
-                    new GUIContent(
-                        "Override NavMesh Voxel Size",
-                        "Use a custom voxel size instead of the selected NavMesh agent's project settings."),
-                    overrideNavMeshVoxelSize);
-                using (new EditorGUI.DisabledScope(!overrideNavMeshVoxelSize))
-                {
-                    navMeshVoxelSize = Mathf.Max(
-                        0.01f,
-                        EditorGUILayout.FloatField("NavMesh Voxel Size", navMeshVoxelSize));
-                }
-
-                replaceGeneratedRoot = EditorGUILayout.Toggle(
-                    "Replace Existing Generated Root",
-                    replaceGeneratedRoot);
-                disableOtherGeneratedMaps = EditorGUILayout.Toggle(
-                    "Disable Other Generated Maps",
-                    disableOtherGeneratedMaps);
-                setAsActiveCameraMap = EditorGUILayout.Toggle(
-                    "Set As Active Camera Map",
-                    setAsActiveCameraMap);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    CopyImageCornersToDefinition();
-                }
-
-                var recommendedVoxelSize = GetRecommendedNavMeshVoxelSize();
-                EditorGUILayout.HelpBox(
-                    overrideNavMeshVoxelSize
-                        ? $"Custom NavMesh voxel size will be limited to {recommendedVoxelSize:0.###} or less for the Humanoid agent."
-                        : $"NavMesh uses the Humanoid agent's project voxel settings. Recommended voxel size: {recommendedVoxelSize:0.###}.",
-                    MessageType.None);
+                navMeshVoxelSize = Mathf.Max(
+                    0.01f,
+                    EditorGUILayout.FloatField("NavMesh Voxel Size", navMeshVoxelSize));
             }
 
-            EditorGUILayout.EndFoldoutHeaderGroup();
+            replaceGeneratedRoot = EditorGUILayout.Toggle(
+                "Replace Existing Generated Root",
+                replaceGeneratedRoot);
+            disableOtherGeneratedMaps = EditorGUILayout.Toggle(
+                "Disable Other Generated Maps",
+                disableOtherGeneratedMaps);
+            setAsActiveCameraMap = EditorGUILayout.Toggle(
+                "Set As Active Camera Map",
+                setAsActiveCameraMap);
+            if (EditorGUI.EndChangeCheck())
+            {
+                CopyImageCornersToDefinition();
+            }
+
+            var recommendedVoxelSize = GetRecommendedNavMeshVoxelSize();
+            EditorGUILayout.HelpBox(
+                overrideNavMeshVoxelSize
+                    ? $"Custom NavMesh voxel size will be limited to {recommendedVoxelSize:0.###} or less for the Humanoid agent."
+                    : $"NavMesh uses the Humanoid agent's project voxel settings. Recommended voxel size: {recommendedVoxelSize:0.###}.",
+                MessageType.None);
             EditorGUILayout.Space(8f);
         }
 
         private void DrawImportSection()
         {
-            importFoldout = EditorGUILayout.BeginFoldoutHeaderGroup(
-                importFoldout,
-                "Import");
-            if (!importFoldout)
-            {
-                EditorGUILayout.EndFoldoutHeaderGroup();
-                return;
-            }
-
+            EditorGUILayout.LabelField("Import", EditorStyles.boldLabel);
             var previousJson = layoutJson;
             layoutJson = (TextAsset)EditorGUILayout.ObjectField(
                 "Dungeon JSON",
@@ -320,7 +301,7 @@ namespace BattleRoyale.Maps.EditorTools
                 EditorGUILayout.LabelField("Notes", analyzedLayout.notes.Count.ToString());
             }
 
-            EditorGUILayout.EndFoldoutHeaderGroup();
+            EditorGUILayout.Space(8f);
         }
 
         private void DrawImageCornerSection()
@@ -441,16 +422,28 @@ namespace BattleRoyale.Maps.EditorTools
                 return;
             }
 
-            EnsureDefinitionsFolder();
+            var definitionsFolder = MapModeAuthoringPanel.EnsureDefinitionsFolder(layoutJson);
+            if (string.IsNullOrEmpty(definitionsFolder) ||
+                !AssetDatabase.IsValidFolder(definitionsFolder))
+            {
+                SetStatus(
+                    "Save the dungeon JSON in the project before creating its Definitions folder.",
+                    MessageType.Error);
+                return;
+            }
 
             if (mapDefinition == null)
             {
                 var mapName = Path.GetFileNameWithoutExtension(layoutJson.name);
-                var assetPath = AssetDatabase.GenerateUniqueAssetPath(
-                    $"{DefinitionsFolder}/{mapName}_Map.asset");
-                mapDefinition = CreateInstance<MapDefinition>();
-                mapDefinition.name = $"{mapName}_Map";
-                AssetDatabase.CreateAsset(mapDefinition, assetPath);
+                var assetPath = $"{definitionsFolder}/{mapName}_Map.asset";
+                mapDefinition = AssetDatabase.LoadAssetAtPath<MapDefinition>(assetPath);
+                if (mapDefinition == null)
+                {
+                    assetPath = AssetDatabase.GenerateUniqueAssetPath(assetPath);
+                    mapDefinition = CreateInstance<MapDefinition>();
+                    mapDefinition.name = $"{mapName}_Map";
+                    AssetDatabase.CreateAsset(mapDefinition, assetPath);
+                }
             }
 
             mapDefinition.layoutJson = layoutJson;
@@ -1767,7 +1760,15 @@ namespace BattleRoyale.Maps.EditorTools
             if (material == null)
             {
                 var mapName = mapDefinition.name.Replace("_Map", string.Empty);
-                var materialPath = $"{DefinitionsFolder}/{mapName}_Visual.mat";
+                var definitionsFolder = MapModeAuthoringPanel.EnsureDefinitionsFolder(
+                    mapDefinition.layoutJson);
+                if (string.IsNullOrEmpty(definitionsFolder) ||
+                    !AssetDatabase.IsValidFolder(definitionsFolder))
+                {
+                    return AssetDatabase.LoadAssetAtPath<Material>(VisualMaterialTemplatePath);
+                }
+
+                var materialPath = $"{definitionsFolder}/{mapName}_Visual.mat";
                 material = AssetDatabase.LoadAssetAtPath<Material>(materialPath);
 
                 if (material == null)
@@ -1905,19 +1906,6 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             return null;
-        }
-
-        private static void EnsureDefinitionsFolder()
-        {
-            if (!AssetDatabase.IsValidFolder("Assets/Maps"))
-            {
-                AssetDatabase.CreateFolder("Assets", "Maps");
-            }
-
-            if (!AssetDatabase.IsValidFolder(DefinitionsFolder))
-            {
-                AssetDatabase.CreateFolder("Assets/Maps", "Definitions");
-            }
         }
 
         private void SetStatus(string message, MessageType type)

@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Automatic Shotgun
   category: 3
+  cost: 1900
   stats:
-    damage: 4
-    fireRate: 1.8
+    damage: 14
+    fireRate: 3.3
     range: 22
-    projectileSpeed: 44
+    projectileSpeed: 46
     projectileLifetime: 0.75
     projectileScale: 0.4
     spreadDegrees: 8
-    pelletCount: 6
+    pelletCount: 12
+    reloadDuration: 3.5
+    magazineSize: 7
   visualColor: {r: 0.7, g: 0.28, b: 0.18, a: 1}

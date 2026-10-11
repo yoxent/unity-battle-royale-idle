@@ -29,5 +29,13 @@ namespace BattleRoyale.Weapons
 
         [Min(1)]
         public int pelletCount = 1;
+
+        [Min(0.05f)]
+        [Tooltip("Seconds to refill the magazine after the last round.")]
+        public float reloadDuration = 2.5f;
+
+        [Min(1)]
+        [Tooltip("Rounds fired before the gun reloads.")]
+        public int magazineSize = 30;
     }
 }

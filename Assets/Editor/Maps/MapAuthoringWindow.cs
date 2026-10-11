@@ -14,7 +14,6 @@ namespace BattleRoyale.Maps.EditorTools
 {
     public sealed class MapAuthoringWindow : EditorWindow
     {
-        private const string DefinitionsFolder = "Assets/Maps/Definitions";
         private const string VisualMaterialTemplatePath = "Assets/Materials/MapPlane.mat";
         private const int MaximumGeneratedSurfaceResolution = 513;
 
@@ -76,7 +75,14 @@ namespace BattleRoyale.Maps.EditorTools
             DrawAnalysisSection();
             DrawAssetSection();
             modeAuthoring ??= new MapModeAuthoringPanel();
-            modeAuthoring.Draw(mapDefinition, DefinitionsFolder);
+            modeAuthoring.Draw(
+                mapDefinition,
+                MapModeAuthoringPanel.GetDefinitionsFolder(
+                    layoutJson != null
+                        ? layoutJson
+                        : mapDefinition != null
+                            ? mapDefinition.layoutJson
+                            : null));
             DrawHeightSection();
             DrawGenerationSection();
 
@@ -496,16 +502,28 @@ namespace BattleRoyale.Maps.EditorTools
                 return;
             }
 
-            EnsureDefinitionsFolder();
+            var definitionsFolder = MapModeAuthoringPanel.EnsureDefinitionsFolder(layoutJson);
+            if (string.IsNullOrEmpty(definitionsFolder) ||
+                !AssetDatabase.IsValidFolder(definitionsFolder))
+            {
+                SetStatus(
+                    "Save the layout JSON in the project before creating its Definitions folder.",
+                    MessageType.Error);
+                return;
+            }
 
             if (mapDefinition == null)
             {
                 var mapName = Path.GetFileNameWithoutExtension(layoutJson.name);
-                var assetPath = AssetDatabase.GenerateUniqueAssetPath(
-                    $"{DefinitionsFolder}/{mapName}_Map.asset");
-                mapDefinition = CreateInstance<MapDefinition>();
-                mapDefinition.name = $"{mapName}_Map";
-                AssetDatabase.CreateAsset(mapDefinition, assetPath);
+                var assetPath = $"{definitionsFolder}/{mapName}_Map.asset";
+                mapDefinition = AssetDatabase.LoadAssetAtPath<MapDefinition>(assetPath);
+                if (mapDefinition == null)
+                {
+                    assetPath = AssetDatabase.GenerateUniqueAssetPath(assetPath);
+                    mapDefinition = CreateInstance<MapDefinition>();
+                    mapDefinition.name = $"{mapName}_Map";
+                    AssetDatabase.CreateAsset(mapDefinition, assetPath);
+                }
             }
 
             mapDefinition.layoutJson = layoutJson;
@@ -549,13 +567,23 @@ namespace BattleRoyale.Maps.EditorTools
                 return;
             }
 
-            EnsureDefinitionsFolder();
+            var definitionsFolder = MapModeAuthoringPanel.EnsureDefinitionsFolder(
+                mapDefinition.layoutJson);
+            if (string.IsNullOrEmpty(definitionsFolder) ||
+                !AssetDatabase.IsValidFolder(definitionsFolder))
+            {
+                SetStatus(
+                    "Save the layout JSON in the project before creating its Definitions folder.",
+                    MessageType.Error);
+                return;
+            }
+
             var resolution = Mathf.Clamp(
                 mapDefinition.heightResolution,
                 2,
                 MaximumGeneratedSurfaceResolution);
             var mapName = mapDefinition.name.Replace("_Map", string.Empty);
-            var path = $"{DefinitionsFolder}/{mapName}_Height.asset";
+            var path = $"{definitionsFolder}/{mapName}_Height.asset";
             var heightMap = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
 
             if (heightMap == null || heightMap.width != resolution || heightMap.height != resolution)
@@ -704,7 +732,15 @@ namespace BattleRoyale.Maps.EditorTools
             if (material == null)
             {
                 var mapName = mapDefinition.name.Replace("_Map", string.Empty);
-                var materialPath = $"{DefinitionsFolder}/{mapName}_Visual.mat";
+                var definitionsFolder = MapModeAuthoringPanel.EnsureDefinitionsFolder(
+                    mapDefinition.layoutJson);
+                if (string.IsNullOrEmpty(definitionsFolder) ||
+                    !AssetDatabase.IsValidFolder(definitionsFolder))
+                {
+                    return null;
+                }
+
+                var materialPath = $"{definitionsFolder}/{mapName}_Visual.mat";
                 material = AssetDatabase.LoadAssetAtPath<Material>(materialPath);
 
                 if (material == null)
@@ -977,19 +1013,6 @@ namespace BattleRoyale.Maps.EditorTools
             var jsonPath = AssetDatabase.GetAssetPath(jsonAsset);
             var pngPath = Path.ChangeExtension(jsonPath, ".png");
             return AssetDatabase.LoadAssetAtPath<Texture2D>(pngPath);
-        }
-
-        private static void EnsureDefinitionsFolder()
-        {
-            if (!AssetDatabase.IsValidFolder("Assets/Maps"))
-            {
-                AssetDatabase.CreateFolder("Assets", "Maps");
-            }
-
-            if (!AssetDatabase.IsValidFolder(DefinitionsFolder))
-            {
-                AssetDatabase.CreateFolder("Assets/Maps", "Definitions");
-            }
         }
 
         private void SetStatus(string message, MessageType type)

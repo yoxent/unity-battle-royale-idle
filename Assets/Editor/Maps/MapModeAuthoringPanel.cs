@@ -506,16 +506,31 @@ namespace BattleRoyale.Maps.EditorTools
                 ? "Default"
                 : variantName.Trim();
             var safeVariantName = SanitizeName(normalizedVariantName);
+            var folder = EnsureDefinitionsFolder(mapDefinition.layoutJson);
+            if (string.IsNullOrEmpty(folder))
+            {
+                folder = definitionsFolder;
+            }
+
+            if (string.IsNullOrEmpty(folder) || !AssetDatabase.IsValidFolder(folder))
+            {
+                return;
+            }
+
             if (selectedConfiguration == null)
             {
                 var mapName = mapDefinition.name.Replace("_Map", string.Empty);
-                var path = AssetDatabase.GenerateUniqueAssetPath(
-                    $"{definitionsFolder}/{mapName}_{selectedMode}_{safeVariantName}.asset");
-                selectedConfiguration =
-                    ScriptableObject.CreateInstance<MapModeConfiguration>();
-                selectedConfiguration.name =
-                    $"{mapName}_{selectedMode}_{safeVariantName}";
-                AssetDatabase.CreateAsset(selectedConfiguration, path);
+                var path = $"{folder}/{mapName}_{selectedMode}_{safeVariantName}.asset";
+                selectedConfiguration = AssetDatabase.LoadAssetAtPath<MapModeConfiguration>(path);
+                if (selectedConfiguration == null)
+                {
+                    path = AssetDatabase.GenerateUniqueAssetPath(path);
+                    selectedConfiguration =
+                        ScriptableObject.CreateInstance<MapModeConfiguration>();
+                    selectedConfiguration.name =
+                        $"{mapName}_{selectedMode}_{safeVariantName}";
+                    AssetDatabase.CreateAsset(selectedConfiguration, path);
+                }
             }
 
             selectedConfiguration.map = mapDefinition;
@@ -1370,6 +1385,46 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             return result.Replace(' ', '_');
+        }
+
+        public static string GetDefinitionsFolder(TextAsset layoutJson)
+        {
+            var jsonPath = layoutJson != null
+                ? AssetDatabase.GetAssetPath(layoutJson)
+                : null;
+            if (string.IsNullOrEmpty(jsonPath))
+            {
+                return null;
+            }
+
+            var mapFolder = Path.GetDirectoryName(jsonPath)?.Replace('\\', '/');
+            if (string.IsNullOrEmpty(mapFolder))
+            {
+                return null;
+            }
+
+            return $"{mapFolder}/Definitions";
+        }
+
+        public static string EnsureDefinitionsFolder(TextAsset layoutJson)
+        {
+            var definitionsFolder = GetDefinitionsFolder(layoutJson);
+            if (string.IsNullOrEmpty(definitionsFolder) ||
+                AssetDatabase.IsValidFolder(definitionsFolder))
+            {
+                return definitionsFolder;
+            }
+
+            var parent = Path.GetDirectoryName(definitionsFolder)?.Replace('\\', '/');
+            var leaf = Path.GetFileName(definitionsFolder);
+            if (!string.IsNullOrEmpty(parent) &&
+                !string.IsNullOrEmpty(leaf) &&
+                AssetDatabase.IsValidFolder(parent))
+            {
+                AssetDatabase.CreateFolder(parent, leaf);
+            }
+
+            return definitionsFolder;
         }
 
         public static TextAsset FindSiblingMarkdown(TextAsset jsonAsset)

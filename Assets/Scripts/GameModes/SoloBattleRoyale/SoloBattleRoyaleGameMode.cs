@@ -32,8 +32,12 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             TeamPlaystyle.Neutral;
 
         [Header("Characters")]
+        [SerializeField] private BattleRoyaleCharacter characterPrefab;
         [SerializeField] private BattleRoyaleCharacterProfile defaultProfile;
-        [Min(1)]
+        [Tooltip(
+            "Set from the loaded mode configuration: team count times players per team, " +
+            "excluding the test player when that slot is enabled.")]
+        [Min(0)]
         [SerializeField] private int botCount = 8;
         [SerializeField] private bool spawnTestPlayer;
         [SerializeField] private bool distributeStrategies = true;
@@ -142,6 +146,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return false;
             }
 
+            ApplyLoadedModeConfiguration();
             PrepareSafeZone();
             EnsureCharacterParent();
             EnsureDefaultProfile();
@@ -302,6 +307,19 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             return true;
         }
 
+        private void ApplyLoadedModeConfiguration()
+        {
+            if (modeConfiguration == null)
+            {
+                return;
+            }
+
+            var rosterSize = Mathf.Max(1, modeConfiguration.teamCount) *
+                             Mathf.Max(1, modeConfiguration.teamSize);
+            var playerSlots = spawnTestPlayer ? 1 : 0;
+            botCount = Mathf.Max(0, rosterSize - playerSlots);
+        }
+
         private void PrepareSafeZone()
         {
             var definition = activeMap.definition;
@@ -430,13 +448,21 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             BattleRoyaleAIStrategy strategy,
             bool isBot)
         {
-            var characterObject = new GameObject(
-                $"BR_{index + 1:00}_{strategy}");
+            var characterObject = CreateCharacterObject(index, strategy);
             characterObject.transform.SetParent(characterParent, true);
             characterObject.transform.position = position;
 
-            var agent = characterObject.AddComponent<NavMeshAgent>();
-            var character = characterObject.AddComponent<BattleRoyaleCharacter>();
+            var agent = characterObject.GetComponent<NavMeshAgent>();
+            if (agent == null)
+            {
+                agent = characterObject.AddComponent<NavMeshAgent>();
+            }
+
+            var character = characterObject.GetComponent<BattleRoyaleCharacter>();
+            if (character == null)
+            {
+                character = characterObject.AddComponent<BattleRoyaleCharacter>();
+            }
             character.Initialize(
                 this,
                 defaultProfile != null ? defaultProfile : runtimeDefaultProfile,
@@ -460,6 +486,21 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
 
             characters.Add(character);
+        }
+
+        private GameObject CreateCharacterObject(
+            int index,
+            BattleRoyaleAIStrategy strategy)
+        {
+            var objectName = $"BR_{index + 1:00}_{strategy}";
+            if (characterPrefab == null)
+            {
+                return new GameObject(objectName);
+            }
+
+            var characterObject = Instantiate(characterPrefab).gameObject;
+            characterObject.name = objectName;
+            return characterObject;
         }
 
         private Vector3 GetSpawnPosition(int index)
@@ -578,7 +619,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
         private void OnValidate()
         {
-            botCount = Mathf.Max(1, botCount);
+            ApplyLoadedModeConfiguration();
+            botCount = Mathf.Max(spawnTestPlayer ? 0 : 1, botCount);
             navMeshSnapDistance = Mathf.Max(0.1f, navMeshSnapDistance);
             safeZoneStartDelay = Mathf.Max(0f, safeZoneStartDelay);
             safeZoneShrinkDuration = Mathf.Max(0.1f, safeZoneShrinkDuration);

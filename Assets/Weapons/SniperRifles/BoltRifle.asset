@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Bolt Rifle
   category: 6
+  cost: 4750
   stats:
-    damage: 52
-    fireRate: 0.42
-    range: 160
-    projectileSpeed: 135
-    projectileLifetime: 1.66
+    damage: 140
+    fireRate: 0.65
+    range: 190
+    projectileSpeed: 160
+    projectileLifetime: 1.6
     projectileScale: 0.16
-    spreadDegrees: 0.15
+    spreadDegrees: 0.1
     pelletCount: 1
+    reloadDuration: 3.7
+    magazineSize: 5
   visualColor: {r: 0.12, g: 0.18, b: 0.32, a: 1}

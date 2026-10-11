@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Heavy Gun
   category: 4
+  cost: 4000
   stats:
-    damage: 13
-    fireRate: 2.4
+    damage: 36
+    fireRate: 12.5
     range: 100
-    projectileSpeed: 64
-    projectileLifetime: 2.19
+    projectileSpeed: 82
+    projectileLifetime: 1.65
     projectileScale: 0.48
-    spreadDegrees: 2.7
+    spreadDegrees: 3
     pelletCount: 1
+    reloadDuration: 5.2
+    magazineSize: 100
   visualColor: {r: 0.24, g: 0.28, b: 0.12, a: 1}

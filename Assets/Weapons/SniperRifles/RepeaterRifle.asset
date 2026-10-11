@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Repeater Rifle
   category: 6
+  cost: 5000
   stats:
-    damage: 44
-    fireRate: 0.55
-    range: 148
-    projectileSpeed: 130
-    projectileLifetime: 1.59
-    projectileScale: 0.16
-    spreadDegrees: 0.22
+    damage: 80
+    fireRate: 4
+    range: 155
+    projectileSpeed: 135
+    projectileLifetime: 1.55
+    projectileScale: 0.2
+    spreadDegrees: 0.8
     pelletCount: 1
+    reloadDuration: 3.1
+    magazineSize: 20
   visualColor: {r: 0.22, g: 0.28, b: 0.45, a: 1}

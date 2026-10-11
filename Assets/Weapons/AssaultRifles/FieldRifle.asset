@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Field Rifle
   category: 0
+  cost: 2900
   stats:
-    damage: 18
-    fireRate: 1.35
-    range: 82
-    projectileSpeed: 68
-    projectileLifetime: 1.69
-    projectileScale: 0.32
-    spreadDegrees: 1.7
+    damage: 35
+    fireRate: 11
+    range: 76
+    projectileSpeed: 100
+    projectileLifetime: 1.03
+    projectileScale: 0.28
+    spreadDegrees: 1.3
     pelletCount: 1
+    reloadDuration: 2.8
+    magazineSize: 25
   visualColor: {r: 0.18, g: 0.28, b: 0.18, a: 1}

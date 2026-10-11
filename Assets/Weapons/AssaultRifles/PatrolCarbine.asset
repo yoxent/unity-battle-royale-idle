@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Patrol Carbine
   category: 0
+  cost: 1900
   stats:
-    damage: 14
-    fireRate: 1.9
-    range: 68
-    projectileSpeed: 72
-    projectileLifetime: 1.32
+    damage: 32
+    fireRate: 10
+    range: 72
+    projectileSpeed: 96
+    projectileLifetime: 1.01
     projectileScale: 0.28
-    spreadDegrees: 2.3
+    spreadDegrees: 2.2
     pelletCount: 1
+    reloadDuration: 2.8
+    magazineSize: 30
   visualColor: {r: 0.22, g: 0.32, b: 0.24, a: 1}

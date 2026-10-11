@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Heavy Pistol
   category: 1
+  cost: 750
   stats:
-    damage: 22
-    fireRate: 1.35
-    range: 30
-    projectileSpeed: 46
-    projectileLifetime: 0.91
-    projectileScale: 0.28
-    spreadDegrees: 4
+    damage: 55
+    fireRate: 4.2
+    range: 56
+    projectileSpeed: 70
+    projectileLifetime: 1.08
+    projectileScale: 0.26
+    spreadDegrees: 2
     pelletCount: 1
+    reloadDuration: 2.25
+    magazineSize: 7
   visualColor: {r: 0.35, g: 0.32, b: 0.3, a: 1}

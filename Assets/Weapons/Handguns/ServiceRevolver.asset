@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Service Revolver
   category: 1
+  cost: 600
   stats:
-    damage: 26
-    fireRate: 1.05
-    range: 40
-    projectileSpeed: 48
-    projectileLifetime: 1.17
+    damage: 86
+    fireRate: 2
+    range: 58
+    projectileSpeed: 68
+    projectileLifetime: 1.15
     projectileScale: 0.26
-    spreadDegrees: 2.4
+    spreadDegrees: 1.5
     pelletCount: 1
+    reloadDuration: 2.6
+    magazineSize: 8
   visualColor: {r: 0.45, g: 0.28, b: 0.22, a: 1}

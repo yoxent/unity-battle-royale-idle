@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Double Barrel
   category: 3
+  cost: 1100
   stats:
-    damage: 9
-    fireRate: 0.5
+    damage: 32
+    fireRate: 1.18
     range: 16
-    projectileSpeed: 36
+    projectileSpeed: 40
     projectileLifetime: 0.75
     projectileScale: 0.55
-    spreadDegrees: 11
+    spreadDegrees: 13
     pelletCount: 8
+    reloadDuration: 3.2
+    magazineSize: 7
   visualColor: {r: 0.38, g: 0.16, b: 0.12, a: 1}

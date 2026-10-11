@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Suppressed Pistol
   category: 1
+  cost: 200
   stats:
-    damage: 12
-    fireRate: 2.5
-    range: 36
-    projectileSpeed: 44
-    projectileLifetime: 1.15
+    damage: 35
+    fireRate: 5.88
+    range: 46
+    projectileSpeed: 60
+    projectileLifetime: 1.04
     projectileScale: 0.18
-    spreadDegrees: 1.8
+    spreadDegrees: 1.2
     pelletCount: 1
+    reloadDuration: 1.9
+    magazineSize: 12
   visualColor: {r: 0.25, g: 0.28, b: 0.32, a: 1}

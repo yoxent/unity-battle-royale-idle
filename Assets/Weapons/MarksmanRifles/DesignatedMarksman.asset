@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Weapons.WeaponProfile
   displayName: Designated Marksman
   category: 5
+  cost: 2250
   stats:
-    damage: 34
-    fireRate: 0.75
-    range: 128
-    projectileSpeed: 108
-    projectileLifetime: 1.66
-    projectileScale: 0.2
+    damage: 65
+    fireRate: 6.5
+    range: 125
+    projectileSpeed: 118
+    projectileLifetime: 1.43
+    projectileScale: 0.22
     spreadDegrees: 0.45
     pelletCount: 1
+    reloadDuration: 2.5
+    magazineSize: 12
   visualColor: {r: 0.15, g: 0.38, b: 0.42, a: 1}
