@@ -8,10 +8,10 @@ namespace BattleRoyale.GameModes
     {
         TeamPlaystyle TeamPlaystyle { get; }
         BattleRoyaleProjectilePool Projectiles { get; }
-        IReadOnlyList<BattleRoyaleCharacter> Characters { get; }
-        void NotifyCharacterEliminated(
-            BattleRoyaleCharacter eliminated,
-            BattleRoyaleCharacter damageSource);
+        IReadOnlyList<BattleRoyaleAgent> Agents { get; }
+        void NotifyAgentEliminated(
+            BattleRoyaleAgent eliminated,
+            BattleRoyaleAgent damageSource);
     }
 
     public interface IMatchNavigation
@@ -19,5 +19,19 @@ namespace BattleRoyale.GameModes
         bool TryGetHazardDestination(Vector3 fromPosition, out Vector3 destination);
         Vector3 GetRetreatPoint(Vector3 fromPosition, Vector3 threatPosition);
         Vector3 GetWanderPoint();
+    }
+
+    public interface ITacticalAnchorProvider
+    {
+        bool TryGetTacticalAnchor(
+            Vector3 fromPosition,
+            Vector3 threatPosition,
+            float preferredRange,
+            out Vector3 destination);
+    }
+
+    public interface IAgentDirectiveProvider
+    {
+        BattleRoyaleAgentDirective CurrentDirective { get; }
     }
 }

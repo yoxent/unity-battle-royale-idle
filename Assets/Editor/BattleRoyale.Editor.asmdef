@@ -3,7 +3,9 @@
     "rootNamespace": "BattleRoyale",
     "references": [
         "BattleRoyale",
-        "Unity.AI.Navigation"
+        "Unity.AI.Navigation",
+        "Unity.InputSystem",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [
         "Editor"

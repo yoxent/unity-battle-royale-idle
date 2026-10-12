@@ -68,7 +68,8 @@ namespace BattleRoyale.GameModes.TeamDeathmatch
 
             configuration.teamDeathmatchTeams ??= new List<MapModeTeamSpawn>();
             var requiredCount = RequiredTeamCount(configuration.teamCount);
-            var changed = false;
+            var changed = configuration.teamCount != requiredCount;
+            configuration.teamCount = requiredCount;
             var center = configuration.map != null
                 ? configuration.map.WorldCenter
                 : Vector3.zero;

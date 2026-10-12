@@ -7,13 +7,15 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(NavMeshAgent))]
-    public sealed class BattleRoyaleCharacter : MonoBehaviour
+    public sealed class BattleRoyaleAgent : MonoBehaviour
     {
         [SerializeField] private NavMeshAgent agent;
-        [SerializeField] private BattleRoyaleCharacterProfile profile;
+        [SerializeField] private BattleRoyaleAgentProfile profile;
         [SerializeField] private BattleRoyaleAIStrategy strategy;
         [SerializeField] private BattleRoyaleAgentSpecialty specialty =
             BattleRoyaleAgentSpecialty.Balanced;
+        [SerializeField] private BattleRoyaleSquadRole squadRole =
+            BattleRoyaleSquadRole.Assault;
         [SerializeField] private float specialtyScore;
         [SerializeField] private float killBuffRemaining;
         [SerializeField] private float currentHealth;
@@ -22,7 +24,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
         private static readonly Color FiringColor = new(1f, 0.45f, 0.1f);
 
-        private Renderer characterRenderer;
+        private Renderer agentRenderer;
         private BattleRoyaleWeapon weapon;
         private IMatch match;
         private bool hasTeamColor;
@@ -33,15 +35,16 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private Vector3 lastPosition;
         private float stationaryDuration;
 
-        public event Action<BattleRoyaleCharacter, BattleRoyaleCharacter> Eliminated;
+        public event Action<BattleRoyaleAgent, BattleRoyaleAgent> Eliminated;
 
-        public BattleRoyaleCharacterProfile Profile => profile;
+        public BattleRoyaleAgentProfile Profile => profile;
         public BattleRoyaleAIStrategy Strategy => strategy;
         public BattleRoyaleAgentSpecialty Specialty => specialty;
+        public BattleRoyaleSquadRole SquadRole => squadRole;
         public float SpecialtyScore => specialtyScore;
         public BattleRoyaleSpecialtyModifiers SpecialtyModifiers =>
             specialtyModifiers;
-        public BattleRoyaleCharacterStats AgentStats => profile?.stats;
+        public BattleRoyaleAgentStats AgentStats => profile?.stats;
         public NavMeshAgent Agent => agent;
         public BattleRoyaleWeapon Weapon => weapon;
         public IMatch Match => match;
@@ -122,7 +125,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
         }
         public bool IsAlive => currentHealth > 0f;
-        public BattleRoyaleCharacterState State { get; private set; }
+        public BattleRoyaleAgentState State { get; private set; }
 
         private float HoldingPositionActivationTime =>
             profile == null || profile.ai == null
@@ -133,26 +136,26 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
         public void Initialize(
             IMatch owningMatch,
-            BattleRoyaleCharacterProfile characterProfile,
-            BattleRoyaleAIStrategy characterStrategy,
+            BattleRoyaleAgentProfile agentProfile,
+            BattleRoyaleAIStrategy agentStrategy,
             bool bot)
         {
             match = owningMatch;
-            profile = characterProfile;
-            strategy = characterStrategy;
+            profile = agentProfile;
+            strategy = agentStrategy;
             isBot = bot;
             teamIndex = -1;
             hasTeamColor = false;
             agent = GetComponent<NavMeshAgent>();
             if (profile == null)
             {
-                Debug.LogError("A Battle Royale character requires a profile.", this);
+                Debug.LogError("A Battle Royale agent requires a profile.", this);
                 return;
             }
 
             if (profile.stats == null)
             {
-                profile.stats = new BattleRoyaleCharacterStats();
+                profile.stats = new BattleRoyaleAgentStats();
             }
 
             if (profile.ai == null)
@@ -171,7 +174,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             currentHealth = Mathf.Max(1f, MaxHealth);
             lastPosition = transform.position;
             stationaryDuration = 0f;
-            State = BattleRoyaleCharacterState.Spawned;
+            State = BattleRoyaleAgentState.Spawned;
 
             CreatePrimitiveVisual();
             ConfigureAgent();
@@ -189,6 +192,11 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             teamIndex = index;
         }
 
+        public void AssignSquadRole(BattleRoyaleSquadRole role)
+        {
+            squadRole = role;
+        }
+
         public void SetTeamColor(Color color)
         {
             hasTeamColor = true;
@@ -201,7 +209,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             currentHealth = Mathf.Max(1f, MaxHealth);
             killBuffRemaining = 0f;
             stationaryDuration = 0f;
-            State = BattleRoyaleCharacterState.Spawned;
+            State = BattleRoyaleAgentState.Spawned;
             transform.position = position;
             lastPosition = position;
             if (agent == null)
@@ -256,15 +264,15 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             killBuffRemaining = specialtyModifiers.killBuffDuration;
         }
 
-        public void SetState(BattleRoyaleCharacterState nextState)
+        public void SetState(BattleRoyaleAgentState nextState)
         {
-            if (!IsAlive && nextState != BattleRoyaleCharacterState.Eliminated)
+            if (!IsAlive && nextState != BattleRoyaleAgentState.Eliminated)
             {
                 return;
             }
 
             State = nextState;
-            if (nextState != BattleRoyaleCharacterState.Eliminated)
+            if (nextState != BattleRoyaleAgentState.Eliminated)
             {
                 ApplyStateColor();
             }
@@ -272,7 +280,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
         public void ApplyDamage(
             float damage,
-            BattleRoyaleCharacter damageSource = null)
+            BattleRoyaleAgent damageSource = null)
         {
             if (!IsAlive || damage <= 0f)
             {
@@ -291,31 +299,31 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return;
             }
 
-            State = BattleRoyaleCharacterState.Eliminated;
+            State = BattleRoyaleAgentState.Eliminated;
             if (agent != null)
             {
                 agent.isStopped = true;
                 agent.enabled = false;
             }
 
-            if (characterRenderer != null)
+            if (agentRenderer != null)
             {
-                characterRenderer.material.color = Color.gray;
+                agentRenderer.material.color = Color.gray;
             }
 
             Eliminated?.Invoke(this, damageSource);
-            match?.NotifyCharacterEliminated(this, damageSource);
+            match?.NotifyAgentEliminated(this, damageSource);
         }
 
         private void ApplyStateColor()
         {
-            if (characterRenderer == null || profile == null)
+            if (agentRenderer == null || profile == null)
             {
                 return;
             }
 
             var bodyColor = hasTeamColor ? teamColor : profile.visualColor;
-            characterRenderer.material.color = State == BattleRoyaleCharacterState.Engaging
+            agentRenderer.material.color = State == BattleRoyaleAgentState.Engaging
                 ? FiringColor
                 : bodyColor;
         }
@@ -387,7 +395,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
             var push = Vector3.zero;
             var radius = BodyRadius;
-            foreach (var other in match.Characters)
+            foreach (var other in match.Agents)
             {
                 if (other == null || other == this || !other.IsAlive)
                 {
@@ -435,15 +443,15 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
         private void CreatePrimitiveVisual()
         {
-            var existingVisual = transform.Find("CharacterCapsule");
+            var existingVisual = transform.Find("AgentCapsule");
             if (existingVisual != null)
             {
-                characterRenderer = existingVisual.GetComponent<Renderer>();
+                agentRenderer = existingVisual.GetComponent<Renderer>();
                 return;
             }
 
             var visual = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            visual.name = "CharacterCapsule";
+            visual.name = "AgentCapsule";
             visual.transform.SetParent(transform, false);
             visual.transform.localScale = Vector3.one * profile.visualScale;
             var visualCollider = visual.GetComponent<Collider>();
@@ -462,8 +470,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             bodyCollider.center = Vector3.zero;
             bodyCollider.radius = 0.5f * visualScale;
             bodyCollider.height = 2f * visualScale;
-            characterRenderer = visual.GetComponent<Renderer>();
-            if (characterRenderer == null)
+            agentRenderer = visual.GetComponent<Renderer>();
+            if (agentRenderer == null)
             {
                 return;
             }
@@ -472,7 +480,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                          Shader.Find("Standard");
             if (shader != null)
             {
-                characterRenderer.material = new Material(shader)
+                agentRenderer.material = new Material(shader)
                 {
                     color = profile.visualColor
                 };

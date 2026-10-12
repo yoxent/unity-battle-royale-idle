@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: baef2e6ef149e2542bd2559a2599ed40, type: 3}
-  m_Name: PrototypeCharacterProfile
-  m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.GameModes.SoloBattleRoyale.BattleRoyaleCharacterProfile
-  displayName: Prototype Character
+  m_Name: PrototypeAgentProfile
+  m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.GameModes.SoloBattleRoyale.BattleRoyaleAgentProfile
+  displayName: Prototype Agent
   stats:
     maxHealth: 100
     moveSpeed: 8
@@ -29,6 +29,11 @@ MonoBehaviour:
     preferredCombatRange: 20
     decisionInterval: 0.5
     wanderInterval: 3
+    targetMemoryDuration: 1.5
+    perceptionCacheDuration: 0.1
+    targetClaimDuration: 1.5
+    targetCommitmentDuration: 1
+    targetSwitchScoreMargin: 0.15
     holdingPositionActivationTime: 3
     turnSpeed: 540
   defaultWeapon: {fileID: 11400000, guid: af1f431a360af5947b9e280fd69d5769, type: 2}

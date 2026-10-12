@@ -57,6 +57,19 @@ MonoBehaviour:
     type: Columns
     geometryCount: 12
     coordinateCount: 12
+  tacticalAnchors:
+  - id: North
+    position: {x: 166.03691, y: 0, z: 145.66266}
+    weight: 1
+  - id: East
+    position: {x: 101.00372, y: 0, z: -42.61444}
+    weight: 1
+  - id: West
+    position: {x: -206.38092, y: 0, z: -28.156929}
+    weight: 1
+  - id: South
+    position: {x: -264.50394, y: 0, z: 200.01291}
+    weight: 1
   supportedGameModes: 00000000
   modeConfigurations:
   - {fileID: 11400000, guid: 9fdc5d99cda503148a408a4c763855a2, type: 2}

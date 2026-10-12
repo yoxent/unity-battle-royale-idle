@@ -5,7 +5,8 @@
         "BattleRoyale",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "UnityEditor"
+        "UnityEditor",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [
         "Editor"

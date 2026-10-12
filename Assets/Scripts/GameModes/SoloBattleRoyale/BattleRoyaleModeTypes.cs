@@ -14,7 +14,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         DefensiveSurvivor = 5
     }
 
-    public enum BattleRoyaleCharacterState
+    public enum BattleRoyaleAgentState
     {
         Spawned,
         Exploring,
@@ -39,7 +39,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
     }
 
     [Serializable]
-    public sealed class BattleRoyaleCharacterStats
+    public sealed class BattleRoyaleAgentStats
     {
         [Min(1f)]
         public float maxHealth = 100f;
@@ -87,6 +87,21 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         [Min(0.1f)]
         public float wanderInterval = 3f;
 
+        [Min(0f)]
+        public float targetMemoryDuration = 1.5f;
+
+        [Min(0f)]
+        public float perceptionCacheDuration = 0.1f;
+
+        [Min(0f)]
+        public float targetClaimDuration = 1.5f;
+
+        [Min(0f)]
+        public float targetCommitmentDuration = 1f;
+
+        [Range(0f, 1f)]
+        public float targetSwitchScoreMargin = 0.15f;
+
         [Min(0.1f)]
         public float holdingPositionActivationTime = 3f;
 
@@ -131,7 +146,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
     public static class BattleRoyaleAgentSpecialtyRules
     {
         public static BattleRoyaleAgentSpecialtyEvaluation Evaluate(
-            BattleRoyaleCharacterStats stats,
+            BattleRoyaleAgentStats stats,
             BattleRoyaleAISettings ai = null)
         {
             if (stats == null)

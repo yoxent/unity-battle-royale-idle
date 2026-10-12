@@ -7,7 +7,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
     public sealed class BattleRoyaleProjectile : MonoBehaviour
     {
         private BattleRoyaleProjectilePool pool;
-        private BattleRoyaleCharacter owner;
+        private BattleRoyaleAgent owner;
         private Vector3 direction;
         private const float MissDistance = 4000f;
 
@@ -26,7 +26,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         }
 
         public void Launch(
-            BattleRoyaleCharacter projectileOwner,
+            BattleRoyaleAgent projectileOwner,
             Vector3 origin,
             Vector3 travelDirection,
             float projectileDamage,
@@ -108,20 +108,20 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                     break;
                 }
 
-                var character =
-                    hit.collider.GetComponentInParent<BattleRoyaleCharacter>();
-                if (character == owner ||
-                    (character != null &&
+                var agent =
+                    hit.collider.GetComponentInParent<BattleRoyaleAgent>();
+                if (agent == owner ||
+                    (agent != null &&
                      TeamDeathmatchRules.SharesTeam(
                          owner == null ? -1 : owner.TeamIndex,
-                         character.TeamIndex)))
+                         agent.TeamIndex)))
                 {
                     continue;
                 }
 
-                if (character != null)
+                if (agent != null)
                 {
-                    character.ApplyDamage(
+                    agent.ApplyDamage(
                         WeaponRangeFalloff.Scale(
                             damage,
                             hit.distance,

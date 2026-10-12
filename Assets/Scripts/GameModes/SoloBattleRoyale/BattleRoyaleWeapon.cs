@@ -12,7 +12,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         // The round itself is not stopped at that distance.
         private const float ProjectileSpeedScale = 40f;
 
-        private BattleRoyaleCharacter owner;
+        private BattleRoyaleAgent owner;
         private WeaponProfile profile;
         private WeaponProfile runtimeProfile;
         private BattleRoyaleSightLines sightLines;
@@ -30,10 +30,10 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             : profile.stats.range;
 
         public void Initialize(
-            BattleRoyaleCharacter character,
+            BattleRoyaleAgent agent,
             WeaponProfile weaponProfile)
         {
-            owner = character;
+            owner = agent;
             profile = weaponProfile;
             if (profile == null)
             {
@@ -50,7 +50,14 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             BindSightLines();
         }
 
-        public bool TryFire(BattleRoyaleCharacter target)
+        public bool TryFire(BattleRoyaleAgent target)
+        {
+            return TryFire(target, false);
+        }
+
+        public bool TryFire(
+            BattleRoyaleAgent target,
+            bool lineOfSightAlreadyConfirmed)
         {
             if (owner == null ||
                 target == null ||
@@ -92,7 +99,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
 
             direction /= distance;
-            if (!BattleRoyaleLineOfSight.IsClear(owner, target))
+            if (!lineOfSightAlreadyConfirmed &&
+                !BattleRoyaleLineOfSight.IsClear(owner, target))
             {
                 return false;
             }

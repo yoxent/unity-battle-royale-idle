@@ -77,6 +77,9 @@ namespace BattleRoyale.Maps
         public string generatorVersion;
         public MapFeatureSummary[] features = Array.Empty<MapFeatureSummary>();
 
+        [Header("Tactical Anchors")]
+        public List<MapTacticalAnchor> tacticalAnchors = new();
+
         [Header("Game Modes")]
         public List<MapGameMode> supportedGameModes = new();
         public List<MapModeConfiguration> modeConfigurations = new();
@@ -111,5 +114,15 @@ namespace BattleRoyale.Maps
         public string type;
         public int geometryCount;
         public int coordinateCount;
+    }
+
+    [Serializable]
+    public sealed class MapTacticalAnchor
+    {
+        public string id = "Anchor";
+        public Vector3 position;
+
+        [Min(0f)]
+        public float weight = 1f;
     }
 }

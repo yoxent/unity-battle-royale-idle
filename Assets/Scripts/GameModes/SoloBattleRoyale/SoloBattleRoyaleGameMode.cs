@@ -7,7 +7,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
     [DefaultExecutionOrder(-50)]
     public sealed class SoloBattleRoyaleGameMode : SimulationMatch
     {
-        [Header("Characters")]
+        [Header("Agents")]
         [Tooltip(
             "Set from the loaded mode configuration: team count times players per team, " +
             "excluding the test player when that slot is enabled.")]
@@ -37,20 +37,20 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private float safeZoneFinalRadius;
         private bool winnerAnnounced;
 
-        protected override string CharacterRootName => "BattleRoyaleCharacters";
+        protected override string AgentRootName => "BattleRoyaleAgents";
         protected override string ProjectileRootName => "BattleRoyaleProjectiles";
         protected override string RuntimeProfileName => "Runtime Battle Royale Profile";
 
-        public BattleRoyaleCharacter Winner { get; private set; }
+        public BattleRoyaleAgent Winner { get; private set; }
         public int AliveCount
         {
             get
             {
                 RefreshRoster();
                 var count = 0;
-                foreach (var character in Roster)
+                foreach (var agent in Roster)
                 {
-                    if (character != null && character.IsAlive)
+                    if (agent != null && agent.IsAlive)
                     {
                         count++;
                     }
@@ -106,7 +106,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                     ? FallbackStrategy
                     : GetStrategy(index - (SpawnTestPlayer ? 1 : 0));
                 var spawnPosition = GetSpawnPosition(index);
-                SpawnCharacter(
+                SpawnAgent(
                     $"BR_{index + 1:00}_{strategy}",
                     spawnPosition,
                     strategy,
@@ -129,9 +129,9 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             return true;
         }
 
-        public override void NotifyCharacterEliminated(
-            BattleRoyaleCharacter eliminated,
-            BattleRoyaleCharacter damageSource)
+        public override void NotifyAgentEliminated(
+            BattleRoyaleAgent eliminated,
+            BattleRoyaleAgent damageSource)
         {
             if (!MatchStarted)
             {
@@ -144,7 +144,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             damageSource?.RegisterKill();
             Debug.Log(
                 $"{eliminated.name} was eliminated by {sourceName}. " +
-                $"{AliveCount} character(s) remain.",
+                $"{AliveCount} agent(s) remain.",
                 eliminated);
             CheckForWinner();
         }
@@ -263,7 +263,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             {
                 Debug.LogWarning(
                     "No Battle Royale spawn points are configured. " +
-                    "Characters will use random positions inside the map bounds.",
+                    "Agents will use random positions inside the map bounds.",
                     ModeConfiguration);
             }
 
@@ -327,14 +327,14 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
 
             var damage = outsideSafeZoneDamagePerSecond * Time.deltaTime;
-            foreach (var character in Roster)
+            foreach (var agent in Roster)
             {
-                if (character != null &&
-                    character.IsAlive &&
-                    !IsInsideSafeZone(character.transform.position))
+                if (agent != null &&
+                    agent.IsAlive &&
+                    !IsInsideSafeZone(agent.transform.position))
                 {
-                    character.ApplyDamage(
-                        damage * character.SafeZoneDamageMultiplier);
+                    agent.ApplyDamage(
+                        damage * agent.SafeZoneDamageMultiplier);
                 }
             }
         }
@@ -347,16 +347,16 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
 
             RefreshRoster();
-            BattleRoyaleCharacter lastAlive = null;
+            BattleRoyaleAgent lastAlive = null;
             var aliveCount = 0;
-            foreach (var character in Roster)
+            foreach (var agent in Roster)
             {
-                if (character == null || !character.IsAlive)
+                if (agent == null || !agent.IsAlive)
                 {
                     continue;
                 }
 
-                lastAlive = character;
+                lastAlive = agent;
                 aliveCount++;
             }
 
@@ -390,7 +390,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
 
             foreach (var candidate in Resources.FindObjectsOfTypeAll<
-                         BattleRoyaleCharacter>())
+                         BattleRoyaleAgent>())
             {
                 if (candidate == null ||
                     candidate.Match != this ||

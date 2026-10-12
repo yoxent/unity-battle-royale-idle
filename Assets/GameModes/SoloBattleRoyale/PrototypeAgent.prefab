@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 3931321054851880315}
   - component: {fileID: 4258731522629598074}
   m_Layer: 0
-  m_Name: PrototypeCharacter
+  m_Name: PrototypeAgent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -340,7 +340,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da9a01e839994ea4c9826eeba4bb712c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.GameModes.SoloBattleRoyale.BattleRoyaleCharacter
+  m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.GameModes.SoloBattleRoyale.BattleRoyaleAgent
   agent: {fileID: 0}
   profile: {fileID: 0}
   strategy: 0
@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 6315189607270691695}
   - component: {fileID: 5172325828638600227}
   m_Layer: 0
-  m_Name: CharacterCapsule
+  m_Name: AgentCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

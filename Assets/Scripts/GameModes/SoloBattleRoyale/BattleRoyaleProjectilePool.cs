@@ -36,7 +36,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         }
 
         public void Spawn(
-            BattleRoyaleCharacter owner,
+            BattleRoyaleAgent owner,
             Vector3 origin,
             Vector3 direction,
             float damage,

@@ -864,12 +864,24 @@ MonoBehaviour:
   activeMap: {fileID: 413189157}
   modeConfiguration: {fileID: 11400000, guid: 947605ec3bec154459da194a93d98122, type: 2}
   teamPlaystyle: 1
-  characterPrefab: {fileID: 3931321054851880315, guid: a3d13e19613c3024a970ec58f9c9176a, type: 3}
+  coachDirective:
+    type: 0
+    destination: {x: 0, y: 0, z: 0}
+    hasDestination: 0
+    engagementPolicy: 0
+    revision: 0
+  agentPrefab: {fileID: 3931321054851880315, guid: a3d13e19613c3024a970ec58f9c9176a, type: 3}
   defaultProfile: {fileID: 11400000, guid: 8b00a57ab3a58d74f91a6bec1e628ab1, type: 2}
+  profileCatalog:
+  - {fileID: 11400000, guid: c1a4d6e8f5b7428a9c3d1e7f0b6a2d4e, type: 2}
+  - {fileID: 11400000, guid: 7e2b4c9a1d6f43b8a5c0e7d2f9b6a1c3, type: 2}
+  - {fileID: 11400000, guid: 4a8d1f6c3e7b49a0b5d2f8c1e6a9d4b7, type: 2}
+  - {fileID: 11400000, guid: d6f1a3c8e4b74920a5d7c1f9b2e6a8c3, type: 2}
+  - {fileID: 11400000, guid: 9b3e6a1d7c4f48a2b5d8e0c6f1a9b7d3, type: 2}
   spawnTestPlayer: 0
   distributeStrategies: 1
   fallbackStrategy: 2
-  characterParent: {fileID: 0}
+  agentParent: {fileID: 0}
   navMeshSnapDistance: 20
   autoStart: 1
   botCount: 4
@@ -1619,12 +1631,24 @@ MonoBehaviour:
   activeMap: {fileID: 413189157}
   modeConfiguration: {fileID: 11400000, guid: c3026b515b360324294ca0638d147e6a, type: 2}
   teamPlaystyle: 1
-  characterPrefab: {fileID: 3931321054851880315, guid: a3d13e19613c3024a970ec58f9c9176a, type: 3}
+  coachDirective:
+    type: 0
+    destination: {x: 0, y: 0, z: 0}
+    hasDestination: 0
+    engagementPolicy: 0
+    revision: 0
+  agentPrefab: {fileID: 3931321054851880315, guid: a3d13e19613c3024a970ec58f9c9176a, type: 3}
   defaultProfile: {fileID: 11400000, guid: 8b00a57ab3a58d74f91a6bec1e628ab1, type: 2}
+  profileCatalog:
+  - {fileID: 11400000, guid: c1a4d6e8f5b7428a9c3d1e7f0b6a2d4e, type: 2}
+  - {fileID: 11400000, guid: 7e2b4c9a1d6f43b8a5c0e7d2f9b6a1c3, type: 2}
+  - {fileID: 11400000, guid: 4a8d1f6c3e7b49a0b5d2f8c1e6a9d4b7, type: 2}
+  - {fileID: 11400000, guid: d6f1a3c8e4b74920a5d7c1f9b2e6a8c3, type: 2}
+  - {fileID: 11400000, guid: 9b3e6a1d7c4f48a2b5d8e0c6f1a9b7d3, type: 2}
   spawnTestPlayer: 0
   distributeStrategies: 1
   fallbackStrategy: 2
-  characterParent: {fileID: 0}
+  agentParent: {fileID: 0}
   navMeshSnapDistance: 20
   autoStart: 1
 --- !u!4 &1579452448

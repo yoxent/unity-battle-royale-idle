@@ -10,15 +10,15 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private static int obstacleMask = -1;
 
         public static bool IsClear(
-            BattleRoyaleCharacter from,
-            BattleRoyaleCharacter to)
+            BattleRoyaleAgent from,
+            BattleRoyaleAgent to)
         {
             return Evaluate(from, to, float.PositiveInfinity, out _, out _);
         }
 
         public static bool Evaluate(
-            BattleRoyaleCharacter from,
-            BattleRoyaleCharacter to,
+            BattleRoyaleAgent from,
+            BattleRoyaleAgent to,
             float maxDistance,
             out Vector3 origin,
             out Vector3 end)
@@ -64,21 +64,21 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 (first, second) => first.distance.CompareTo(second.distance));
             foreach (var hit in hits)
             {
-                var character =
-                    hit.collider.GetComponentInParent<BattleRoyaleCharacter>();
-                if (character == from)
+                var agent =
+                    hit.collider.GetComponentInParent<BattleRoyaleAgent>();
+                if (agent == from)
                 {
                     continue;
                 }
 
                 end = hit.point;
-                return character == to;
+                return agent == to;
             }
 
             return withinReach;
         }
 
-        public static Vector3 EyePosition(BattleRoyaleCharacter from)
+        public static Vector3 EyePosition(BattleRoyaleAgent from)
         {
             if (from != null && from.Weapon != null)
             {

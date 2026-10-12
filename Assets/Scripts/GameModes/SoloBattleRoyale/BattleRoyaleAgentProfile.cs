@@ -4,12 +4,12 @@ using UnityEngine;
 namespace BattleRoyale.GameModes.SoloBattleRoyale
 {
     [CreateAssetMenu(
-        fileName = "BattleRoyaleCharacterProfile",
-        menuName = "Battle Royale/Characters/Character Profile")]
-    public sealed class BattleRoyaleCharacterProfile : ScriptableObject
+        fileName = "BattleRoyaleAgentProfile",
+        menuName = "Battle Royale/Agents/Agent Profile")]
+    public sealed class BattleRoyaleAgentProfile : ScriptableObject
     {
-        public string displayName = "Prototype Character";
-        public BattleRoyaleCharacterStats stats = new();
+        public string displayName = "Prototype Agent";
+        public BattleRoyaleAgentStats stats = new();
         public BattleRoyaleAISettings ai = new();
         public WeaponProfile defaultWeapon;
         public BattleRoyaleAIStrategy defaultStrategy =

@@ -18,7 +18,7 @@ namespace BattleRoyale.GameModes.TeamDeathmatch
 
         private struct PendingRespawn
         {
-            public BattleRoyaleCharacter Character;
+            public BattleRoyaleAgent Agent;
             public float ReadyTime;
         }
 
@@ -27,7 +27,7 @@ namespace BattleRoyale.GameModes.TeamDeathmatch
         private int scoreLimit = TeamDeathmatchRules.DefaultScoreLimit;
         private float respawnSeconds = TeamDeathmatchRules.DefaultRespawnSeconds;
 
-        protected override string CharacterRootName => "TeamDeathmatchCharacters";
+        protected override string AgentRootName => "TeamDeathmatchAgents";
         protected override string ProjectileRootName => "TeamDeathmatchProjectiles";
         protected override string RuntimeProfileName => "Runtime Team Deathmatch Profile";
 
@@ -41,7 +41,7 @@ namespace BattleRoyale.GameModes.TeamDeathmatch
                 return;
             }
 
-            RespawnReadyCharacters();
+            RespawnReadyAgents();
         }
 
         public override bool BeginMatch()
@@ -71,34 +71,34 @@ namespace BattleRoyale.GameModes.TeamDeathmatch
                 var strategy = isPlayer
                     ? FallbackStrategy
                     : GetStrategy(index);
-                SpawnCharacter(
+                SpawnAgent(
                     $"TDM_T{teamIndex + 1}_{index + 1:00}_{strategy}",
                     GetSpawnPosition(teamIndex),
                     strategy,
                     !isPlayer,
-                    character =>
+                    agent =>
                     {
-                        character.AssignTeam(teamIndex);
-                        character.SetTeamColor(TeamColors[teamIndex % TeamColors.Length]);
+                        agent.AssignTeam(teamIndex);
+                        agent.SetTeamColor(TeamColors[teamIndex % TeamColors.Length]);
                     });
             }
 
             if (Roster.Count == 0)
             {
-                Debug.LogError("Team Deathmatch could not spawn any characters.", this);
+                Debug.LogError("Team Deathmatch could not spawn any agents.", this);
                 return false;
             }
 
             MatchStarted = true;
             Debug.Log(
-                $"Team Deathmatch started with {teamCount} teams and {Roster.Count} characters.",
+                $"Team Deathmatch started with {teamCount} teams and {Roster.Count} agents.",
                 this);
             return true;
         }
 
-        public override void NotifyCharacterEliminated(
-            BattleRoyaleCharacter eliminated,
-            BattleRoyaleCharacter damageSource)
+        public override void NotifyAgentEliminated(
+            BattleRoyaleAgent eliminated,
+            BattleRoyaleAgent damageSource)
         {
             if (!MatchStarted || WinningTeam >= 0 || eliminated == null)
             {
@@ -135,7 +135,7 @@ namespace BattleRoyale.GameModes.TeamDeathmatch
                 pendingRespawns.Add(
                     new PendingRespawn
                     {
-                        Character = eliminated,
+                        Agent = eliminated,
                         ReadyTime = Time.time + respawnSeconds
                     });
             }
@@ -179,27 +179,27 @@ namespace BattleRoyale.GameModes.TeamDeathmatch
             return SnapToNavigation(ActiveMap.transform.TransformPoint(localPoint));
         }
 
-        private void RespawnReadyCharacters()
+        private void RespawnReadyAgents()
         {
             var now = Time.time;
             for (var index = pendingRespawns.Count - 1; index >= 0; index--)
             {
                 var pending = pendingRespawns[index];
-                if (pending.Character == null || now < pending.ReadyTime)
+                if (pending.Agent == null || now < pending.ReadyTime)
                 {
                     continue;
                 }
 
                 pendingRespawns.RemoveAt(index);
-                pending.Character.Respawn(GetSpawnPosition(pending.Character.TeamIndex));
+                pending.Agent.Respawn(GetSpawnPosition(pending.Agent.TeamIndex));
             }
         }
 
-        private bool IsAwaitingRespawn(BattleRoyaleCharacter character)
+        private bool IsAwaitingRespawn(BattleRoyaleAgent agent)
         {
             foreach (var pending in pendingRespawns)
             {
-                if (pending.Character == character)
+                if (pending.Agent == agent)
                 {
                     return true;
                 }

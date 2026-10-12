@@ -33,8 +33,8 @@ namespace BattleRoyale.Tests.EditMode
             var toObject = new GameObject("to");
             try
             {
-                var from = fromObject.AddComponent<BattleRoyaleCharacter>();
-                var to = toObject.AddComponent<BattleRoyaleCharacter>();
+                var from = fromObject.AddComponent<BattleRoyaleAgent>();
+                var to = toObject.AddComponent<BattleRoyaleAgent>();
                 to.transform.position = new Vector3(0f, 0f, 500f);
 
                 var clear = BattleRoyaleLineOfSight.IsClear(from, to);
@@ -67,7 +67,7 @@ namespace BattleRoyale.Tests.EditMode
                 body.height = 20f;
                 agent.radius = 0.5f;
 
-                BattleRoyaleCharacter.ApplyClearance(agent, body);
+                BattleRoyaleAgent.ApplyClearance(agent, body);
 
                 Assert.AreEqual(5f, agent.radius);
                 Assert.AreEqual(20f, agent.height);
@@ -81,7 +81,7 @@ namespace BattleRoyale.Tests.EditMode
         [Test]
         public void OverlappingBodiesSeparateToTheirColliderEdges()
         {
-            var push = BattleRoyaleCharacter.SeparationOffset(
+            var push = BattleRoyaleAgent.SeparationOffset(
                 Vector3.zero,
                 5f,
                 new Vector3(4f, 0f, 0f),
@@ -93,10 +93,10 @@ namespace BattleRoyale.Tests.EditMode
         }
 
         [Test]
-        public void CharacterPrefabDrawsSightLineFromTheGun()
+        public void AgentPrefabDrawsSightLineFromTheGun()
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(
-                "Assets/GameModes/SoloBattleRoyale/PrototypeCharacter.prefab");
+                "Assets/GameModes/SoloBattleRoyale/PrototypeAgent.prefab");
             Assert.IsNotNull(prefab);
 
             var gun = prefab.transform.Find("GunCube");

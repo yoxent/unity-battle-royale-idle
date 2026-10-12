@@ -1,63 +1,95 @@
 using BattleRoyale.GameModes;
 using BattleRoyale.GameModes.TeamDeathmatch;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BattleRoyale.GameModes.SoloBattleRoyale
 {
     [DisallowMultipleComponent]
     public sealed class SoloBattleRoyaleAgent : MonoBehaviour
     {
-        [SerializeField] private BattleRoyaleCharacter character;
-        [SerializeField] private BattleRoyaleCharacter target;
+        private const float PerceptionMovementTolerance = 0.1f;
+
+        [FormerlySerializedAs("character")]
+        [SerializeField] private BattleRoyaleAgent agent;
+        [SerializeField] private BattleRoyaleAgent target;
         [SerializeField] private Vector3 currentDestination;
         [SerializeField] private float decisionTimeRemaining;
+        [SerializeField] private float wanderTimeRemaining;
+        [SerializeField] private Vector3 lastKnownTargetPosition;
+        [SerializeField] private float targetMemoryTimeRemaining;
+        [SerializeField] private float targetCommitmentTimeRemaining;
+        [SerializeField] private BattleRoyaleAgent cachedPerceptionTarget;
+        [SerializeField] private Vector3 cachedPerceptionAgentPosition;
+        [SerializeField] private Vector3 cachedPerceptionTargetPosition;
+        [SerializeField] private bool cachedPerceptionLineOfSight;
+        [SerializeField] private float perceptionCacheTimeRemaining;
 
         private IMatch match;
         private IMatchNavigation navigation;
+        private ITacticalAnchorProvider tacticalAnchorProvider;
+        private IAgentDirectiveProvider directiveProvider;
+        private ITeamTacticalPicture tacticalPicture;
         private BattleRoyaleStrategyTuning tuning;
         private Vector3 lastPathDestination;
         private bool hasPathDestination;
+        private int lastDirectiveRevision = -1;
+        private float lastSharedObservationTime = -1f;
 
-        public BattleRoyaleCharacter Character => character;
-        public BattleRoyaleCharacter Target => target;
+        public BattleRoyaleAgent Agent => agent;
+        public BattleRoyaleAgent Target => target;
         public Vector3 CurrentDestination => currentDestination;
         public string DebugLabel =>
-            character == null
+            agent == null
                 ? "Uninitialized"
-                : $"{character.Profile?.displayName ?? "Unknown"} / " +
-                  $"{character.Strategy} / {character.Specialty} / " +
-                  $"{character.State}";
+                : $"{agent.Profile?.displayName ?? "Unknown"} / " +
+                  $"{agent.Strategy} / {agent.Specialty} / " +
+                  $"{agent.State}";
 
         public void Initialize(
             IMatch owningMatch,
-            BattleRoyaleCharacter owningCharacter)
+            BattleRoyaleAgent owningAgent,
+            float initialDecisionDelay = 0f)
         {
             match = owningMatch;
             navigation = owningMatch as IMatchNavigation;
-            character = owningCharacter;
-            decisionTimeRemaining = 0f;
+            tacticalAnchorProvider = owningMatch as ITacticalAnchorProvider;
+            directiveProvider = owningMatch as IAgentDirectiveProvider;
+            tacticalPicture = owningMatch as ITeamTacticalPicture;
+            agent = owningAgent;
+            decisionTimeRemaining = Mathf.Max(0f, initialDecisionDelay);
+            wanderTimeRemaining = 0f;
+            lastKnownTargetPosition = Vector3.zero;
+            targetMemoryTimeRemaining = 0f;
+            targetCommitmentTimeRemaining = 0f;
+            InvalidatePerceptionSnapshot();
+            lastDirectiveRevision = -1;
+            lastSharedObservationTime = -1f;
             RefreshTuning();
         }
 
         private void Awake()
         {
-            if (character == null)
+            if (agent == null)
             {
-                character = GetComponent<BattleRoyaleCharacter>();
+                agent = GetComponent<BattleRoyaleAgent>();
             }
         }
 
         private void Update()
         {
-            if (character == null || !character.IsAlive)
+            if (agent == null || !agent.IsAlive)
             {
                 return;
             }
 
             if (match == null)
             {
-                match = character.Match;
+                match = agent.Match;
                 navigation = match as IMatchNavigation;
+                tacticalAnchorProvider = match as ITacticalAnchorProvider;
+                directiveProvider = match as IAgentDirectiveProvider;
+                tacticalPicture = match as ITeamTacticalPicture;
             }
 
             if (match == null)
@@ -66,12 +98,24 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
 
             decisionTimeRemaining -= Time.deltaTime;
+            wanderTimeRemaining = Mathf.Max(
+                0f,
+                wanderTimeRemaining - Time.deltaTime);
+            targetMemoryTimeRemaining = Mathf.Max(
+                0f,
+                targetMemoryTimeRemaining - Time.deltaTime);
+            targetCommitmentTimeRemaining = Mathf.Max(
+                0f,
+                targetCommitmentTimeRemaining - Time.deltaTime);
+            perceptionCacheTimeRemaining = Mathf.Max(
+                0f,
+                perceptionCacheTimeRemaining - Time.deltaTime);
             if (decisionTimeRemaining <= 0f)
             {
                 Think();
                 decisionTimeRemaining = Mathf.Max(
                     0.1f,
-                    character.Profile.ai.decisionInterval);
+                    agent.Profile.ai.decisionInterval);
             }
 
             Act();
@@ -80,19 +124,23 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private void Think()
         {
             RefreshTuning();
+            RefreshDirectiveState();
 
             if (navigation != null &&
                 navigation.TryGetHazardDestination(transform.position, out var hazard))
             {
                 target = null;
-                character.SetState(BattleRoyaleCharacterState.MovingToSafeZone);
+                targetMemoryTimeRemaining = 0f;
+                targetCommitmentTimeRemaining = 0f;
+                InvalidatePerceptionSnapshot();
+                agent.SetState(BattleRoyaleAgentState.MovingToSafeZone);
                 currentDestination = hazard;
                 return;
             }
 
-            if (character.HealthPercent <= tuning.RetreatHealthPercent)
+            if (agent.HealthPercent <= tuning.RetreatHealthPercent)
             {
-                character.SetState(BattleRoyaleCharacterState.Retreating);
+                agent.SetState(BattleRoyaleAgentState.Retreating);
                 currentDestination = navigation == null
                     ? transform.position
                     : navigation.GetRetreatPoint(
@@ -101,34 +149,219 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return;
             }
 
-            target = FindTarget();
+            var directive = GetCurrentDirective();
+            if (BattleRoyaleDirectiveRules.IsRetreat(directive))
+            {
+                target = null;
+                targetMemoryTimeRemaining = 0f;
+                targetCommitmentTimeRemaining = 0f;
+                InvalidatePerceptionSnapshot();
+                agent.SetState(BattleRoyaleAgentState.Retreating);
+                currentDestination =
+                    BattleRoyaleDirectiveRules.HasDestination(directive)
+                        ? directive.destination
+                        : navigation == null
+                            ? transform.position
+                            : navigation.GetRetreatPoint(
+                                transform.position,
+                                transform.position);
+                return;
+            }
+
+            var previousTarget = target;
+            var candidateTarget = FindTarget();
+            var currentTargetIsValid =
+                IsTargetWithinPursuitRange(previousTarget);
+            var currentTargetScore = currentTargetIsValid
+                ? GetTargetScore(
+                    previousTarget,
+                    HorizontalDistance(
+                        transform.position,
+                        previousTarget.transform.position))
+                : float.MaxValue;
+            var candidateTargetScore = candidateTarget == null
+                ? float.MaxValue
+                : GetTargetScore(
+                    candidateTarget,
+                    HorizontalDistance(
+                        transform.position,
+                        candidateTarget.transform.position));
+            var shouldClearCurrentTarget =
+                candidateTarget == null &&
+                currentTargetIsValid &&
+                targetCommitmentTimeRemaining <= 0f;
+            var shouldSwitchTarget =
+                shouldClearCurrentTarget ||
+                BattleRoyaleAgentDecisionRules.ShouldSwitchTarget(
+                    currentTargetIsValid,
+                    targetCommitmentTimeRemaining,
+                    currentTargetScore,
+                    candidateTargetScore,
+                    GetTargetSwitchScoreMargin());
+            target = shouldSwitchTarget ? candidateTarget : previousTarget;
+            if (target != previousTarget)
+            {
+                targetCommitmentTimeRemaining =
+                    target == null
+                        ? 0f
+                        : GetTargetCommitmentDuration();
+            }
+
+            if (target != null &&
+                target == candidateTarget &&
+                agent.TeamIndex >= 0 &&
+                tacticalPicture != null)
+            {
+                tacticalPicture.PublishObservation(
+                    agent,
+                    target,
+                    target.transform.position,
+                    1f);
+                if (!tacticalPicture.TryClaimTarget(
+                        agent,
+                        target,
+                        GetTargetClaimDuration()))
+                {
+                    target = null;
+                    targetCommitmentTimeRemaining = 0f;
+                    InvalidatePerceptionSnapshot();
+                }
+            }
+
+            if (target != null &&
+                agent.TeamIndex >= 0 &&
+                tacticalPicture != null &&
+                tacticalPicture.IsTargetClaimed(target, agent))
+            {
+                target = null;
+                targetCommitmentTimeRemaining = 0f;
+                InvalidatePerceptionSnapshot();
+            }
+
             if (target != null)
             {
+                if (target == candidateTarget)
+                {
+                    RememberTarget(target);
+                }
+
                 var distance = HorizontalDistance(
                     transform.position,
                     target.transform.position);
-                character.SetState(
-                    distance <= HoldDistance()
-                        ? BattleRoyaleCharacterState.Engaging
-                        : BattleRoyaleCharacterState.SeekingTarget);
+                var action = BattleRoyaleAgentDecisionRules.SelectAction(
+                    hasVisibleTarget: true,
+                    targetWithinHoldDistance: distance <= HoldDistance(),
+                    hasFreshTargetMemory: false,
+                    targetDistance: distance,
+                    preferredCombatRange: tuning.PreferredCombatRange,
+                    aggression: tuning.Aggression);
+                agent.SetState(
+                    action == BattleRoyaleAgentAction.Engage
+                        ? BattleRoyaleAgentState.Engaging
+                        : BattleRoyaleAgentState.SeekingTarget);
                 currentDestination = GetCombatPosition();
                 return;
             }
 
-            character.SetState(BattleRoyaleCharacterState.Exploring);
+            if (BattleRoyaleDirectiveRules.IsHold(directive))
+            {
+                agent.SetState(BattleRoyaleAgentState.Exploring);
+                currentDestination =
+                    BattleRoyaleDirectiveRules.HasDestination(directive)
+                        ? directive.destination
+                        : transform.position;
+                return;
+            }
+
+            if (tacticalPicture != null &&
+                agent.TeamIndex >= 0 &&
+                tacticalPicture.TryGetFreshObservation(
+                    agent.TeamIndex,
+                    agent,
+                    GetTargetMemoryDuration(),
+                    out var sharedObservation))
+            {
+                RememberSharedObservation(sharedObservation);
+            }
+
+            var hasFreshTargetMemory =
+                BattleRoyaleAgentDecisionRules.IsTargetMemoryFresh(
+                    targetMemoryTimeRemaining);
+            var actionWithoutTarget =
+                BattleRoyaleAgentDecisionRules.SelectAction(
+                    hasVisibleTarget: false,
+                    targetWithinHoldDistance: false,
+                    hasFreshTargetMemory: hasFreshTargetMemory,
+                    targetDistance: 0f,
+                    preferredCombatRange: tuning.PreferredCombatRange,
+                    aggression: tuning.Aggression);
+            if (actionWithoutTarget == BattleRoyaleAgentAction.Search)
+            {
+                agent.SetState(
+                    BattleRoyaleAgentState.SeekingTarget);
+                currentDestination = lastKnownTargetPosition;
+                return;
+            }
+
+            if (directive != null &&
+                directive.type == BattleRoyaleDirectiveType.Push &&
+                BattleRoyaleDirectiveRules.HasDestination(directive))
+            {
+                agent.SetState(BattleRoyaleAgentState.Exploring);
+                currentDestination = directive.destination;
+                return;
+            }
+
+            if (!BattleRoyaleAgentDecisionRules.ShouldRefreshWanderDestination(
+                    agent.State,
+                    wanderTimeRemaining))
+            {
+                return;
+            }
+
+            agent.SetState(BattleRoyaleAgentState.Exploring);
             currentDestination = navigation == null
                 ? transform.position
                 : navigation.GetWanderPoint();
+            wanderTimeRemaining = agent.Profile == null ||
+                                  agent.Profile.ai == null
+                ? 3f
+                : Mathf.Max(
+                    0.1f,
+                    agent.Profile.ai.wanderInterval);
         }
 
         private void RefreshTuning()
         {
             tuning = BattleRoyaleStrategyRules.GetTuning(
-                character.Strategy,
-                character.Profile.ai,
+                agent.Strategy,
+                agent.Profile.ai,
                 match == null
                     ? TeamPlaystyle.Neutral
                     : match.TeamPlaystyle);
+        }
+
+        private void RefreshDirectiveState()
+        {
+            var directive = GetCurrentDirective();
+            var revision = directive == null ? 0 : directive.revision;
+            if (revision == lastDirectiveRevision)
+            {
+                return;
+            }
+
+            lastDirectiveRevision = revision;
+            target = null;
+            targetMemoryTimeRemaining = 0f;
+            targetCommitmentTimeRemaining = 0f;
+            InvalidatePerceptionSnapshot();
+        }
+
+        private BattleRoyaleAgentDirective GetCurrentDirective()
+        {
+            return directiveProvider == null
+                ? null
+                : directiveProvider.CurrentDirective;
         }
 
         private void Act()
@@ -136,34 +369,77 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             if (target != null && !target.IsAlive)
             {
                 target = null;
+                targetMemoryTimeRemaining = 0f;
+                targetCommitmentTimeRemaining = 0f;
+                InvalidatePerceptionSnapshot();
             }
 
-            if (target != null &&
-                !BattleRoyaleLineOfSight.IsClear(character, target))
+            var lineOfSightConfirmed = false;
+            if (target != null)
             {
-                target = null;
-                Think();
-                return;
+                if (!TryGetCachedLineOfSightResult(
+                        target,
+                        out lineOfSightConfirmed))
+                {
+                    lineOfSightConfirmed =
+                        BattleRoyaleLineOfSight.IsClear(agent, target);
+                    CachePerceptionSnapshot(
+                        target,
+                        lineOfSightConfirmed);
+                }
+
+                if (!lineOfSightConfirmed)
+                {
+                    RememberTarget(target);
+                    target = null;
+                    Think();
+                    return;
+                }
             }
 
-            switch (character.State)
+            switch (agent.State)
             {
-                case BattleRoyaleCharacterState.MovingToSafeZone:
-                case BattleRoyaleCharacterState.Retreating:
-                case BattleRoyaleCharacterState.Exploring:
+                case BattleRoyaleAgentState.MovingToSafeZone:
+                case BattleRoyaleAgentState.Retreating:
+                case BattleRoyaleAgentState.Exploring:
                     MoveTo(currentDestination);
                     break;
-                case BattleRoyaleCharacterState.SeekingTarget:
-                case BattleRoyaleCharacterState.Engaging:
-                    ActWhileEngaging();
+                case BattleRoyaleAgentState.SeekingTarget:
+                    if (target == null)
+                    {
+                        ActWhileSearching();
+                        break;
+                    }
+
+                    ActWhileEngaging(lineOfSightConfirmed);
+                    break;
+                case BattleRoyaleAgentState.Engaging:
+                    ActWhileEngaging(lineOfSightConfirmed);
                     break;
             }
         }
 
-        private void ActWhileEngaging()
+        private void ActWhileSearching()
+        {
+            if (!BattleRoyaleAgentDecisionRules.IsTargetMemoryFresh(
+                    targetMemoryTimeRemaining))
+            {
+                Think();
+                return;
+            }
+
+            if (!MoveTo(currentDestination))
+            {
+                targetMemoryTimeRemaining = 0f;
+                Think();
+            }
+        }
+
+        private void ActWhileEngaging(bool lineOfSightConfirmed)
         {
             if (target == null || !target.IsAlive)
             {
+                targetMemoryTimeRemaining = 0f;
                 Think();
                 return;
             }
@@ -171,15 +447,16 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             var distance = HorizontalDistance(
                 transform.position,
                 target.transform.position);
+            var agentMoved = false;
             if (distance > HoldDistance())
             {
-                character.SetState(BattleRoyaleCharacterState.SeekingTarget);
+                agent.SetState(BattleRoyaleAgentState.SeekingTarget);
                 currentDestination = GetCombatPosition();
-                MoveTo(currentDestination);
+                agentMoved = MoveTo(currentDestination);
             }
             else
             {
-                character.SetState(BattleRoyaleCharacterState.Engaging);
+                agent.SetState(BattleRoyaleAgentState.Engaging);
                 StopMoving();
             }
 
@@ -192,22 +469,48 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return;
             }
 
-            character.Weapon?.TryFire(target);
+            agent.Weapon?.TryFire(
+                target,
+                BattleRoyaleAgentDecisionRules.CanReuseLineOfSightResult(
+                    lineOfSightConfirmed,
+                    agentMoved));
         }
 
-        private BattleRoyaleCharacter FindTarget()
+        private BattleRoyaleAgent FindTarget()
         {
-            var bestScore = float.MaxValue;
-            BattleRoyaleCharacter bestTarget = null;
+            if (TryGetCachedPerceptionTarget(out var cachedTarget))
+            {
+                return cachedTarget;
+            }
 
-            foreach (var candidate in match.Characters)
+            var perceptionRange =
+                BattleRoyaleAgentDecisionRules.GetPerceptionRange(
+                    agent.PerceptionRange,
+                    tuning.PerceptionMultiplier);
+            var pursuitRange =
+                BattleRoyaleDirectiveRules.GetPursuitRange(
+                    GetCurrentDirective(),
+                    agent.WeaponRange,
+                    perceptionRange,
+                    tuning.Aggression);
+            var bestScore = float.MaxValue;
+            BattleRoyaleAgent bestTarget = null;
+
+            foreach (var candidate in match.Agents)
             {
                 if (candidate == null ||
-                    candidate == character ||
+                    candidate == agent ||
                     !candidate.IsAlive ||
                     TeamDeathmatchRules.SharesTeam(
-                        character.TeamIndex,
+                        agent.TeamIndex,
                         candidate.TeamIndex))
+                {
+                    continue;
+                }
+
+                if (agent.TeamIndex >= 0 &&
+                    tacticalPicture != null &&
+                    tacticalPicture.IsTargetClaimed(candidate, agent))
                 {
                     continue;
                 }
@@ -215,7 +518,15 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 var distance = HorizontalDistance(
                     transform.position,
                     candidate.transform.position);
-                if (!BattleRoyaleLineOfSight.IsClear(character, candidate))
+                if (!BattleRoyaleAgentDecisionRules.IsWithinPerceptionRange(
+                        distance,
+                        perceptionRange) ||
+                    distance > pursuitRange)
+                {
+                    continue;
+                }
+
+                if (!BattleRoyaleLineOfSight.IsClear(agent, candidate))
                 {
                     continue;
                 }
@@ -228,14 +539,192 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 }
             }
 
+            if (bestTarget != null)
+            {
+                CachePerceptionSnapshot(bestTarget, true);
+            }
+            else
+            {
+                InvalidatePerceptionSnapshot();
+            }
+
             return bestTarget;
         }
 
+        private bool TryGetCachedPerceptionTarget(
+            out BattleRoyaleAgent cachedTarget)
+        {
+            cachedTarget = null;
+            if (!TryGetCachedLineOfSightResult(
+                    cachedPerceptionTarget,
+                    out var lineOfSightConfirmed) ||
+                !lineOfSightConfirmed ||
+                !IsTargetWithinPursuitRange(cachedPerceptionTarget))
+            {
+                return false;
+            }
+
+            if (agent.TeamIndex >= 0 &&
+                tacticalPicture != null &&
+                tacticalPicture.IsTargetClaimed(
+                    cachedPerceptionTarget,
+                    agent))
+            {
+                return false;
+            }
+
+            cachedTarget = cachedPerceptionTarget;
+            return true;
+        }
+
+        private bool TryGetCachedLineOfSightResult(
+            BattleRoyaleAgent expectedTarget,
+            out bool lineOfSightConfirmed)
+        {
+            lineOfSightConfirmed = false;
+            if (!BattleRoyaleAgentDecisionRules.CanReusePerceptionSnapshot(
+                    expectedTarget == cachedPerceptionTarget,
+                    perceptionCacheTimeRemaining,
+                    cachedPerceptionAgentPosition,
+                    transform.position,
+                    cachedPerceptionTargetPosition,
+                    expectedTarget == null
+                        ? Vector3.zero
+                        : expectedTarget.transform.position,
+                    PerceptionMovementTolerance))
+            {
+                return false;
+            }
+
+            lineOfSightConfirmed = cachedPerceptionLineOfSight;
+            return true;
+        }
+
+        private void CachePerceptionSnapshot(
+            BattleRoyaleAgent observedTarget,
+            bool lineOfSightConfirmed)
+        {
+            cachedPerceptionTarget = observedTarget;
+            cachedPerceptionAgentPosition = transform.position;
+            cachedPerceptionTargetPosition = observedTarget == null
+                ? Vector3.zero
+                : observedTarget.transform.position;
+            cachedPerceptionLineOfSight = lineOfSightConfirmed;
+            perceptionCacheTimeRemaining =
+                GetPerceptionCacheDuration();
+        }
+
+        private void InvalidatePerceptionSnapshot()
+        {
+            cachedPerceptionTarget = null;
+            cachedPerceptionAgentPosition = Vector3.zero;
+            cachedPerceptionTargetPosition = Vector3.zero;
+            cachedPerceptionLineOfSight = false;
+            perceptionCacheTimeRemaining = 0f;
+        }
+
+        private void RememberTarget(BattleRoyaleAgent observedTarget)
+        {
+            if (observedTarget == null)
+            {
+                return;
+            }
+
+            lastKnownTargetPosition = observedTarget.transform.position;
+            targetMemoryTimeRemaining = GetTargetMemoryDuration();
+        }
+
+        private void RememberSharedObservation(
+            BattleRoyaleTeamObservation observation)
+        {
+            if (observation == null ||
+                observation.ObservedAt <= lastSharedObservationTime)
+            {
+                return;
+            }
+
+            lastSharedObservationTime = observation.ObservedAt;
+            lastKnownTargetPosition = observation.Position;
+            targetMemoryTimeRemaining = GetTargetMemoryDuration();
+        }
+
+        private bool IsTargetWithinPursuitRange(
+            BattleRoyaleAgent candidate)
+        {
+            if (candidate == null || !candidate.IsAlive)
+            {
+                return false;
+            }
+
+            var perceptionRange =
+                BattleRoyaleAgentDecisionRules.GetPerceptionRange(
+                    agent.PerceptionRange,
+                    tuning.PerceptionMultiplier);
+            var pursuitRange =
+                BattleRoyaleDirectiveRules.GetPursuitRange(
+                    GetCurrentDirective(),
+                    agent.WeaponRange,
+                    perceptionRange,
+                    tuning.Aggression);
+            return HorizontalDistance(
+                       transform.position,
+                       candidate.transform.position) <= pursuitRange;
+        }
+
+        private float GetTargetCommitmentDuration()
+        {
+            return agent.Profile == null ||
+                   agent.Profile.ai == null
+                ? 1f
+                : Mathf.Max(
+                    0f,
+                    agent.Profile.ai.targetCommitmentDuration);
+        }
+
+        private float GetTargetMemoryDuration()
+        {
+            return agent.Profile == null ||
+                   agent.Profile.ai == null
+                ? 1.5f
+                : Mathf.Max(
+                    0f,
+                    agent.Profile.ai.targetMemoryDuration);
+        }
+
+        private float GetTargetClaimDuration()
+        {
+            return agent.Profile == null ||
+                   agent.Profile.ai == null
+                ? 1.5f
+                : Mathf.Max(
+                    0f,
+                    agent.Profile.ai.targetClaimDuration);
+        }
+
+        private float GetPerceptionCacheDuration()
+        {
+            return agent.Profile == null ||
+                   agent.Profile.ai == null
+                ? 0.1f
+                : Mathf.Max(
+                    0f,
+                    agent.Profile.ai.perceptionCacheDuration);
+        }
+
+        private float GetTargetSwitchScoreMargin()
+        {
+            return agent.Profile == null ||
+                   agent.Profile.ai == null
+                ? 0.15f
+                : Mathf.Clamp01(
+                    agent.Profile.ai.targetSwitchScoreMargin);
+        }
+
         private float GetTargetScore(
-            BattleRoyaleCharacter candidate,
+            BattleRoyaleAgent candidate,
             float distance)
         {
-            switch (character.Strategy)
+            switch (agent.Strategy)
             {
                 case BattleRoyaleAIStrategy.AggressiveHunter:
                     return distance;
@@ -264,6 +753,24 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return transform.position;
             }
 
+            var directive = GetCurrentDirective();
+            if (BattleRoyaleDirectiveRules.IsHold(directive))
+            {
+                return BattleRoyaleDirectiveRules.HasDestination(directive)
+                    ? directive.destination
+                    : transform.position;
+            }
+
+            if (tacticalAnchorProvider != null &&
+                tacticalAnchorProvider.TryGetTacticalAnchor(
+                    transform.position,
+                    target.transform.position,
+                    tuning.PreferredCombatRange,
+                    out var tacticalAnchor))
+            {
+                return tacticalAnchor;
+            }
+
             var desiredDistance = HoldDistance();
             var fromTarget = transform.position - target.transform.position;
             fromTarget.y = 0f;
@@ -281,7 +788,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
         private float HoldDistance()
         {
-            var clearance = character.BodyRadius;
+            var clearance = agent.BodyRadius;
             if (target != null)
             {
                 clearance += target.BodyRadius;
@@ -293,11 +800,13 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private bool MoveTo(Vector3 destination)
         {
             destination.y = transform.position.y;
-            var agent = character.Agent;
-            if (agent != null && agent.enabled && agent.isOnNavMesh)
+            var navigationAgent = agent.Agent;
+            if (navigationAgent != null &&
+                navigationAgent.enabled &&
+                navigationAgent.isOnNavMesh)
             {
                 if (HorizontalDistance(transform.position, destination) <=
-                    Mathf.Max(0.5f, agent.stoppingDistance))
+                    Mathf.Max(0.5f, navigationAgent.stoppingDistance))
                 {
                     StopMoving();
                     return false;
@@ -305,13 +814,15 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
                 var destinationChanged = !hasPathDestination ||
                     HorizontalDistance(lastPathDestination, destination) > 0.5f;
-                if (agent.isStopped || !agent.hasPath || destinationChanged)
+                if (navigationAgent.isStopped ||
+                    !navigationAgent.hasPath ||
+                    destinationChanged)
                 {
-                    if (!agent.SetDestination(destination))
+                    if (!navigationAgent.SetDestination(destination))
                     {
                         hasPathDestination = false;
                         FaceDirection(destination - transform.position);
-                        return agent.hasPath;
+                        return navigationAgent.hasPath;
                     }
                     else
                     {
@@ -320,10 +831,10 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                     }
                 }
 
-                if (agent.enabled && agent.isOnNavMesh)
+                if (navigationAgent.enabled && navigationAgent.isOnNavMesh)
                 {
-                    agent.isStopped = false;
-                    var movementDirection = agent.desiredVelocity;
+                    navigationAgent.isStopped = false;
+                    var movementDirection = navigationAgent.desiredVelocity;
                     if (movementDirection.sqrMagnitude <= 0.001f)
                     {
                         movementDirection = destination - transform.position;
@@ -334,16 +845,16 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 }
             }
 
-            if (agent != null && agent.enabled)
+            if (navigationAgent != null && navigationAgent.enabled)
             {
-                agent.enabled = false;
+                navigationAgent.enabled = false;
             }
 
             var before = transform.position;
             var nextPosition = Vector3.MoveTowards(
                 before,
                 destination,
-                character.MoveSpeed * Time.deltaTime);
+                agent.MoveSpeed * Time.deltaTime);
             var movement = nextPosition - before;
             if (movement.sqrMagnitude <= 0.001f)
             {
@@ -358,16 +869,16 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private void StopMoving()
         {
             hasPathDestination = false;
-            var agent = character.Agent;
-            if (agent == null || !agent.enabled)
+            var navigationAgent = agent.Agent;
+            if (navigationAgent == null || !navigationAgent.enabled)
             {
                 return;
             }
 
-            if (agent.isOnNavMesh)
+            if (navigationAgent.isOnNavMesh)
             {
-                agent.ResetPath();
-                agent.isStopped = true;
+                navigationAgent.ResetPath();
+                navigationAgent.isStopped = true;
             }
         }
 
@@ -385,10 +896,10 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
 
             var targetRotation = Quaternion.LookRotation(direction.normalized);
-            var turnSpeed = character.Profile == null ||
-                            character.Profile.ai == null
+            var turnSpeed = agent.Profile == null ||
+                            agent.Profile.ai == null
                 ? 540f
-                : Mathf.Max(0f, character.Profile.ai.turnSpeed);
+                : Mathf.Max(0f, agent.Profile.ai.turnSpeed);
             transform.rotation = turnSpeed <= 0f
                 ? targetRotation
                 : Quaternion.RotateTowards(
@@ -406,7 +917,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
         private void OnDrawGizmosSelected()
         {
-            if (character == null)
+            if (agent == null)
             {
                 return;
             }

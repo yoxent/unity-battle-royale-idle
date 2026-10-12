@@ -5,6 +5,7 @@ using BattleRoyale.GameModes.SoloBattleRoyale;
 using BattleRoyale.Maps;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace BattleRoyale.Tests.EditMode
 {
@@ -174,6 +175,9 @@ namespace BattleRoyale.Tests.EditMode
             created.Add(placed.gameObject);
 
             var outsider = CreateReadyMap(MapGameMode.BattleRoyale);
+            LogAssert.Expect(
+                LogType.Error,
+                "Choose a map from the playable catalog. It needs a baked prefab.");
             Assert.AreSame(placed, manager.ActivatePlayableMap(outsider.definition));
             Assert.AreSame(placed, manager.ActiveMap);
         }
