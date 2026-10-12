@@ -170,8 +170,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
             var previousTarget = target;
             var candidateTarget = FindTarget();
-            var currentTargetIsValid =
-                IsTargetWithinPursuitRange(previousTarget);
+            var currentTargetIsValid = IsLivingTarget(previousTarget);
             var currentTargetScore = currentTargetIsValid
                 ? GetTargetScore(
                     previousTarget,
@@ -469,6 +468,17 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return;
             }
 
+            var fireAggression = BattleRoyaleDirectiveRules.GetPursuitAggression(
+                GetCurrentDirective(),
+                tuning.Aggression);
+            if (!BattleRoyaleAgentDecisionRules.WillFireAtDistance(
+                    distance,
+                    agent.WeaponRange,
+                    fireAggression))
+            {
+                return;
+            }
+
             agent.Weapon?.TryFire(
                 target,
                 BattleRoyaleAgentDecisionRules.CanReuseLineOfSightResult(
@@ -483,16 +493,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return cachedTarget;
             }
 
-            var perceptionRange =
-                BattleRoyaleAgentDecisionRules.GetPerceptionRange(
-                    agent.PerceptionRange,
-                    tuning.PerceptionMultiplier);
-            var pursuitRange =
-                BattleRoyaleDirectiveRules.GetPursuitRange(
-                    GetCurrentDirective(),
-                    agent.WeaponRange,
-                    perceptionRange,
-                    tuning.Aggression);
             var bestScore = float.MaxValue;
             BattleRoyaleAgent bestTarget = null;
 
@@ -518,14 +518,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 var distance = HorizontalDistance(
                     transform.position,
                     candidate.transform.position);
-                if (!BattleRoyaleAgentDecisionRules.IsWithinPerceptionRange(
-                        distance,
-                        perceptionRange) ||
-                    distance > pursuitRange)
-                {
-                    continue;
-                }
-
                 if (!BattleRoyaleLineOfSight.IsClear(agent, candidate))
                 {
                     continue;
@@ -555,11 +547,12 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             out BattleRoyaleAgent cachedTarget)
         {
             cachedTarget = null;
-            if (!TryGetCachedLineOfSightResult(
+            if (cachedPerceptionTarget == null ||
+                !cachedPerceptionTarget.IsAlive ||
+                !TryGetCachedLineOfSightResult(
                     cachedPerceptionTarget,
                     out var lineOfSightConfirmed) ||
-                !lineOfSightConfirmed ||
-                !IsTargetWithinPursuitRange(cachedPerceptionTarget))
+                !lineOfSightConfirmed)
             {
                 return false;
             }
@@ -648,27 +641,9 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             targetMemoryTimeRemaining = GetTargetMemoryDuration();
         }
 
-        private bool IsTargetWithinPursuitRange(
-            BattleRoyaleAgent candidate)
+        private static bool IsLivingTarget(BattleRoyaleAgent candidate)
         {
-            if (candidate == null || !candidate.IsAlive)
-            {
-                return false;
-            }
-
-            var perceptionRange =
-                BattleRoyaleAgentDecisionRules.GetPerceptionRange(
-                    agent.PerceptionRange,
-                    tuning.PerceptionMultiplier);
-            var pursuitRange =
-                BattleRoyaleDirectiveRules.GetPursuitRange(
-                    GetCurrentDirective(),
-                    agent.WeaponRange,
-                    perceptionRange,
-                    tuning.Aggression);
-            return HorizontalDistance(
-                       transform.position,
-                       candidate.transform.position) <= pursuitRange;
+            return candidate != null && candidate.IsAlive;
         }
 
         private float GetTargetCommitmentDuration()

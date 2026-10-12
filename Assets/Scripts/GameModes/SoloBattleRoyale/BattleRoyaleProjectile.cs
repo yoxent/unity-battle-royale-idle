@@ -44,7 +44,10 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             lifetime = projectileLifetime;
             weaponRange = Mathf.Max(0f, effectiveRange);
             elapsed = 0f;
-            blockerPlaneY = origin.y;
+            blockerPlaneY = projectileOwner == null
+                ? origin.y
+                : projectileOwner.transform.position.y +
+                  BattleRoyaleLineOfSight.SampleHeight;
             inFlight = true;
             transform.SetParent(null, true);
             transform.position = origin;

@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3503e613d5c33349941d0854c67e07a, type: 3}
+  m_Name: twilight_maze_of_the_vampire_lady_Map
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.MapDefinition
+  layoutJson: {fileID: 4900000, guid: 79fbb752352bb0e488aaf5fe53da7fec, type: 3}
+  narrativeMarkdown: {fileID: 4900000, guid: e0c80c9086826d9478a84b8230517956, type: 3}
+  visualMap: {fileID: 2800000, guid: 8d2cfb8abcd46214a8c4a66e7c4a13c5, type: 3}
+  heightMap: {fileID: 0}
+  visualMaterial: {fileID: 2100000, guid: 03b53d8e4a455de4b928dd30502a352d, type: 2}
+  worldScale: 20
+  flipHeightY: 0
+  sourceMin: {x: -21, y: -20}
+  sourceMax: {x: 12, y: 18}
+  baseHeight: 0
+  heightScale: 0
+  heightResolution: 2
+  wallHeight: 20
+  wallThickness: 10
+  generateBuildingWalls: 0
+  generateTreeColliders: 0
+  useImageCornerFit: 1
+  imageUpperLeftUv: {x: 0.029155867, y: 0.9739784}
+  imageLowerRightUv: {x: 0.9726448, y: 0.024544828}
+  editImageCornersInScene: 1
+  columnSize: 1.5
+  dungeonUnitScale: 10
+  showDungeonWalls: 1
+  overrideNavMeshVoxelSize: 0
+  navMeshVoxelSize: 0.16666667
+  replaceGeneratedRoot: 1
+  disableOtherGeneratedMaps: 1
+  setAsActiveCameraMap: 1
+  editPointsInSceneView: 1
+  bakedPrefab: {fileID: 2355873321993372528, guid: bd213a4a41f78be4d8f576f4b1b00734, type: 3}
+  generator: dungeon
+  generatorVersion: 1.2.7
+  features:
+  - id: rects
+    type: Rooms
+    geometryCount: 57
+    coordinateCount: 228
+  - id: doors
+    type: Doors
+    geometryCount: 32
+    coordinateCount: 32
+  - id: water
+    type: BlockedCells
+    geometryCount: 0
+    coordinateCount: 0
+  - id: columns
+    type: Columns
+    geometryCount: 8
+    coordinateCount: 8
+  tacticalAnchors: []
+  supportedGameModes: 02000000
+  modeConfigurations:
+  - {fileID: 11400000, guid: 8210282272dc0364db466836d2501420, type: 2}
+  - {fileID: 11400000, guid: 7c5c96403b6c9b04f9afd83ecda7a8dc, type: 2}

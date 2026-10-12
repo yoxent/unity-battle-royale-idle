@@ -13,7 +13,7 @@ namespace BattleRoyale.Maps.EditorTools
     [Serializable]
     internal sealed class MapModeAuthoringPanel
     {
-        private const string MarkerRootName = "GameModePoints";
+        private const string MarkerRootName = MapModeMarkerCleanup.MarkerRootName;
         private const string MarkerDiscName = "MarkerDisc";
         private const float MinimumMarkerDiameter = 8f;
         private const float NewSpawnRingRadius = 36f;
@@ -40,10 +40,9 @@ namespace BattleRoyale.Maps.EditorTools
             if (lastMap != mapDefinition)
             {
                 lastMap = mapDefinition;
-                selectedConfiguration = null;
                 allowAutomaticConfigurationSelection = true;
-                InitializeDraftForMode();
                 StopSceneGui();
+                BindSavedSettings(mapDefinition);
             }
 
             if (mapDefinition == null)
@@ -54,6 +53,7 @@ namespace BattleRoyale.Maps.EditorTools
 
             mapDefinition.supportedGameModes ??= new List<MapGameMode>();
             mapDefinition.modeConfigurations ??= new List<MapModeConfiguration>();
+            editPointsInSceneView = mapDefinition.editPointsInSceneView;
 
             EditorGUILayout.LabelField("Game Modes", EditorStyles.boldLabel);
             DrawSupportedModes(mapDefinition);
@@ -74,6 +74,7 @@ namespace BattleRoyale.Maps.EditorTools
                 selectedMode = supportedModes[0];
                 selectedConfiguration = FindConfiguration(mapDefinition, selectedMode);
                 allowAutomaticConfigurationSelection = true;
+                LoadSelectedConfiguration();
             }
 
             var previousMode = selectedMode;
@@ -146,11 +147,19 @@ namespace BattleRoyale.Maps.EditorTools
                 SaveScenePointsToConfiguration();
             }
 
-            editPointsInSceneView = EditorGUILayout.Toggle(
+            var editPoints = EditorGUILayout.Toggle(
                 new GUIContent(
                     "Edit Points In Scene View",
                     "Show position handles for the selected configuration in the Scene view."),
                 editPointsInSceneView);
+            if (editPoints != mapDefinition.editPointsInSceneView)
+            {
+                Undo.RecordObject(mapDefinition, "Edit Points In Scene View");
+                mapDefinition.editPointsInSceneView = editPoints;
+                EditorUtility.SetDirty(mapDefinition);
+            }
+
+            editPointsInSceneView = editPoints;
 
             UpdateSceneGuiRegistration();
             EditorGUILayout.Space(8f);
@@ -285,10 +294,12 @@ namespace BattleRoyale.Maps.EditorTools
                 else
                 {
                     mapDefinition.supportedGameModes.Remove(mode);
+                    MapModeMarkerCleanup.RemoveFromDefinition(mapDefinition, mode);
                     if (selectedMode == mode)
                     {
                         selectedConfiguration = null;
                         allowAutomaticConfigurationSelection = true;
+                        StopSceneGui();
                     }
                 }
 
@@ -815,6 +826,48 @@ namespace BattleRoyale.Maps.EditorTools
             {
                 SyncTeamDeathmatchMarkers(configuration);
             }
+        }
+
+        internal int BoundTeamCount => teamCount;
+
+        internal int BoundTeamSize => teamSize;
+
+        internal int BoundScoreLimit => scoreLimit;
+
+        internal float BoundRespawnSeconds => respawnSeconds;
+
+        internal string BoundVariantName => variantName;
+
+        internal MapGameMode BoundMode => selectedMode;
+
+        internal MapModeConfiguration BoundConfiguration => selectedConfiguration;
+
+        internal bool BoundEditPointsInSceneView => editPointsInSceneView;
+
+        internal void BindSavedSettings(MapDefinition mapDefinition)
+        {
+            selectedConfiguration = null;
+            if (mapDefinition == null)
+            {
+                return;
+            }
+
+            mapDefinition.supportedGameModes ??= new List<MapGameMode>();
+            mapDefinition.modeConfigurations ??= new List<MapModeConfiguration>();
+            editPointsInSceneView = mapDefinition.editPointsInSceneView;
+            var supportedModes = GetSupportedModes(mapDefinition);
+            if (supportedModes.Count == 0)
+            {
+                return;
+            }
+
+            if (!mapDefinition.SupportsMode(selectedMode))
+            {
+                selectedMode = supportedModes[0];
+            }
+
+            selectedConfiguration = FindConfiguration(mapDefinition, selectedMode);
+            LoadSelectedConfiguration();
         }
 
         private void LoadSelectedConfiguration()

@@ -12,15 +12,5 @@ namespace BattleRoyale.CompanyIdentity
         public Transform PreviewParent => previewParent;
         public Button DoneButton => doneButton;
         public CompanyIdentityEditorTabBinding[] Tabs => tabs;
-
-        public void SetReferences(
-            Transform previewParent,
-            Button doneButton,
-            CompanyIdentityEditorTabBinding[] tabs)
-        {
-            this.previewParent = previewParent;
-            this.doneButton = doneButton;
-            this.tabs = tabs;
-        }
     }
 }

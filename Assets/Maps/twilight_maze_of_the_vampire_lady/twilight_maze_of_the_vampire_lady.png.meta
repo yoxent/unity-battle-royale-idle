@@ -1,0 +1,6526 @@
+fileFormatVersion: 2
+guid: 8d2cfb8abcd46214a8c4a66e7c4a13c5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 442340929741752706
+    second: twilight_maze_of_the_vampire_lady_0
+  - first:
+      213: -3732024330544800599
+    second: twilight_maze_of_the_vampire_lady_1
+  - first:
+      213: 3038820945620777572
+    second: twilight_maze_of_the_vampire_lady_2
+  - first:
+      213: 7801915085615309434
+    second: twilight_maze_of_the_vampire_lady_3
+  - first:
+      213: -7857213003590483950
+    second: twilight_maze_of_the_vampire_lady_4
+  - first:
+      213: 1195772498032275816
+    second: twilight_maze_of_the_vampire_lady_5
+  - first:
+      213: -9173727863519517662
+    second: twilight_maze_of_the_vampire_lady_6
+  - first:
+      213: 648048225284599553
+    second: twilight_maze_of_the_vampire_lady_7
+  - first:
+      213: 6410174401847111517
+    second: twilight_maze_of_the_vampire_lady_8
+  - first:
+      213: 252535109062325515
+    second: twilight_maze_of_the_vampire_lady_9
+  - first:
+      213: 4715479640731496495
+    second: twilight_maze_of_the_vampire_lady_10
+  - first:
+      213: 7121133203527612818
+    second: twilight_maze_of_the_vampire_lady_11
+  - first:
+      213: 224247430594507085
+    second: twilight_maze_of_the_vampire_lady_12
+  - first:
+      213: -1098808090531174425
+    second: twilight_maze_of_the_vampire_lady_13
+  - first:
+      213: 7809976324919109541
+    second: twilight_maze_of_the_vampire_lady_14
+  - first:
+      213: 503827304717696657
+    second: twilight_maze_of_the_vampire_lady_15
+  - first:
+      213: -4111938227083801588
+    second: twilight_maze_of_the_vampire_lady_16
+  - first:
+      213: -4325709484781082219
+    second: twilight_maze_of_the_vampire_lady_17
+  - first:
+      213: -8705733375515254493
+    second: twilight_maze_of_the_vampire_lady_18
+  - first:
+      213: -4415133456166361976
+    second: twilight_maze_of_the_vampire_lady_19
+  - first:
+      213: 8189895980904545064
+    second: twilight_maze_of_the_vampire_lady_20
+  - first:
+      213: 6338072290439990828
+    second: twilight_maze_of_the_vampire_lady_21
+  - first:
+      213: -2121838957343687691
+    second: twilight_maze_of_the_vampire_lady_22
+  - first:
+      213: -5571294352206453269
+    second: twilight_maze_of_the_vampire_lady_23
+  - first:
+      213: -631348166132256044
+    second: twilight_maze_of_the_vampire_lady_24
+  - first:
+      213: -4702534036667091989
+    second: twilight_maze_of_the_vampire_lady_25
+  - first:
+      213: -6500388152708575638
+    second: twilight_maze_of_the_vampire_lady_26
+  - first:
+      213: 1157048921170621831
+    second: twilight_maze_of_the_vampire_lady_27
+  - first:
+      213: 8424587456349094696
+    second: twilight_maze_of_the_vampire_lady_28
+  - first:
+      213: -7923258347952645092
+    second: twilight_maze_of_the_vampire_lady_29
+  - first:
+      213: -2077616377485271778
+    second: twilight_maze_of_the_vampire_lady_30
+  - first:
+      213: 3198686005486630621
+    second: twilight_maze_of_the_vampire_lady_31
+  - first:
+      213: 4076934551338504792
+    second: twilight_maze_of_the_vampire_lady_32
+  - first:
+      213: -7391870614896535998
+    second: twilight_maze_of_the_vampire_lady_33
+  - first:
+      213: -8131818791318418435
+    second: twilight_maze_of_the_vampire_lady_34
+  - first:
+      213: 1374202979540359927
+    second: twilight_maze_of_the_vampire_lady_35
+  - first:
+      213: 3229362250865765254
+    second: twilight_maze_of_the_vampire_lady_36
+  - first:
+      213: -6134812309024918767
+    second: twilight_maze_of_the_vampire_lady_37
+  - first:
+      213: 5909179351090217436
+    second: twilight_maze_of_the_vampire_lady_38
+  - first:
+      213: 5402326409033448535
+    second: twilight_maze_of_the_vampire_lady_39
+  - first:
+      213: -8741229071526300054
+    second: twilight_maze_of_the_vampire_lady_40
+  - first:
+      213: -725895508023418680
+    second: twilight_maze_of_the_vampire_lady_41
+  - first:
+      213: -5830724808596756831
+    second: twilight_maze_of_the_vampire_lady_42
+  - first:
+      213: -3444098635216198681
+    second: twilight_maze_of_the_vampire_lady_43
+  - first:
+      213: -4128847351757532140
+    second: twilight_maze_of_the_vampire_lady_44
+  - first:
+      213: 6770190654966411021
+    second: twilight_maze_of_the_vampire_lady_45
+  - first:
+      213: -2766574210466123559
+    second: twilight_maze_of_the_vampire_lady_46
+  - first:
+      213: 8208627786147164336
+    second: twilight_maze_of_the_vampire_lady_47
+  - first:
+      213: -2271223999450780876
+    second: twilight_maze_of_the_vampire_lady_48
+  - first:
+      213: 7768228885665479179
+    second: twilight_maze_of_the_vampire_lady_49
+  - first:
+      213: -8310437305165765756
+    second: twilight_maze_of_the_vampire_lady_50
+  - first:
+      213: -2569840189822998431
+    second: twilight_maze_of_the_vampire_lady_51
+  - first:
+      213: 2394702250046136418
+    second: twilight_maze_of_the_vampire_lady_52
+  - first:
+      213: -1813330088550827786
+    second: twilight_maze_of_the_vampire_lady_53
+  - first:
+      213: -5601028924074446523
+    second: twilight_maze_of_the_vampire_lady_54
+  - first:
+      213: -8774695492333820410
+    second: twilight_maze_of_the_vampire_lady_55
+  - first:
+      213: 7216325489132085617
+    second: twilight_maze_of_the_vampire_lady_56
+  - first:
+      213: -1063302596207482340
+    second: twilight_maze_of_the_vampire_lady_57
+  - first:
+      213: 7249454766317693229
+    second: twilight_maze_of_the_vampire_lady_58
+  - first:
+      213: 7497102166186496006
+    second: twilight_maze_of_the_vampire_lady_59
+  - first:
+      213: 7979563326466400989
+    second: twilight_maze_of_the_vampire_lady_60
+  - first:
+      213: 5506006423306707604
+    second: twilight_maze_of_the_vampire_lady_61
+  - first:
+      213: -8239385271242603209
+    second: twilight_maze_of_the_vampire_lady_62
+  - first:
+      213: 2681474793864221363
+    second: twilight_maze_of_the_vampire_lady_63
+  - first:
+      213: -2814559159005476946
+    second: twilight_maze_of_the_vampire_lady_64
+  - first:
+      213: -2059965471704896224
+    second: twilight_maze_of_the_vampire_lady_65
+  - first:
+      213: -3906159742074567296
+    second: twilight_maze_of_the_vampire_lady_66
+  - first:
+      213: -3521970174215769029
+    second: twilight_maze_of_the_vampire_lady_67
+  - first:
+      213: 2342643721360482416
+    second: twilight_maze_of_the_vampire_lady_68
+  - first:
+      213: 611536352672916009
+    second: twilight_maze_of_the_vampire_lady_69
+  - first:
+      213: 385012709141310817
+    second: twilight_maze_of_the_vampire_lady_70
+  - first:
+      213: 8475894589325954498
+    second: twilight_maze_of_the_vampire_lady_71
+  - first:
+      213: 7857908887031872268
+    second: twilight_maze_of_the_vampire_lady_72
+  - first:
+      213: 6427739640214377261
+    second: twilight_maze_of_the_vampire_lady_73
+  - first:
+      213: 119621860480252829
+    second: twilight_maze_of_the_vampire_lady_74
+  - first:
+      213: 5829799970724506149
+    second: twilight_maze_of_the_vampire_lady_75
+  - first:
+      213: 3778689946176503244
+    second: twilight_maze_of_the_vampire_lady_76
+  - first:
+      213: -2353131504471162919
+    second: twilight_maze_of_the_vampire_lady_77
+  - first:
+      213: -1349569509266185458
+    second: twilight_maze_of_the_vampire_lady_78
+  - first:
+      213: 226495832386507717
+    second: twilight_maze_of_the_vampire_lady_79
+  - first:
+      213: 144211470095177845
+    second: twilight_maze_of_the_vampire_lady_80
+  - first:
+      213: 7012796558814683096
+    second: twilight_maze_of_the_vampire_lady_81
+  - first:
+      213: -6777160233499334139
+    second: twilight_maze_of_the_vampire_lady_82
+  - first:
+      213: -3043452421794702256
+    second: twilight_maze_of_the_vampire_lady_83
+  - first:
+      213: -6107040932507030564
+    second: twilight_maze_of_the_vampire_lady_84
+  - first:
+      213: -1090806289963987414
+    second: twilight_maze_of_the_vampire_lady_85
+  - first:
+      213: -1602335818730299510
+    second: twilight_maze_of_the_vampire_lady_86
+  - first:
+      213: 8815571864385126656
+    second: twilight_maze_of_the_vampire_lady_87
+  - first:
+      213: 1205398830267095133
+    second: twilight_maze_of_the_vampire_lady_88
+  - first:
+      213: 9100959191331808013
+    second: twilight_maze_of_the_vampire_lady_89
+  - first:
+      213: -4933635197134846072
+    second: twilight_maze_of_the_vampire_lady_90
+  - first:
+      213: -4258466108245357728
+    second: twilight_maze_of_the_vampire_lady_91
+  - first:
+      213: -2502011702693125604
+    second: twilight_maze_of_the_vampire_lady_92
+  - first:
+      213: -5873475829932982498
+    second: twilight_maze_of_the_vampire_lady_93
+  - first:
+      213: 8880459560214685251
+    second: twilight_maze_of_the_vampire_lady_94
+  - first:
+      213: 1074550431569763555
+    second: twilight_maze_of_the_vampire_lady_95
+  - first:
+      213: 5664215435656544163
+    second: twilight_maze_of_the_vampire_lady_96
+  - first:
+      213: -5850215824304087217
+    second: twilight_maze_of_the_vampire_lady_97
+  - first:
+      213: 5814715964093017129
+    second: twilight_maze_of_the_vampire_lady_98
+  - first:
+      213: -4760044409788911793
+    second: twilight_maze_of_the_vampire_lady_99
+  - first:
+      213: 2557234465650306260
+    second: twilight_maze_of_the_vampire_lady_100
+  - first:
+      213: 7361873867761074131
+    second: twilight_maze_of_the_vampire_lady_101
+  - first:
+      213: -100916943698861520
+    second: twilight_maze_of_the_vampire_lady_102
+  - first:
+      213: -6494865777340247742
+    second: twilight_maze_of_the_vampire_lady_103
+  - first:
+      213: 3639343042978493758
+    second: twilight_maze_of_the_vampire_lady_104
+  - first:
+      213: 224945438213528362
+    second: twilight_maze_of_the_vampire_lady_105
+  - first:
+      213: -1079782304703590754
+    second: twilight_maze_of_the_vampire_lady_106
+  - first:
+      213: 4630383490970712385
+    second: twilight_maze_of_the_vampire_lady_107
+  - first:
+      213: -5525612237939636183
+    second: twilight_maze_of_the_vampire_lady_108
+  - first:
+      213: 1868873930064684941
+    second: twilight_maze_of_the_vampire_lady_109
+  - first:
+      213: 3427946127349113590
+    second: twilight_maze_of_the_vampire_lady_110
+  - first:
+      213: 7424708327437004365
+    second: twilight_maze_of_the_vampire_lady_111
+  - first:
+      213: 3805771423534206828
+    second: twilight_maze_of_the_vampire_lady_112
+  - first:
+      213: 6542244861100383081
+    second: twilight_maze_of_the_vampire_lady_113
+  - first:
+      213: -1098619277128768686
+    second: twilight_maze_of_the_vampire_lady_114
+  - first:
+      213: 7361474444342030900
+    second: twilight_maze_of_the_vampire_lady_115
+  - first:
+      213: -2109232748741383175
+    second: twilight_maze_of_the_vampire_lady_116
+  - first:
+      213: 367212065196680654
+    second: twilight_maze_of_the_vampire_lady_117
+  - first:
+      213: -5643996278128966505
+    second: twilight_maze_of_the_vampire_lady_118
+  - first:
+      213: 5492030280610112139
+    second: twilight_maze_of_the_vampire_lady_119
+  - first:
+      213: -7935252310826962958
+    second: twilight_maze_of_the_vampire_lady_120
+  - first:
+      213: -8538071594919276306
+    second: twilight_maze_of_the_vampire_lady_121
+  - first:
+      213: 8611096749226678374
+    second: twilight_maze_of_the_vampire_lady_122
+  - first:
+      213: 1587294122224955244
+    second: twilight_maze_of_the_vampire_lady_123
+  - first:
+      213: 5213832065582409810
+    second: twilight_maze_of_the_vampire_lady_124
+  - first:
+      213: -916134890560682558
+    second: twilight_maze_of_the_vampire_lady_125
+  - first:
+      213: 1623631690694179010
+    second: twilight_maze_of_the_vampire_lady_126
+  - first:
+      213: 2356492748170318112
+    second: twilight_maze_of_the_vampire_lady_127
+  - first:
+      213: -3656303426239090328
+    second: twilight_maze_of_the_vampire_lady_128
+  - first:
+      213: -5287485722385233733
+    second: twilight_maze_of_the_vampire_lady_129
+  - first:
+      213: -5698885431623411858
+    second: twilight_maze_of_the_vampire_lady_130
+  - first:
+      213: 685672803551503972
+    second: twilight_maze_of_the_vampire_lady_131
+  - first:
+      213: -5476065611410852365
+    second: twilight_maze_of_the_vampire_lady_132
+  - first:
+      213: 7438355933307562454
+    second: twilight_maze_of_the_vampire_lady_133
+  - first:
+      213: -8927915578288855269
+    second: twilight_maze_of_the_vampire_lady_134
+  - first:
+      213: 3458344194043475355
+    second: twilight_maze_of_the_vampire_lady_135
+  - first:
+      213: -1975989772987117126
+    second: twilight_maze_of_the_vampire_lady_136
+  - first:
+      213: -4643979872738988223
+    second: twilight_maze_of_the_vampire_lady_137
+  - first:
+      213: 7158052837917070992
+    second: twilight_maze_of_the_vampire_lady_138
+  - first:
+      213: 6598799621124797087
+    second: twilight_maze_of_the_vampire_lady_139
+  - first:
+      213: -4283342708749695462
+    second: twilight_maze_of_the_vampire_lady_140
+  - first:
+      213: -2912087875804642906
+    second: twilight_maze_of_the_vampire_lady_141
+  - first:
+      213: -5401112768586869183
+    second: twilight_maze_of_the_vampire_lady_142
+  - first:
+      213: -3830497977058614074
+    second: twilight_maze_of_the_vampire_lady_143
+  - first:
+      213: 1845193629676210162
+    second: twilight_maze_of_the_vampire_lady_144
+  - first:
+      213: 7854859257863866482
+    second: twilight_maze_of_the_vampire_lady_145
+  - first:
+      213: -1864536121805631859
+    second: twilight_maze_of_the_vampire_lady_146
+  - first:
+      213: -1323714054035435184
+    second: twilight_maze_of_the_vampire_lady_147
+  - first:
+      213: -113665103125970021
+    second: twilight_maze_of_the_vampire_lady_148
+  - first:
+      213: -3803518720989329047
+    second: twilight_maze_of_the_vampire_lady_149
+  - first:
+      213: -3204216653512000233
+    second: twilight_maze_of_the_vampire_lady_150
+  - first:
+      213: 8784170024782189780
+    second: twilight_maze_of_the_vampire_lady_151
+  - first:
+      213: 4776999190542120497
+    second: twilight_maze_of_the_vampire_lady_152
+  - first:
+      213: 4647611884813361451
+    second: twilight_maze_of_the_vampire_lady_153
+  - first:
+      213: 1988354948215650499
+    second: twilight_maze_of_the_vampire_lady_154
+  - first:
+      213: -5539332566055504672
+    second: twilight_maze_of_the_vampire_lady_155
+  - first:
+      213: -7235986079734551284
+    second: twilight_maze_of_the_vampire_lady_156
+  - first:
+      213: 6023603880610164210
+    second: twilight_maze_of_the_vampire_lady_157
+  - first:
+      213: -3512911464035162077
+    second: twilight_maze_of_the_vampire_lady_158
+  - first:
+      213: -6180078844445154531
+    second: twilight_maze_of_the_vampire_lady_159
+  - first:
+      213: -6911301104408376063
+    second: twilight_maze_of_the_vampire_lady_160
+  - first:
+      213: 6829411165887305950
+    second: twilight_maze_of_the_vampire_lady_161
+  - first:
+      213: 3031469864186382484
+    second: twilight_maze_of_the_vampire_lady_162
+  - first:
+      213: -6569637373888942360
+    second: twilight_maze_of_the_vampire_lady_163
+  - first:
+      213: 1907831330540484266
+    second: twilight_maze_of_the_vampire_lady_164
+  - first:
+      213: -7631345153126587721
+    second: twilight_maze_of_the_vampire_lady_165
+  - first:
+      213: -7509785714116884622
+    second: twilight_maze_of_the_vampire_lady_166
+  - first:
+      213: -2473482806252100456
+    second: twilight_maze_of_the_vampire_lady_167
+  - first:
+      213: -2148558674281645953
+    second: twilight_maze_of_the_vampire_lady_168
+  - first:
+      213: -4094674494350887063
+    second: twilight_maze_of_the_vampire_lady_169
+  - first:
+      213: -8980550621892592054
+    second: twilight_maze_of_the_vampire_lady_170
+  - first:
+      213: 5644935831020835816
+    second: twilight_maze_of_the_vampire_lady_171
+  - first:
+      213: -1545316797993281106
+    second: twilight_maze_of_the_vampire_lady_172
+  - first:
+      213: 1530825339299438439
+    second: twilight_maze_of_the_vampire_lady_173
+  - first:
+      213: -7297181874435063119
+    second: twilight_maze_of_the_vampire_lady_174
+  - first:
+      213: -6992569542463633163
+    second: twilight_maze_of_the_vampire_lady_175
+  - first:
+      213: 5390011460628518118
+    second: twilight_maze_of_the_vampire_lady_176
+  - first:
+      213: -96774585323219217
+    second: twilight_maze_of_the_vampire_lady_177
+  - first:
+      213: -741060202262729537
+    second: twilight_maze_of_the_vampire_lady_178
+  - first:
+      213: 8413643345513551456
+    second: twilight_maze_of_the_vampire_lady_179
+  - first:
+      213: -6260061569348313448
+    second: twilight_maze_of_the_vampire_lady_180
+  - first:
+      213: 260767008750346454
+    second: twilight_maze_of_the_vampire_lady_181
+  - first:
+      213: -3042426934213982472
+    second: twilight_maze_of_the_vampire_lady_182
+  - first:
+      213: -2810120273199539290
+    second: twilight_maze_of_the_vampire_lady_183
+  - first:
+      213: -6317934918188096971
+    second: twilight_maze_of_the_vampire_lady_184
+  - first:
+      213: -3227835403642563079
+    second: twilight_maze_of_the_vampire_lady_185
+  - first:
+      213: 3243317730489809007
+    second: twilight_maze_of_the_vampire_lady_186
+  - first:
+      213: 5928060295937699301
+    second: twilight_maze_of_the_vampire_lady_187
+  - first:
+      213: 5909795198722443157
+    second: twilight_maze_of_the_vampire_lady_188
+  - first:
+      213: -8443737707152791159
+    second: twilight_maze_of_the_vampire_lady_189
+  - first:
+      213: 9207589741098877480
+    second: twilight_maze_of_the_vampire_lady_190
+  - first:
+      213: 7213786213690391304
+    second: twilight_maze_of_the_vampire_lady_191
+  - first:
+      213: -6348744399703714580
+    second: twilight_maze_of_the_vampire_lady_192
+  - first:
+      213: 4682197620495477578
+    second: twilight_maze_of_the_vampire_lady_193
+  - first:
+      213: -5456088662983483571
+    second: twilight_maze_of_the_vampire_lady_194
+  - first:
+      213: 1278139202169412539
+    second: twilight_maze_of_the_vampire_lady_195
+  - first:
+      213: 1709367288692763751
+    second: twilight_maze_of_the_vampire_lady_196
+  - first:
+      213: -3863404239805344873
+    second: twilight_maze_of_the_vampire_lady_197
+  - first:
+      213: -1162679673094849501
+    second: twilight_maze_of_the_vampire_lady_198
+  - first:
+      213: 949407111569100139
+    second: twilight_maze_of_the_vampire_lady_199
+  - first:
+      213: 8915122614576847472
+    second: twilight_maze_of_the_vampire_lady_200
+  - first:
+      213: 8481211169796150486
+    second: twilight_maze_of_the_vampire_lady_201
+  - first:
+      213: 1732469965633837756
+    second: twilight_maze_of_the_vampire_lady_202
+  - first:
+      213: 3224229527350113782
+    second: twilight_maze_of_the_vampire_lady_203
+  - first:
+      213: 2012955203942560807
+    second: twilight_maze_of_the_vampire_lady_204
+  - first:
+      213: -6736274003583204853
+    second: twilight_maze_of_the_vampire_lady_205
+  - first:
+      213: 4008538106030689179
+    second: twilight_maze_of_the_vampire_lady_206
+  - first:
+      213: -1770244300677435849
+    second: twilight_maze_of_the_vampire_lady_207
+  - first:
+      213: 4916752594002785497
+    second: twilight_maze_of_the_vampire_lady_208
+  - first:
+      213: 2161864956927153969
+    second: twilight_maze_of_the_vampire_lady_209
+  - first:
+      213: 1320915014915644495
+    second: twilight_maze_of_the_vampire_lady_210
+  - first:
+      213: 4709241348146274992
+    second: twilight_maze_of_the_vampire_lady_211
+  - first:
+      213: 6325618525173364277
+    second: twilight_maze_of_the_vampire_lady_212
+  - first:
+      213: 3273854454259746576
+    second: twilight_maze_of_the_vampire_lady_213
+  - first:
+      213: -1368046633275315023
+    second: twilight_maze_of_the_vampire_lady_214
+  - first:
+      213: -29642321722131476
+    second: twilight_maze_of_the_vampire_lady_215
+  - first:
+      213: -6162301700629580981
+    second: twilight_maze_of_the_vampire_lady_216
+  - first:
+      213: -2993820566886979612
+    second: twilight_maze_of_the_vampire_lady_217
+  - first:
+      213: -2237338661482736484
+    second: twilight_maze_of_the_vampire_lady_218
+  - first:
+      213: -206038200553218534
+    second: twilight_maze_of_the_vampire_lady_219
+  - first:
+      213: 3105702013109158161
+    second: twilight_maze_of_the_vampire_lady_220
+  - first:
+      213: -5058396957765948562
+    second: twilight_maze_of_the_vampire_lady_221
+  - first:
+      213: 1795049764887463315
+    second: twilight_maze_of_the_vampire_lady_222
+  - first:
+      213: 8499972467237071367
+    second: twilight_maze_of_the_vampire_lady_223
+  - first:
+      213: -5744572270276182716
+    second: twilight_maze_of_the_vampire_lady_224
+  - first:
+      213: -5395286256909897939
+    second: twilight_maze_of_the_vampire_lady_225
+  - first:
+      213: -3183680275230452792
+    second: twilight_maze_of_the_vampire_lady_226
+  - first:
+      213: -1828860755535730673
+    second: twilight_maze_of_the_vampire_lady_227
+  - first:
+      213: -2003489922871970137
+    second: twilight_maze_of_the_vampire_lady_228
+  - first:
+      213: 8489688616628823350
+    second: twilight_maze_of_the_vampire_lady_229
+  - first:
+      213: 5374170556460178882
+    second: twilight_maze_of_the_vampire_lady_230
+  - first:
+      213: 4032519964350142136
+    second: twilight_maze_of_the_vampire_lady_231
+  - first:
+      213: 1714430345543092903
+    second: twilight_maze_of_the_vampire_lady_232
+  - first:
+      213: -6212758539191445273
+    second: twilight_maze_of_the_vampire_lady_233
+  - first:
+      213: 7107688418597904929
+    second: twilight_maze_of_the_vampire_lady_234
+  - first:
+      213: 5797929822748412139
+    second: twilight_maze_of_the_vampire_lady_235
+  - first:
+      213: 3658950124444336818
+    second: twilight_maze_of_the_vampire_lady_236
+  - first:
+      213: 3688149134541447824
+    second: twilight_maze_of_the_vampire_lady_237
+  - first:
+      213: -5979285879681881558
+    second: twilight_maze_of_the_vampire_lady_238
+  - first:
+      213: 4751507002954229132
+    second: twilight_maze_of_the_vampire_lady_239
+  - first:
+      213: 3689074687185934932
+    second: twilight_maze_of_the_vampire_lady_240
+  - first:
+      213: 7195956288608621031
+    second: twilight_maze_of_the_vampire_lady_241
+  - first:
+      213: -820784680589226772
+    second: twilight_maze_of_the_vampire_lady_242
+  - first:
+      213: -1593394129561581431
+    second: twilight_maze_of_the_vampire_lady_243
+  - first:
+      213: 821068210322152699
+    second: twilight_maze_of_the_vampire_lady_244
+  - first:
+      213: -412131661379871252
+    second: twilight_maze_of_the_vampire_lady_245
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_0
+      rect:
+        serializedVersion: 2
+        x: 1874
+        y: 3932
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2898fd26bb2832600800000000000000
+      internalID: 442340929741752706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_1
+      rect:
+        serializedVersion: 2
+        x: 1898
+        y: 3936
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ac13ccf4af253cc0800000000000000
+      internalID: -3732024330544800599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_2
+      rect:
+        serializedVersion: 2
+        x: 1936
+        y: 3934
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46a3eb7bc8f0c2a20800000000000000
+      internalID: 3038820945620777572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_3
+      rect:
+        serializedVersion: 2
+        x: 1998
+        y: 3937
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a72acdd1f68f54c60800000000000000
+      internalID: 7801915085615309434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_4
+      rect:
+        serializedVersion: 2
+        x: 2013
+        y: 3920
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 210c86c076295f290800000000000000
+      internalID: -7857213003590483950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_5
+      rect:
+        serializedVersion: 2
+        x: 2066
+        y: 3925
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 861356160cc389010800000000000000
+      internalID: 1195772498032275816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_6
+      rect:
+        serializedVersion: 2
+        x: 2105
+        y: 3932
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 224e0d4dc1f50b080800000000000000
+      internalID: -9173727863519517662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_7
+      rect:
+        serializedVersion: 2
+        x: 2125
+        y: 3922
+        width: 28
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10f29696d645ef800800000000000000
+      internalID: 648048225284599553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_8
+      rect:
+        serializedVersion: 2
+        x: 2190
+        y: 3932
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5f266ae7a385f850800000000000000
+      internalID: 6410174401847111517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_9
+      rect:
+        serializedVersion: 2
+        x: 2214
+        y: 3936
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0579fcf75f218300800000000000000
+      internalID: 252535109062325515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_10
+      rect:
+        serializedVersion: 2
+        x: 2231
+        y: 3923
+        width: 8
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f203363efbfb07140800000000000000
+      internalID: 4715479640731496495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_11
+      rect:
+        serializedVersion: 2
+        x: 2252
+        y: 3934
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 299b0825be853d260800000000000000
+      internalID: 7121133203527612818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_12
+      rect:
+        serializedVersion: 2
+        x: 2315
+        y: 3920
+        width: 31
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d41316a99dfac1300800000000000000
+      internalID: 224247430594507085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_13
+      rect:
+        serializedVersion: 2
+        x: 2382
+        y: 3925
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e760970ddf30c0f0800000000000000
+      internalID: -1098808090531174425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_14
+      rect:
+        serializedVersion: 2
+        x: 2421
+        y: 3932
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a7a307a61c926c60800000000000000
+      internalID: 7809976324919109541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_15
+      rect:
+        serializedVersion: 2
+        x: 2441
+        y: 3922
+        width: 28
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19e37d5a344fdf600800000000000000
+      internalID: 503827304717696657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_16
+      rect:
+        serializedVersion: 2
+        x: 2507
+        y: 3932
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0c025ce7f57fe6c0800000000000000
+      internalID: -4111938227083801588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_17
+      rect:
+        serializedVersion: 2
+        x: 2530
+        y: 3936
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 599e516642ef7f3c0800000000000000
+      internalID: -4325709484781082219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_18
+      rect:
+        serializedVersion: 2
+        x: 2547
+        y: 3923
+        width: 8
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 321a623be950f2780800000000000000
+      internalID: -8705733375515254493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_19
+      rect:
+        serializedVersion: 2
+        x: 2568
+        y: 3934
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 884e245938b4ab2c0800000000000000
+      internalID: -4415133456166361976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_20
+      rect:
+        serializedVersion: 2
+        x: 2631
+        y: 3937
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82bf631b00b58a170800000000000000
+      internalID: 8189895980904545064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_21
+      rect:
+        serializedVersion: 2
+        x: 2657
+        y: 3939
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2e0c68ea2b55f750800000000000000
+      internalID: 6338072290439990828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_22
+      rect:
+        serializedVersion: 2
+        x: 2698
+        y: 3925
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fbb1f4d5b6bd82e0800000000000000
+      internalID: -2121838957343687691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_23
+      rect:
+        serializedVersion: 2
+        x: 2737
+        y: 3932
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be5289dfd49cea2b0800000000000000
+      internalID: -5571294352206453269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_24
+      rect:
+        serializedVersion: 2
+        x: 2757
+        y: 3922
+        width: 29
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d2b71c10300d37f0800000000000000
+      internalID: -631348166132256044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_25
+      rect:
+        serializedVersion: 2
+        x: 2823
+        y: 3932
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be33640753e3dbeb0800000000000000
+      internalID: -4702534036667091989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_26
+      rect:
+        serializedVersion: 2
+        x: 2847
+        y: 3936
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6ec5a76a6bf9c5a0800000000000000
+      internalID: -6500388152708575638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_27
+      rect:
+        serializedVersion: 2
+        x: 2863
+        y: 3923
+        width: 8
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 785bf1e0dd9ae0010800000000000000
+      internalID: 1157048921170621831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_28
+      rect:
+        serializedVersion: 2
+        x: 2884
+        y: 3934
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82346eaf7a52ae470800000000000000
+      internalID: 8424587456349094696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_29
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 52
+        width: 3373
+        height: 3882
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1c52a2038eea0290800000000000000
+      internalID: -7923258347952645092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_30
+      rect:
+        serializedVersion: 2
+        x: 1915
+        y: 3923
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1dd47099e2da23e0800000000000000
+      internalID: -2077616377485271778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_31
+      rect:
+        serializedVersion: 2
+        x: 1953
+        y: 3924
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd63b0189f3046c20800000000000000
+      internalID: 3198686005486630621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_32
+      rect:
+        serializedVersion: 2
+        x: 1976
+        y: 3929
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8525c09bf5e249830800000000000000
+      internalID: 4076934551338504792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_33
+      rect:
+        serializedVersion: 2
+        x: 2043
+        y: 3925
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 246917de6dcca6990800000000000000
+      internalID: -7391870614896535998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_34
+      rect:
+        serializedVersion: 2
+        x: 2168
+        y: 3928
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfb8e9db4e9f52f80800000000000000
+      internalID: -8131818791318418435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_35
+      rect:
+        serializedVersion: 2
+        x: 2269
+        y: 3924
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fa59cc3456221310800000000000000
+      internalID: 1374202979540359927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_36
+      rect:
+        serializedVersion: 2
+        x: 2292
+        y: 3929
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68be8e57bdff0dc20800000000000000
+      internalID: 3229362250865765254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_37
+      rect:
+        serializedVersion: 2
+        x: 2359
+        y: 3925
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11330e465b4ccdaa0800000000000000
+      internalID: -6134812309024918767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_38
+      rect:
+        serializedVersion: 2
+        x: 2485
+        y: 3928
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd14ec7cf4f910250800000000000000
+      internalID: 5909179351090217436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_39
+      rect:
+        serializedVersion: 2
+        x: 2586
+        y: 3924
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75c762b0f3be8fa40800000000000000
+      internalID: 5402326409033448535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_40
+      rect:
+        serializedVersion: 2
+        x: 2608
+        y: 3929
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a667b53f87ae0b680800000000000000
+      internalID: -8741229071526300054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_41
+      rect:
+        serializedVersion: 2
+        x: 2676
+        y: 3925
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c06634a1e91de5f0800000000000000
+      internalID: -725895508023418680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_42
+      rect:
+        serializedVersion: 2
+        x: 2801
+        y: 3928
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a66888ddaa151fa0800000000000000
+      internalID: -5830724808596756831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_43
+      rect:
+        serializedVersion: 2
+        x: 2902
+        y: 3924
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e3e784f98a1430d0800000000000000
+      internalID: -3444098635216198681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_44
+      rect:
+        serializedVersion: 2
+        x: 2924
+        y: 3929
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4141eaa853363b6c0800000000000000
+      internalID: -4128847351757532140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_45
+      rect:
+        serializedVersion: 2
+        x: 1888
+        y: 3915
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0f21fad78c84fd50800000000000000
+      internalID: 6770190654966411021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_46
+      rect:
+        serializedVersion: 2
+        x: 1934
+        y: 3911
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d0f86cd9672b99d0800000000000000
+      internalID: -2766574210466123559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_47
+      rect:
+        serializedVersion: 2
+        x: 1991
+        y: 3915
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b0f3b6fa77eae170800000000000000
+      internalID: 8208627786147164336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_48
+      rect:
+        serializedVersion: 2
+        x: 2150
+        y: 3914
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43be4635ecdfa70e0800000000000000
+      internalID: -2271223999450780876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_49
+      rect:
+        serializedVersion: 2
+        x: 2204
+        y: 3915
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0af400830b4ecb60800000000000000
+      internalID: 7768228885665479179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_50
+      rect:
+        serializedVersion: 2
+        x: 2250
+        y: 3910
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 483a0713d456bac80800000000000000
+      internalID: -8310437305165765756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_51
+      rect:
+        serializedVersion: 2
+        x: 2307
+        y: 3915
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 168e31486f7165cd0800000000000000
+      internalID: -2569840189822998431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_52
+      rect:
+        serializedVersion: 2
+        x: 2466
+        y: 3914
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26024dc3201bb3120800000000000000
+      internalID: 2394702250046136418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_53
+      rect:
+        serializedVersion: 2
+        x: 2520
+        y: 3915
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f8766354e1c5d6e0800000000000000
+      internalID: -1813330088550827786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_54
+      rect:
+        serializedVersion: 2
+        x: 2566
+        y: 3910
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 541badb7ed52542b0800000000000000
+      internalID: -5601028924074446523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_55
+      rect:
+        serializedVersion: 2
+        x: 2624
+        y: 3916
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 606a837a0f40a3680800000000000000
+      internalID: -8774695492333820410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_56
+      rect:
+        serializedVersion: 2
+        x: 2782
+        y: 3914
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 171a0537cc9852460800000000000000
+      internalID: 7216325489132085617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_57
+      rect:
+        serializedVersion: 2
+        x: 2836
+        y: 3915
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1a6d402ce36e31f0800000000000000
+      internalID: -1063302596207482340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_58
+      rect:
+        serializedVersion: 2
+        x: 2882
+        y: 3911
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d29e0a163bc3b9460800000000000000
+      internalID: 7249454766317693229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_59
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 3335
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6009b54e2be0b0860800000000000000
+      internalID: 7497102166186496006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_60
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 3313
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd2a3c0619a1dbe60800000000000000
+      internalID: 7979563326466400989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_61
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 3293
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49227308ba3496c40800000000000000
+      internalID: 5506006423306707604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_62
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 3295
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 735cffbffb2d7ad80800000000000000
+      internalID: -8239385271242603209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_63
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 3272
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b2d0723e13863520800000000000000
+      internalID: 2681474793864221363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_64
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 3255
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea708286b5da0f8d0800000000000000
+      internalID: -2814559159005476946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_65
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 3240
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02da57151588963e0800000000000000
+      internalID: -2059965471704896224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_66
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 3201
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 085c6b909688ac9c0800000000000000
+      internalID: -3906159742074567296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_67
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 3184
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b34395869c27f1fc0800000000000000
+      internalID: -3521970174215769029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_68
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 3177
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 070adfe7d0eb28020800000000000000
+      internalID: 2342643721360482416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_69
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 3163
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 922ae4c921d9c7800800000000000000
+      internalID: 611536352672916009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_70
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 3152
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16de062e407d75500800000000000000
+      internalID: 385012709141310817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_71
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 3142
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cdcd66c83d60a570800000000000000
+      internalID: 8475894589325954498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_72
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 3131
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0b7be0ff76ec0d60800000000000000
+      internalID: 7857908887031872268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_73
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 3116
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d23dcaba52be33950800000000000000
+      internalID: 6427739640214377261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_74
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 3093
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9bfb45c27bf8a100800000000000000
+      internalID: 119621860480252829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_75
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 3072
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52aed9e8f2c97e050800000000000000
+      internalID: 5829799970724506149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_76
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 3055
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccdb0365c7a907430800000000000000
+      internalID: 3778689946176503244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_77
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 3039
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9df37363d5ff75fd0800000000000000
+      internalID: -2353131504471162919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_78
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 3017
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e03ad708ead554de0800000000000000
+      internalID: -1349569509266185458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_79
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 2996
+        width: 24
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c3118072cca42300800000000000000
+      internalID: 226495832386507717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_80
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 2977
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5785f876197500200800000000000000
+      internalID: 144211470095177845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_81
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 2979
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8df1b3a9055725160800000000000000
+      internalID: 7012796558814683096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_82
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 2956
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50a6e50bca0b2f1a0800000000000000
+      internalID: -6777160233499334139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_83
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 2939
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05cdf14b52c73c5d0800000000000000
+      internalID: -3043452421794702256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_84
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 2924
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdbe52dd0ae6f3ba0800000000000000
+      internalID: -6107040932507030564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_85
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 2885
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2e4fe7657dacd0f0800000000000000
+      internalID: -1090806289963987414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_86
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 2868
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8f12b9ff0c53c9e0800000000000000
+      internalID: -1602335818730299510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_87
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 2861
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0018a9c57e3375a70800000000000000
+      internalID: 8815571864385126656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_88
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 2847
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d58ddb289df6ab010800000000000000
+      internalID: 1205398830267095133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_89
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 2836
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d03a8a26a2a1d4e70800000000000000
+      internalID: 9100959191331808013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_90
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 2826
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 887c96f7de4388bb0800000000000000
+      internalID: -4933635197134846072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_91
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 2814
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06bcef903a3e6e4c0800000000000000
+      internalID: -4258466108245357728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_92
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 2799
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c122b15dc91174dd0800000000000000
+      internalID: -2502011702693125604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_93
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 2777
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1f70080ad83d7ea0800000000000000
+      internalID: -5873475829932982498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_94
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 2757
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34661d85beabd3b70800000000000000
+      internalID: 8880459560214685251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_95
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 2124
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ec55fe9ce199ee00800000000000000
+      internalID: 1074550431569763555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_96
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 2106
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3afb79dade55b9e40800000000000000
+      internalID: 5664215435656544163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_97
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 2090
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4f5cfc14bbdfcea0800000000000000
+      internalID: -5850215824304087217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_98
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 2069
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92cae859c5502b050800000000000000
+      internalID: 5814715964093017129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_99
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 2048
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4fa27f34dce0fdb0800000000000000
+      internalID: -4760044409788911793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_100
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 2028
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dce87c923f1d7320800000000000000
+      internalID: 2557234465650306260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_101
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 2030
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3df31212741aa2660800000000000000
+      internalID: 7361873867761074131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_102
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 2007
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 032e20b0398799ef0800000000000000
+      internalID: -100916943698861520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_103
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 1990
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2411bcd9cf99dd5a0800000000000000
+      internalID: -6494865777340247742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_104
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 1975
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e35b58c273b818230800000000000000
+      internalID: 3639343042978493758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_105
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 1936
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2bdf8a2faa2f1300800000000000000
+      internalID: 224945438213528362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_106
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 1919
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9ec36df6b7d301f0800000000000000
+      internalID: -1079782304703590754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_107
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 1912
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1497421904d624040800000000000000
+      internalID: 4630383490970712385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_108
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 1898
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9288e0f02f41153b0800000000000000
+      internalID: -5525612237939636183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_109
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 1887
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d876e7b00f29fe910800000000000000
+      internalID: 1868873930064684941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_110
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 1877
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f2e1dd37d2829f20800000000000000
+      internalID: 3427946127349113590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_111
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 1866
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4e64c1d2ecd90760800000000000000
+      internalID: 7424708327437004365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_112
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 1851
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6fc61422f0d0d430800000000000000
+      internalID: 3805771423534206828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_113
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 1828
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96b5383f909baca50800000000000000
+      internalID: 6542244861100383081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_114
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 1807
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 253e753969be0c0f0800000000000000
+      internalID: -1098619277128768686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_115
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 1790
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4327f1e1106392660800000000000000
+      internalID: 7361474444342030900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_116
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 1774
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fb26ae7dff7ab2e0800000000000000
+      internalID: -2109232748741383175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_117
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 1753
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec5294f7d69981500800000000000000
+      internalID: 367212065196680654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_118
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 1732
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7940f78c94f7ca1b0800000000000000
+      internalID: -5643996278128966505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_119
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 1712
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b826473317c973c40800000000000000
+      internalID: 5492030280610112139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_120
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 1714
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ffaf0ae01250e190800000000000000
+      internalID: -7935252310826962958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_121
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 1691
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee0dbfdfe1da28980800000000000000
+      internalID: -8538071594919276306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_122
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 1674
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6685d20bed2c08770800000000000000
+      internalID: 8611096749226678374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_123
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 1659
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6fa8452893370610800000000000000
+      internalID: 1587294122224955244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_124
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 1620
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 258a49bb3a04b5840800000000000000
+      internalID: 5213832065582409810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_125
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 1603
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c50ac1cb2c3943f0800000000000000
+      internalID: -916134890560682558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_126
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 1596
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c8b4e99b6c488610800000000000000
+      internalID: 1623631690694179010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_127
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 1582
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 021d9725ba1f3b020800000000000000
+      internalID: 2356492748170318112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_128
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 1571
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 861b9ffd763324dc0800000000000000
+      internalID: -3656303426239090328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_129
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 1563
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb84742ffb31f96b0800000000000000
+      internalID: -5287485722385233733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_130
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 939
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e671078d4ed79e0b0800000000000000
+      internalID: -5698885431623411858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_131
+      rect:
+        serializedVersion: 2
+        x: 3431
+        y: 937
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46665df28cff38900800000000000000
+      internalID: 685672803551503972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_132
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 930
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f5bf11075b1104b0800000000000000
+      internalID: -5476065611410852365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_133
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 917
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d967bdaf495a3760800000000000000
+      internalID: 7438355933307562454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_134
+      rect:
+        serializedVersion: 2
+        x: 3419
+        y: 916
+        width: 27
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b17aa6b651ca91480800000000000000
+      internalID: -8927915578288855269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_135
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 902
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b95fefca8b18eff20800000000000000
+      internalID: 3458344194043475355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_136
+      rect:
+        serializedVersion: 2
+        x: 3414
+        y: 889
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab15c4d45cfd394e0800000000000000
+      internalID: -1975989772987117126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_137
+      rect:
+        serializedVersion: 2
+        x: 3437
+        y: 895
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14f245d19e44d8fb0800000000000000
+      internalID: -4643979872738988223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_138
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 879
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 096168f8123865360800000000000000
+      internalID: 7158052837917070992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_139
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 858
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9230212b45a39b50800000000000000
+      internalID: 6598799621124797087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_140
+      rect:
+        serializedVersion: 2
+        x: 3432
+        y: 859
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1607b120828e84c0800000000000000
+      internalID: -4283342708749695462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_141
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 841
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a141ff718f2697d0800000000000000
+      internalID: -2912087875804642906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_142
+      rect:
+        serializedVersion: 2
+        x: 3416
+        y: 843
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1469d84ad846b05b0800000000000000
+      internalID: -5401112768586869183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_143
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 826
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c4a19c726657dac0800000000000000
+      internalID: -3830497977058614074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_144
+      rect:
+        serializedVersion: 2
+        x: 3438
+        y: 822
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f70aa674d17b9910800000000000000
+      internalID: 1845193629676210162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_145
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 804
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2780aa1d0e0120d60800000000000000
+      internalID: 7854859257863866482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_146
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 783
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8e04e4a646df16e0800000000000000
+      internalID: -1864536121805631859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_147
+      rect:
+        serializedVersion: 2
+        x: 3432
+        y: 786
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0519609c41931ade0800000000000000
+      internalID: -1323714054035435184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_148
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 763
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9381d0e03e2c6ef0800000000000000
+      internalID: -113665103125970021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_149
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 765
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96902ea00ef273bc0800000000000000
+      internalID: -3803518720989329047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_150
+      rect:
+        serializedVersion: 2
+        x: 3434
+        y: 766
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71db6082ee55883d0800000000000000
+      internalID: -3204216653512000233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_151
+      rect:
+        serializedVersion: 2
+        x: 3415
+        y: 752
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d4d6c5d814a7e970800000000000000
+      internalID: 8784170024782189780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_152
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 742
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1367794447f4b4240800000000000000
+      internalID: 4776999190542120497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_153
+      rect:
+        serializedVersion: 2
+        x: 3435
+        y: 745
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b212f289262af7040800000000000000
+      internalID: 4647611884813361451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_154
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 725
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c8b8c76a4e089b10800000000000000
+      internalID: 1988354948215650499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_155
+      rect:
+        serializedVersion: 2
+        x: 3430
+        y: 724
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e4328b31665023b0800000000000000
+      internalID: -5539332566055504672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_156
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 710
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0d20c59ffc949b90800000000000000
+      internalID: -7235986079734551284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_157
+      rect:
+        serializedVersion: 2
+        x: 3426
+        y: 698
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fdee63a0d3289350800000000000000
+      internalID: 6023603880610164210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_158
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 688
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32869cab2a1af3fc0800000000000000
+      internalID: -3512911464035162077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_159
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 654
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d13a0f0d803fb3aa0800000000000000
+      internalID: -6180078844445154531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_160
+      rect:
+        serializedVersion: 2
+        x: 3425
+        y: 658
+        width: 18
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10d49ff53402610a0800000000000000
+      internalID: -6911301104408376063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_161
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 647
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed89cc78541f6ce50800000000000000
+      internalID: 6829411165887305950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_162
+      rect:
+        serializedVersion: 2
+        x: 3421
+        y: 638
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4988122b7c1f11a20800000000000000
+      internalID: 3031469864186382484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_163
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 633
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ee283aad95f3d4a0800000000000000
+      internalID: -6569637373888942360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_164
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 623
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa6f93cac7af97a10800000000000000
+      internalID: 1907831330540484266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_165
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 612
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b2ad7d0404081690800000000000000
+      internalID: -7631345153126587721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_166
+      rect:
+        serializedVersion: 2
+        x: 3430
+        y: 620
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27782ca7ea1e7c790800000000000000
+      internalID: -7509785714116884622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_167
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 601
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 894ae472e7c6cadd0800000000000000
+      internalID: -2473482806252100456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_168
+      rect:
+        serializedVersion: 2
+        x: 3419
+        y: 600
+        width: 27
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f78bb50f449ce22e0800000000000000
+      internalID: -2148558674281645953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_169
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 586
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 967fc5ded3bcc27c0800000000000000
+      internalID: -4094674494350887063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_170
+      rect:
+        serializedVersion: 2
+        x: 3414
+        y: 573
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4ebda65accae5380800000000000000
+      internalID: -8980550621892592054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_171
+      rect:
+        serializedVersion: 2
+        x: 3437
+        y: 579
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e31fdbea37d65e40800000000000000
+      internalID: 5644935831020835816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_172
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 563
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea99a264f8eed8ae0800000000000000
+      internalID: -1545316797993281106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_173
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 525
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76f1c1219859e3510800000000000000
+      internalID: 1530825339299438439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_174
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 542
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b201e05fb33bba90800000000000000
+      internalID: -7297181874435063119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_175
+      rect:
+        serializedVersion: 2
+        x: 3416
+        y: 527
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f84d32ac0765fe90800000000000000
+      internalID: -6992569542463633163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_176
+      rect:
+        serializedVersion: 2
+        x: 3432
+        y: 527
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e41c0eadda2dca40800000000000000
+      internalID: 5390011460628518118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_177
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 509
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe61682070038aef0800000000000000
+      internalID: -96774585323219217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_178
+      rect:
+        serializedVersion: 2
+        x: 3438
+        y: 506
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbc63fe1ca937b5f0800000000000000
+      internalID: -741060202262729537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_179
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 488
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0661a2c9b0443c470800000000000000
+      internalID: 8413643345513551456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_180
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 467
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89e5bee7b2bcf19a0800000000000000
+      internalID: -6260061569348313448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_181
+      rect:
+        serializedVersion: 2
+        x: 3432
+        y: 470
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d0a4bd763e6e9300800000000000000
+      internalID: 260767008750346454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_182
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 447
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f64813a2d027c5d0800000000000000
+      internalID: -3042426934213982472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_183
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 449
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ab51db00827009d0800000000000000
+      internalID: -2810120273199539290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_184
+      rect:
+        serializedVersion: 2
+        x: 3434
+        y: 450
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 532ac5f6aaf2258a0800000000000000
+      internalID: -6317934918188096971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_185
+      rect:
+        serializedVersion: 2
+        x: 3415
+        y: 435
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f5947c5dcc6433d0800000000000000
+      internalID: -3227835403642563079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_186
+      rect:
+        serializedVersion: 2
+        x: 3435
+        y: 429
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f683293ca44920d20800000000000000
+      internalID: 3243317730489809007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_187
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 426
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5eda6725e63b44250800000000000000
+      internalID: 5928060295937699301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_188
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 409
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 597092bfb6fc30250800000000000000
+      internalID: 5909795198722443157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_189
+      rect:
+        serializedVersion: 2
+        x: 3430
+        y: 408
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 989269cca41d1da80800000000000000
+      internalID: -8443737707152791159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_190
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 394
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 822cabbe51ee7cf70800000000000000
+      internalID: 9207589741098877480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_191
+      rect:
+        serializedVersion: 2
+        x: 3426
+        y: 382
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80b30a057548c1460800000000000000
+      internalID: 7213786213690391304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_192
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 372
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce4d8e50b9ab4e7a0800000000000000
+      internalID: -6348744399703714580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_193
+      rect:
+        serializedVersion: 2
+        x: 3437
+        y: 362
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4befc1bde18af040800000000000000
+      internalID: 4682197620495477578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_194
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 73
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4f55d3c4441844b0800000000000000
+      internalID: -5456088662983483571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_195
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 77
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbb1fce15dcdcb110800000000000000
+      internalID: 1278139202169412539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_196
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 69
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76c64311e74e8b710800000000000000
+      internalID: 1709367288692763751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_197
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 74
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7931aa6205e626ac0800000000000000
+      internalID: -3863404239805344873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_198
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 76
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32c3d995ff45ddfe0800000000000000
+      internalID: -1162679673094849501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_199
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 73
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6d4e40ecb8fc2d00800000000000000
+      internalID: 949407111569100139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_200
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 77
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07a97ea98c0e8bb70800000000000000
+      internalID: 8915122614576847472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_201
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 71
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d456c0af9053b570800000000000000
+      internalID: 8481211169796150486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_202
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 70
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cba53a53148fa0810800000000000000
+      internalID: 1732469965633837756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_203
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 78
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f577042ca3cebc20800000000000000
+      internalID: 3224229527350113782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_204
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 73
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72435c7c7147feb10800000000000000
+      internalID: 2012955203942560807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_205
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 77
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0289baeb72f382a0800000000000000
+      internalID: -6736274003583204853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_206
+      rect:
+        serializedVersion: 2
+        x: 2980
+        y: 71
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9b83965b2031a730800000000000000
+      internalID: 4008538106030689179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_207
+      rect:
+        serializedVersion: 2
+        x: 3002
+        y: 70
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73e267c0034de67e0800000000000000
+      internalID: -1770244300677435849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_208
+      rect:
+        serializedVersion: 2
+        x: 3020
+        y: 78
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d434062f60db3440800000000000000
+      internalID: 4916752594002785497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_209
+      rect:
+        serializedVersion: 2
+        x: 3053
+        y: 73
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 137120a69bc700e10800000000000000
+      internalID: 2161864956927153969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_210
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 77
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4cd6822535d45210800000000000000
+      internalID: 1320915014915644495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_211
+      rect:
+        serializedVersion: 2
+        x: 3172
+        y: 69
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b227d53e069a5140800000000000000
+      internalID: 4709241348146274992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_212
+      rect:
+        serializedVersion: 2
+        x: 3192
+        y: 74
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 536b699b88c19c750800000000000000
+      internalID: 6325618525173364277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_213
+      rect:
+        serializedVersion: 2
+        x: 3222
+        y: 76
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0178b70d7411f6d20800000000000000
+      internalID: 3273854454259746576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_214
+      rect:
+        serializedVersion: 2
+        x: 3244
+        y: 73
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bca473d5d8b30de0800000000000000
+      internalID: -1368046633275315023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_215
+      rect:
+        serializedVersion: 2
+        x: 3274
+        y: 77
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceb3f672770b69ff0800000000000000
+      internalID: -29642321722131476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_216
+      rect:
+        serializedVersion: 2
+        x: 3297
+        y: 71
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b433037a04b1b7aa0800000000000000
+      internalID: -6162301700629580981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_217
+      rect:
+        serializedVersion: 2
+        x: 3318
+        y: 70
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e7617d6e00d376d0800000000000000
+      internalID: -2993820566886979612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_218
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 71
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c94d210675063f0e0800000000000000
+      internalID: -2237338661482736484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_219
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 66
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1e5dd52951042df0800000000000000
+      internalID: -206038200553218534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_220
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 64
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1114695b68ba91b20800000000000000
+      internalID: 3105702013109158161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_221
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 67
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6ba17774c6fcc9b0800000000000000
+      internalID: -5058396957765948562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_222
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 66
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3950446204c49e810800000000000000
+      internalID: 1795049764887463315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_223
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 64
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70a24469ce7f5f570800000000000000
+      internalID: 8499972467237071367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_224
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 67
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44df0abc4fd2740b0800000000000000
+      internalID: -5744572270276182716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_225
+      rect:
+        serializedVersion: 2
+        x: 3110
+        y: 66
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2fa65b1cb71025b0800000000000000
+      internalID: -5395286256909897939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_226
+      rect:
+        serializedVersion: 2
+        x: 3131
+        y: 64
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c3987458ab41d3d0800000000000000
+      internalID: -3183680275230452792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_227
+      rect:
+        serializedVersion: 2
+        x: 3152
+        y: 67
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f08e3a225d49e96e0800000000000000
+      internalID: -1828860755535730673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_228
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 59
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a63424b78c2234e0800000000000000
+      internalID: -2003489922871970137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_229
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 59
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 635a6d701de61d570800000000000000
+      internalID: 8489688616628823350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_230
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 56
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cd1c24c5a3e49a40800000000000000
+      internalID: 5374170556460178882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_231
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 62
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b6d2c8da8366f730800000000000000
+      internalID: 4032519964350142136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_232
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 57
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7aa0f3ad051eac710800000000000000
+      internalID: 1714430345543092903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_233
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 60
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e818347609d7c9a0800000000000000
+      internalID: -6212758539191445273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_234
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 59
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 122afa465f493a260800000000000000
+      internalID: 7107688418597904929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_235
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 59
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be8009d7472667050800000000000000
+      internalID: 5797929822748412139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_236
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 59
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b2406290c337c230800000000000000
+      internalID: 3658950124444336818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_237
+      rect:
+        serializedVersion: 2
+        x: 2965
+        y: 59
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 092e103e810fe2330800000000000000
+      internalID: 3688149134541447824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_238
+      rect:
+        serializedVersion: 2
+        x: 3039
+        y: 59
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2a6d0b0c2f450da0800000000000000
+      internalID: -5979285879681881558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_239
+      rect:
+        serializedVersion: 2
+        x: 3069
+        y: 59
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c852ed2d17eb0f140800000000000000
+      internalID: 4751507002954229132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_240
+      rect:
+        serializedVersion: 2
+        x: 3189
+        y: 56
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45a5a97e1e9323330800000000000000
+      internalID: 3689074687185934932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_241
+      rect:
+        serializedVersion: 2
+        x: 3209
+        y: 62
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e151c16e1c2dd360800000000000000
+      internalID: 7195956288608621031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_242
+      rect:
+        serializedVersion: 2
+        x: 3229
+        y: 57
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cec85648eacfb94f0800000000000000
+      internalID: -820784680589226772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_243
+      rect:
+        serializedVersion: 2
+        x: 3259
+        y: 60
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9880a483b7023e9e0800000000000000
+      internalID: -1593394129561581431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_244
+      rect:
+        serializedVersion: 2
+        x: 3281
+        y: 59
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfc1e94ef25056b00800000000000000
+      internalID: 821068210322152699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: twilight_maze_of_the_vampire_lady_245
+      rect:
+        serializedVersion: 2
+        x: 3332
+        y: 56
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cedd2c20070d74af0800000000000000
+      internalID: -412131661379871252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      twilight_maze_of_the_vampire_lady_0: 442340929741752706
+      twilight_maze_of_the_vampire_lady_1: -3732024330544800599
+      twilight_maze_of_the_vampire_lady_10: 4715479640731496495
+      twilight_maze_of_the_vampire_lady_100: 2557234465650306260
+      twilight_maze_of_the_vampire_lady_101: 7361873867761074131
+      twilight_maze_of_the_vampire_lady_102: -100916943698861520
+      twilight_maze_of_the_vampire_lady_103: -6494865777340247742
+      twilight_maze_of_the_vampire_lady_104: 3639343042978493758
+      twilight_maze_of_the_vampire_lady_105: 224945438213528362
+      twilight_maze_of_the_vampire_lady_106: -1079782304703590754
+      twilight_maze_of_the_vampire_lady_107: 4630383490970712385
+      twilight_maze_of_the_vampire_lady_108: -5525612237939636183
+      twilight_maze_of_the_vampire_lady_109: 1868873930064684941
+      twilight_maze_of_the_vampire_lady_11: 7121133203527612818
+      twilight_maze_of_the_vampire_lady_110: 3427946127349113590
+      twilight_maze_of_the_vampire_lady_111: 7424708327437004365
+      twilight_maze_of_the_vampire_lady_112: 3805771423534206828
+      twilight_maze_of_the_vampire_lady_113: 6542244861100383081
+      twilight_maze_of_the_vampire_lady_114: -1098619277128768686
+      twilight_maze_of_the_vampire_lady_115: 7361474444342030900
+      twilight_maze_of_the_vampire_lady_116: -2109232748741383175
+      twilight_maze_of_the_vampire_lady_117: 367212065196680654
+      twilight_maze_of_the_vampire_lady_118: -5643996278128966505
+      twilight_maze_of_the_vampire_lady_119: 5492030280610112139
+      twilight_maze_of_the_vampire_lady_12: 224247430594507085
+      twilight_maze_of_the_vampire_lady_120: -7935252310826962958
+      twilight_maze_of_the_vampire_lady_121: -8538071594919276306
+      twilight_maze_of_the_vampire_lady_122: 8611096749226678374
+      twilight_maze_of_the_vampire_lady_123: 1587294122224955244
+      twilight_maze_of_the_vampire_lady_124: 5213832065582409810
+      twilight_maze_of_the_vampire_lady_125: -916134890560682558
+      twilight_maze_of_the_vampire_lady_126: 1623631690694179010
+      twilight_maze_of_the_vampire_lady_127: 2356492748170318112
+      twilight_maze_of_the_vampire_lady_128: -3656303426239090328
+      twilight_maze_of_the_vampire_lady_129: -5287485722385233733
+      twilight_maze_of_the_vampire_lady_13: -1098808090531174425
+      twilight_maze_of_the_vampire_lady_130: -5698885431623411858
+      twilight_maze_of_the_vampire_lady_131: 685672803551503972
+      twilight_maze_of_the_vampire_lady_132: -5476065611410852365
+      twilight_maze_of_the_vampire_lady_133: 7438355933307562454
+      twilight_maze_of_the_vampire_lady_134: -8927915578288855269
+      twilight_maze_of_the_vampire_lady_135: 3458344194043475355
+      twilight_maze_of_the_vampire_lady_136: -1975989772987117126
+      twilight_maze_of_the_vampire_lady_137: -4643979872738988223
+      twilight_maze_of_the_vampire_lady_138: 7158052837917070992
+      twilight_maze_of_the_vampire_lady_139: 6598799621124797087
+      twilight_maze_of_the_vampire_lady_14: 7809976324919109541
+      twilight_maze_of_the_vampire_lady_140: -4283342708749695462
+      twilight_maze_of_the_vampire_lady_141: -2912087875804642906
+      twilight_maze_of_the_vampire_lady_142: -5401112768586869183
+      twilight_maze_of_the_vampire_lady_143: -3830497977058614074
+      twilight_maze_of_the_vampire_lady_144: 1845193629676210162
+      twilight_maze_of_the_vampire_lady_145: 7854859257863866482
+      twilight_maze_of_the_vampire_lady_146: -1864536121805631859
+      twilight_maze_of_the_vampire_lady_147: -1323714054035435184
+      twilight_maze_of_the_vampire_lady_148: -113665103125970021
+      twilight_maze_of_the_vampire_lady_149: -3803518720989329047
+      twilight_maze_of_the_vampire_lady_15: 503827304717696657
+      twilight_maze_of_the_vampire_lady_150: -3204216653512000233
+      twilight_maze_of_the_vampire_lady_151: 8784170024782189780
+      twilight_maze_of_the_vampire_lady_152: 4776999190542120497
+      twilight_maze_of_the_vampire_lady_153: 4647611884813361451
+      twilight_maze_of_the_vampire_lady_154: 1988354948215650499
+      twilight_maze_of_the_vampire_lady_155: -5539332566055504672
+      twilight_maze_of_the_vampire_lady_156: -7235986079734551284
+      twilight_maze_of_the_vampire_lady_157: 6023603880610164210
+      twilight_maze_of_the_vampire_lady_158: -3512911464035162077
+      twilight_maze_of_the_vampire_lady_159: -6180078844445154531
+      twilight_maze_of_the_vampire_lady_16: -4111938227083801588
+      twilight_maze_of_the_vampire_lady_160: -6911301104408376063
+      twilight_maze_of_the_vampire_lady_161: 6829411165887305950
+      twilight_maze_of_the_vampire_lady_162: 3031469864186382484
+      twilight_maze_of_the_vampire_lady_163: -6569637373888942360
+      twilight_maze_of_the_vampire_lady_164: 1907831330540484266
+      twilight_maze_of_the_vampire_lady_165: -7631345153126587721
+      twilight_maze_of_the_vampire_lady_166: -7509785714116884622
+      twilight_maze_of_the_vampire_lady_167: -2473482806252100456
+      twilight_maze_of_the_vampire_lady_168: -2148558674281645953
+      twilight_maze_of_the_vampire_lady_169: -4094674494350887063
+      twilight_maze_of_the_vampire_lady_17: -4325709484781082219
+      twilight_maze_of_the_vampire_lady_170: -8980550621892592054
+      twilight_maze_of_the_vampire_lady_171: 5644935831020835816
+      twilight_maze_of_the_vampire_lady_172: -1545316797993281106
+      twilight_maze_of_the_vampire_lady_173: 1530825339299438439
+      twilight_maze_of_the_vampire_lady_174: -7297181874435063119
+      twilight_maze_of_the_vampire_lady_175: -6992569542463633163
+      twilight_maze_of_the_vampire_lady_176: 5390011460628518118
+      twilight_maze_of_the_vampire_lady_177: -96774585323219217
+      twilight_maze_of_the_vampire_lady_178: -741060202262729537
+      twilight_maze_of_the_vampire_lady_179: 8413643345513551456
+      twilight_maze_of_the_vampire_lady_18: -8705733375515254493
+      twilight_maze_of_the_vampire_lady_180: -6260061569348313448
+      twilight_maze_of_the_vampire_lady_181: 260767008750346454
+      twilight_maze_of_the_vampire_lady_182: -3042426934213982472
+      twilight_maze_of_the_vampire_lady_183: -2810120273199539290
+      twilight_maze_of_the_vampire_lady_184: -6317934918188096971
+      twilight_maze_of_the_vampire_lady_185: -3227835403642563079
+      twilight_maze_of_the_vampire_lady_186: 3243317730489809007
+      twilight_maze_of_the_vampire_lady_187: 5928060295937699301
+      twilight_maze_of_the_vampire_lady_188: 5909795198722443157
+      twilight_maze_of_the_vampire_lady_189: -8443737707152791159
+      twilight_maze_of_the_vampire_lady_19: -4415133456166361976
+      twilight_maze_of_the_vampire_lady_190: 9207589741098877480
+      twilight_maze_of_the_vampire_lady_191: 7213786213690391304
+      twilight_maze_of_the_vampire_lady_192: -6348744399703714580
+      twilight_maze_of_the_vampire_lady_193: 4682197620495477578
+      twilight_maze_of_the_vampire_lady_194: -5456088662983483571
+      twilight_maze_of_the_vampire_lady_195: 1278139202169412539
+      twilight_maze_of_the_vampire_lady_196: 1709367288692763751
+      twilight_maze_of_the_vampire_lady_197: -3863404239805344873
+      twilight_maze_of_the_vampire_lady_198: -1162679673094849501
+      twilight_maze_of_the_vampire_lady_199: 949407111569100139
+      twilight_maze_of_the_vampire_lady_2: 3038820945620777572
+      twilight_maze_of_the_vampire_lady_20: 8189895980904545064
+      twilight_maze_of_the_vampire_lady_200: 8915122614576847472
+      twilight_maze_of_the_vampire_lady_201: 8481211169796150486
+      twilight_maze_of_the_vampire_lady_202: 1732469965633837756
+      twilight_maze_of_the_vampire_lady_203: 3224229527350113782
+      twilight_maze_of_the_vampire_lady_204: 2012955203942560807
+      twilight_maze_of_the_vampire_lady_205: -6736274003583204853
+      twilight_maze_of_the_vampire_lady_206: 4008538106030689179
+      twilight_maze_of_the_vampire_lady_207: -1770244300677435849
+      twilight_maze_of_the_vampire_lady_208: 4916752594002785497
+      twilight_maze_of_the_vampire_lady_209: 2161864956927153969
+      twilight_maze_of_the_vampire_lady_21: 6338072290439990828
+      twilight_maze_of_the_vampire_lady_210: 1320915014915644495
+      twilight_maze_of_the_vampire_lady_211: 4709241348146274992
+      twilight_maze_of_the_vampire_lady_212: 6325618525173364277
+      twilight_maze_of_the_vampire_lady_213: 3273854454259746576
+      twilight_maze_of_the_vampire_lady_214: -1368046633275315023
+      twilight_maze_of_the_vampire_lady_215: -29642321722131476
+      twilight_maze_of_the_vampire_lady_216: -6162301700629580981
+      twilight_maze_of_the_vampire_lady_217: -2993820566886979612
+      twilight_maze_of_the_vampire_lady_218: -2237338661482736484
+      twilight_maze_of_the_vampire_lady_219: -206038200553218534
+      twilight_maze_of_the_vampire_lady_22: -2121838957343687691
+      twilight_maze_of_the_vampire_lady_220: 3105702013109158161
+      twilight_maze_of_the_vampire_lady_221: -5058396957765948562
+      twilight_maze_of_the_vampire_lady_222: 1795049764887463315
+      twilight_maze_of_the_vampire_lady_223: 8499972467237071367
+      twilight_maze_of_the_vampire_lady_224: -5744572270276182716
+      twilight_maze_of_the_vampire_lady_225: -5395286256909897939
+      twilight_maze_of_the_vampire_lady_226: -3183680275230452792
+      twilight_maze_of_the_vampire_lady_227: -1828860755535730673
+      twilight_maze_of_the_vampire_lady_228: -2003489922871970137
+      twilight_maze_of_the_vampire_lady_229: 8489688616628823350
+      twilight_maze_of_the_vampire_lady_23: -5571294352206453269
+      twilight_maze_of_the_vampire_lady_230: 5374170556460178882
+      twilight_maze_of_the_vampire_lady_231: 4032519964350142136
+      twilight_maze_of_the_vampire_lady_232: 1714430345543092903
+      twilight_maze_of_the_vampire_lady_233: -6212758539191445273
+      twilight_maze_of_the_vampire_lady_234: 7107688418597904929
+      twilight_maze_of_the_vampire_lady_235: 5797929822748412139
+      twilight_maze_of_the_vampire_lady_236: 3658950124444336818
+      twilight_maze_of_the_vampire_lady_237: 3688149134541447824
+      twilight_maze_of_the_vampire_lady_238: -5979285879681881558
+      twilight_maze_of_the_vampire_lady_239: 4751507002954229132
+      twilight_maze_of_the_vampire_lady_24: -631348166132256044
+      twilight_maze_of_the_vampire_lady_240: 3689074687185934932
+      twilight_maze_of_the_vampire_lady_241: 7195956288608621031
+      twilight_maze_of_the_vampire_lady_242: -820784680589226772
+      twilight_maze_of_the_vampire_lady_243: -1593394129561581431
+      twilight_maze_of_the_vampire_lady_244: 821068210322152699
+      twilight_maze_of_the_vampire_lady_245: -412131661379871252
+      twilight_maze_of_the_vampire_lady_25: -4702534036667091989
+      twilight_maze_of_the_vampire_lady_26: -6500388152708575638
+      twilight_maze_of_the_vampire_lady_27: 1157048921170621831
+      twilight_maze_of_the_vampire_lady_28: 8424587456349094696
+      twilight_maze_of_the_vampire_lady_29: -7923258347952645092
+      twilight_maze_of_the_vampire_lady_3: 7801915085615309434
+      twilight_maze_of_the_vampire_lady_30: -2077616377485271778
+      twilight_maze_of_the_vampire_lady_31: 3198686005486630621
+      twilight_maze_of_the_vampire_lady_32: 4076934551338504792
+      twilight_maze_of_the_vampire_lady_33: -7391870614896535998
+      twilight_maze_of_the_vampire_lady_34: -8131818791318418435
+      twilight_maze_of_the_vampire_lady_35: 1374202979540359927
+      twilight_maze_of_the_vampire_lady_36: 3229362250865765254
+      twilight_maze_of_the_vampire_lady_37: -6134812309024918767
+      twilight_maze_of_the_vampire_lady_38: 5909179351090217436
+      twilight_maze_of_the_vampire_lady_39: 5402326409033448535
+      twilight_maze_of_the_vampire_lady_4: -7857213003590483950
+      twilight_maze_of_the_vampire_lady_40: -8741229071526300054
+      twilight_maze_of_the_vampire_lady_41: -725895508023418680
+      twilight_maze_of_the_vampire_lady_42: -5830724808596756831
+      twilight_maze_of_the_vampire_lady_43: -3444098635216198681
+      twilight_maze_of_the_vampire_lady_44: -4128847351757532140
+      twilight_maze_of_the_vampire_lady_45: 6770190654966411021
+      twilight_maze_of_the_vampire_lady_46: -2766574210466123559
+      twilight_maze_of_the_vampire_lady_47: 8208627786147164336
+      twilight_maze_of_the_vampire_lady_48: -2271223999450780876
+      twilight_maze_of_the_vampire_lady_49: 7768228885665479179
+      twilight_maze_of_the_vampire_lady_5: 1195772498032275816
+      twilight_maze_of_the_vampire_lady_50: -8310437305165765756
+      twilight_maze_of_the_vampire_lady_51: -2569840189822998431
+      twilight_maze_of_the_vampire_lady_52: 2394702250046136418
+      twilight_maze_of_the_vampire_lady_53: -1813330088550827786
+      twilight_maze_of_the_vampire_lady_54: -5601028924074446523
+      twilight_maze_of_the_vampire_lady_55: -8774695492333820410
+      twilight_maze_of_the_vampire_lady_56: 7216325489132085617
+      twilight_maze_of_the_vampire_lady_57: -1063302596207482340
+      twilight_maze_of_the_vampire_lady_58: 7249454766317693229
+      twilight_maze_of_the_vampire_lady_59: 7497102166186496006
+      twilight_maze_of_the_vampire_lady_6: -9173727863519517662
+      twilight_maze_of_the_vampire_lady_60: 7979563326466400989
+      twilight_maze_of_the_vampire_lady_61: 5506006423306707604
+      twilight_maze_of_the_vampire_lady_62: -8239385271242603209
+      twilight_maze_of_the_vampire_lady_63: 2681474793864221363
+      twilight_maze_of_the_vampire_lady_64: -2814559159005476946
+      twilight_maze_of_the_vampire_lady_65: -2059965471704896224
+      twilight_maze_of_the_vampire_lady_66: -3906159742074567296
+      twilight_maze_of_the_vampire_lady_67: -3521970174215769029
+      twilight_maze_of_the_vampire_lady_68: 2342643721360482416
+      twilight_maze_of_the_vampire_lady_69: 611536352672916009
+      twilight_maze_of_the_vampire_lady_7: 648048225284599553
+      twilight_maze_of_the_vampire_lady_70: 385012709141310817
+      twilight_maze_of_the_vampire_lady_71: 8475894589325954498
+      twilight_maze_of_the_vampire_lady_72: 7857908887031872268
+      twilight_maze_of_the_vampire_lady_73: 6427739640214377261
+      twilight_maze_of_the_vampire_lady_74: 119621860480252829
+      twilight_maze_of_the_vampire_lady_75: 5829799970724506149
+      twilight_maze_of_the_vampire_lady_76: 3778689946176503244
+      twilight_maze_of_the_vampire_lady_77: -2353131504471162919
+      twilight_maze_of_the_vampire_lady_78: -1349569509266185458
+      twilight_maze_of_the_vampire_lady_79: 226495832386507717
+      twilight_maze_of_the_vampire_lady_8: 6410174401847111517
+      twilight_maze_of_the_vampire_lady_80: 144211470095177845
+      twilight_maze_of_the_vampire_lady_81: 7012796558814683096
+      twilight_maze_of_the_vampire_lady_82: -6777160233499334139
+      twilight_maze_of_the_vampire_lady_83: -3043452421794702256
+      twilight_maze_of_the_vampire_lady_84: -6107040932507030564
+      twilight_maze_of_the_vampire_lady_85: -1090806289963987414
+      twilight_maze_of_the_vampire_lady_86: -1602335818730299510
+      twilight_maze_of_the_vampire_lady_87: 8815571864385126656
+      twilight_maze_of_the_vampire_lady_88: 1205398830267095133
+      twilight_maze_of_the_vampire_lady_89: 9100959191331808013
+      twilight_maze_of_the_vampire_lady_9: 252535109062325515
+      twilight_maze_of_the_vampire_lady_90: -4933635197134846072
+      twilight_maze_of_the_vampire_lady_91: -4258466108245357728
+      twilight_maze_of_the_vampire_lady_92: -2502011702693125604
+      twilight_maze_of_the_vampire_lady_93: -5873475829932982498
+      twilight_maze_of_the_vampire_lady_94: 8880459560214685251
+      twilight_maze_of_the_vampire_lady_95: 1074550431569763555
+      twilight_maze_of_the_vampire_lady_96: 5664215435656544163
+      twilight_maze_of_the_vampire_lady_97: -5850215824304087217
+      twilight_maze_of_the_vampire_lady_98: 5814715964093017129
+      twilight_maze_of_the_vampire_lady_99: -4760044409788911793
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

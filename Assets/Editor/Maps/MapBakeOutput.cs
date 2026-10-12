@@ -51,14 +51,18 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             root.name = "Map";
-            var meshCopies = CloneGeneratedMeshes(root);
+            var meshSlots = CaptureMeshSlots(root);
             var navigationCopy = CloneNavigation(root);
             var prefab = PrefabUtility.SaveAsPrefabAsset(root, path);
             if (prefab == null)
             {
-                foreach (var copy in meshCopies.Values)
+                var destroyed = new HashSet<Mesh>();
+                foreach (var slot in meshSlots)
                 {
-                    Object.DestroyImmediate(copy);
+                    if (slot.Copy != null && destroyed.Add(slot.Copy))
+                    {
+                        Object.DestroyImmediate(slot.Copy);
+                    }
                 }
 
                 if (navigationCopy != null)
@@ -70,7 +74,7 @@ namespace BattleRoyale.Maps.EditorTools
                 return null;
             }
 
-            PersistGeneratedContent(root, prefab, meshCopies, navigationCopy);
+            PersistGeneratedContent(prefab, meshSlots, navigationCopy);
             Undo.RecordObject(definition, "Assign Map Prefab");
             definition.bakedPrefab = prefab;
             EditorUtility.SetDirty(definition);
@@ -87,8 +91,23 @@ namespace BattleRoyale.Maps.EditorTools
                 Selection.activeObject = prefab;
             }
 
-            EditorSceneManager.SaveOpenScenes();
+            SaveDirtyScenesWithPaths();
             return placed;
+        }
+
+        private static void SaveDirtyScenesWithPaths()
+        {
+            var sceneCount = EditorSceneManager.sceneCount;
+            for (var i = 0; i < sceneCount; i++)
+            {
+                var scene = EditorSceneManager.GetSceneAt(i);
+                if (!scene.IsValid() || !scene.isDirty || string.IsNullOrEmpty(scene.path))
+                {
+                    continue;
+                }
+
+                EditorSceneManager.SaveScene(scene);
+            }
         }
 
         public static MapInstance PlacePrefabInScene(GameObject prefab)
@@ -122,43 +141,84 @@ namespace BattleRoyale.Maps.EditorTools
             return map;
         }
 
-        private static Dictionary<Mesh, Mesh> CloneGeneratedMeshes(GameObject root)
+        private readonly struct GeneratedMeshSlot
         {
-            var copies = new Dictionary<Mesh, Mesh>();
-            foreach (var mesh in CollectGeneratedMeshes(root))
+            public GeneratedMeshSlot(string path, string objectName, bool collider, Mesh copy)
             {
-                var copy = Object.Instantiate(mesh);
-                copy.name = mesh.name;
-                copy.hideFlags = HideFlags.None;
-                copies.Add(mesh, copy);
+                Path = path;
+                ObjectName = objectName;
+                Collider = collider;
+                Copy = copy;
             }
 
-            return copies;
+            public string Path { get; }
+            public string ObjectName { get; }
+            public bool Collider { get; }
+            public Mesh Copy { get; }
         }
 
-        private static NavMeshData CloneNavigation(GameObject root)
+        private static List<GeneratedMeshSlot> CaptureMeshSlots(GameObject root)
         {
-            var surface = root.GetComponent<NavMeshSurface>();
-            if (surface == null || surface.navMeshData == null || IsReusableAsset(surface.navMeshData))
+            var slots = new List<GeneratedMeshSlot>();
+            var copies = new Dictionary<Mesh, Mesh>();
+            foreach (var filter in root.GetComponentsInChildren<MeshFilter>(true))
             {
-                return null;
+                slots.Add(CreateMeshSlot(root.transform, filter.transform, false, filter.sharedMesh, copies));
             }
 
-            var copy = Object.Instantiate(surface.navMeshData);
-            copy.name = "NavMesh";
-            copy.hideFlags = HideFlags.None;
-            return copy;
+            foreach (var collider in root.GetComponentsInChildren<MeshCollider>(true))
+            {
+                slots.Add(CreateMeshSlot(root.transform, collider.transform, true, collider.sharedMesh, copies));
+            }
+
+            return slots;
+        }
+
+        private static GeneratedMeshSlot CreateMeshSlot(
+            Transform root,
+            Transform transform,
+            bool collider,
+            Mesh mesh,
+            Dictionary<Mesh, Mesh> copies)
+        {
+            Mesh copy = null;
+            if (mesh != null && !IsReusableAsset(mesh))
+            {
+                if (string.IsNullOrEmpty(mesh.name))
+                {
+                    mesh.name = transform.name;
+                }
+
+                if (!copies.TryGetValue(mesh, out copy))
+                {
+                    copy = Object.Instantiate(mesh);
+                    copy.name = mesh.name;
+                    copy.hideFlags = HideFlags.None;
+                    copies.Add(mesh, copy);
+                }
+            }
+
+            return new GeneratedMeshSlot(
+                IndexedPath(root, transform),
+                transform.name,
+                collider,
+                copy);
         }
 
         private static void PersistGeneratedContent(
-            GameObject sceneRoot,
             GameObject prefab,
-            Dictionary<Mesh, Mesh> meshCopies,
+            List<GeneratedMeshSlot> meshSlots,
             NavMeshData navigationCopy)
         {
-            foreach (var copy in meshCopies.Values)
+            var added = new HashSet<Mesh>();
+            foreach (var slot in meshSlots)
             {
-                AssetDatabase.AddObjectToAsset(copy, prefab);
+                if (slot.Copy == null || !added.Add(slot.Copy))
+                {
+                    continue;
+                }
+
+                AssetDatabase.AddObjectToAsset(slot.Copy, prefab);
             }
 
             if (navigationCopy != null)
@@ -166,7 +226,39 @@ namespace BattleRoyale.Maps.EditorTools
                 AssetDatabase.AddObjectToAsset(navigationCopy, prefab);
             }
 
-            CopyMeshReferences(sceneRoot, prefab, meshCopies);
+            var prefabTransforms = IndexTransforms(prefab.transform);
+            foreach (var slot in meshSlots)
+            {
+                if (slot.Copy == null ||
+                    !prefabTransforms.TryGetValue(slot.Path, out var prefabTransform))
+                {
+                    continue;
+                }
+
+                if (slot.Collider)
+                {
+                    var collider = prefabTransform.GetComponent<MeshCollider>();
+                    if (collider == null)
+                    {
+                        continue;
+                    }
+
+                    collider.sharedMesh = slot.Copy;
+                    EditorUtility.SetDirty(collider);
+                }
+                else
+                {
+                    var filter = prefabTransform.GetComponent<MeshFilter>();
+                    if (filter == null)
+                    {
+                        continue;
+                    }
+
+                    filter.sharedMesh = slot.Copy;
+                    EditorUtility.SetDirty(filter);
+                }
+            }
+
             if (navigationCopy != null)
             {
                 var prefabSurface = prefab.GetComponent<NavMeshSurface>();
@@ -177,7 +269,16 @@ namespace BattleRoyale.Maps.EditorTools
                 }
             }
 
-            var keptMeshes = new HashSet<Mesh>(meshCopies.Values);
+            var keptMeshes = new HashSet<Mesh>();
+            foreach (var slot in meshSlots)
+            {
+                if (slot.Copy != null)
+                {
+                    keptMeshes.Add(slot.Copy);
+                }
+            }
+
+            RememberReferencedMeshes(prefab, keptMeshes);
             var prefabPath = AssetDatabase.GetAssetPath(prefab);
             foreach (var asset in AssetDatabase.LoadAllAssetsAtPath(prefabPath))
             {
@@ -209,97 +310,146 @@ namespace BattleRoyale.Maps.EditorTools
                 Object.DestroyImmediate(asset, true);
             }
 
+            RestoreGeneratedMeshes(prefab);
             EditorUtility.SetDirty(prefab);
             AssetDatabase.SaveAssets();
         }
 
-        private static List<Mesh> CollectGeneratedMeshes(GameObject root)
+        public static void RestoreGeneratedMeshes(GameObject prefab)
         {
-            var meshes = new List<Mesh>();
-            var seen = new HashSet<Mesh>();
-            foreach (var filter in root.GetComponentsInChildren<MeshFilter>(true))
-            {
-                TryAddMesh(filter.sharedMesh, filter.gameObject.name, meshes, seen);
-            }
-
-            foreach (var collider in root.GetComponentsInChildren<MeshCollider>(true))
-            {
-                TryAddMesh(collider.sharedMesh, collider.gameObject.name, meshes, seen);
-            }
-
-            return meshes;
-        }
-
-        private static void TryAddMesh(
-            Mesh mesh,
-            string fallbackName,
-            List<Mesh> meshes,
-            HashSet<Mesh> seen)
-        {
-            if (mesh == null || IsReusableAsset(mesh) || !seen.Add(mesh))
+            if (prefab == null)
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(mesh.name))
+            var path = AssetDatabase.GetAssetPath(prefab);
+            if (string.IsNullOrEmpty(path))
             {
-                mesh.name = fallbackName;
+                return;
             }
 
-            meshes.Add(mesh);
-        }
-
-        private static void CopyMeshReferences(
-            GameObject sceneRoot,
-            GameObject prefab,
-            Dictionary<Mesh, Mesh> meshCopies)
-        {
-            var prefabTransforms = IndexTransforms(prefab.transform);
-            CopyComponents<MeshFilter>(
-                sceneRoot,
-                prefabTransforms,
-                (sceneFilter, prefabFilter) =>
-                    prefabFilter.sharedMesh = SavedMesh(sceneFilter.sharedMesh, meshCopies));
-            CopyComponents<MeshCollider>(
-                sceneRoot,
-                prefabTransforms,
-                (sceneCollider, prefabCollider) =>
-                    prefabCollider.sharedMesh = SavedMesh(sceneCollider.sharedMesh, meshCopies));
-        }
-
-        private static Mesh SavedMesh(Mesh mesh, Dictionary<Mesh, Mesh> meshCopies)
-        {
-            if (mesh != null && meshCopies.TryGetValue(mesh, out var copy))
+            var meshes = new List<Mesh>();
+            foreach (var asset in AssetDatabase.LoadAllAssetsAtPath(path))
             {
-                return copy;
+                if (asset is Mesh mesh)
+                {
+                    meshes.Add(mesh);
+                }
             }
 
-            return mesh;
-        }
-
-        private static void CopyComponents<T>(
-            GameObject sceneRoot,
-            Dictionary<string, Transform> prefabTransforms,
-            System.Action<T, T> copy)
-            where T : Component
-        {
-            foreach (var sceneComponent in sceneRoot.GetComponentsInChildren<T>(true))
+            var changed = false;
+            foreach (var filter in prefab.GetComponentsInChildren<MeshFilter>(true))
             {
-                var path = IndexedPath(sceneRoot.transform, sceneComponent.transform);
-                if (!prefabTransforms.TryGetValue(path, out var prefabTransform))
+                if (filter.sharedMesh != null)
                 {
                     continue;
                 }
 
-                var prefabComponent = prefabTransform.GetComponent<T>();
-                if (prefabComponent == null)
+                var mesh = FindGeneratedMesh(meshes, filter.gameObject.name);
+                if (mesh == null)
                 {
                     continue;
                 }
 
-                copy(sceneComponent, prefabComponent);
-                EditorUtility.SetDirty(prefabComponent);
+                filter.sharedMesh = mesh;
+                EditorUtility.SetDirty(filter);
+                changed = true;
             }
+
+            foreach (var collider in prefab.GetComponentsInChildren<MeshCollider>(true))
+            {
+                if (collider.sharedMesh != null)
+                {
+                    continue;
+                }
+
+                var filter = collider.GetComponent<MeshFilter>();
+                var mesh = filter != null && filter.sharedMesh != null
+                    ? filter.sharedMesh
+                    : FindGeneratedMesh(meshes, collider.gameObject.name);
+                if (mesh == null)
+                {
+                    continue;
+                }
+
+                collider.sharedMesh = mesh;
+                EditorUtility.SetDirty(collider);
+                changed = true;
+            }
+
+            if (!changed)
+            {
+                return;
+            }
+
+            EditorUtility.SetDirty(prefab);
+            AssetDatabase.SaveAssets();
+        }
+
+        private static void RememberReferencedMeshes(GameObject prefab, HashSet<Mesh> meshes)
+        {
+            foreach (var filter in prefab.GetComponentsInChildren<MeshFilter>(true))
+            {
+                if (filter.sharedMesh != null)
+                {
+                    meshes.Add(filter.sharedMesh);
+                }
+            }
+
+            foreach (var collider in prefab.GetComponentsInChildren<MeshCollider>(true))
+            {
+                if (collider.sharedMesh != null)
+                {
+                    meshes.Add(collider.sharedMesh);
+                }
+            }
+        }
+
+        private static Mesh FindGeneratedMesh(List<Mesh> meshes, string objectName)
+        {
+            var suffix = objectName switch
+            {
+                "VisualMap" => "_Visual",
+                "DungeonFloor" => "_DungeonFloor",
+                "DungeonWallMesh" => "_DungeonWalls",
+                _ => null
+            };
+            if (suffix == null)
+            {
+                return null;
+            }
+
+            Mesh found = null;
+            foreach (var mesh in meshes)
+            {
+                if (mesh == null || !mesh.name.EndsWith(suffix))
+                {
+                    continue;
+                }
+
+                if (found != null)
+                {
+                    return null;
+                }
+
+                found = mesh;
+            }
+
+            return found;
+        }
+
+        private static NavMeshData CloneNavigation(GameObject root)
+        {
+            var surface = root.GetComponent<NavMeshSurface>();
+            if (surface == null || surface.navMeshData == null || IsReusableAsset(surface.navMeshData))
+            {
+                return null;
+            }
+
+            var copy = Object.Instantiate(surface.navMeshData);
+            copy.name = "NavMesh";
+            copy.hideFlags = HideFlags.None;
+            return copy;
         }
 
         private static Dictionary<string, Transform> IndexTransforms(Transform root)
@@ -449,8 +599,9 @@ namespace BattleRoyale.Maps.EditorTools
             DrawPlayableMaps((ActiveMapManager)target);
         }
 
-        private int readyMapIndex;
-        private int modeIndex;
+        // Placing a map dirties the inspector and rebuilds this editor. These stay on the type so the popups keep the chosen entry.
+        private static int readyMapIndex;
+        private static int modeIndex;
 
         private void DrawPlayableMaps(ActiveMapManager manager)
         {
@@ -499,7 +650,9 @@ namespace BattleRoyale.Maps.EditorTools
                 readyMapIndex = EditorGUILayout.Popup("Ready Map", readyMapIndex, names);
                 if (GUILayout.Button("Use Ready Map"))
                 {
-                    PlaceReadyMap(ready[readyMapIndex].bakedPrefab);
+                    var definition = ready[readyMapIndex];
+                    modeIndex = ReadyModeIndex(definition, modeIndex);
+                    PlaceReadyMap(definition.bakedPrefab);
                 }
             }
 
@@ -534,6 +687,32 @@ namespace BattleRoyale.Maps.EditorTools
                     PlaceReadyMap(next.bakedPrefab);
                 }
             }
+        }
+
+        private static int ReadyModeIndex(MapDefinition definition, int currentIndex)
+        {
+            var modes = (MapGameMode[])global::System.Enum.GetValues(typeof(MapGameMode));
+            currentIndex = Mathf.Clamp(currentIndex, 0, modes.Length - 1);
+            if (definition?.supportedGameModes == null || definition.supportedGameModes.Count == 0)
+            {
+                return currentIndex;
+            }
+
+            if (definition.SupportsMode(modes[currentIndex]))
+            {
+                return currentIndex;
+            }
+
+            var readyMode = definition.supportedGameModes[0];
+            for (var i = 0; i < modes.Length; i++)
+            {
+                if (modes[i] == readyMode)
+                {
+                    return i;
+                }
+            }
+
+            return currentIndex;
         }
 
         private void PlaceReadyMap(GameObject prefab)

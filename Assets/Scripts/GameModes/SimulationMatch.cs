@@ -61,11 +61,15 @@ namespace BattleRoyale.GameModes
 
         [Header("Runtime")]
         [SerializeField] private bool autoStart = true;
+        [SerializeField] private Camera rangeDebugCamera;
+        [SerializeField] private bool drawTemporaryRangeGui = true;
 
         private readonly List<BattleRoyaleAgent> roster = new();
         private BattleRoyaleProjectilePool projectilePool;
         private BattleRoyaleAgentProfile runtimeDefaultProfile;
         private BattleRoyaleSquadCoordinator squadCoordinator;
+        private bool loggedMissingRangeCamera;
+        private static Texture2D rangeDebugPixel;
 
         public TeamPlaystyle TeamPlaystyle => teamPlaystyle;
         public BattleRoyaleAgentDirective CurrentDirective => coachDirective;
@@ -543,6 +547,83 @@ namespace BattleRoyale.GameModes
             runtimeDefaultProfile.displayName = "Prototype Bot";
             runtimeDefaultProfile.defaultStrategy = fallbackStrategy;
             runtimeDefaultProfile.hideFlags = HideFlags.DontSave;
+        }
+
+        private void OnGUI()
+        {
+            if (!Application.isPlaying || !drawTemporaryRangeGui)
+            {
+                return;
+            }
+
+            if (rangeDebugCamera == null)
+            {
+                if (!loggedMissingRangeCamera)
+                {
+                    loggedMissingRangeCamera = true;
+                    Debug.LogError(
+                        $"{nameof(SimulationMatch)} needs a camera for the temporary range line.",
+                        this);
+                }
+
+                return;
+            }
+
+            RefreshRoster();
+            var previousColor = GUI.color;
+            GUI.color = new Color(1f, 0.15f, 0.85f, 1f);
+            foreach (var agent in roster)
+            {
+                if (agent == null || !agent.IsAlive || agent.Weapon == null)
+                {
+                    continue;
+                }
+
+                var start = agent.Weapon.MuzzlePosition;
+                BattleRoyaleLineOfSight.TryGetDisplayedEnd(
+                    start,
+                    agent.transform.forward,
+                    agent.WeaponRange,
+                    agent.transform.position.y + BattleRoyaleLineOfSight.SampleHeight,
+                    out var end);
+                DrawGuiLine(
+                    rangeDebugCamera.WorldToScreenPoint(start),
+                    rangeDebugCamera.WorldToScreenPoint(end));
+            }
+
+            GUI.color = previousColor;
+        }
+
+        private static void DrawGuiLine(Vector3 start, Vector3 end)
+        {
+            if (start.z < 0f || end.z < 0f)
+            {
+                return;
+            }
+
+            start.y = Screen.height - start.y;
+            end.y = Screen.height - end.y;
+            var difference = (Vector2)end - (Vector2)start;
+            var length = difference.magnitude;
+            if (length <= 0.5f)
+            {
+                return;
+            }
+
+            if (rangeDebugPixel == null)
+            {
+                rangeDebugPixel = new Texture2D(1, 1);
+                rangeDebugPixel.SetPixel(0, 0, Color.white);
+                rangeDebugPixel.Apply();
+            }
+
+            var angle = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+            var matrix = GUI.matrix;
+            GUIUtility.RotateAroundPivot(angle, start);
+            GUI.DrawTexture(
+                new Rect(start.x, start.y - 1.5f, length, 3f),
+                rangeDebugPixel);
+            GUI.matrix = matrix;
         }
     }
 }

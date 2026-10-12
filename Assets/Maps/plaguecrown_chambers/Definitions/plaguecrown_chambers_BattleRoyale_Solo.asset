@@ -22,7 +22,7 @@ MonoBehaviour:
     position: {x: 162.78918, y: 0, z: 64.4951}
     radius: 0
   - id: Spawn 2
-    position: {x: -300.42413, y: 0, z: 70.801834}
+    position: {x: -300.42413, y: 0, z: 70.08658}
     radius: 0
   - id: Spawn 3
     position: {x: -299.6358, y: 0, z: -167.73465}
@@ -31,3 +31,6 @@ MonoBehaviour:
     position: {x: 127.31388, y: 0, z: -284.40894}
     radius: 0
   captureTheFlagTeams: []
+  teamDeathmatchTeams: []
+  scoreLimit: 50
+  respawnSeconds: 3

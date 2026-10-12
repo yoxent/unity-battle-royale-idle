@@ -25,12 +25,12 @@ namespace BattleRoyale.Maps.EditorTools
         [SerializeField] private Texture2D visualMap;
         [SerializeField] private MapDefinition mapDefinition;
         [SerializeField] private MapModeAuthoringPanel modeAuthoring = new();
-        [SerializeField] private float cellWorldSize = 20f;
-        [SerializeField] private float baseHeight;
-        [SerializeField] private float wallHeight = 3f;
-        [SerializeField] private float wallThickness = 0.7f;
-        [SerializeField] private float columnSize = 1.5f;
-        [SerializeField] private float dungeonUnitScale = 10f;
+        [SerializeField] private float cellWorldSize = DungeonMapGeometry.DefaultCellWorldSize;
+        [SerializeField] private float baseHeight = DungeonMapGeometry.DefaultBaseHeight;
+        [SerializeField] private float wallHeight = DungeonMapGeometry.DefaultWallHeight;
+        [SerializeField] private float wallThickness = DungeonMapGeometry.DefaultWallThickness;
+        [SerializeField] private float columnSize = DungeonMapGeometry.DefaultColumnSize;
+        [SerializeField] private float dungeonUnitScale = DungeonMapGeometry.DefaultDungeonUnitScale;
         [SerializeField] private bool showDungeonWalls;
         [SerializeField] private bool overrideNavMeshVoxelSize;
         [SerializeField] private float navMeshVoxelSize = 0.16666667f;
@@ -41,6 +41,8 @@ namespace BattleRoyale.Maps.EditorTools
         [SerializeField] private Vector2 imageUpperLeftUv = new(0f, 1f);
         [SerializeField] private Vector2 imageLowerRightUv = new(1f, 0f);
         [SerializeField] private bool editImageCornersInScene;
+        [SerializeField] private bool usesCurrentGeometryDefaults;
+        [SerializeField] private bool wallThicknessDefaultIsOne;
 
         private DungeonLayoutData analyzedLayout;
         private DungeonVisualMapping visualMapping;
@@ -72,6 +74,34 @@ namespace BattleRoyale.Maps.EditorTools
             window.mapDefinition = definition;
             window.LoadDefinitionIntoWindow();
             window.Repaint();
+        }
+
+        private void OnEnable()
+        {
+            if (mapDefinition != null)
+            {
+                CopyDefinitionToWindow();
+                usesCurrentGeometryDefaults = true;
+                wallThicknessDefaultIsOne = true;
+                return;
+            }
+
+            if (!usesCurrentGeometryDefaults)
+            {
+                wallHeight = DungeonMapGeometry.DefaultWallHeight;
+                wallThickness = DungeonMapGeometry.DefaultWallThickness;
+                usesCurrentGeometryDefaults = true;
+                wallThicknessDefaultIsOne = true;
+                return;
+            }
+
+            if (wallThicknessDefaultIsOne)
+            {
+                return;
+            }
+
+            wallThickness = DungeonMapGeometry.DefaultWallThickness;
+            wallThicknessDefaultIsOne = true;
         }
 
         private void OnDisable()
@@ -116,16 +146,26 @@ namespace BattleRoyale.Maps.EditorTools
         private void DrawMapSection()
         {
             EditorGUILayout.LabelField("Map", EditorStyles.boldLabel);
+            EditorGUI.BeginChangeCheck();
             mapDefinition = (MapDefinition)EditorGUILayout.ObjectField(
                 "Map Asset",
                 mapDefinition,
                 typeof(MapDefinition),
                 false);
+            if (EditorGUI.EndChangeCheck() && mapDefinition != null)
+            {
+                LoadDefinitionIntoWindow();
+            }
 
             using (new EditorGUILayout.HorizontalScope())
             {
                 if (GUILayout.Button("Use Selected Asset"))
                 {
+                    if (Selection.activeObject is MapDefinition selected)
+                    {
+                        mapDefinition = selected;
+                    }
+
                     LoadDefinitionIntoWindow();
                 }
 
@@ -164,7 +204,7 @@ namespace BattleRoyale.Maps.EditorTools
             showDungeonWalls = EditorGUILayout.Toggle(
                 new GUIContent(
                     "Show Dungeon Walls",
-                    "Add visible wall meshes while keeping their collision geometry available for navigation."),
+                    "Show the wall mesh. Navigation and shots use its mesh collider either way."),
                 showDungeonWalls);
             if (EditorGUI.EndChangeCheck())
             {
@@ -185,6 +225,7 @@ namespace BattleRoyale.Maps.EditorTools
         private void DrawGeometrySection()
         {
             EditorGUILayout.LabelField("Geometry", EditorStyles.boldLabel);
+            EditorGUI.BeginChangeCheck();
             cellWorldSize = Mathf.Max(
                 0.01f,
                 EditorGUILayout.FloatField(
@@ -209,6 +250,10 @@ namespace BattleRoyale.Maps.EditorTools
                         "Dungeon Unit Scale",
                         "Local scale applied to every UnitMovement object when this dungeon map is generated."),
                     dungeonUnitScale));
+            if (EditorGUI.EndChangeCheck())
+            {
+                CopyGeometryToDefinition();
+            }
             if (GUILayout.Button("Apply Dungeon Unit Scale To Loaded Scene"))
             {
                 var scaledUnitCount = ApplyDungeonUnitScale();
@@ -219,7 +264,7 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             EditorGUILayout.HelpBox(
-                "The default cell size is 20 world units to match the current movement prototype's character scale. Change it if this dungeon should use a different scale.",
+                "Opening a saved map loads its geometry, generation options, image fit, and game mode settings. A new map uses the defaults, with every game mode off.",
                 MessageType.None);
             EditorGUILayout.Space(8f);
         }
@@ -453,7 +498,16 @@ namespace BattleRoyale.Maps.EditorTools
                     assetPath = AssetDatabase.GenerateUniqueAssetPath(assetPath);
                     mapDefinition = CreateInstance<MapDefinition>();
                     mapDefinition.name = $"{mapName}_Map";
+                    DungeonMapAuthoring.ApplyNewMapDefaults(mapDefinition);
                     AssetDatabase.CreateAsset(mapDefinition, assetPath);
+                    ApplyGeometry(DungeonMapGeometry.Read(mapDefinition));
+                    ApplyAuthoring(DungeonMapAuthoring.Read(mapDefinition));
+                    modeAuthoring?.BindSavedSettings(mapDefinition);
+                }
+                else
+                {
+                    CopyDefinitionToWindow();
+                    modeAuthoring?.BindSavedSettings(mapDefinition);
                 }
             }
 
@@ -464,16 +518,13 @@ namespace BattleRoyale.Maps.EditorTools
                 mapDefinition.narrativeMarkdown = narrativeMarkdown;
             }
             mapDefinition.visualMap = visualMap;
-            mapDefinition.worldScale = cellWorldSize;
+            DungeonMapGeometry.Write(mapDefinition, CurrentGeometry());
             mapDefinition.flipHeightY = false;
             mapDefinition.sourceMin = analyzedLayout.sourceMin;
             mapDefinition.sourceMax = analyzedLayout.sourceMax;
-            mapDefinition.baseHeight = baseHeight;
             mapDefinition.heightScale = 0f;
             mapDefinition.heightMap = null;
             mapDefinition.heightResolution = 2;
-            mapDefinition.wallHeight = wallHeight;
-            mapDefinition.wallThickness = wallThickness;
             CopyImageCornersToDefinition();
             mapDefinition.generateBuildingWalls = false;
             mapDefinition.generateTreeColliders = false;
@@ -544,6 +595,7 @@ namespace BattleRoyale.Maps.EditorTools
             var mapInstance = root.AddComponent<MapInstance>();
             mapInstance.definition = mapDefinition;
 
+            CopyGeometryToDefinition();
             CopyImageCornersToDefinition();
             if (useImageCornerFit)
             {
@@ -560,10 +612,10 @@ namespace BattleRoyale.Maps.EditorTools
                 SyncImageCornerMarkers(root.transform);
             }
 
-            CreateFloorCollider(root.transform);
             CreateWalls(root.transform);
             CreateColumnColliders(root.transform);
             CreateNavigation(root);
+            CreateFloorCollider(root.transform);
             modeAuthoring.GenerateMarkers(root.transform, mapDefinition);
             var scaledUnitCount = ApplyDungeonUnitScale();
             var placed = MapBakeOutput.Commit(root, mapDefinition, setAsActiveCameraMap);
@@ -606,11 +658,46 @@ namespace BattleRoyale.Maps.EditorTools
             floorObject.transform.SetParent(parent, false);
             floorObject.layer = LayerMask.NameToLayer("MapGround");
 
-            var meshFilter = floorObject.AddComponent<MeshFilter>();
-            var meshCollider = floorObject.AddComponent<MeshCollider>();
-            var mesh = BuildFloorMesh();
-            meshFilter.sharedMesh = mesh;
-            meshCollider.sharedMesh = mesh;
+            var corners = GetVisualFloorCorners();
+            DungeonFloorBox.GetCenterAndSize(
+                corners[0],
+                corners[1],
+                corners[2],
+                corners[3],
+                baseHeight,
+                DungeonFloorBox.Thickness,
+                out var center,
+                out var size);
+            var collider = floorObject.AddComponent<BoxCollider>();
+            collider.center = center;
+            collider.size = size;
+
+            var modifier = floorObject.AddComponent<NavMeshModifier>();
+            modifier.ignoreFromBuild = true;
+        }
+
+        private Vector3[] GetVisualFloorCorners()
+        {
+            if (useImageCornerFit && HasValidImageCorners())
+            {
+                return new[]
+                {
+                    ImageUvToLocal(new Vector2(0f, 0f)),
+                    ImageUvToLocal(new Vector2(0f, 1f)),
+                    ImageUvToLocal(new Vector2(1f, 1f)),
+                    ImageUvToLocal(new Vector2(1f, 0f))
+                };
+            }
+
+            var min = analyzedLayout.sourceMin;
+            var max = analyzedLayout.sourceMax;
+            return new[]
+            {
+                GridToWorld(min.x, max.y, 0f),
+                GridToWorld(min.x, min.y, 0f),
+                GridToWorld(max.x, min.y, 0f),
+                GridToWorld(max.x, max.y, 0f)
+            };
         }
 
         private void CreateWalls(Transform parent)
@@ -619,52 +706,30 @@ namespace BattleRoyale.Maps.EditorTools
             wallRoot.transform.SetParent(parent, false);
             wallRoot.layer = LayerMask.NameToLayer("MapObstacle");
 
-            var wallIndex = 0;
+            var edges = new List<DungeonWallEdge>();
             foreach (var cell in analyzedLayout.FloorCells)
             {
-                AddWallIfNeeded(
-                    wallRoot.transform,
-                    cell,
-                    new Vector2Int(0, -1),
-                    true,
-                    cell.y,
-                    cell.x,
-                    ref wallIndex);
-                AddWallIfNeeded(
-                    wallRoot.transform,
-                    cell,
-                    new Vector2Int(0, 1),
-                    true,
-                    cell.y + 1,
-                    cell.x,
-                    ref wallIndex);
-                AddWallIfNeeded(
-                    wallRoot.transform,
-                    cell,
-                    new Vector2Int(-1, 0),
-                    false,
-                    cell.x,
-                    cell.y,
-                    ref wallIndex);
-                AddWallIfNeeded(
-                    wallRoot.transform,
-                    cell,
-                    new Vector2Int(1, 0),
-                    false,
-                    cell.x + 1,
-                    cell.y,
-                    ref wallIndex);
+                TryAddWallEdge(edges, cell, new Vector2Int(0, -1), true, cell.y, cell.x);
+                TryAddWallEdge(edges, cell, new Vector2Int(0, 1), true, cell.y + 1, cell.x);
+                TryAddWallEdge(edges, cell, new Vector2Int(-1, 0), false, cell.x, cell.y);
+                TryAddWallEdge(edges, cell, new Vector2Int(1, 0), false, cell.x + 1, cell.y);
+            }
+
+            var runs = new List<DungeonWallRun>();
+            DungeonWallRuns.Merge(edges, runs);
+            if (runs.Count > 0)
+            {
+                AddWallMesh(wallRoot.transform, runs);
             }
         }
 
-        private void AddWallIfNeeded(
-            Transform parent,
+        private void TryAddWallEdge(
+            List<DungeonWallEdge> edges,
             Vector2Int cell,
             Vector2Int neighborOffset,
             bool horizontal,
             int boundary,
-            int segment,
-            ref int wallIndex)
+            int segment)
         {
             var neighbor = cell + neighborOffset;
             if (analyzedLayout.FloorCells.Contains(neighbor) ||
@@ -674,33 +739,145 @@ namespace BattleRoyale.Maps.EditorTools
                 return;
             }
 
-            var wallObject = new GameObject($"DungeonWall_{wallIndex:0000}");
-            wallObject.transform.SetParent(parent, false);
-            wallObject.layer = LayerMask.NameToLayer("MapObstacle");
+            edges.Add(new DungeonWallEdge(horizontal, boundary, segment));
+        }
+
+        private void AddWallMesh(Transform parent, List<DungeonWallRun> runs)
+        {
+            var visual = new GameObject("DungeonWallMesh");
+            visual.transform.SetParent(parent, false);
+            visual.layer = LayerMask.NameToLayer("MapObstacle");
+
+            var mesh = BuildWallMesh(runs);
+            var meshFilter = visual.AddComponent<MeshFilter>();
+            meshFilter.sharedMesh = mesh;
+            var meshCollider = visual.AddComponent<MeshCollider>();
+            meshCollider.sharedMesh = mesh;
+            meshCollider.convex = false;
+
+            if (!showDungeonWalls)
+            {
+                return;
+            }
+
+            var meshRenderer = visual.AddComponent<MeshRenderer>();
+            meshRenderer.sharedMaterial = GetDungeonWallMaterial();
+        }
+
+        private Mesh BuildWallMesh(List<DungeonWallRun> runs)
+        {
+            var mesh = new Mesh
+            {
+                name = $"{mapDefinition.name}_DungeonWalls"
+            };
+            var vertices = new List<Vector3>();
+            var triangles = new List<int>();
+            for (var i = 0; i < runs.Count; i++)
+            {
+                AppendWallBox(vertices, triangles, WallCenter(runs[i]), WallSize(runs[i]));
+            }
+
+            if (vertices.Count > 65535)
+            {
+                mesh.indexFormat = IndexFormat.UInt32;
+            }
+
+            mesh.SetVertices(vertices);
+            mesh.SetTriangles(triangles, 0);
+            mesh.RecalculateNormals();
+            mesh.RecalculateBounds();
+            return mesh;
+        }
+
+        private static void AppendWallBox(
+            List<Vector3> vertices,
+            List<int> triangles,
+            Vector3 center,
+            Vector3 size)
+        {
+            var half = size * 0.5f;
+            var min = center - half;
+            var max = center + half;
+            AddWallFace(
+                vertices,
+                triangles,
+                new Vector3(min.x, max.y, min.z),
+                new Vector3(min.x, max.y, max.z),
+                new Vector3(max.x, max.y, max.z),
+                new Vector3(max.x, max.y, min.z));
+            AddWallFace(
+                vertices,
+                triangles,
+                new Vector3(min.x, min.y, min.z),
+                new Vector3(max.x, min.y, min.z),
+                new Vector3(max.x, min.y, max.z),
+                new Vector3(min.x, min.y, max.z));
+            AddWallFace(
+                vertices,
+                triangles,
+                new Vector3(max.x, min.y, min.z),
+                new Vector3(max.x, max.y, min.z),
+                new Vector3(max.x, max.y, max.z),
+                new Vector3(max.x, min.y, max.z));
+            AddWallFace(
+                vertices,
+                triangles,
+                new Vector3(min.x, min.y, min.z),
+                new Vector3(min.x, min.y, max.z),
+                new Vector3(min.x, max.y, max.z),
+                new Vector3(min.x, max.y, min.z));
+            AddWallFace(
+                vertices,
+                triangles,
+                new Vector3(min.x, min.y, max.z),
+                new Vector3(max.x, min.y, max.z),
+                new Vector3(max.x, max.y, max.z),
+                new Vector3(min.x, max.y, max.z));
+            AddWallFace(
+                vertices,
+                triangles,
+                new Vector3(min.x, min.y, min.z),
+                new Vector3(min.x, max.y, min.z),
+                new Vector3(max.x, max.y, min.z),
+                new Vector3(max.x, min.y, min.z));
+        }
+
+        private static void AddWallFace(
+            List<Vector3> vertices,
+            List<int> triangles,
+            Vector3 a,
+            Vector3 b,
+            Vector3 c,
+            Vector3 d)
+        {
+            var start = vertices.Count;
+            vertices.Add(a);
+            vertices.Add(b);
+            vertices.Add(c);
+            vertices.Add(d);
+            triangles.Add(start);
+            triangles.Add(start + 1);
+            triangles.Add(start + 2);
+            triangles.Add(start);
+            triangles.Add(start + 2);
+            triangles.Add(start + 3);
+        }
+
+        private Vector3 WallCenter(DungeonWallRun run)
+        {
             var wallHeightCenter = baseHeight + wallHeight * 0.5f;
-            wallObject.transform.position = horizontal
-                ? GridToWorld(segment + 0.5f, boundary, wallHeightCenter)
-                : GridToWorld(boundary, segment + 0.5f, wallHeightCenter);
+            var segment = run.SegmentStart + run.Length * 0.5f;
+            return run.Horizontal
+                ? GridToWorld(segment, run.Boundary, wallHeightCenter)
+                : GridToWorld(run.Boundary, segment, wallHeightCenter);
+        }
 
-            var collider = wallObject.AddComponent<BoxCollider>();
-            var wallSize = horizontal
-                ? new Vector3(cellWorldSize, wallHeight, wallThickness)
-                : new Vector3(wallThickness, wallHeight, cellWorldSize);
-            if (showDungeonWalls)
-            {
-                collider.size = Vector3.one;
-                wallObject.transform.localScale = wallSize;
-
-                var meshFilter = wallObject.AddComponent<MeshFilter>();
-                meshFilter.sharedMesh = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
-                var meshRenderer = wallObject.AddComponent<MeshRenderer>();
-                meshRenderer.sharedMaterial = GetDungeonWallMaterial();
-            }
-            else
-            {
-                collider.size = wallSize;
-            }
-            wallIndex++;
+        private Vector3 WallSize(DungeonWallRun run)
+        {
+            var span = cellWorldSize * run.Length;
+            return run.Horizontal
+                ? new Vector3(span, wallHeight, wallThickness)
+                : new Vector3(wallThickness, wallHeight, span);
         }
 
         private static Material GetDungeonWallMaterial()
@@ -743,6 +920,15 @@ namespace BattleRoyale.Maps.EditorTools
 
         private void CreateNavigation(GameObject root)
         {
+            var floorMesh = BuildFloorMesh();
+            var navigationFloor = new GameObject("DungeonFloorNav");
+            navigationFloor.transform.SetParent(root.transform, false);
+            navigationFloor.layer = LayerMask.NameToLayer("MapGround");
+            var navigationFilter = navigationFloor.AddComponent<MeshFilter>();
+            var navigationCollider = navigationFloor.AddComponent<MeshCollider>();
+            navigationFilter.sharedMesh = floorMesh;
+            navigationCollider.sharedMesh = floorMesh;
+
             var surface = root.AddComponent<NavMeshSurface>();
             surface.agentTypeID = DungeonNavMeshAgentTypeId;
             surface.collectObjects = CollectObjects.Children;
@@ -761,7 +947,15 @@ namespace BattleRoyale.Maps.EditorTools
             serialized.FindProperty("surface").objectReferenceValue = surface;
             serialized.FindProperty("rebuildOnAwake").boolValue = false;
             serialized.ApplyModifiedPropertiesWithoutUndo();
-            navigation.Rebuild();
+            try
+            {
+                navigation.Rebuild();
+            }
+            finally
+            {
+                DestroyImmediate(navigationFloor);
+                DestroyImmediate(floorMesh);
+            }
         }
 
         private int ApplyDungeonUnitScale()
@@ -1033,16 +1227,7 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             EnsureDefaultImageCorners();
-            mapDefinition.useImageCornerFit = useImageCornerFit;
-            mapDefinition.imageUpperLeftUv = imageUpperLeftUv;
-            mapDefinition.imageLowerRightUv = imageLowerRightUv;
-            mapDefinition.editImageCornersInScene = editImageCornersInScene;
-            mapDefinition.showDungeonWalls = showDungeonWalls;
-            mapDefinition.overrideNavMeshVoxelSize = overrideNavMeshVoxelSize;
-            mapDefinition.navMeshVoxelSize = navMeshVoxelSize;
-            mapDefinition.replaceGeneratedRoot = replaceGeneratedRoot;
-            mapDefinition.disableOtherGeneratedMaps = disableOtherGeneratedMaps;
-            mapDefinition.setAsActiveCameraMap = setAsActiveCameraMap;
+            DungeonMapAuthoring.Write(mapDefinition, CurrentAuthoring());
             EditorUtility.SetDirty(mapDefinition);
             AssetDatabase.SaveAssets();
         }
@@ -1867,6 +2052,39 @@ namespace BattleRoyale.Maps.EditorTools
                    mapDefinition.HasBounds;
         }
 
+        private DungeonMapGeometrySettings CurrentGeometry()
+        {
+            return new DungeonMapGeometrySettings(
+                cellWorldSize,
+                baseHeight,
+                wallHeight,
+                wallThickness,
+                columnSize,
+                dungeonUnitScale);
+        }
+
+        private void ApplyGeometry(DungeonMapGeometrySettings geometry)
+        {
+            cellWorldSize = geometry.CellWorldSize;
+            baseHeight = geometry.BaseHeight;
+            wallHeight = geometry.WallHeight;
+            wallThickness = geometry.WallThickness;
+            columnSize = geometry.ColumnSize;
+            dungeonUnitScale = geometry.DungeonUnitScale;
+        }
+
+        private void CopyGeometryToDefinition()
+        {
+            if (mapDefinition == null)
+            {
+                return;
+            }
+
+            DungeonMapGeometry.Write(mapDefinition, CurrentGeometry());
+            EditorUtility.SetDirty(mapDefinition);
+            AssetDatabase.SaveAssets();
+        }
+
         private void LoadDefinitionIntoWindow()
         {
             if (mapDefinition == null)
@@ -1875,24 +2093,49 @@ namespace BattleRoyale.Maps.EditorTools
                 return;
             }
 
+            CopyDefinitionToWindow();
+            modeAuthoring?.BindSavedSettings(mapDefinition);
+            AnalyzeLayout();
+        }
+
+        private void CopyDefinitionToWindow()
+        {
             layoutJson = mapDefinition.layoutJson;
             visualMap = mapDefinition.visualMap;
-            cellWorldSize = mapDefinition.worldScale;
-            baseHeight = mapDefinition.baseHeight;
-            wallHeight = mapDefinition.wallHeight;
-            wallThickness = mapDefinition.wallThickness;
-            useImageCornerFit = mapDefinition.useImageCornerFit;
-            imageUpperLeftUv = mapDefinition.imageUpperLeftUv;
-            imageLowerRightUv = mapDefinition.imageLowerRightUv;
-            editImageCornersInScene = mapDefinition.editImageCornersInScene;
-            showDungeonWalls = mapDefinition.showDungeonWalls;
-            overrideNavMeshVoxelSize = mapDefinition.overrideNavMeshVoxelSize;
-            navMeshVoxelSize = mapDefinition.navMeshVoxelSize;
-            replaceGeneratedRoot = mapDefinition.replaceGeneratedRoot;
-            disableOtherGeneratedMaps = mapDefinition.disableOtherGeneratedMaps;
-            setAsActiveCameraMap = mapDefinition.setAsActiveCameraMap;
+            ApplyGeometry(DungeonMapGeometry.Read(mapDefinition));
+            ApplyAuthoring(DungeonMapAuthoring.Read(mapDefinition));
             EnsureDefaultImageCorners();
-            AnalyzeLayout();
+        }
+
+        private void ApplyAuthoring(DungeonMapAuthoringSettings settings)
+        {
+            showDungeonWalls = settings.ShowDungeonWalls;
+            overrideNavMeshVoxelSize = settings.OverrideNavMeshVoxelSize;
+            navMeshVoxelSize = settings.NavMeshVoxelSize;
+            replaceGeneratedRoot = settings.ReplaceGeneratedRoot;
+            disableOtherGeneratedMaps = settings.DisableOtherGeneratedMaps;
+            setAsActiveCameraMap = settings.SetAsActiveCameraMap;
+            useImageCornerFit = settings.UseImageCornerFit;
+            imageUpperLeftUv = settings.ImageUpperLeftUv;
+            imageLowerRightUv = settings.ImageLowerRightUv;
+            editImageCornersInScene = settings.EditImageCornersInScene;
+        }
+
+        private DungeonMapAuthoringSettings CurrentAuthoring()
+        {
+            var editPoints = mapDefinition == null || mapDefinition.editPointsInSceneView;
+            return new DungeonMapAuthoringSettings(
+                showDungeonWalls,
+                overrideNavMeshVoxelSize,
+                navMeshVoxelSize,
+                replaceGeneratedRoot,
+                disableOtherGeneratedMaps,
+                setAsActiveCameraMap,
+                useImageCornerFit,
+                imageUpperLeftUv,
+                imageLowerRightUv,
+                editImageCornersInScene,
+                editPoints);
         }
 
         private static Texture2D FindSiblingVisualMap(TextAsset jsonAsset)

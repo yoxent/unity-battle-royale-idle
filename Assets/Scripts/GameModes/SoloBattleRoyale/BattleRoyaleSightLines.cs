@@ -11,7 +11,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         [SerializeField] private LineRenderer line;
 
         private readonly List<LineRenderer> lines = new();
-        private MaterialPropertyBlock colorBlock;
 
         public LineRenderer Template => line;
 
@@ -39,7 +38,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             HideFrom(0);
         }
 
-        public void Show(int index, Vector3 start, Vector3 end, Color color)
+        public void Show(int index, Vector3 start, Vector3 end)
         {
             var renderer = Prepare(index);
             if (renderer == null)
@@ -48,16 +47,14 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
 
             renderer.enabled = true;
+            renderer.useWorldSpace = false;
             renderer.positionCount = 2;
-            renderer.SetPosition(0, start);
-            renderer.SetPosition(1, end);
-            renderer.startColor = color;
-            renderer.endColor = color;
-            colorBlock ??= new MaterialPropertyBlock();
-            colorBlock.Clear();
-            colorBlock.SetColor("_BaseColor", color);
-            colorBlock.SetColor("_Color", color);
-            renderer.SetPropertyBlock(colorBlock);
+            renderer.SetPosition(
+                0,
+                renderer.transform.InverseTransformPoint(start));
+            renderer.SetPosition(
+                1,
+                renderer.transform.InverseTransformPoint(end));
         }
 
         public void HideFrom(int index)
@@ -75,7 +72,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
         public static void ApplyVisibleDefaults(LineRenderer renderer)
         {
-            renderer.useWorldSpace = true;
+            renderer.useWorldSpace = false;
             renderer.alignment = LineAlignment.View;
             renderer.shadowCastingMode =
                 UnityEngine.Rendering.ShadowCastingMode.Off;
@@ -84,22 +81,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             renderer.widthMultiplier = LineWidth;
             renderer.positionCount = 2;
             renderer.enabled = false;
-            if (renderer.sharedMaterial != null &&
-                renderer.sharedMaterial.shader != null &&
-                renderer.sharedMaterial.shader.name.StartsWith(
-                    "Universal Render Pipeline"))
-            {
-                return;
-            }
-
-            var shader = Shader.Find("Universal Render Pipeline/Unlit") ??
-                         Shader.Find("Universal Render Pipeline/Particles/Unlit");
-            if (shader == null)
-            {
-                return;
-            }
-
-            renderer.sharedMaterial = new Material(shader);
         }
 
         private LineRenderer Prepare(int index)

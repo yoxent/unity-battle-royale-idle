@@ -6,7 +6,6 @@ namespace BattleRoyale.CompanyIdentity
 {
     public sealed class CompanyIdentityPreviewView
     {
-        private GameObject _rootObject;
         private TMP_Text _companyNameText;
         private Image _emblemPanel;
         private TMP_Text _shapeLabel;
@@ -16,19 +15,12 @@ namespace BattleRoyale.CompanyIdentity
         private Image _secondaryColorBar;
         private Image _accentColorBar;
 
-        public void Build(Transform parent)
+        public void Initialize(CompanyIdentityPreviewViewBindings bindings)
         {
-            if (_rootObject != null)
-                return;
-
-            var rootObject = CompanyIdentityUiFactory.InstantiatePrefab("CompanyIdentityPreview", parent);
-            var bindings = rootObject.GetComponent<CompanyIdentityPreviewViewBindings>();
             if (bindings == null)
             {
                 Debug.LogError(
-                    "CompanyIdentityPreviewView: The prefab is missing " +
-                    "CompanyIdentityPreviewViewBindings.");
-                UnityEngine.Object.Destroy(rootObject);
+                    "CompanyIdentityPreviewView: A preview binding reference must be assigned.");
                 return;
             }
 
@@ -50,12 +42,9 @@ namespace BattleRoyale.CompanyIdentity
                 _accentColorBar == null)
             {
                 Debug.LogError(
-                    "CompanyIdentityPreviewView: The prefab bindings have missing references.");
-                UnityEngine.Object.Destroy(rootObject);
+                    "CompanyIdentityPreviewView: The scene binding has missing references.");
                 return;
             }
-
-            _rootObject = rootObject;
         }
 
         public void Render(CompanyIdentityData identity)

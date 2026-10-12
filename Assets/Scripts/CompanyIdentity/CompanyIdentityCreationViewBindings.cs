@@ -13,15 +13,5 @@ namespace BattleRoyale.CompanyIdentity
         public TMP_InputField CompanyNameInput => companyNameInput;
         public TMP_Text ValidationText => validationText;
         public Button CreateButton => createButton;
-
-        public void SetReferences(
-            TMP_InputField companyNameInput,
-            TMP_Text validationText,
-            Button createButton)
-        {
-            this.companyNameInput = companyNameInput;
-            this.validationText = validationText;
-            this.createButton = createButton;
-        }
     }
 }

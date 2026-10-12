@@ -10,6 +10,20 @@ namespace BattleRoyale.Tests.EditMode
     public sealed class SightSpacingAndFalloffTests
     {
         [Test]
+        public void DisplayedGunRangeStopsAtAWall()
+        {
+            Assert.AreEqual(
+                20f,
+                BattleRoyaleLineOfSight.ClipDistance(20f, false, 4f));
+            Assert.AreEqual(
+                4f,
+                BattleRoyaleLineOfSight.ClipDistance(20f, true, 4f));
+            Assert.AreEqual(
+                20f,
+                BattleRoyaleLineOfSight.ClipDistance(20f, true, 30f));
+        }
+
+        [Test]
         public void DamageStaysFullInsideGunRange()
         {
             Assert.AreEqual(20f, WeaponRangeFalloff.Scale(20f, 40f, 80f));
@@ -114,21 +128,16 @@ namespace BattleRoyale.Tests.EditMode
         }
 
         [Test]
-        public void SightLineDefaultsDoNotUseTheSpriteShader()
+        public void SightLineDefaultsLeaveTheMaterialAlone()
         {
             var host = new GameObject("sight");
             try
             {
                 var line = host.AddComponent<LineRenderer>();
+                var material = line.sharedMaterial;
                 BattleRoyaleSightLines.ApplyVisibleDefaults(line);
 
-                Assert.IsNotNull(line.sharedMaterial);
-                StringAssert.Contains(
-                    "Universal Render Pipeline",
-                    line.sharedMaterial.shader.name);
-                StringAssert.DoesNotContain(
-                    "Sprites/Default",
-                    line.sharedMaterial.shader.name);
+                Assert.AreEqual(material, line.sharedMaterial);
             }
             finally
             {

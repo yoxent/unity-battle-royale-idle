@@ -23,6 +23,7 @@
     "com.unity.localization": "1.5.13",
     "com.unity.multiplayer.center": "1.0.1",
     "com.unity.nuget.newtonsoft-json": "3.0.2",
+    "com.unity.probuilder": "6.0.9",
     "com.unity.render-pipelines.universal": "17.3.0",
     "com.unity.test-framework": "1.6.0",
     "com.unity.textmeshpro": "5.0.0",

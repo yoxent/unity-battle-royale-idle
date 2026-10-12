@@ -23,25 +23,5 @@ namespace BattleRoyale.CompanyIdentity
         public Image PrimaryColorBar => primaryColorBar;
         public Image SecondaryColorBar => secondaryColorBar;
         public Image AccentColorBar => accentColorBar;
-
-        public void SetReferences(
-            TMP_Text companyNameText,
-            Image emblemPanel,
-            TMP_Text shapeLabel,
-            TMP_Text iconLabel,
-            TMP_Text flagLabel,
-            Image primaryColorBar,
-            Image secondaryColorBar,
-            Image accentColorBar)
-        {
-            this.companyNameText = companyNameText;
-            this.emblemPanel = emblemPanel;
-            this.shapeLabel = shapeLabel;
-            this.iconLabel = iconLabel;
-            this.flagLabel = flagLabel;
-            this.primaryColorBar = primaryColorBar;
-            this.secondaryColorBar = secondaryColorBar;
-            this.accentColorBar = accentColorBar;
-        }
     }
 }

@@ -15,17 +15,5 @@ namespace BattleRoyale.CompanyIdentity
         public TMP_Text CompanyNameText => companyNameText;
         public Button EditButton => editButton;
         public Button ResetButton => resetButton;
-
-        public void SetReferences(
-            Transform previewParent,
-            TMP_Text companyNameText,
-            Button editButton,
-            Button resetButton)
-        {
-            this.previewParent = previewParent;
-            this.companyNameText = companyNameText;
-            this.editButton = editButton;
-            this.resetButton = resetButton;
-        }
     }
 }

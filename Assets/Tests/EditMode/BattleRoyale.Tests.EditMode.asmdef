@@ -3,6 +3,7 @@
     "rootNamespace": "BattleRoyale.Tests.EditMode",
     "references": [
         "BattleRoyale",
+        "BattleRoyale.Editor",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "UnityEditor",

@@ -24,20 +24,23 @@ MonoBehaviour:
   baseHeight: 0
   heightScale: 0
   heightResolution: 2
-  wallHeight: 3
-  wallThickness: 0.7
+  wallHeight: 20
+  wallThickness: 10
   generateBuildingWalls: 0
   generateTreeColliders: 0
   useImageCornerFit: 1
-  imageUpperLeftUv: {x: 0.010598207, y: 0.99265367}
-  imageLowerRightUv: {x: 0.99098855, y: 0.014611707}
+  imageUpperLeftUv: {x: 0.010374793, y: 0.9821316}
+  imageLowerRightUv: {x: 0.9886646, y: 0.015818559}
   editImageCornersInScene: 1
+  columnSize: 1.5
+  dungeonUnitScale: 10
   showDungeonWalls: 1
   overrideNavMeshVoxelSize: 0
   navMeshVoxelSize: 0.16666667
   replaceGeneratedRoot: 1
   disableOtherGeneratedMaps: 1
   setAsActiveCameraMap: 1
+  editPointsInSceneView: 1
   bakedPrefab: {fileID: 1589974080845029949, guid: 812aadb55746b5240ae6b59ecf27bda1, type: 3}
   generator: dungeon
   generatorVersion: 1.2.7
@@ -71,6 +74,7 @@ MonoBehaviour:
   - id: SouthEast
     position: {x: 405.45584, y: 0, z: 164.54416}
     weight: 1
-  supportedGameModes: 00000000
+  supportedGameModes: 02000000
   modeConfigurations:
   - {fileID: 11400000, guid: a89d5b7633314b04a9dbc424c2c4da32, type: 2}
+  - {fileID: 11400000, guid: 41541fb681740fc429ccaeeb7ac11f07, type: 2}

@@ -16,12 +16,6 @@ namespace BattleRoyale.CompanyIdentity
         public TMP_Text Label => label;
         public Image Image => image;
 
-        public void SetReferences(Button button, TMP_Text label, Image image)
-        {
-            this.button = button;
-            this.label = label;
-            this.image = image;
-        }
     }
 
     [Serializable]
@@ -35,12 +29,6 @@ namespace BattleRoyale.CompanyIdentity
         public Image Image => image;
         public Outline Outline => outline;
 
-        public void SetReferences(Button button, Image image, Outline outline)
-        {
-            this.button = button;
-            this.image = image;
-            this.outline = outline;
-        }
     }
 
     [Serializable]
@@ -60,21 +48,6 @@ namespace BattleRoyale.CompanyIdentity
         public CompanyIdentityEditorSwatchBinding[] ColorSlots => colorSlots;
         public CompanyIdentityEditorSwatchBinding[] Palette => palette;
 
-        public void SetReferences(
-            Button tabButton,
-            Image tabImage,
-            GameObject content,
-            CompanyIdentityEditorOptionBinding[] options,
-            CompanyIdentityEditorSwatchBinding[] colorSlots,
-            CompanyIdentityEditorSwatchBinding[] palette)
-        {
-            this.tabButton = tabButton;
-            this.tabImage = tabImage;
-            this.content = content;
-            this.options = options;
-            this.colorSlots = colorSlots;
-            this.palette = palette;
-        }
     }
 
 }

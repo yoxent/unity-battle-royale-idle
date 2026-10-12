@@ -16,16 +16,28 @@ namespace BattleRoyale.Tests.EditMode
         }
 
         [Test]
-        public void PerceptionRangeRejectsCandidatesBeyondBoundary()
+        public void SightIsNotLimitedByAFiniteRange()
+        {
+            Assert.IsTrue(BattleRoyaleAgentDecisionRules.CanPerceive(5000f));
+            Assert.IsFalse(
+                BattleRoyaleAgentDecisionRules.CanPerceive(
+                    float.PositiveInfinity));
+            Assert.IsFalse(BattleRoyaleAgentDecisionRules.CanPerceive(-1f));
+        }
+
+        [Test]
+        public void AgentsOptIntoShotsPastGunRange()
         {
             Assert.IsTrue(
-                BattleRoyaleAgentDecisionRules.IsWithinPerceptionRange(
-                    120f,
-                    120f));
+                BattleRoyaleAgentDecisionRules.WillFireAtDistance(20f, 20f, 0f));
             Assert.IsFalse(
-                BattleRoyaleAgentDecisionRules.IsWithinPerceptionRange(
-                    120.01f,
-                    120f));
+                BattleRoyaleAgentDecisionRules.WillFireAtDistance(21f, 20f, 0f));
+            Assert.IsTrue(
+                BattleRoyaleAgentDecisionRules.WillFireAtDistance(40f, 20f, 0.5f));
+            Assert.IsFalse(
+                BattleRoyaleAgentDecisionRules.WillFireAtDistance(40.1f, 20f, 0.5f));
+            Assert.IsTrue(
+                BattleRoyaleAgentDecisionRules.WillFireAtDistance(400f, 20f, 1f));
         }
 
         [Test]

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf01e6692116044d8dd2aec2c3b75c1, type: 3}
+  m_Name: maze_of_the_cursed_messiah_TeamDeathmatch_Default
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.MapModeConfiguration
+  map: {fileID: 11400000, guid: 011c2b03c6049a64790394a05c7cf2ad, type: 2}
+  mode: 2
+  variantName: Team
+  teamCount: 2
+  teamSize: 5
+  battleRoyaleSpawnPoints: []
+  captureTheFlagTeams: []
+  teamDeathmatchTeams:
+  - teamId: Team 1
+    spawnPosition: {x: 131.12709, y: 0, z: 462.33966}
+    radius: 8
+  - teamId: Team 2
+    spawnPosition: {x: 720.18604, y: 0, z: -25.045265}
+    radius: 8
+  scoreLimit: 20
+  respawnSeconds: 5

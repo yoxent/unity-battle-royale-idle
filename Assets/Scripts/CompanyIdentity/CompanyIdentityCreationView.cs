@@ -13,20 +13,16 @@ namespace BattleRoyale.CompanyIdentity
         private Button _createButton;
         private Action<string> _onCreateRequested;
 
-        public void Build(Transform parent, Action<string> onCreateRequested)
+        public void Initialize(
+            CompanyIdentityCreationViewBindings bindings,
+            Action<string> onCreateRequested)
         {
             _onCreateRequested = onCreateRequested;
 
-            var rootObject = CompanyIdentityUiFactory.InstantiatePrefab(
-                "CompanyIdentityCreationView",
-                parent);
-            var bindings = rootObject.GetComponent<CompanyIdentityCreationViewBindings>();
             if (bindings == null)
             {
                 Debug.LogError(
-                    "CompanyIdentityCreationView: The prefab is missing " +
-                    "CompanyIdentityCreationViewBindings.");
-                UnityEngine.Object.Destroy(rootObject);
+                    "CompanyIdentityCreationView: A creation view binding reference must be assigned.");
                 return;
             }
 
@@ -36,12 +32,11 @@ namespace BattleRoyale.CompanyIdentity
             if (_companyNameInput == null || _validationText == null || _createButton == null)
             {
                 Debug.LogError(
-                    "CompanyIdentityCreationView: The prefab bindings have missing references.");
-                UnityEngine.Object.Destroy(rootObject);
+                    "CompanyIdentityCreationView: The scene binding has missing references.");
                 return;
             }
 
-            _rootObject = rootObject;
+            _rootObject = bindings.gameObject;
             _companyNameInput.characterLimit = 0; // Allow unlimited input for validation feedback
             _companyNameInput.onValueChanged.AddListener(OnInputChanged);
             _createButton.onClick.AddListener(OnCreateButtonClicked);

@@ -20,12 +20,35 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                    Mathf.Max(0f, strategyMultiplier);
         }
 
-        public static bool IsWithinPerceptionRange(
-            float distance,
-            float perceptionRange)
+        public static bool CanPerceive(float distance)
         {
-            return Mathf.Max(0f, distance) <=
-                   Mathf.Max(0f, perceptionRange);
+            return float.IsFinite(distance) && distance >= 0f;
+        }
+
+        public static bool WillFireAtDistance(
+            float distance,
+            float weaponRange,
+            float aggression)
+        {
+            var reach = Mathf.Max(0f, weaponRange);
+            var shotDistance = Mathf.Max(0f, distance);
+            if (shotDistance <= reach)
+            {
+                return true;
+            }
+
+            var willingness = Mathf.Clamp01(aggression);
+            if (willingness <= 0f)
+            {
+                return false;
+            }
+
+            if (willingness >= 1f)
+            {
+                return true;
+            }
+
+            return shotDistance <= reach / (1f - willingness);
         }
 
         public static float GetPursuitRange(

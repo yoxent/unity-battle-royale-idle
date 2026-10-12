@@ -30,7 +30,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return false;
             }
 
-            origin = EyePosition(from);
+            origin = from.transform.position;
+            origin.y += SampleHeight;
             end = to.transform.position;
             end.y = origin.y;
             var offset = end - origin;
@@ -88,6 +89,56 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             var origin = from == null ? Vector3.zero : from.transform.position;
             origin.y += SampleHeight;
             return origin;
+        }
+
+        public static float ClipDistance(
+            float range,
+            bool blocked,
+            float blockDistance)
+        {
+            var reach = Mathf.Max(0f, range);
+            if (!blocked)
+            {
+                return reach;
+            }
+
+            return Mathf.Clamp(blockDistance, 0f, reach);
+        }
+
+        public static bool TryGetDisplayedEnd(
+            Vector3 start,
+            Vector3 forward,
+            float range,
+            float planeY,
+            out Vector3 end)
+        {
+            end = start;
+            forward.y = 0f;
+            if (forward.sqrMagnitude <= 0.0001f)
+            {
+                return false;
+            }
+
+            forward.Normalize();
+            var reach = Mathf.Max(0f, range);
+            var probeStart = start;
+            probeStart.y = planeY;
+            var blocked = TryGetObstacleHit(
+                probeStart,
+                probeStart + forward * reach,
+                planeY,
+                out var hit);
+            var blockDistance = reach;
+            if (blocked)
+            {
+                var hitPoint = hit.point;
+                hitPoint.y = probeStart.y;
+                blockDistance = Vector3.Distance(probeStart, hitPoint);
+            }
+
+            var distance = ClipDistance(reach, blocked, blockDistance);
+            end = start + forward * distance;
+            return blocked;
         }
 
         public static bool TryGetObstacleHit(

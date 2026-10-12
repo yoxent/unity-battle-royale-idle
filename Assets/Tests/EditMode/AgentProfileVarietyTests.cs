@@ -20,7 +20,6 @@ namespace BattleRoyale.Tests.EditMode
         private static readonly string[] MapPaths =
         {
             "Assets/Maps/plaguecrown_chambers/Definitions/plaguecrown_chambers_Map.asset",
-            "Assets/Maps/citadel_of_iron_moon/Definitions/citadel_of_iron_moon_Map.asset",
             "Assets/Maps/maze_of_the_cursed_messiah/Definitions/maze_of_the_cursed_messiah_Map.asset"
         };
 

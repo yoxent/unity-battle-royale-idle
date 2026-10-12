@@ -28,7 +28,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
         [Header("Runtime")]
         [SerializeField] private bool drawSafeZone = true;
-        [SerializeField] private bool drawLineOfSight = true;
 
         private float elapsedMatchTime;
         private Vector3 safeZoneCenter;
@@ -75,11 +74,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             UpdateSafeZone();
             ApplySafeZoneDamage();
             CheckForWinner();
-        }
-
-        private void LateUpdate()
-        {
-            UpdateSightLines();
         }
 
         public override bool BeginMatch()
@@ -426,52 +420,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             var fallbackPosition = safeZoneCenter +
                                    new Vector3(random.x, 0f, random.y);
             return SnapToNavigation(fallbackPosition);
-        }
-
-        private void UpdateSightLines()
-        {
-            RefreshRoster();
-            for (var sourceIndex = 0; sourceIndex < Roster.Count; sourceIndex++)
-            {
-                var source = Roster[sourceIndex];
-                var sight = source == null || source.Weapon == null
-                    ? null
-                    : source.Weapon.SightLines;
-                if (sight == null)
-                {
-                    continue;
-                }
-
-                if (!drawLineOfSight || !MatchStarted || !source.IsAlive)
-                {
-                    sight.HideFrom(0);
-                    continue;
-                }
-
-                var usedLines = 0;
-                for (var targetIndex = 0; targetIndex < Roster.Count; targetIndex++)
-                {
-                    var target = Roster[targetIndex];
-                    if (target == null || target == source || !target.IsAlive)
-                    {
-                        continue;
-                    }
-
-                    var clear = BattleRoyaleLineOfSight.Evaluate(
-                        source,
-                        target,
-                        float.PositiveInfinity,
-                        out var origin,
-                        out var end);
-                    var color = clear
-                        ? new Color(0.2f, 1f, 0.35f, 0.9f)
-                        : new Color(1f, 0.2f, 0.15f, 0.9f);
-                    sight.Show(usedLines, origin, end, color);
-                    usedLines++;
-                }
-
-                sight.HideFrom(usedLines);
-            }
         }
 
         private void OnDrawGizmosSelected()

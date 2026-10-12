@@ -18,7 +18,7 @@ namespace BattleRoyale.Maps
 
         [Header("World Mapping")]
         [Min(0.0001f)]
-        public float worldScale = 1f;
+        public float worldScale = DungeonMapGeometry.DefaultCellWorldSize;
         public bool flipHeightY;
         public Vector2 sourceMin;
         public Vector2 sourceMax;
@@ -34,10 +34,10 @@ namespace BattleRoyale.Maps
 
         [Header("Collision")]
         [Min(0f)]
-        public float wallHeight = 3f;
+        public float wallHeight = DungeonMapGeometry.DefaultWallHeight;
 
         [Min(0.001f)]
-        public float wallThickness = 0.7f;
+        public float wallThickness = DungeonMapGeometry.DefaultWallThickness;
 
         public bool generateBuildingWalls = true;
         public bool generateTreeColliders;
@@ -52,12 +52,18 @@ namespace BattleRoyale.Maps
         public bool editImageCornersInScene;
 
         [Header("Dungeon Authoring")]
+        [Min(0.01f)]
+        public float columnSize = DungeonMapGeometry.DefaultColumnSize;
+
+        [Min(0.01f)]
+        public float dungeonUnitScale = DungeonMapGeometry.DefaultDungeonUnitScale;
+
         public bool showDungeonWalls;
 
         public bool overrideNavMeshVoxelSize;
 
         [Min(0.01f)]
-        public float navMeshVoxelSize = 0.16666667f;
+        public float navMeshVoxelSize = DungeonMapAuthoring.DefaultNavMeshVoxelSize;
 
         public bool replaceGeneratedRoot = true;
 
@@ -66,6 +72,8 @@ namespace BattleRoyale.Maps
         [Tooltip(
             "When dungeon generation is enabled for this option, the baked prefab is placed as the shared active map.")]
         public bool setAsActiveCameraMap = true;
+
+        public bool editPointsInSceneView = true;
 
         [Header("Bake")]
         [Tooltip(

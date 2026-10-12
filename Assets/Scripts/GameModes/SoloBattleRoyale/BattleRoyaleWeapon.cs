@@ -201,6 +201,29 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             return spreadDirection.normalized;
         }
 
+        private void LateUpdate()
+        {
+            if (sightLines == null)
+            {
+                return;
+            }
+
+            if (owner == null || !owner.IsAlive)
+            {
+                sightLines.HideFrom(0);
+                return;
+            }
+
+            BattleRoyaleLineOfSight.TryGetDisplayedEnd(
+                GetMuzzlePosition(),
+                owner.transform.forward,
+                owner.WeaponRange,
+                owner.transform.position.y + BattleRoyaleLineOfSight.SampleHeight,
+                out var end);
+            sightLines.Show(0, GetMuzzlePosition(), end);
+            sightLines.HideFrom(1);
+        }
+
         private void BindSightLines()
         {
             var gun = transform.Find("GunCube");

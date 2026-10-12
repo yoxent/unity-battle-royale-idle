@@ -42,8 +42,8 @@ namespace BattleRoyale.CompanyIdentity
 
         public Transform PreviewParent => _previewParent;
 
-        public void Build(
-            Transform parent,
+        public void Initialize(
+            CompanyIdentityEditorViewBindings bindings,
             Action<CompanyIdentityTab, int> onOptionSelected,
             Action<CompanyIdentityColorSlot, int> onColorSelected,
             Action onDoneRequested)
@@ -54,16 +54,10 @@ namespace BattleRoyale.CompanyIdentity
             _activeTab = CompanyIdentityTab.Insignia;
             _activeColorSlot = CompanyIdentityColorSlot.Primary;
 
-            var rootObject = CompanyIdentityUiFactory.InstantiatePrefab(
-                "CompanyIdentityEditorView",
-                parent);
-            var bindings = rootObject.GetComponent<CompanyIdentityEditorViewBindings>();
             if (bindings == null)
             {
                 Debug.LogError(
-                    "CompanyIdentityEditorView: The prefab is missing " +
-                    "CompanyIdentityEditorViewBindings.");
-                UnityEngine.Object.Destroy(rootObject);
+                    "CompanyIdentityEditorView: An editor view binding reference must be assigned.");
                 return;
             }
 
@@ -74,12 +68,11 @@ namespace BattleRoyale.CompanyIdentity
                 tabBindings.Length != TabLabels.Length)
             {
                 Debug.LogError(
-                    "CompanyIdentityEditorView: The prefab bindings have missing or invalid references.");
-                UnityEngine.Object.Destroy(rootObject);
+                    "CompanyIdentityEditorView: The scene binding has missing or invalid references.");
                 return;
             }
 
-            _rootObject = rootObject;
+            _rootObject = bindings.gameObject;
             _previewParent = bindings.PreviewParent;
             _tabButtons = new Button[TabLabels.Length];
             _tabImages = new Image[TabLabels.Length];
@@ -111,7 +104,6 @@ namespace BattleRoyale.CompanyIdentity
                 {
                     Debug.LogError(
                         $"CompanyIdentityEditorView: The {TabLabels[tabIndex]} tab bindings are incomplete.");
-                    UnityEngine.Object.Destroy(rootObject);
                     _rootObject = null;
                     return;
                 }
@@ -134,7 +126,6 @@ namespace BattleRoyale.CompanyIdentity
                         Debug.LogError(
                             $"CompanyIdentityEditorView: The {TabLabels[tabIndex]} option " +
                             $"{optionIndex} bindings are incomplete.");
-                        UnityEngine.Object.Destroy(rootObject);
                         _rootObject = null;
                         return;
                     }
@@ -159,7 +150,6 @@ namespace BattleRoyale.CompanyIdentity
                         Debug.LogError(
                             $"CompanyIdentityEditorView: The {TabLabels[tabIndex]} color slot " +
                             $"{ColorSlotLabels[slotIndex]} bindings are incomplete.");
-                        UnityEngine.Object.Destroy(rootObject);
                         _rootObject = null;
                         return;
                     }
@@ -187,7 +177,6 @@ namespace BattleRoyale.CompanyIdentity
                         Debug.LogError(
                             $"CompanyIdentityEditorView: The {TabLabels[tabIndex]} palette " +
                             $"{paletteIndex} bindings are incomplete.");
-                        UnityEngine.Object.Destroy(rootObject);
                         _rootObject = null;
                         return;
                     }
