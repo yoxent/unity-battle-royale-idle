@@ -107,17 +107,11 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 var distance = HorizontalDistance(
                     transform.position,
                     target.transform.position);
-                if (distance <= character.WeaponRange)
-                {
-                    character.SetState(BattleRoyaleCharacterState.Engaging);
-                    currentDestination = GetCombatPosition();
-                }
-                else
-                {
-                    character.SetState(BattleRoyaleCharacterState.SeekingTarget);
-                    currentDestination = target.transform.position;
-                }
-
+                character.SetState(
+                    distance <= HoldDistance()
+                        ? BattleRoyaleCharacterState.Engaging
+                        : BattleRoyaleCharacterState.SeekingTarget);
+                currentDestination = GetCombatPosition();
                 return;
             }
 
@@ -157,9 +151,9 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 case BattleRoyaleCharacterState.MovingToSafeZone:
                 case BattleRoyaleCharacterState.Retreating:
                 case BattleRoyaleCharacterState.Exploring:
-                case BattleRoyaleCharacterState.SeekingTarget:
                     MoveTo(currentDestination);
                     break;
+                case BattleRoyaleCharacterState.SeekingTarget:
                 case BattleRoyaleCharacterState.Engaging:
                     ActWhileEngaging();
                     break;
@@ -177,15 +171,18 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             var distance = HorizontalDistance(
                 transform.position,
                 target.transform.position);
-            if (distance > character.WeaponRange)
+            if (distance > HoldDistance())
             {
                 character.SetState(BattleRoyaleCharacterState.SeekingTarget);
-                currentDestination = target.transform.position;
+                currentDestination = GetCombatPosition();
                 MoveTo(currentDestination);
-                return;
+            }
+            else
+            {
+                character.SetState(BattleRoyaleCharacterState.Engaging);
+                StopMoving();
             }
 
-            StopMoving();
             FacePosition(target.transform.position);
             var toTarget = target.transform.position - transform.position;
             toTarget.y = 0f;
@@ -200,7 +197,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
         private BattleRoyaleCharacter FindTarget()
         {
-            var sightRange = character.WeaponRange;
             var bestScore = float.MaxValue;
             BattleRoyaleCharacter bestTarget = null;
 
@@ -219,8 +215,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 var distance = HorizontalDistance(
                     transform.position,
                     candidate.transform.position);
-                if (distance > sightRange ||
-                    !BattleRoyaleLineOfSight.IsClear(character, candidate))
+                if (!BattleRoyaleLineOfSight.IsClear(character, candidate))
                 {
                     continue;
                 }
@@ -269,10 +264,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return transform.position;
             }
 
-            var desiredDistance = Mathf.Clamp(
-                tuning.PreferredCombatRange,
-                2f,
-                character.WeaponRange);
+            var desiredDistance = HoldDistance();
             var fromTarget = transform.position - target.transform.position;
             fromTarget.y = 0f;
             if (fromTarget.sqrMagnitude <= 0.001f)
@@ -285,6 +277,17 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                                  fromTarget * desiredDistance;
             combatPosition.y = transform.position.y;
             return combatPosition;
+        }
+
+        private float HoldDistance()
+        {
+            var clearance = character.BodyRadius;
+            if (target != null)
+            {
+                clearance += target.BodyRadius;
+            }
+
+            return Mathf.Max(2f, clearance, tuning.PreferredCombatRange);
         }
 
         private bool MoveTo(Vector3 destination)

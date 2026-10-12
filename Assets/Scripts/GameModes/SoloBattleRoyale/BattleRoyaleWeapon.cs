@@ -7,20 +7,22 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
     [DisallowMultipleComponent]
     public sealed class BattleRoyaleWeapon : MonoBehaviour
     {
-        // Authored speeds take about a second to cross weapon range, so both
-        // fighters can shoot before either round arrives. This scale makes
-        // the shot connect before a return shot. Lifetime shrinks by the
-        // same amount, so the round still stops at its authored distance.
+        // Authored speeds take about a second to cross weapon range. This
+        // scale makes the tracer cross that distance before a return shot.
+        // The round itself is not stopped at that distance.
         private const float ProjectileSpeedScale = 40f;
 
         private BattleRoyaleCharacter owner;
         private WeaponProfile profile;
         private WeaponProfile runtimeProfile;
+        private BattleRoyaleSightLines sightLines;
         private float nextFireTime;
         private float reloadReadyTime;
         private int roundsRemaining;
 
         public WeaponProfile Profile => profile;
+        public BattleRoyaleSightLines SightLines => sightLines;
+        public Vector3 MuzzlePosition => GetMuzzlePosition();
         public int RoundsRemaining => roundsRemaining;
         public bool IsReloading => Time.time < reloadReadyTime;
         public float Range => profile == null || profile.stats == null
@@ -45,6 +47,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             roundsRemaining = MagazineCapacity;
             reloadReadyTime = 0f;
             CreatePrimitiveVisual();
+            BindSightLines();
         }
 
         public bool TryFire(BattleRoyaleCharacter target)
@@ -83,8 +86,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                                  Vector3.up * (targetScale * 0.5f);
             var direction = targetPosition - origin;
             var distance = direction.magnitude;
-            if (distance <= 0.01f ||
-                distance > owner.WeaponRange)
+            if (distance <= 0.01f)
             {
                 return false;
             }
@@ -156,8 +158,9 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 direction,
                 stats.damage * owner.WeaponDamageMultiplier,
                 stats.projectileSpeed * ProjectileSpeedScale,
-                stats.projectileLifetime / ProjectileSpeedScale,
-                Mathf.Max(0.05f, stats.projectileScale) * ownerScale);
+                float.PositiveInfinity,
+                Mathf.Max(0.05f, stats.projectileScale) * ownerScale,
+                owner.WeaponRange);
         }
 
         private Vector3 ApplyAccuracy(
@@ -188,6 +191,70 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 spread.y,
                 right) * spreadDirection;
             return spreadDirection.normalized;
+        }
+
+        private void BindSightLines()
+        {
+            var gun = transform.Find("GunCube");
+            if (gun == null)
+            {
+                sightLines = null;
+                return;
+            }
+
+            EnsureSightLine(gun);
+            sightLines = gun.GetComponentInChildren<BattleRoyaleSightLines>(true);
+        }
+
+        private static void EnsureSightLine(Transform gun)
+        {
+            var existingLine = FindSightLine(gun);
+            if (existingLine != null)
+            {
+                PlaceOnGun(existingLine.transform, gun);
+                if (existingLine.GetComponent<BattleRoyaleSightLines>() == null)
+                {
+                    var view = existingLine.gameObject
+                        .AddComponent<BattleRoyaleSightLines>();
+                    view.Bind(existingLine);
+                }
+
+                BattleRoyaleSightLines.ApplyVisibleDefaults(existingLine);
+                return;
+            }
+
+            var sightObject = new GameObject("SightLine");
+            PlaceOnGun(sightObject.transform, gun);
+            var line = sightObject.AddComponent<LineRenderer>();
+            BattleRoyaleSightLines.ApplyVisibleDefaults(line);
+            var created = sightObject.AddComponent<BattleRoyaleSightLines>();
+            created.Bind(line);
+        }
+
+        private static LineRenderer FindSightLine(Transform gun)
+        {
+            var lines = gun.GetComponentsInChildren<LineRenderer>(true);
+            foreach (var candidate in lines)
+            {
+                if (candidate.transform != gun)
+                {
+                    return candidate;
+                }
+            }
+
+            return null;
+        }
+
+        private static void PlaceOnGun(Transform sight, Transform gun)
+        {
+            sight.SetParent(gun, false);
+            sight.localPosition = Vector3.zero;
+            sight.localRotation = Quaternion.identity;
+            var scale = gun.localScale;
+            sight.localScale = new Vector3(
+                Mathf.Approximately(scale.x, 0f) ? 1f : 1f / scale.x,
+                Mathf.Approximately(scale.y, 0f) ? 1f : 1f / scale.y,
+                Mathf.Approximately(scale.z, 0f) ? 1f : 1f / scale.z);
         }
 
         private Vector3 GetMuzzlePosition()

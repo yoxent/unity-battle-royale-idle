@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using BattleRoyale.GameModes;
 using UnityEngine;
 
@@ -36,9 +35,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private float safeZoneStartRadius;
         private float safeZoneRadius;
         private float safeZoneFinalRadius;
-        private readonly List<LineRenderer> sightLines = new();
-        private Material sightLineMaterial;
-        private MaterialPropertyBlock sightLineBlock;
         private bool winnerAnnounced;
 
         protected override string CharacterRootName => "BattleRoyaleCharacters";
@@ -432,117 +428,49 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             return SnapToNavigation(fallbackPosition);
         }
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            if (sightLineMaterial != null)
-            {
-                Destroy(sightLineMaterial);
-            }
-        }
-
         private void UpdateSightLines()
         {
-            var usedLines = 0;
-            if (drawLineOfSight && MatchStarted)
+            RefreshRoster();
+            for (var sourceIndex = 0; sourceIndex < Roster.Count; sourceIndex++)
             {
-                RefreshRoster();
-                for (var sourceIndex = 0; sourceIndex < Roster.Count; sourceIndex++)
+                var source = Roster[sourceIndex];
+                var sight = source == null || source.Weapon == null
+                    ? null
+                    : source.Weapon.SightLines;
+                if (sight == null)
                 {
-                    var source = Roster[sourceIndex];
-                    if (source == null || !source.IsAlive)
+                    continue;
+                }
+
+                if (!drawLineOfSight || !MatchStarted || !source.IsAlive)
+                {
+                    sight.HideFrom(0);
+                    continue;
+                }
+
+                var usedLines = 0;
+                for (var targetIndex = 0; targetIndex < Roster.Count; targetIndex++)
+                {
+                    var target = Roster[targetIndex];
+                    if (target == null || target == source || !target.IsAlive)
                     {
                         continue;
                     }
 
-                    for (var targetIndex = 0; targetIndex < Roster.Count; targetIndex++)
-                    {
-                        var target = Roster[targetIndex];
-                        if (target == null || target == source || !target.IsAlive)
-                        {
-                            continue;
-                        }
-
-                        var sightRange = source.WeaponRange;
-                        var flatOffset = target.transform.position - source.transform.position;
-                        flatOffset.y = 0f;
-                        if (flatOffset.sqrMagnitude > sightRange * sightRange)
-                        {
-                            continue;
-                        }
-
-                        var clear = BattleRoyaleLineOfSight.Evaluate(
-                            source,
-                            target,
-                            sightRange,
-                            out var origin,
-                            out var end);
-                        var line = GetSightLine(usedLines);
-                        usedLines++;
-                        line.enabled = true;
-                        line.positionCount = 2;
-                        line.SetPosition(0, origin);
-                        line.SetPosition(1, end);
-                        var color = clear
-                            ? new Color(0.2f, 1f, 0.35f, 0.9f)
-                            : new Color(1f, 0.2f, 0.15f, 0.9f);
-                        line.startColor = color;
-                        line.endColor = color;
-                        sightLineBlock ??= new MaterialPropertyBlock();
-                        sightLineBlock.Clear();
-                        sightLineBlock.SetColor("_BaseColor", color);
-                        sightLineBlock.SetColor("_Color", color);
-                        line.SetPropertyBlock(sightLineBlock);
-                    }
-                }
-            }
-
-            for (var index = usedLines; index < sightLines.Count; index++)
-            {
-                sightLines[index].enabled = false;
-            }
-        }
-
-        private LineRenderer GetSightLine(int index)
-        {
-            while (sightLines.Count <= index)
-            {
-                var lineObject = new GameObject($"SightLine_{sightLines.Count:00}");
-                lineObject.transform.SetParent(transform, false);
-                var line = lineObject.AddComponent<LineRenderer>();
-                line.useWorldSpace = true;
-                line.alignment = LineAlignment.View;
-                line.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-                line.receiveShadows = false;
-                line.numCapVertices = 4;
-                line.widthMultiplier = 0.8f;
-                line.material = SightLineMaterial;
-                line.enabled = false;
-                sightLines.Add(line);
-            }
-
-            return sightLines[index];
-        }
-
-        private Material SightLineMaterial
-        {
-            get
-            {
-                if (sightLineMaterial != null)
-                {
-                    return sightLineMaterial;
+                    var clear = BattleRoyaleLineOfSight.Evaluate(
+                        source,
+                        target,
+                        float.PositiveInfinity,
+                        out var origin,
+                        out var end);
+                    var color = clear
+                        ? new Color(0.2f, 1f, 0.35f, 0.9f)
+                        : new Color(1f, 0.2f, 0.15f, 0.9f);
+                    sight.Show(usedLines, origin, end, color);
+                    usedLines++;
                 }
 
-                var shader = Shader.Find("Sprites/Default") ??
-                             Shader.Find("Universal Render Pipeline/Unlit") ??
-                             Shader.Find("Universal Render Pipeline/Lit");
-                sightLineMaterial = new Material(shader);
-                if (sightLineMaterial.HasProperty("_BaseColor"))
-                {
-                    sightLineMaterial.SetColor("_BaseColor", Color.white);
-                }
-
-                return sightLineMaterial;
+                sight.HideFrom(usedLines);
             }
         }
 

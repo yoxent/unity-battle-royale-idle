@@ -4,7 +4,8 @@
     "references": [
         "BattleRoyale",
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "UnityEditor"
     ],
     "includePlatforms": [
         "Editor"

@@ -1,4 +1,5 @@
 using BattleRoyale.GameModes.TeamDeathmatch;
+using BattleRoyale.Weapons;
 using UnityEngine;
 
 namespace BattleRoyale.GameModes.SoloBattleRoyale
@@ -8,9 +9,12 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private BattleRoyaleProjectilePool pool;
         private BattleRoyaleCharacter owner;
         private Vector3 direction;
+        private const float MissDistance = 4000f;
+
         private float damage;
         private float speed;
         private float lifetime;
+        private float weaponRange;
         private float elapsed;
         private float blockerPlaneY;
         private Vector3 impactPoint;
@@ -28,7 +32,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             float projectileDamage,
             float projectileSpeed,
             float projectileLifetime,
-            float visualScale)
+            float visualScale,
+            float effectiveRange)
         {
             owner = projectileOwner;
             direction = travelDirection.sqrMagnitude <= 0.001f
@@ -37,11 +42,9 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             damage = projectileDamage;
             speed = projectileSpeed;
             lifetime = projectileLifetime;
+            weaponRange = Mathf.Max(0f, effectiveRange);
             elapsed = 0f;
-            blockerPlaneY = projectileOwner == null
-                ? origin.y
-                : projectileOwner.transform.position.y +
-                  BattleRoyaleLineOfSight.SampleHeight;
+            blockerPlaneY = origin.y;
             inFlight = true;
             transform.SetParent(null, true);
             transform.position = origin;
@@ -74,8 +77,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
         private void ResolveImpact()
         {
             var origin = transform.position;
-            var travelDistance = speed * lifetime;
-            var travel = direction * travelDistance;
+            var travel = direction * MissDistance;
             impactPoint = origin + travel;
             if (travel.sqrMagnitude <= 0.0001f)
             {
@@ -93,7 +95,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             var hits = Physics.RaycastAll(
                 origin,
                 direction,
-                travelDistance,
+                Mathf.Infinity,
                 Physics.DefaultRaycastLayers,
                 QueryTriggerInteraction.Ignore);
             System.Array.Sort(
@@ -119,7 +121,12 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
 
                 if (character != null)
                 {
-                    character.ApplyDamage(damage, owner);
+                    character.ApplyDamage(
+                        WeaponRangeFalloff.Scale(
+                            damage,
+                            hit.distance,
+                            weaponRange),
+                        owner);
                 }
 
                 impactPoint = hit.point;

@@ -42,7 +42,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             float damage,
             float speed,
             float lifetime,
-            float visualScale)
+            float visualScale,
+            float weaponRange)
         {
             if (!prewarmed)
             {
@@ -65,7 +66,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 damage,
                 speed,
                 lifetime,
-                visualScale);
+                visualScale,
+                weaponRange);
         }
 
         public void Release(BattleRoyaleProjectile projectile)

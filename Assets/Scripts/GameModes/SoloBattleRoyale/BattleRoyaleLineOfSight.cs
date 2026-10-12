@@ -13,8 +13,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             BattleRoyaleCharacter from,
             BattleRoyaleCharacter to)
         {
-            var range = from == null ? 0f : from.WeaponRange;
-            return Evaluate(from, to, range, out _, out _);
+            return Evaluate(from, to, float.PositiveInfinity, out _, out _);
         }
 
         public static bool Evaluate(
@@ -31,8 +30,7 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 return false;
             }
 
-            origin = from.transform.position;
-            origin.y += SampleHeight;
+            origin = EyePosition(from);
             end = to.transform.position;
             end.y = origin.y;
             var offset = end - origin;
@@ -78,6 +76,18 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             }
 
             return withinReach;
+        }
+
+        public static Vector3 EyePosition(BattleRoyaleCharacter from)
+        {
+            if (from != null && from.Weapon != null)
+            {
+                return from.Weapon.MuzzlePosition;
+            }
+
+            var origin = from == null ? Vector3.zero : from.transform.position;
+            origin.y += SampleHeight;
+            return origin;
         }
 
         public static bool TryGetObstacleHit(

@@ -106,6 +106,21 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 ? 0f
                 : currentHealth / MaxHealth;
         public bool IsBot => isBot;
+        public float BodyRadius
+        {
+            get
+            {
+                var body = GetComponent<CapsuleCollider>();
+                if (body == null)
+                {
+                    return agent == null ? 0.5f : agent.radius;
+                }
+
+                var scale = transform.lossyScale;
+                return body.radius *
+                       Mathf.Max(Mathf.Abs(scale.x), Mathf.Abs(scale.z));
+            }
+        }
         public bool IsAlive => currentHealth > 0f;
         public BattleRoyaleCharacterState State { get; private set; }
 
@@ -158,8 +173,8 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             stationaryDuration = 0f;
             State = BattleRoyaleCharacterState.Spawned;
 
-            ConfigureAgent();
             CreatePrimitiveVisual();
+            ConfigureAgent();
             weapon = GetComponent<BattleRoyaleWeapon>();
             if (weapon == null)
             {
@@ -224,6 +239,11 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             {
                 agent.speed = MoveSpeed;
             }
+        }
+
+        private void LateUpdate()
+        {
+            KeepBodiesApart();
         }
 
         public void RegisterKill()
@@ -313,8 +333,104 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             agent.stoppingDistance = 0.5f;
             agent.autoBraking = true;
             agent.updateRotation = false;
-            agent.radius = 0.5f;
-            agent.height = 2f;
+            var body = GetComponent<CapsuleCollider>();
+            if (body != null)
+            {
+                ApplyClearance(agent, body);
+            }
+        }
+
+        public static void ApplyClearance(NavMeshAgent navigation, CapsuleCollider body)
+        {
+            if (navigation == null || body == null)
+            {
+                return;
+            }
+
+            var scale = body.transform.lossyScale;
+            navigation.radius = body.radius *
+                                Mathf.Max(Mathf.Abs(scale.x), Mathf.Abs(scale.z));
+            navigation.height = body.height * Mathf.Abs(scale.y);
+            navigation.obstacleAvoidanceType =
+                ObstacleAvoidanceType.HighQualityObstacleAvoidance;
+        }
+
+        public static Vector3 SeparationOffset(
+            Vector3 selfPosition,
+            float selfRadius,
+            Vector3 otherPosition,
+            float otherRadius,
+            bool otherCanMove)
+        {
+            var delta = selfPosition - otherPosition;
+            delta.y = 0f;
+            var distance = delta.magnitude;
+            var gap = selfRadius + otherRadius;
+            if (distance >= gap - 0.05f)
+            {
+                return Vector3.zero;
+            }
+
+            var direction = distance <= 0.001f
+                ? Vector3.forward
+                : delta / distance;
+            var share = otherCanMove ? 0.5f : 1f;
+            return direction * (gap - distance) * share;
+        }
+
+        private void KeepBodiesApart()
+        {
+            if (!IsAlive || match == null)
+            {
+                return;
+            }
+
+            var push = Vector3.zero;
+            var radius = BodyRadius;
+            foreach (var other in match.Characters)
+            {
+                if (other == null || other == this || !other.IsAlive)
+                {
+                    continue;
+                }
+
+                var selfPosition = transform.position;
+                var otherPosition = other.transform.position;
+                if ((selfPosition - otherPosition).sqrMagnitude <= 0.0001f)
+                {
+                    selfPosition += GetInstanceID() < other.GetInstanceID()
+                        ? Vector3.right
+                        : Vector3.left;
+                }
+
+                push += SeparationOffset(
+                    selfPosition,
+                    radius,
+                    otherPosition,
+                    other.BodyRadius,
+                    other.IsAlive);
+            }
+
+            if (push.sqrMagnitude <= 0.0001f)
+            {
+                return;
+            }
+
+            var destination = transform.position + push;
+            if (agent != null && agent.enabled && agent.isOnNavMesh)
+            {
+                if (NavMesh.SamplePosition(
+                        destination,
+                        out var hit,
+                        push.magnitude + 1f,
+                        NavMesh.AllAreas) &&
+                    agent.Warp(hit.position))
+                {
+                    return;
+                }
+            }
+
+            transform.position = destination;
         }
 
         private void CreatePrimitiveVisual()
