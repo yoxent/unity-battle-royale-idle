@@ -39,11 +39,11 @@ namespace BattleRoyale.Tests.EditMode
             {
                 definition.supportedGameModes = new List<MapGameMode>
                 {
-                    MapGameMode.TeamDeathmatch
+                    MapGameMode.Deathmatch
                 };
                 definition.editPointsInSceneView = false;
                 configuration.map = definition;
-                configuration.mode = MapGameMode.TeamDeathmatch;
+                configuration.mode = MapGameMode.Deathmatch;
                 configuration.variantName = "Skirmish";
                 configuration.teamCount = 7;
                 configuration.teamSize = 4;
@@ -56,7 +56,7 @@ namespace BattleRoyale.Tests.EditMode
 
                 panel.BindSavedSettings(definition);
 
-                Assert.AreEqual(MapGameMode.TeamDeathmatch, panel.BoundMode);
+                Assert.AreEqual(MapGameMode.Deathmatch, panel.BoundMode);
                 Assert.AreEqual("Skirmish", panel.BoundVariantName);
                 Assert.AreEqual(7, panel.BoundTeamCount);
                 Assert.AreEqual(4, panel.BoundTeamSize);
@@ -65,6 +65,66 @@ namespace BattleRoyale.Tests.EditMode
                 Assert.AreEqual(7, configuration.teamCount);
                 Assert.AreEqual("Skirmish", configuration.variantName);
                 Assert.IsFalse(panel.BoundEditPointsInSceneView);
+            }
+            finally
+            {
+                Object.DestroyImmediate(configuration);
+                Object.DestroyImmediate(definition);
+            }
+        }
+
+        [Test]
+        public void SavedEliminationSettingsLoadInsteadOfDraftDefaults()
+        {
+            var definition = ScriptableObject.CreateInstance<MapDefinition>();
+            var configuration = ScriptableObject.CreateInstance<MapModeConfiguration>();
+            var panel = new MapModeAuthoringPanel();
+            var spawn = new Vector3(4f, 0f, 9f);
+            try
+            {
+                definition.supportedGameModes = new List<MapGameMode>
+                {
+                    MapGameMode.Elimination
+                };
+                definition.editPointsInSceneView = false;
+                configuration.map = definition;
+                configuration.mode = MapGameMode.Elimination;
+                configuration.variantName = "Short";
+                configuration.teamCount = 2;
+                configuration.teamSize = 5;
+                configuration.roundWinLimit = 9;
+                configuration.roundSeconds = 80f;
+                configuration.intermissionSeconds = 4f;
+                configuration.eliminationTeams = new List<MapModeTeamSpawn>
+                {
+                    new MapModeTeamSpawn
+                    {
+                        teamId = "Team 1",
+                        spawnPosition = spawn,
+                        radius = 6f
+                    },
+                    new MapModeTeamSpawn
+                    {
+                        teamId = "Team 2",
+                        spawnPosition = spawn + new Vector3(20f, 0f, 0f),
+                        radius = 6f
+                    }
+                };
+                definition.modeConfigurations = new List<MapModeConfiguration>
+                {
+                    configuration
+                };
+
+                panel.BindSavedSettings(definition);
+
+                Assert.AreEqual(MapGameMode.Elimination, panel.BoundMode);
+                Assert.AreEqual("Short", panel.BoundVariantName);
+                Assert.AreEqual(2, panel.BoundTeamCount);
+                Assert.AreEqual(5, panel.BoundTeamSize);
+                Assert.AreEqual(9, panel.BoundRoundWinLimit);
+                Assert.AreEqual(80f, panel.BoundRoundSeconds);
+                Assert.AreEqual(4f, panel.BoundIntermissionSeconds);
+                Assert.AreEqual(spawn, configuration.eliminationTeams[0].spawnPosition);
             }
             finally
             {

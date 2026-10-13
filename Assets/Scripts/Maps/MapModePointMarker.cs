@@ -25,7 +25,8 @@ namespace BattleRoyale.Maps
                 MapModePointType.TeamSpawn => new Color(0.2f, 1f, 0.3f, 0.9f),
                 MapModePointType.TeamBase => new Color(1f, 0.8f, 0.1f, 0.9f),
                 MapModePointType.TeamFlag => new Color(1f, 0.25f, 0.2f, 0.9f),
-                MapModePointType.TeamDeathmatchSpawn => new Color(0.65f, 0.35f, 1f, 0.9f),
+                MapModePointType.DeathmatchSpawn => new Color(0.65f, 0.35f, 1f, 0.9f),
+                MapModePointType.EliminationSpawn => new Color(1f, 0.72f, 0.15f, 0.9f),
                 _ => Color.white
             };
         }

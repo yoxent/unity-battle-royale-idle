@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using BattleRoyale.GameModes.SoloBattleRoyale;
+using BattleRoyale.GameModes.BattleRoyale;
 using UnityEngine;
 
 namespace BattleRoyale.GameModes
@@ -12,6 +12,11 @@ namespace BattleRoyale.GameModes
         void NotifyAgentEliminated(
             BattleRoyaleAgent eliminated,
             BattleRoyaleAgent damageSource);
+        void RecordFiredShot(BattleRoyaleAgent shooter);
+        void RecordDealtDamage(
+            BattleRoyaleAgent attacker,
+            BattleRoyaleAgent victim,
+            float healthRemoved);
     }
 
     public interface IMatchNavigation
@@ -33,5 +38,10 @@ namespace BattleRoyale.GameModes
     public interface IAgentDirectiveProvider
     {
         BattleRoyaleAgentDirective CurrentDirective { get; }
+    }
+
+    public interface IMatchCombatGate
+    {
+        bool CombatEnabled { get; }
     }
 }

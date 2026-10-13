@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using BattleRoyale.GameModes.SoloBattleRoyale;
+using BattleRoyale.GameModes.BattleRoyale;
 using BattleRoyale.Maps;
 using NUnit.Framework;
 using UnityEditor;
@@ -10,11 +10,11 @@ namespace BattleRoyale.Tests.EditMode
     {
         private static readonly string[] ProfilePaths =
         {
-            "Assets/GameModes/SoloBattleRoyale/HunterAgentProfile.asset",
-            "Assets/GameModes/SoloBattleRoyale/ScoutAgentProfile.asset",
-            "Assets/GameModes/SoloBattleRoyale/AnchorAgentProfile.asset",
-            "Assets/GameModes/SoloBattleRoyale/GunnerAgentProfile.asset",
-            "Assets/GameModes/SoloBattleRoyale/SurvivorAgentProfile.asset"
+            "Assets/GameModes/BattleRoyale/HunterAgentProfile.asset",
+            "Assets/GameModes/BattleRoyale/ScoutAgentProfile.asset",
+            "Assets/GameModes/BattleRoyale/AnchorAgentProfile.asset",
+            "Assets/GameModes/BattleRoyale/GunnerAgentProfile.asset",
+            "Assets/GameModes/BattleRoyale/SurvivorAgentProfile.asset"
         };
 
         private static readonly string[] MapPaths =

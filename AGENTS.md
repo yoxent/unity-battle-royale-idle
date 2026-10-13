@@ -6,7 +6,7 @@ This Unity project holds everything except docs: scenes, assets, code, and proje
 
 `E:\Projects\Docs\project-docs-unity-battle-royale-idle\Unity\unity-battle-royale-idle`
 
-That folder is inside the shared docs repo at `E:\Projects\Docs\project-docs-unity-battle-royale-idle`. Commit this project's docs only on branch `docs/unity-battle-royale-idle`.
+That folder is inside the shared docs repo at `E:\Projects\Docs\project-docs-unity-battle-royale-idle`. Do not `git commit` or `git push` unless the user explicitly says to commit or to push. Writing or syncing a note is not that request. When the user does ask for a commit, commit this project's docs only on branch `docs/unity-battle-royale-idle`.
 
 | Path | Contents |
 | --- | --- |
@@ -19,4 +19,4 @@ Read the docs repo before assuming a decision is missing. For other references a
 
 1. **Docs repo** — write notes there, not in this game repo.
 2. **No screenshots** — do not capture or save screenshots. Check scenes by inspecting objects, camera settings, and the Unity console.
-3. **No auto commit/push** — never `git commit` or `git push` unless the user explicitly asks.
+3. **No auto commit/push** — never `git commit` or `git push` unless the user explicitly says to commit or to push. Syncing docs is not a commit request.

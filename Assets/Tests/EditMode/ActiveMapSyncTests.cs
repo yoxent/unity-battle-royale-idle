@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using BattleRoyale.CameraSystems;
 using BattleRoyale.Events;
-using BattleRoyale.GameModes.SoloBattleRoyale;
+using BattleRoyale.GameModes.BattleRoyale;
 using BattleRoyale.Maps;
 using NUnit.Framework;
 using UnityEngine;
@@ -108,7 +108,7 @@ namespace BattleRoyale.Tests.EditMode
             var second = CreateMap("New Map", definition);
             var manager = Create<ActiveMapManager>("Active Map");
             var camera = CreateCamera();
-            var mode = Create<SoloBattleRoyaleGameMode>("Solo Battle Royale");
+            var mode = Create<BattleRoyaleGameMode>("Battle Royale");
 
             manager.SetActiveMap(first);
             Assert.AreSame(first, camera.ActiveMap);
@@ -141,7 +141,7 @@ namespace BattleRoyale.Tests.EditMode
         public void ActivateForModeKeepsAReadyMapThatSupportsIt()
         {
             var battle = CreateReadyMap(MapGameMode.BattleRoyale);
-            var team = CreateReadyMap(MapGameMode.TeamDeathmatch);
+            var team = CreateReadyMap(MapGameMode.Deathmatch);
             var manager = CreateManager(battle.definition, team.definition);
 
             var placed = manager.ActivatePlayableMap(battle.definition);
@@ -154,12 +154,12 @@ namespace BattleRoyale.Tests.EditMode
         public void ActivateForModeSwitchesWhenTheCurrentMapDoesNotSupportIt()
         {
             var battle = CreateReadyMap(MapGameMode.BattleRoyale);
-            var team = CreateReadyMap(MapGameMode.TeamDeathmatch);
+            var team = CreateReadyMap(MapGameMode.Deathmatch);
             var manager = CreateManager(battle.definition, team.definition);
             var placed = manager.ActivatePlayableMap(battle.definition);
             created.Add(placed.gameObject);
 
-            var switched = manager.ActivateForMode(MapGameMode.TeamDeathmatch);
+            var switched = manager.ActivateForMode(MapGameMode.Deathmatch);
             created.Add(switched.gameObject);
 
             Assert.AreSame(team.definition, switched.definition);

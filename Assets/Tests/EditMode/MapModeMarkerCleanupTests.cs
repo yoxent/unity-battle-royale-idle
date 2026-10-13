@@ -19,13 +19,13 @@ namespace BattleRoyale.Tests.EditMode
             try
             {
                 battleConfiguration.mode = MapGameMode.BattleRoyale;
-                deathmatchConfiguration.mode = MapGameMode.TeamDeathmatch;
+                deathmatchConfiguration.mode = MapGameMode.Deathmatch;
 
                 var points = new GameObject(MapModeMarkerCleanup.MarkerRootName);
                 points.transform.SetParent(root.transform, false);
                 var misnamedBattle = CreateMarker(
                     points.transform,
-                    "TeamDeathmatch_Misnamed",
+                    "Deathmatch_Misnamed",
                     battleConfiguration);
                 var deathmatch = CreateMarker(
                     points.transform,
@@ -46,7 +46,7 @@ namespace BattleRoyale.Tests.EditMode
 
                 MapModeMarkerCleanup.RemoveFromHierarchy(
                     root,
-                    MapGameMode.TeamDeathmatch,
+                    MapGameMode.Deathmatch,
                     false);
 
                 Assert.IsNull(root.transform.Find(MapModeMarkerCleanup.MarkerRootName));
@@ -81,7 +81,7 @@ namespace BattleRoyale.Tests.EditMode
             points.transform.SetParent(root.transform, false);
             var battle = new GameObject("BattleRoyale_Solo");
             battle.transform.SetParent(points.transform, false);
-            var deathmatch = new GameObject("TeamDeathmatch_Default");
+            var deathmatch = new GameObject("Deathmatch_Default");
             deathmatch.transform.SetParent(points.transform, false);
 
             try
@@ -104,7 +104,7 @@ namespace BattleRoyale.Tests.EditMode
                 Assert.IsNull(saved.transform.Find(
                     MapModeMarkerCleanup.MarkerRootName + "/BattleRoyale_Solo"));
                 Assert.IsNotNull(saved.transform.Find(
-                    MapModeMarkerCleanup.MarkerRootName + "/TeamDeathmatch_Default"));
+                    MapModeMarkerCleanup.MarkerRootName + "/Deathmatch_Default"));
             }
             finally
             {

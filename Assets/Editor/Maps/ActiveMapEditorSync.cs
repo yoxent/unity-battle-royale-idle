@@ -1,7 +1,8 @@
 using BattleRoyale.CameraSystems;
 using BattleRoyale.Events;
-using BattleRoyale.GameModes.SoloBattleRoyale;
-using BattleRoyale.GameModes.TeamDeathmatch;
+using BattleRoyale.GameModes.Elimination;
+using BattleRoyale.GameModes.BattleRoyale;
+using BattleRoyale.GameModes.Deathmatch;
 using BattleRoyale.Maps;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -28,9 +29,10 @@ namespace BattleRoyale.Editor.Maps
                 return;
             }
 
-            var mode = FindSceneComponent<SoloBattleRoyaleGameMode>();
-            var teamMode = FindSceneComponent<TeamDeathmatchGameMode>();
-            if (mode == null && teamMode == null)
+            var mode = FindSceneComponent<BattleRoyaleGameMode>();
+            var teamMode = FindSceneComponent<DeathmatchGameMode>();
+            var eliminationMode = FindSceneComponent<EliminationGameMode>();
+            if (mode == null && teamMode == null && eliminationMode == null)
             {
                 return;
             }
@@ -41,7 +43,11 @@ namespace BattleRoyale.Editor.Maps
                 var managerObject = new GameObject("Active Map");
                 Undo.RegisterCreatedObjectUndo(managerObject, "Create Active Map");
                 manager = managerObject.AddComponent<ActiveMapManager>();
-                var seed = mode != null ? mode.ActiveMap : teamMode.ActiveMap;
+                var seed = mode != null
+                    ? mode.ActiveMap
+                    : teamMode != null
+                        ? teamMode.ActiveMap
+                        : eliminationMode.ActiveMap;
                 if (seed != null)
                 {
                     manager.SetActiveMap(seed);
@@ -57,6 +63,7 @@ namespace BattleRoyale.Editor.Maps
 
             AdoptSceneMap(mode, manager.ActiveMap);
             AdoptSceneMap(teamMode, manager.ActiveMap);
+            AdoptSceneMap(eliminationMode, manager.ActiveMap);
 
             foreach (var camera in Object.FindObjectsByType<SimulationCameraController>(
                          FindObjectsInactive.Include,
@@ -85,22 +92,29 @@ namespace BattleRoyale.Editor.Maps
                 return;
             }
 
-            foreach (var mode in Object.FindObjectsByType<SoloBattleRoyaleGameMode>(
+            foreach (var mode in Object.FindObjectsByType<BattleRoyaleGameMode>(
                          FindObjectsInactive.Include,
                          FindObjectsSortMode.None))
             {
                 AdoptSceneMap(mode, change.Current);
             }
 
-            foreach (var mode in Object.FindObjectsByType<TeamDeathmatchGameMode>(
+            foreach (var teamMode in Object.FindObjectsByType<DeathmatchGameMode>(
                          FindObjectsInactive.Include,
                          FindObjectsSortMode.None))
             {
-                AdoptSceneMap(mode, change.Current);
+                AdoptSceneMap(teamMode, change.Current);
+            }
+
+            foreach (var eliminationMode in Object.FindObjectsByType<EliminationGameMode>(
+                         FindObjectsInactive.Include,
+                         FindObjectsSortMode.None))
+            {
+                AdoptSceneMap(eliminationMode, change.Current);
             }
         }
 
-        private static void AdoptSceneMap(SoloBattleRoyaleGameMode mode, MapInstance map)
+        private static void AdoptSceneMap(BattleRoyaleGameMode mode, MapInstance map)
         {
             if (!CanAdopt(mode, mode != null && mode.ActiveMap == map))
             {
@@ -112,7 +126,19 @@ namespace BattleRoyale.Editor.Maps
             EditorUtility.SetDirty(mode);
         }
 
-        private static void AdoptSceneMap(TeamDeathmatchGameMode mode, MapInstance map)
+        private static void AdoptSceneMap(DeathmatchGameMode mode, MapInstance map)
+        {
+            if (!CanAdopt(mode, mode != null && mode.ActiveMap == map))
+            {
+                return;
+            }
+
+            Undo.RecordObject(mode, "Sync Active Map");
+            mode.AdoptActiveMap(map);
+            EditorUtility.SetDirty(mode);
+        }
+
+        private static void AdoptSceneMap(EliminationGameMode mode, MapInstance map)
         {
             if (!CanAdopt(mode, mode != null && mode.ActiveMap == map))
             {

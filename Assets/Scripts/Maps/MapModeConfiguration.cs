@@ -13,9 +13,9 @@ namespace BattleRoyale.Maps
 
     public enum MapGameMode
     {
-        BattleRoyale,   // PvP. Last survivor. A shrinking safe zone, and no respawn.
+        BattleRoyale,   // PvP. Last living side. A shrinking safe zone, and no respawn.
         CaptureTheFlag, // PvP. Steal the enemy flag and return it to your base.
-        TeamDeathmatch, // PvP. First team to the kill score. Respawn at the team spawn.
+        Deathmatch, // PvP. First team to the kill score. Respawn at the team spawn.
         Control,        // PvP. Hold several zones at once. Also called Strongholds.
         KingOfTheHill,  // PvP. Hold the active hill. Also called Hardpoint.
         Assault,        // PvP. Plant and defuse, or take a defended site. Also called Search and Destroy.
@@ -27,7 +27,8 @@ namespace BattleRoyale.Maps
         Payload,        // PvP. Push a payload along a path. Also called Escort.
         Survival,       // PvE. Hold out forever. The horde grows stronger, and the score is time survived.
         Extermination,  // PvE. Clear every enemy spawn on the map.
-        Raid            // PvE. Defeat the boss spawn.
+        Raid,           // PvE. Defeat the boss spawn.
+        Elimination     // PvP. Eliminate every other team to win the round. No respawn until the next round.
     }
 
     public static class MapGameModes
@@ -36,7 +37,8 @@ namespace BattleRoyale.Maps
         {
             return mode is MapGameMode.BattleRoyale
                 or MapGameMode.CaptureTheFlag
-                or MapGameMode.TeamDeathmatch;
+                or MapGameMode.Deathmatch
+                or MapGameMode.Elimination;
         }
 
         public static GameModeOpposition Opposition(MapGameMode mode)
@@ -45,7 +47,7 @@ namespace BattleRoyale.Maps
             {
                 MapGameMode.BattleRoyale => GameModeOpposition.PvP,
                 MapGameMode.CaptureTheFlag => GameModeOpposition.PvP,
-                MapGameMode.TeamDeathmatch => GameModeOpposition.PvP,
+                MapGameMode.Deathmatch => GameModeOpposition.PvP,
                 MapGameMode.Control => GameModeOpposition.PvP,
                 MapGameMode.KingOfTheHill => GameModeOpposition.PvP,
                 MapGameMode.Assault => GameModeOpposition.PvP,
@@ -58,6 +60,7 @@ namespace BattleRoyale.Maps
                 MapGameMode.Survival => GameModeOpposition.PvE,
                 MapGameMode.Extermination => GameModeOpposition.PvE,
                 MapGameMode.Raid => GameModeOpposition.PvE,
+                MapGameMode.Elimination => GameModeOpposition.PvP,
                 _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
             };
         }
@@ -69,7 +72,8 @@ namespace BattleRoyale.Maps
         TeamSpawn,
         TeamBase,
         TeamFlag,
-        TeamDeathmatchSpawn
+        DeathmatchSpawn,
+        EliminationSpawn
     }
 
     [CreateAssetMenu(
@@ -89,7 +93,8 @@ namespace BattleRoyale.Maps
 
         public List<MapModePoint> battleRoyaleSpawnPoints = new();
         public List<MapModeTeamPoints> captureTheFlagTeams = new();
-        public List<MapModeTeamSpawn> teamDeathmatchTeams = new();
+        public List<MapModeTeamSpawn> deathmatchTeams = new();
+        public List<MapModeTeamSpawn> eliminationTeams = new();
 
         [Min(1)]
         public int scoreLimit = 50;
@@ -97,9 +102,19 @@ namespace BattleRoyale.Maps
         [Min(0f)]
         public float respawnSeconds = 3f;
 
+        [Min(1)]
+        public int roundWinLimit = 13;
+
+        [Min(1f)]
+        public float roundSeconds = 115f;
+
+        [Min(0f)]
+        public float intermissionSeconds = 7f;
+
         public bool IsBattleRoyale => mode == MapGameMode.BattleRoyale;
         public bool IsCaptureTheFlag => mode == MapGameMode.CaptureTheFlag;
-        public bool IsTeamDeathmatch => mode == MapGameMode.TeamDeathmatch;
+        public bool IsDeathmatch => mode == MapGameMode.Deathmatch;
+        public bool IsElimination => mode == MapGameMode.Elimination;
     }
 
     [Serializable]

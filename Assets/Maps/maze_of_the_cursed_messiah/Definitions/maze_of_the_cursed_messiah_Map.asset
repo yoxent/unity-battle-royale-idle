@@ -41,7 +41,7 @@ MonoBehaviour:
   disableOtherGeneratedMaps: 1
   setAsActiveCameraMap: 1
   editPointsInSceneView: 1
-  bakedPrefab: {fileID: 1589974080845029949, guid: 812aadb55746b5240ae6b59ecf27bda1, type: 3}
+  bakedPrefab: {fileID: 6263064159824373803, guid: 812aadb55746b5240ae6b59ecf27bda1, type: 3}
   generator: dungeon
   generatorVersion: 1.2.7
   features:

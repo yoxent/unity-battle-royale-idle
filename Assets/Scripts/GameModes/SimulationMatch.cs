@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using BattleRoyale.Events;
-using BattleRoyale.GameModes.SoloBattleRoyale;
+using BattleRoyale.GameModes.BattleRoyale;
 using BattleRoyale.Maps;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 namespace BattleRoyale.GameModes
 {
@@ -42,7 +41,6 @@ namespace BattleRoyale.GameModes
         [SerializeField] private BattleRoyaleAgentDirective coachDirective = new();
 
         [Header("Agents")]
-        [FormerlySerializedAs("characterPrefab")]
         [SerializeField] private BattleRoyaleAgent agentPrefab;
         [SerializeField] private BattleRoyaleAgentProfile defaultProfile;
         [Tooltip(
@@ -54,7 +52,6 @@ namespace BattleRoyale.GameModes
         [SerializeField] private bool distributeStrategies = true;
         [SerializeField] private BattleRoyaleAIStrategy fallbackStrategy =
             BattleRoyaleAIStrategy.NeutralOpportunist;
-        [FormerlySerializedAs("characterParent")]
         [SerializeField] private Transform agentParent;
         [Min(0.1f)]
         [SerializeField] private float navMeshSnapDistance = 20f;
@@ -94,6 +91,17 @@ namespace BattleRoyale.GameModes
         public abstract void NotifyAgentEliminated(
             BattleRoyaleAgent eliminated,
             BattleRoyaleAgent damageSource);
+
+        public virtual void RecordFiredShot(BattleRoyaleAgent shooter)
+        {
+        }
+
+        public virtual void RecordDealtDamage(
+            BattleRoyaleAgent attacker,
+            BattleRoyaleAgent victim,
+            float healthRemoved)
+        {
+        }
         public abstract bool TryGetHazardDestination(
             Vector3 fromPosition,
             out Vector3 destination);
@@ -364,7 +372,7 @@ namespace BattleRoyale.GameModes
 
             if (isBot)
             {
-                var ai = agentObject.AddComponent<SoloBattleRoyaleAgent>();
+                var ai = agentObject.AddComponent<BattleRoyaleAgentController>();
                 ai.Initialize(
                     this,
                     agent,

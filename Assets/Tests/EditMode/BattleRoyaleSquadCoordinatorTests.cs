@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using BattleRoyale.GameModes.SoloBattleRoyale;
+using BattleRoyale.GameModes.BattleRoyale;
 using NUnit.Framework;
 using UnityEngine;
 

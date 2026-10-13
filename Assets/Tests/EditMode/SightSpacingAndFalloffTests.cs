@@ -1,4 +1,4 @@
-using BattleRoyale.GameModes.SoloBattleRoyale;
+using BattleRoyale.GameModes.BattleRoyale;
 using BattleRoyale.Weapons;
 using NUnit.Framework;
 using UnityEditor;
@@ -110,7 +110,7 @@ namespace BattleRoyale.Tests.EditMode
         public void AgentPrefabDrawsSightLineFromTheGun()
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(
-                "Assets/GameModes/SoloBattleRoyale/PrototypeAgent.prefab");
+                "Assets/GameModes/BattleRoyale/PrototypeAgent.prefab");
             Assert.IsNotNull(prefab);
 
             var gun = prefab.transform.Find("GunCube");
