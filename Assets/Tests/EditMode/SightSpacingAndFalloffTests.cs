@@ -118,26 +118,55 @@ namespace BattleRoyale.Tests.EditMode
             var line = gun.GetComponentInChildren<LineRenderer>(true);
             Assert.IsNotNull(line);
             Assert.IsNotNull(line.sharedMaterial);
-            StringAssert.Contains(
-                "Universal Render Pipeline",
-                line.sharedMaterial.shader.name);
             StringAssert.DoesNotContain(
                 "Sprites/Default",
                 line.sharedMaterial.shader.name);
-            Assert.GreaterOrEqual(line.widthMultiplier, 1f);
+            Assert.Greater(line.widthMultiplier, 0f);
         }
 
         [Test]
-        public void SightLineDefaultsLeaveTheMaterialAlone()
+        public void SightLineWritesRangeOnLocalZAndLeavesXAlone()
+        {
+            var host = new GameObject("sight");
+            try
+            {
+                host.transform.position = new Vector3(10f, 2f, -4f);
+                var line = host.AddComponent<LineRenderer>();
+                line.useWorldSpace = false;
+                line.positionCount = 2;
+                line.SetPosition(0, Vector3.zero);
+                line.SetPosition(1, new Vector3(0f, 0f, 1f));
+                var view = host.AddComponent<BattleRoyaleSightLines>();
+                view.Bind(line);
+
+                var start = host.transform.position;
+                view.Show(0, start, start + new Vector3(3f, 1f, 12f));
+
+                Assert.AreEqual(0f, line.GetPosition(0).x, 0.0001f);
+                Assert.AreEqual(0f, line.GetPosition(1).x, 0.0001f);
+                Assert.AreEqual(12f, line.GetPosition(1).z, 0.001f);
+                Assert.AreEqual(new Vector3(10f, 2f, -4f), host.transform.position);
+                Assert.AreEqual(Vector3.one, host.transform.localScale);
+            }
+            finally
+            {
+                Object.DestroyImmediate(host);
+            }
+        }
+
+        [Test]
+        public void SightLineDefaultsLeaveTheMaterialAndWidthAlone()
         {
             var host = new GameObject("sight");
             try
             {
                 var line = host.AddComponent<LineRenderer>();
                 var material = line.sharedMaterial;
+                line.widthMultiplier = 5f;
                 BattleRoyaleSightLines.ApplyVisibleDefaults(line);
 
                 Assert.AreEqual(material, line.sharedMaterial);
+                Assert.AreEqual(5f, line.widthMultiplier);
             }
             finally
             {

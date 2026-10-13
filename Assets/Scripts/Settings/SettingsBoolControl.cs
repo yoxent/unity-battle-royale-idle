@@ -11,6 +11,7 @@ namespace BattleRoyale.Settings
         [SerializeField] bool defaultValue = true;
         [SerializeField] TMP_Text label;
         [SerializeField] Toggle toggle;
+        [SerializeField] ToggleSwitch toggleSwitch;
         [SerializeField] GameSettingsApplicator applicator;
 
         bool subscribed;
@@ -85,7 +86,14 @@ namespace BattleRoyale.Settings
             }
 
             label.text = displayName;
-            toggle.SetIsOnWithoutNotify(binding == SettingsBinding.CameraShake ? record.cameraShake : record.vSync);
+            bool value = binding == SettingsBinding.CameraShake ? record.cameraShake : record.vSync;
+            if (toggleSwitch != null)
+            {
+                toggleSwitch.SetOn(value, false);
+                return;
+            }
+
+            toggle.SetIsOnWithoutNotify(value);
         }
 
         void HandleChanged(bool value)

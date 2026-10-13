@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4572758057259466913, guid: 2b547cfc6af43e84eab6f5fd4d4f7b5a, type: 3}
+      propertyPath: styleId
+      value: placeholder
+      objectReference: {fileID: 0}
     - target: {fileID: 6551057628832227795, guid: 2b547cfc6af43e84eab6f5fd4d4f7b5a, type: 3}
       propertyPath: m_Name
       value: CompanyIdentityTextPlaceholder
@@ -95,6 +99,18 @@ PrefabInstance:
     - target: {fileID: 7341932460087515940, guid: 2b547cfc6af43e84eab6f5fd4d4f7b5a, type: 3}
       propertyPath: m_fontStyle
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7341932460087515940, guid: 2b547cfc6af43e84eab6f5fd4d4f7b5a, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.50980395
+      objectReference: {fileID: 0}
+    - target: {fileID: 7341932460087515940, guid: 2b547cfc6af43e84eab6f5fd4d4f7b5a, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.50980395
+      objectReference: {fileID: 0}
+    - target: {fileID: 7341932460087515940, guid: 2b547cfc6af43e84eab6f5fd4d4f7b5a, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.50980395
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

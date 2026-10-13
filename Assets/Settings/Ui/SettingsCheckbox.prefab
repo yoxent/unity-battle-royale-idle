@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1590499670725159906}
   - component: {fileID: 3091259397192876560}
   - component: {fileID: 2624766772737690093}
+  - component: {fileID: 8281638757796275255}
   m_Layer: 0
   m_Name: Label
   m_TagString: Untagged
@@ -68,8 +69,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Label
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f5244d3b26066040b19c58daa5c357f, type: 2}
+  m_sharedMaterial: {fileID: 6425112995818655771, guid: 8f5244d3b26066040b19c58daa5c357f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -158,6 +159,22 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &8281638757796275255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35229577116870846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
+  styleId: heading-5
+  label: {fileID: 3091259397192876560}
+  applyColor: 0
 --- !u!1 &1495583468222499016
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,6 +459,7 @@ MonoBehaviour:
   defaultValue: 1
   label: {fileID: 3091259397192876560}
   toggle: {fileID: 739920198744907608}
+  toggleSwitch: {fileID: 0}
   applicator: {fileID: 0}
 --- !u!1 &6841154941039397435
 GameObject:

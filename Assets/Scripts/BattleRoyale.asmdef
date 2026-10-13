@@ -4,7 +4,9 @@
     "references": [
         "Unity.AI.Navigation",
         "Unity.InputSystem",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "LitMotion",
+        "LitMotion.Extensions"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

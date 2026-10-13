@@ -242,7 +242,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             var existingLine = FindSightLine(gun);
             if (existingLine != null)
             {
-                PlaceOnGun(existingLine.transform, gun);
                 if (existingLine.GetComponent<BattleRoyaleSightLines>() == null)
                 {
                     var view = existingLine.gameObject

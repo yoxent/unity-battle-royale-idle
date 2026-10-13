@@ -684,8 +684,6 @@ MonoBehaviour:
   agentParent: {fileID: 0}
   navMeshSnapDistance: 20
   autoStart: 1
-  rangeDebugCamera: {fileID: 519420031}
-  drawTemporaryRangeGui: 1
   botCount: 4
   safeZoneStartDelay: 15
   safeZoneShrinkDuration: 180
@@ -1218,8 +1216,6 @@ MonoBehaviour:
   agentParent: {fileID: 0}
   navMeshSnapDistance: 20
   autoStart: 1
-  rangeDebugCamera: {fileID: 519420031}
-  drawTemporaryRangeGui: 1
 --- !u!4 &1579452448
 Transform:
   m_ObjectHideFlags: 0

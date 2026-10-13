@@ -88,17 +88,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4572758057259466913, guid: 2b547cfc6af43e84eab6f5fd4d4f7b5a, type: 3}
+      propertyPath: styleId
+      value: small-regular
+      objectReference: {fileID: 0}
     - target: {fileID: 6551057628832227795, guid: 2b547cfc6af43e84eab6f5fd4d4f7b5a, type: 3}
       propertyPath: m_Name
       value: CompanyIdentityTextCaption
       objectReference: {fileID: 0}
     - target: {fileID: 7341932460087515940, guid: 2b547cfc6af43e84eab6f5fd4d4f7b5a, type: 3}
       propertyPath: m_fontSize
-      value: 12
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7341932460087515940, guid: 2b547cfc6af43e84eab6f5fd4d4f7b5a, type: 3}
       propertyPath: m_fontSizeBase
-      value: 12
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

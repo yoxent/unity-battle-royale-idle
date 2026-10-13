@@ -6,8 +6,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
     [DisallowMultipleComponent]
     public sealed class BattleRoyaleSightLines : MonoBehaviour
     {
-        public const float LineWidth = 1.5f;
-
         [SerializeField] private LineRenderer line;
 
         private readonly List<LineRenderer> lines = new();
@@ -49,12 +47,9 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
             renderer.enabled = true;
             renderer.useWorldSpace = false;
             renderer.positionCount = 2;
-            renderer.SetPosition(
-                0,
-                renderer.transform.InverseTransformPoint(start));
-            renderer.SetPosition(
-                1,
-                renderer.transform.InverseTransformPoint(end));
+            var point = renderer.GetPosition(1);
+            point.z = renderer.transform.InverseTransformVector(end - start).z;
+            renderer.SetPosition(1, point);
         }
 
         public void HideFrom(int index)
@@ -78,7 +73,6 @@ namespace BattleRoyale.GameModes.SoloBattleRoyale
                 UnityEngine.Rendering.ShadowCastingMode.Off;
             renderer.receiveShadows = false;
             renderer.numCapVertices = 4;
-            renderer.widthMultiplier = LineWidth;
             renderer.positionCount = 2;
             renderer.enabled = false;
         }
