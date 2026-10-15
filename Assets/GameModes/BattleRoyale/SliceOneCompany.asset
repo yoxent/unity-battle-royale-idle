@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 001f4fbf9aa63bb4c9ab558703de0c36, type: 3}
+  m_Name: SliceOneCompany
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Company.CompanyDaySetup
+  playerName: Company
+  playerStance: 1
+  playerEmblem:
+    InsigniaShape: 0
+    Icon: 0
+    FlagPattern: 0
+    Primary:
+      Red: 0
+      Green: 0
+      Blue: 0
+    Secondary:
+      Red: 0
+      Green: 0
+      Blue: 0
+    Accent:
+      Red: 0
+      Green: 0
+      Blue: 0
+  playerAgents:
+  - archetype: {fileID: 11400000, guid: c1a4d6e8f5b7428a9c3d1e7f0b6a2d4e, type: 2}
+    rarity: 0
+    rolls: 1400000008000000040000000b0000000200000006000000
+    waivedAppearances: 1
+  - archetype: {fileID: 11400000, guid: 7e2b4c9a1d6f43b8a5c0e7d2f9b6a1c3, type: 2}
+    rarity: 0
+    rolls: 050000001200000003000000090000000700000001000000
+    waivedAppearances: 1
+  - archetype: {fileID: 11400000, guid: 4a8d1f6c3e7b49a0b5d2f8c1e6a9d4b7, type: 2}
+    rarity: 0
+    rolls: 0c0000000200000013000000060000000400000008000000
+    waivedAppearances: 1
+  - archetype: {fileID: 11400000, guid: d6f1a3c8e4b74920a5d7c1f9b2e6a8c3, type: 2}
+    rarity: 0
+    rolls: 070000000e0000000100000010000000030000000a000000
+    waivedAppearances: 1
+  - archetype: {fileID: 11400000, guid: 9b3e6a1d7c4f48a2b5d8e0c6f1a9b7d3, type: 2}
+    rarity: 0
+    rolls: 090000000400000006000000020000001100000005000000
+    waivedAppearances: 1
+  opponentName: Ash Court
+  opponentStance: 2
+  opponentEmblem:
+    InsigniaShape: 0
+    Icon: 0
+    FlagPattern: 0
+    Primary:
+      Red: 0
+      Green: 0
+      Blue: 0
+    Secondary:
+      Red: 0
+      Green: 0
+      Blue: 0
+    Accent:
+      Red: 0
+      Green: 0
+      Blue: 0
+  opponentAgents:
+  - archetype: {fileID: 11400000, guid: 9b3e6a1d7c4f48a2b5d8e0c6f1a9b7d3, type: 2}
+    rarity: 0
+    rolls: 0b00000003000000080000000e0000000100000006000000
+    waivedAppearances: 0
+  - archetype: {fileID: 11400000, guid: d6f1a3c8e4b74920a5d7c1f9b2e6a8c3, type: 2}
+    rarity: 0
+    rolls: 020000001000000005000000090000000c00000004000000
+    waivedAppearances: 0
+  - archetype: {fileID: 11400000, guid: 4a8d1f6c3e7b49a0b5d2f8c1e6a9d4b7, type: 2}
+    rarity: 0
+    rolls: 120000000100000007000000030000000a0000000f000000
+    waivedAppearances: 0
+  - archetype: {fileID: 11400000, guid: 7e2b4c9a1d6f43b8a5c0e7d2f9b6a1c3, type: 2}
+    rarity: 0
+    rolls: 060000000d00000002000000080000001300000004000000
+    waivedAppearances: 0
+  - archetype: {fileID: 11400000, guid: c1a4d6e8f5b7428a9c3d1e7f0b6a2d4e, type: 2}
+    rarity: 0
+    rolls: 04000000070000000f00000001000000090000000c000000
+    waivedAppearances: 0
