@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.CameraSystems.WatchFade
   canvasGroup: {fileID: 114999600382981354}
   cover: {fileID: 7807445560068301312}
-  fadeDuration: 0.35
+  fadeDuration: 0.125
   fadeEase: 8
 --- !u!1 &1729498416437992107
 GameObject:
