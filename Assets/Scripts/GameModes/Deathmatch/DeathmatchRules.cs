@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BattleRoyale.GameModes;
 using BattleRoyale.Maps;
 using UnityEngine;
 
@@ -15,12 +16,12 @@ namespace BattleRoyale.GameModes.Deathmatch
 
         public static int RequiredTeamCount(int teamCount)
         {
-            return Mathf.Max(MinimumTeamCount, teamCount);
+            return SideRules.RequiredTeamCount(teamCount);
         }
 
         public static bool SharesTeam(int teamA, int teamB)
         {
-            return teamA >= 0 && teamA == teamB;
+            return SideRules.SharesTeam(teamA, teamB);
         }
 
         public static void AddKill(IList<int> teamScores, int killerTeam)
@@ -59,26 +60,26 @@ namespace BattleRoyale.GameModes.Deathmatch
             return winner;
         }
 
-        public static bool EnsureTeamSpawns(MapModeConfiguration configuration)
+        public static bool EnsureTeamSpawns(DeathmatchModeConfiguration configuration)
         {
-            if (configuration == null || !configuration.IsDeathmatch)
+            if (configuration == null)
             {
                 return false;
             }
 
-            configuration.deathmatchTeams ??= new List<MapModeTeamSpawn>();
+            configuration.teams ??= new List<MapTeamSpawn>();
             var requiredCount = RequiredTeamCount(configuration.teamCount);
             var changed = configuration.teamCount != requiredCount;
             configuration.teamCount = requiredCount;
             var center = configuration.map != null
                 ? configuration.map.WorldCenter
                 : Vector3.zero;
-            while (configuration.deathmatchTeams.Count < requiredCount)
+            while (configuration.teams.Count < requiredCount)
             {
-                var index = configuration.deathmatchTeams.Count;
+                var index = configuration.teams.Count;
                 var angle = (index + 0.5f) / requiredCount * Mathf.PI * 2f;
-                configuration.deathmatchTeams.Add(
-                    new MapModeTeamSpawn
+                configuration.teams.Add(
+                    new MapTeamSpawn
                     {
                         teamId = $"Team {index + 1}",
                         spawnPosition = center + new Vector3(
@@ -90,10 +91,10 @@ namespace BattleRoyale.GameModes.Deathmatch
                 changed = true;
             }
 
-            while (configuration.deathmatchTeams.Count > requiredCount)
+            while (configuration.teams.Count > requiredCount)
             {
-                configuration.deathmatchTeams.RemoveAt(
-                    configuration.deathmatchTeams.Count - 1);
+                configuration.teams.RemoveAt(
+                    configuration.teams.Count - 1);
                 changed = true;
             }
 

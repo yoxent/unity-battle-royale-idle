@@ -65,4 +65,4 @@ MonoBehaviour:
   supportedGameModes: 02000000
   modeConfigurations:
   - {fileID: 11400000, guid: 8210282272dc0364db466836d2501420, type: 2}
-  - {fileID: 11400000, guid: 7c5c96403b6c9b04f9afd83ecda7a8dc, type: 2}
+  - {fileID: 11400000, guid: 073a343de21ecb34eaed759d1194ac37, type: 2}

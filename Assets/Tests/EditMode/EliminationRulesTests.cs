@@ -43,28 +43,25 @@ namespace BattleRoyale.Tests.EditMode
             var map = Create<MapDefinition>("Map");
             map.sourceMin = Vector2.zero;
             map.sourceMax = new Vector2(200f, 200f);
-            var configuration = Create<MapModeConfiguration>("Elimination");
+            var configuration = Create<EliminationModeConfiguration>("Elimination");
             configuration.map = map;
             configuration.mode = MapGameMode.Elimination;
             configuration.teamCount = 2;
             configuration.teamSize = EliminationRules.DefaultTeamSize;
 
-            Assert.IsTrue(configuration.IsElimination);
             Assert.IsTrue(EliminationRules.EnsureTeamSpawns(configuration));
-            Assert.AreEqual(2, configuration.eliminationTeams.Count);
+            Assert.AreEqual(2, configuration.teams.Count);
             Assert.AreNotEqual(
-                configuration.eliminationTeams[0].spawnPosition,
-                configuration.eliminationTeams[1].spawnPosition);
+                configuration.teams[0].spawnPosition,
+                configuration.teams[1].spawnPosition);
             Assert.IsFalse(EliminationRules.EnsureTeamSpawns(configuration));
 
             configuration.teamCount = 1;
             Assert.IsTrue(EliminationRules.EnsureTeamSpawns(configuration));
             Assert.AreEqual(
                 EliminationRules.MinimumTeamCount,
-                configuration.eliminationTeams.Count);
-            Assert.IsFalse(
-                EliminationRules.EnsureTeamSpawns(
-                    Create<MapModeConfiguration>("Other")));
+                configuration.teams.Count);
+            Assert.IsFalse(EliminationRules.EnsureTeamSpawns(null));
         }
 
         [Test]

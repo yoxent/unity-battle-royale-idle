@@ -63,12 +63,57 @@ namespace BattleRoyale.GameModes
         private BattleRoyaleProjectilePool projectilePool;
         private BattleRoyaleAgentProfile runtimeDefaultProfile;
         private BattleRoyaleSquadCoordinator squadCoordinator;
+        private bool mapBound;
+        private bool startCalled;
 
         public TeamPlaystyle TeamPlaystyle => teamPlaystyle;
         public BattleRoyaleAgentDirective CurrentDirective => coachDirective;
         public BattleRoyaleProjectilePool Projectiles => projectilePool;
         public MapInstance ActiveMap => activeMap;
         public MapModeConfiguration ModeConfiguration => modeConfiguration;
+
+        public void UseConfiguration(MapModeConfiguration configuration)
+        {
+            modeConfiguration = configuration;
+        }
+
+        // The slot object stays. Deactivating it is what keeps this match from running.
+        public void Vacate()
+        {
+            StopRunningMatch();
+            UseConfiguration(null);
+            BindMap(null);
+            if (gameObject.activeSelf)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+
+        // Activates a vacated slot. A match whose Start already ran begins again
+        // only after the stage has bound the replacement map.
+        public void Occupy()
+        {
+            var startedBefore = startCalled;
+            if (!gameObject.activeSelf)
+            {
+                gameObject.SetActive(true);
+            }
+
+            if (!enabled)
+            {
+                enabled = true;
+            }
+
+            if (startedBefore && Application.isPlaying && autoStart && !MatchStarted)
+            {
+                BeginMatch();
+            }
+        }
+
+        public virtual bool Runs(MapGameMode mode)
+        {
+            return modeConfiguration != null && modeConfiguration.mode == mode;
+        }
         public bool IsMatchStarted => MatchStarted;
         public virtual IReadOnlyList<BattleRoyaleAgent> Agents
         {
@@ -102,9 +147,13 @@ namespace BattleRoyale.GameModes
             float healthRemoved)
         {
         }
-        public abstract bool TryGetHazardDestination(
+        public virtual bool TryGetHazardDestination(
             Vector3 fromPosition,
-            out Vector3 destination);
+            out Vector3 destination)
+        {
+            destination = fromPosition;
+            return false;
+        }
         public abstract Vector3 GetRetreatPoint(
             Vector3 fromPosition,
             Vector3 threatPosition);
@@ -200,12 +249,20 @@ namespace BattleRoyale.GameModes
 
         public void AdoptActiveMap(MapInstance map)
         {
-            if (MatchStarted || activeMap == map)
+            if (mapBound || MatchStarted || activeMap == map)
             {
                 return;
             }
 
             activeMap = map;
+        }
+
+        // The simulation stage places one map per slot and binds it here.
+        // This does not touch the Active Map manager, so no map change is published.
+        public void BindMap(MapInstance map)
+        {
+            activeMap = map;
+            mapBound = map != null;
         }
 
         protected void SetModeConfiguration(MapModeConfiguration configuration)
@@ -257,8 +314,23 @@ namespace BattleRoyale.GameModes
             AdoptActiveMap(change.Current);
         }
 
+        protected virtual void StopRunningMatch()
+        {
+            for (var i = roster.Count - 1; i >= 0; i--)
+            {
+                if (roster[i] != null)
+                {
+                    Destroy(roster[i].gameObject);
+                }
+            }
+
+            roster.Clear();
+            MatchStarted = false;
+        }
+
         private void Start()
         {
+            startCalled = true;
             if (!Application.isPlaying || !autoStart)
             {
                 return;
@@ -269,20 +341,23 @@ namespace BattleRoyale.GameModes
 
         protected bool TryBindActiveMap(string missingMapMessage)
         {
-            var manager = ActiveMapManager.Find();
-            if (manager != null && manager.ActiveMap != null)
+            if (!mapBound)
             {
-                activeMap = manager.ActiveMap;
-            }
-            else if (activeMap != null)
-            {
-                if (manager == null)
+                var manager = ActiveMapManager.Find();
+                if (manager != null && manager.ActiveMap != null)
                 {
-                    var managerObject = new GameObject("Active Map");
-                    manager = managerObject.AddComponent<ActiveMapManager>();
+                    activeMap = manager.ActiveMap;
                 }
+                else if (activeMap != null)
+                {
+                    if (manager == null)
+                    {
+                        var managerObject = new GameObject("Active Map");
+                        manager = managerObject.AddComponent<ActiveMapManager>();
+                    }
 
-                manager.SetActiveMap(activeMap);
+                    manager.SetActiveMap(activeMap);
+                }
             }
 
             if (activeMap == null || activeMap.definition == null)
@@ -329,7 +404,8 @@ namespace BattleRoyale.GameModes
             Vector3 position,
             BattleRoyaleAIStrategy strategy,
             bool isBot,
-            Action<BattleRoyaleAgent> configure = null)
+            Action<BattleRoyaleAgent> configure = null,
+            BattleRoyaleAgentProfile profileOverride = null)
         {
             var agentObject = CreateAgentObject(objectName);
             agentObject.transform.SetParent(agentParent, true);
@@ -347,11 +423,13 @@ namespace BattleRoyale.GameModes
                 agent = agentObject.AddComponent<BattleRoyaleAgent>();
             }
 
-            var profile = isBot
-                ? GetBotProfile(roster.Count)
-                : defaultProfile != null
-                    ? defaultProfile
-                    : runtimeDefaultProfile;
+            var profile = profileOverride != null
+                ? profileOverride
+                : isBot
+                    ? GetBotProfile(roster.Count)
+                    : defaultProfile != null
+                        ? defaultProfile
+                        : runtimeDefaultProfile;
             agent.Initialize(this, profile, strategy, isBot);
             agent.AssignSquadRole(
                 BattleRoyaleSquadCoordinator.GetDefaultRole(
@@ -420,7 +498,7 @@ namespace BattleRoyale.GameModes
             {
                 if (anchor == null || anchor.weight <= 0f ||
                     !NavMesh.SamplePosition(
-                        anchor.position,
+                        activeMap.WorldPoint(anchor.position),
                         out var hit,
                         navMeshSnapDistance,
                         NavMesh.AllAreas))

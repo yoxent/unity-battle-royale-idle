@@ -33,7 +33,7 @@ namespace BattleRoyale.Tests.EditMode
         public void SavedModeSettingsLoadInsteadOfDraftDefaults()
         {
             var definition = ScriptableObject.CreateInstance<MapDefinition>();
-            var configuration = ScriptableObject.CreateInstance<MapModeConfiguration>();
+            var configuration = ScriptableObject.CreateInstance<DeathmatchModeConfiguration>();
             var panel = new MapModeAuthoringPanel();
             try
             {
@@ -47,6 +47,11 @@ namespace BattleRoyale.Tests.EditMode
                 configuration.variantName = "Skirmish";
                 configuration.teamCount = 7;
                 configuration.teamSize = 4;
+                configuration.teams = new List<MapTeamSpawn>
+                {
+                    new MapTeamSpawn { teamId = "Team 1" },
+                    new MapTeamSpawn { teamId = "Team 2" }
+                };
                 configuration.scoreLimit = 40;
                 configuration.respawnSeconds = 9f;
                 definition.modeConfigurations = new List<MapModeConfiguration>
@@ -77,7 +82,7 @@ namespace BattleRoyale.Tests.EditMode
         public void SavedEliminationSettingsLoadInsteadOfDraftDefaults()
         {
             var definition = ScriptableObject.CreateInstance<MapDefinition>();
-            var configuration = ScriptableObject.CreateInstance<MapModeConfiguration>();
+            var configuration = ScriptableObject.CreateInstance<EliminationModeConfiguration>();
             var panel = new MapModeAuthoringPanel();
             var spawn = new Vector3(4f, 0f, 9f);
             try
@@ -95,15 +100,15 @@ namespace BattleRoyale.Tests.EditMode
                 configuration.roundWinLimit = 9;
                 configuration.roundSeconds = 80f;
                 configuration.intermissionSeconds = 4f;
-                configuration.eliminationTeams = new List<MapModeTeamSpawn>
+                configuration.teams = new List<MapTeamSpawn>
                 {
-                    new MapModeTeamSpawn
+                    new MapTeamSpawn
                     {
                         teamId = "Team 1",
                         spawnPosition = spawn,
                         radius = 6f
                     },
-                    new MapModeTeamSpawn
+                    new MapTeamSpawn
                     {
                         teamId = "Team 2",
                         spawnPosition = spawn + new Vector3(20f, 0f, 0f),
@@ -124,7 +129,7 @@ namespace BattleRoyale.Tests.EditMode
                 Assert.AreEqual(9, panel.BoundRoundWinLimit);
                 Assert.AreEqual(80f, panel.BoundRoundSeconds);
                 Assert.AreEqual(4f, panel.BoundIntermissionSeconds);
-                Assert.AreEqual(spawn, configuration.eliminationTeams[0].spawnPosition);
+                Assert.AreEqual(spawn, configuration.teams[0].spawnPosition);
             }
             finally
             {
@@ -137,7 +142,7 @@ namespace BattleRoyale.Tests.EditMode
         public void SavedSpawnPointsStayWhereTheyWere()
         {
             var definition = ScriptableObject.CreateInstance<MapDefinition>();
-            var configuration = ScriptableObject.CreateInstance<MapModeConfiguration>();
+            var configuration = ScriptableObject.CreateInstance<BattleRoyaleModeConfiguration>();
             var panel = new MapModeAuthoringPanel();
             var spawn = new Vector3(12f, 0f, -4f);
             try
@@ -151,10 +156,10 @@ namespace BattleRoyale.Tests.EditMode
                 configuration.variantName = "Duos";
                 configuration.teamCount = 8;
                 configuration.teamSize = 2;
-                configuration.battleRoyaleSpawnPoints = new List<MapModePoint>();
+                configuration.spawnPoints = new List<MapModePoint>();
                 for (var i = 0; i < 8; i++)
                 {
-                    configuration.battleRoyaleSpawnPoints.Add(new MapModePoint
+                    configuration.spawnPoints.Add(new MapModePoint
                     {
                         id = "Keep " + (i + 1),
                         position = spawn + new Vector3(i, 0f, 0f),
@@ -172,9 +177,9 @@ namespace BattleRoyale.Tests.EditMode
                 Assert.AreEqual("Duos", panel.BoundVariantName);
                 Assert.AreEqual(8, panel.BoundTeamCount);
                 Assert.AreEqual(2, panel.BoundTeamSize);
-                Assert.AreEqual(spawn, configuration.battleRoyaleSpawnPoints[0].position);
-                Assert.AreEqual(3f, configuration.battleRoyaleSpawnPoints[0].radius);
-                Assert.AreEqual("Keep 1", configuration.battleRoyaleSpawnPoints[0].id);
+                Assert.AreEqual(spawn, configuration.spawnPoints[0].position);
+                Assert.AreEqual(3f, configuration.spawnPoints[0].radius);
+                Assert.AreEqual("Keep 1", configuration.spawnPoints[0].id);
             }
             finally
             {

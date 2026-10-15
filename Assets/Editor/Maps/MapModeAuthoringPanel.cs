@@ -197,18 +197,18 @@ namespace BattleRoyale.Maps.EditorTools
                     continue;
                 }
 
-                if (configuration.IsBattleRoyale &&
-                    (configuration.battleRoyaleSpawnPoints == null ||
-                     configuration.battleRoyaleSpawnPoints.Count == 0))
+                if (configuration is BattleRoyaleModeConfiguration battleRoyale &&
+                    (battleRoyale.spawnPoints == null ||
+                     battleRoyale.spawnPoints.Count == 0))
                 {
                     errorMessage =
                         $"Battle Royale configuration '{configuration.name}' needs at least one starting spawn point.";
                     return false;
                 }
 
-                if (configuration.IsCaptureTheFlag &&
-                    (configuration.captureTheFlagTeams == null ||
-                     configuration.captureTheFlagTeams.Count <
+                if (configuration is CaptureTheFlagModeConfiguration captureTheFlag &&
+                    (captureTheFlag.teams == null ||
+                     captureTheFlag.teams.Count <
                      Mathf.Max(2, configuration.teamCount)))
                 {
                     errorMessage =
@@ -216,9 +216,9 @@ namespace BattleRoyale.Maps.EditorTools
                     return false;
                 }
 
-                if (configuration.IsDeathmatch &&
-                    (configuration.deathmatchTeams == null ||
-                     configuration.deathmatchTeams.Count <
+                if (configuration is DeathmatchModeConfiguration deathmatch &&
+                    (deathmatch.teams == null ||
+                     deathmatch.teams.Count <
                      DeathmatchRules.RequiredTeamCount(configuration.teamCount)))
                 {
                     errorMessage =
@@ -226,9 +226,9 @@ namespace BattleRoyale.Maps.EditorTools
                     return false;
                 }
 
-                if (configuration.IsElimination &&
-                    (configuration.eliminationTeams == null ||
-                     configuration.eliminationTeams.Count <
+                if (configuration is EliminationModeConfiguration elimination &&
+                    (elimination.teams == null ||
+                     elimination.teams.Count <
                      EliminationRules.RequiredTeamCount(configuration.teamCount)))
                 {
                     errorMessage =
@@ -275,21 +275,21 @@ namespace BattleRoyale.Maps.EditorTools
                     $"{configuration.mode}_{SanitizeName(configuration.variantName)}");
                 configurationRoot.transform.SetParent(markerRoot.transform, false);
 
-                if (configuration.IsBattleRoyale)
+                if (configuration is BattleRoyaleModeConfiguration battleRoyale)
                 {
-                    AddBattleRoyaleMarkers(configurationRoot.transform, configuration);
+                    AddBattleRoyaleMarkers(configurationRoot.transform, battleRoyale);
                 }
-                else if (configuration.IsCaptureTheFlag)
+                else if (configuration is CaptureTheFlagModeConfiguration captureTheFlag)
                 {
-                    AddCaptureTheFlagMarkers(configurationRoot.transform, configuration);
+                    AddCaptureTheFlagMarkers(configurationRoot.transform, captureTheFlag);
                 }
-                else if (configuration.IsDeathmatch)
+                else if (configuration is DeathmatchModeConfiguration deathmatch)
                 {
-                    AddDeathmatchMarkers(configurationRoot.transform, configuration);
+                    AddDeathmatchMarkers(configurationRoot.transform, deathmatch);
                 }
-                else if (configuration.IsElimination)
+                else if (configuration is EliminationModeConfiguration elimination)
                 {
-                    AddEliminationMarkers(configurationRoot.transform, configuration);
+                    AddEliminationMarkers(configurationRoot.transform, elimination);
                 }
             }
         }
@@ -415,19 +415,19 @@ namespace BattleRoyale.Maps.EditorTools
                 return;
             }
 
-            if (selectedConfiguration.IsBattleRoyale)
+            if (selectedConfiguration is BattleRoyaleModeConfiguration)
             {
                 DrawBattleRoyalePoints(mapDefinition);
             }
-            else if (selectedConfiguration.IsCaptureTheFlag)
+            else if (selectedConfiguration is CaptureTheFlagModeConfiguration)
             {
                 DrawCaptureTheFlagPoints(mapDefinition);
             }
-            else if (selectedConfiguration.IsDeathmatch)
+            else if (selectedConfiguration is DeathmatchModeConfiguration)
             {
                 DrawDeathmatchPoints(mapDefinition);
             }
-            else if (selectedConfiguration.IsElimination)
+            else if (selectedConfiguration is EliminationModeConfiguration)
             {
                 DrawEliminationPoints(mapDefinition);
             }
@@ -435,16 +435,21 @@ namespace BattleRoyale.Maps.EditorTools
 
         private void DrawBattleRoyalePoints(MapDefinition mapDefinition)
         {
-            selectedConfiguration.battleRoyaleSpawnPoints ??= new List<MapModePoint>();
+            if (selectedConfiguration is not BattleRoyaleModeConfiguration battleRoyale)
+            {
+                return;
+            }
+
+            battleRoyale.spawnPoints ??= new List<MapModePoint>();
             EditorGUILayout.LabelField("Starting Spawn Points", EditorStyles.boldLabel);
 
-            for (var i = 0; i < selectedConfiguration.battleRoyaleSpawnPoints.Count; i++)
+            for (var i = 0; i < battleRoyale.spawnPoints.Count; i++)
             {
-                var point = selectedConfiguration.battleRoyaleSpawnPoints[i];
+                var point = battleRoyale.spawnPoints[i];
                 if (point == null)
                 {
                     point = new MapModePoint();
-                    selectedConfiguration.battleRoyaleSpawnPoints[i] = point;
+                    battleRoyale.spawnPoints[i] = point;
                 }
 
                 using (new EditorGUILayout.HorizontalScope())
@@ -456,11 +461,11 @@ namespace BattleRoyale.Maps.EditorTools
                     if (GUILayout.Button("Remove", GUILayout.Width(70f)))
                     {
                         teamCount = Mathf.Max(1, teamCount - 1);
-                        Undo.RecordObject(selectedConfiguration, "Remove Battle Royale Spawn Point");
-                        selectedConfiguration.teamCount = teamCount;
-                        EnsureBattleRoyaleSpawnPoints(selectedConfiguration);
-                        EditorUtility.SetDirty(selectedConfiguration);
-                        SyncBattleRoyaleMarkers(selectedConfiguration);
+                        Undo.RecordObject(battleRoyale, "Remove Battle Royale Spawn Point");
+                        battleRoyale.teamCount = teamCount;
+                        EnsureBattleRoyaleSpawnPoints(battleRoyale);
+                        EditorUtility.SetDirty(battleRoyale);
+                        SyncBattleRoyaleMarkers(battleRoyale);
                         i--;
                         continue;
                     }
@@ -468,14 +473,14 @@ namespace BattleRoyale.Maps.EditorTools
                     if (pointIdChanged)
                     {
                         Undo.RecordObject(
-                            selectedConfiguration,
+                            battleRoyale,
                             "Rename Battle Royale Spawn Point");
                         point.id = pointId;
-                        EditorUtility.SetDirty(selectedConfiguration);
+                        EditorUtility.SetDirty(battleRoyale);
                     }
                 }
 
-                DrawPointPosition(selectedConfiguration, point, "Position");
+                DrawPointPosition(battleRoyale, point, "Position");
                 EditorGUI.BeginChangeCheck();
                 var radius = Mathf.Max(
                     0f,
@@ -483,12 +488,12 @@ namespace BattleRoyale.Maps.EditorTools
                 if (EditorGUI.EndChangeCheck())
                 {
                     Undo.RecordObject(
-                        selectedConfiguration,
+                        battleRoyale,
                         "Edit Battle Royale Spawn Radius");
                     point.radius = radius;
-                    EditorUtility.SetDirty(selectedConfiguration);
+                    EditorUtility.SetDirty(battleRoyale);
                     UpdateMarkerDiscDiameter(
-                        selectedConfiguration,
+                        battleRoyale,
                         MapModePointType.BattleRoyaleSpawn,
                         i,
                         radius);
@@ -498,23 +503,28 @@ namespace BattleRoyale.Maps.EditorTools
             if (GUILayout.Button("Add Battle Royale Spawn Point"))
             {
                 teamCount++;
-                Undo.RecordObject(selectedConfiguration, "Add Battle Royale Spawn Point");
-                selectedConfiguration.teamCount = teamCount;
-                EnsureBattleRoyaleSpawnPoints(selectedConfiguration);
-                EditorUtility.SetDirty(selectedConfiguration);
-                SyncBattleRoyaleMarkers(selectedConfiguration);
+                Undo.RecordObject(battleRoyale, "Add Battle Royale Spawn Point");
+                battleRoyale.teamCount = teamCount;
+                EnsureBattleRoyaleSpawnPoints(battleRoyale);
+                EditorUtility.SetDirty(battleRoyale);
+                SyncBattleRoyaleMarkers(battleRoyale);
             }
         }
 
         private void DrawCaptureTheFlagPoints(MapDefinition mapDefinition)
         {
-            selectedConfiguration.captureTheFlagTeams ??= new List<MapModeTeamPoints>();
-            EnsureCaptureTheFlagTeams(selectedConfiguration);
+            if (selectedConfiguration is not CaptureTheFlagModeConfiguration captureTheFlag)
+            {
+                return;
+            }
+
+            captureTheFlag.teams ??= new List<MapModeTeamPoints>();
+            EnsureCaptureTheFlagTeams(captureTheFlag);
             EditorGUILayout.LabelField("Team Points", EditorStyles.boldLabel);
 
-            for (var i = 0; i < selectedConfiguration.captureTheFlagTeams.Count; i++)
+            for (var i = 0; i < captureTheFlag.teams.Count; i++)
             {
-                var team = selectedConfiguration.captureTheFlagTeams[i];
+                var team = captureTheFlag.teams[i];
                 EditorGUI.BeginChangeCheck();
                 EditorGUILayout.LabelField(team.teamId, EditorStyles.miniBoldLabel);
                 var teamId = EditorGUILayout.TextField("Team Id", team.teamId);
@@ -530,27 +540,27 @@ namespace BattleRoyale.Maps.EditorTools
                 if (EditorGUI.EndChangeCheck())
                 {
                     Undo.RecordObject(
-                        selectedConfiguration,
+                        captureTheFlag,
                         "Edit Capture The Flag Points");
                     team.teamId = teamId;
                     team.spawnPosition = spawnPosition;
                     team.basePosition = basePosition;
                     team.flagPosition = flagPosition;
-                    EditorUtility.SetDirty(selectedConfiguration);
+                    EditorUtility.SetDirty(captureTheFlag);
                     UpdateMarkerTransform(
-                        selectedConfiguration,
+                        captureTheFlag,
                         MapModePointType.TeamSpawn,
                         i,
                         i,
                         spawnPosition);
                     UpdateMarkerTransform(
-                        selectedConfiguration,
+                        captureTheFlag,
                         MapModePointType.TeamBase,
                         i,
                         i,
                         basePosition);
                     UpdateMarkerTransform(
-                        selectedConfiguration,
+                        captureTheFlag,
                         MapModePointType.TeamFlag,
                         i,
                         i,
@@ -561,38 +571,43 @@ namespace BattleRoyale.Maps.EditorTools
 
             if (GUILayout.Button("Reset Team Points To Map Center"))
             {
-                Undo.RecordObject(selectedConfiguration, "Reset Capture The Flag Points");
-                for (var i = 0; i < selectedConfiguration.captureTheFlagTeams.Count; i++)
+                Undo.RecordObject(captureTheFlag, "Reset Capture The Flag Points");
+                for (var i = 0; i < captureTheFlag.teams.Count; i++)
                 {
                     var center = GetMapCenter(mapDefinition);
-                    selectedConfiguration.captureTheFlagTeams[i].spawnPosition = center;
-                    selectedConfiguration.captureTheFlagTeams[i].basePosition = center;
-                    selectedConfiguration.captureTheFlagTeams[i].flagPosition = center;
+                    captureTheFlag.teams[i].spawnPosition = center;
+                    captureTheFlag.teams[i].basePosition = center;
+                    captureTheFlag.teams[i].flagPosition = center;
                 }
 
-                EditorUtility.SetDirty(selectedConfiguration);
+                EditorUtility.SetDirty(captureTheFlag);
             }
         }
 
         private void DrawDeathmatchPoints(MapDefinition mapDefinition)
         {
-            selectedConfiguration.deathmatchTeams ??= new List<MapModeTeamSpawn>();
-            DeathmatchRules.EnsureTeamSpawns(selectedConfiguration);
+            if (selectedConfiguration is not DeathmatchModeConfiguration deathmatch)
+            {
+                return;
+            }
+
+            deathmatch.teams ??= new List<MapTeamSpawn>();
+            DeathmatchRules.EnsureTeamSpawns(deathmatch);
             EditorGUILayout.LabelField("Team Spawns", EditorStyles.boldLabel);
 
-            for (var i = 0; i < selectedConfiguration.deathmatchTeams.Count; i++)
+            for (var i = 0; i < deathmatch.teams.Count; i++)
             {
-                var team = selectedConfiguration.deathmatchTeams[i];
+                var team = deathmatch.teams[i];
                 if (team == null)
                 {
-                    team = new MapModeTeamSpawn();
-                    selectedConfiguration.deathmatchTeams[i] = team;
+                    team = new MapTeamSpawn();
+                    deathmatch.teams[i] = team;
                 }
 
                 using (new EditorGUILayout.HorizontalScope())
                 {
                     EditorGUILayout.LabelField(team.teamId, EditorStyles.miniBoldLabel);
-                    if (selectedConfiguration.deathmatchTeams.Count >
+                    if (deathmatch.teams.Count >
                             DeathmatchRules.MinimumTeamCount &&
                         GUILayout.Button("Remove", GUILayout.Width(70f)))
                     {
@@ -600,12 +615,12 @@ namespace BattleRoyale.Maps.EditorTools
                             DeathmatchRules.MinimumTeamCount,
                             teamCount - 1);
                         Undo.RecordObject(
-                            selectedConfiguration,
+                            deathmatch,
                             "Remove Deathmatch Spawn");
-                        selectedConfiguration.teamCount = teamCount;
-                        DeathmatchRules.EnsureTeamSpawns(selectedConfiguration);
-                        EditorUtility.SetDirty(selectedConfiguration);
-                        SyncDeathmatchMarkers(selectedConfiguration);
+                        deathmatch.teamCount = teamCount;
+                        DeathmatchRules.EnsureTeamSpawns(deathmatch);
+                        EditorUtility.SetDirty(deathmatch);
+                        SyncDeathmatchMarkers(deathmatch);
                         i--;
                         continue;
                     }
@@ -622,20 +637,20 @@ namespace BattleRoyale.Maps.EditorTools
                 if (EditorGUI.EndChangeCheck())
                 {
                     Undo.RecordObject(
-                        selectedConfiguration,
+                        deathmatch,
                         "Edit Deathmatch Spawn");
                     team.teamId = teamId;
                     team.spawnPosition = spawnPosition;
                     team.radius = radius;
-                    EditorUtility.SetDirty(selectedConfiguration);
+                    EditorUtility.SetDirty(deathmatch);
                     UpdateMarkerTransform(
-                        selectedConfiguration,
+                        deathmatch,
                         MapModePointType.DeathmatchSpawn,
                         i,
                         i,
                         spawnPosition);
                     UpdateMarkerDiscDiameter(
-                        selectedConfiguration,
+                        deathmatch,
                         MapModePointType.DeathmatchSpawn,
                         i,
                         radius);
@@ -647,23 +662,23 @@ namespace BattleRoyale.Maps.EditorTools
             if (GUILayout.Button("Add Team Spawn"))
             {
                 teamCount++;
-                Undo.RecordObject(selectedConfiguration, "Add Deathmatch Spawn");
-                selectedConfiguration.teamCount = teamCount;
-                DeathmatchRules.EnsureTeamSpawns(selectedConfiguration);
-                EditorUtility.SetDirty(selectedConfiguration);
-                SyncDeathmatchMarkers(selectedConfiguration);
+                Undo.RecordObject(deathmatch, "Add Deathmatch Spawn");
+                deathmatch.teamCount = teamCount;
+                DeathmatchRules.EnsureTeamSpawns(deathmatch);
+                EditorUtility.SetDirty(deathmatch);
+                SyncDeathmatchMarkers(deathmatch);
             }
 
             if (GUILayout.Button("Reset Team Spawns Around Map Center"))
             {
                 Undo.RecordObject(
-                    selectedConfiguration,
+                    deathmatch,
                     "Reset Deathmatch Spawns");
                 var center = GetMapCenter(mapDefinition);
-                var count = selectedConfiguration.deathmatchTeams.Count;
+                var count = deathmatch.teams.Count;
                 for (var i = 0; i < count; i++)
                 {
-                    var team = selectedConfiguration.deathmatchTeams[i];
+                    var team = deathmatch.teams[i];
                     if (team == null)
                     {
                         continue;
@@ -675,36 +690,41 @@ namespace BattleRoyale.Maps.EditorTools
                         0f,
                         Mathf.Sin(angle) * DeathmatchRules.SpawnRingRadius);
                     UpdateMarkerTransform(
-                        selectedConfiguration,
+                        deathmatch,
                         MapModePointType.DeathmatchSpawn,
                         i,
                         i,
                         team.spawnPosition);
                 }
 
-                EditorUtility.SetDirty(selectedConfiguration);
+                EditorUtility.SetDirty(deathmatch);
             }
         }
 
         private void DrawEliminationPoints(MapDefinition mapDefinition)
         {
-            selectedConfiguration.eliminationTeams ??= new List<MapModeTeamSpawn>();
-            EliminationRules.EnsureTeamSpawns(selectedConfiguration);
+            if (selectedConfiguration is not EliminationModeConfiguration elimination)
+            {
+                return;
+            }
+
+            elimination.teams ??= new List<MapTeamSpawn>();
+            EliminationRules.EnsureTeamSpawns(elimination);
             EditorGUILayout.LabelField("Team Spawns", EditorStyles.boldLabel);
 
-            for (var i = 0; i < selectedConfiguration.eliminationTeams.Count; i++)
+            for (var i = 0; i < elimination.teams.Count; i++)
             {
-                var team = selectedConfiguration.eliminationTeams[i];
+                var team = elimination.teams[i];
                 if (team == null)
                 {
-                    team = new MapModeTeamSpawn();
-                    selectedConfiguration.eliminationTeams[i] = team;
+                    team = new MapTeamSpawn();
+                    elimination.teams[i] = team;
                 }
 
                 using (new EditorGUILayout.HorizontalScope())
                 {
                     EditorGUILayout.LabelField(team.teamId, EditorStyles.miniBoldLabel);
-                    if (selectedConfiguration.eliminationTeams.Count >
+                    if (elimination.teams.Count >
                             EliminationRules.MinimumTeamCount &&
                         GUILayout.Button("Remove", GUILayout.Width(70f)))
                     {
@@ -712,12 +732,12 @@ namespace BattleRoyale.Maps.EditorTools
                             EliminationRules.MinimumTeamCount,
                             teamCount - 1);
                         Undo.RecordObject(
-                            selectedConfiguration,
+                            elimination,
                             "Remove Elimination Spawn");
-                        selectedConfiguration.teamCount = teamCount;
-                        EliminationRules.EnsureTeamSpawns(selectedConfiguration);
-                        EditorUtility.SetDirty(selectedConfiguration);
-                        SyncEliminationMarkers(selectedConfiguration);
+                        elimination.teamCount = teamCount;
+                        EliminationRules.EnsureTeamSpawns(elimination);
+                        EditorUtility.SetDirty(elimination);
+                        SyncEliminationMarkers(elimination);
                         i--;
                         continue;
                     }
@@ -734,20 +754,20 @@ namespace BattleRoyale.Maps.EditorTools
                 if (EditorGUI.EndChangeCheck())
                 {
                     Undo.RecordObject(
-                        selectedConfiguration,
+                        elimination,
                         "Edit Elimination Spawn");
                     team.teamId = teamId;
                     team.spawnPosition = spawnPosition;
                     team.radius = radius;
-                    EditorUtility.SetDirty(selectedConfiguration);
+                    EditorUtility.SetDirty(elimination);
                     UpdateMarkerTransform(
-                        selectedConfiguration,
+                        elimination,
                         MapModePointType.EliminationSpawn,
                         i,
                         i,
                         spawnPosition);
                     UpdateMarkerDiscDiameter(
-                        selectedConfiguration,
+                        elimination,
                         MapModePointType.EliminationSpawn,
                         i,
                         radius);
@@ -759,23 +779,23 @@ namespace BattleRoyale.Maps.EditorTools
             if (GUILayout.Button("Add Team Spawn"))
             {
                 teamCount++;
-                Undo.RecordObject(selectedConfiguration, "Add Elimination Spawn");
-                selectedConfiguration.teamCount = teamCount;
-                EliminationRules.EnsureTeamSpawns(selectedConfiguration);
-                EditorUtility.SetDirty(selectedConfiguration);
-                SyncEliminationMarkers(selectedConfiguration);
+                Undo.RecordObject(elimination, "Add Elimination Spawn");
+                elimination.teamCount = teamCount;
+                EliminationRules.EnsureTeamSpawns(elimination);
+                EditorUtility.SetDirty(elimination);
+                SyncEliminationMarkers(elimination);
             }
 
             if (GUILayout.Button("Reset Team Spawns Around Map Center"))
             {
                 Undo.RecordObject(
-                    selectedConfiguration,
+                    elimination,
                     "Reset Elimination Spawns");
                 var center = GetMapCenter(mapDefinition);
-                var count = selectedConfiguration.eliminationTeams.Count;
+                var count = elimination.teams.Count;
                 for (var i = 0; i < count; i++)
                 {
-                    var team = selectedConfiguration.eliminationTeams[i];
+                    var team = elimination.teams[i];
                     if (team == null)
                     {
                         continue;
@@ -787,19 +807,19 @@ namespace BattleRoyale.Maps.EditorTools
                         0f,
                         Mathf.Sin(angle) * EliminationRules.SpawnRingRadius);
                     UpdateMarkerTransform(
-                        selectedConfiguration,
+                        elimination,
                         MapModePointType.EliminationSpawn,
                         i,
                         i,
                         team.spawnPosition);
                 }
 
-                EditorUtility.SetDirty(selectedConfiguration);
+                EditorUtility.SetDirty(elimination);
             }
         }
 
         private void DrawPointPosition(
-            MapModeConfiguration configuration,
+            BattleRoyaleModeConfiguration configuration,
             MapModePoint point,
             string label)
         {
@@ -816,7 +836,7 @@ namespace BattleRoyale.Maps.EditorTools
             UpdateMarkerTransform(
                 configuration,
                 MapModePointType.BattleRoyaleSpawn,
-                configuration.battleRoyaleSpawnPoints.IndexOf(point),
+                configuration.spawnPoints.IndexOf(point),
                 -1,
                 position);
         }
@@ -848,8 +868,7 @@ namespace BattleRoyale.Maps.EditorTools
                 if (selectedConfiguration == null)
                 {
                     path = AssetDatabase.GenerateUniqueAssetPath(path);
-                    selectedConfiguration =
-                        ScriptableObject.CreateInstance<MapModeConfiguration>();
+                    selectedConfiguration = CreateConfigurationInstance(selectedMode);
                     selectedConfiguration.name =
                         $"{mapName}_{selectedMode}_{safeVariantName}";
                     AssetDatabase.CreateAsset(selectedConfiguration, path);
@@ -881,6 +900,25 @@ namespace BattleRoyale.Maps.EditorTools
             Selection.activeObject = selectedConfiguration;
         }
 
+        private static MapModeConfiguration CreateConfigurationInstance(MapGameMode mode)
+        {
+            return mode switch
+            {
+                MapGameMode.BattleRoyale =>
+                    ScriptableObject.CreateInstance<BattleRoyaleModeConfiguration>(),
+                MapGameMode.CaptureTheFlag =>
+                    ScriptableObject.CreateInstance<CaptureTheFlagModeConfiguration>(),
+                MapGameMode.Deathmatch =>
+                    ScriptableObject.CreateInstance<DeathmatchModeConfiguration>(),
+                MapGameMode.Elimination =>
+                    ScriptableObject.CreateInstance<EliminationModeConfiguration>(),
+                _ => throw new ArgumentOutOfRangeException(
+                    nameof(mode),
+                    mode,
+                    "This mode has no configuration asset type yet.")
+            };
+        }
+
         private void ApplySettingsToConfiguration()
         {
             if (selectedConfiguration == null)
@@ -889,6 +927,10 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             EnsureLists(selectedConfiguration);
+            var battleRoyale = selectedConfiguration as BattleRoyaleModeConfiguration;
+            var captureTheFlag = selectedConfiguration as CaptureTheFlagModeConfiguration;
+            var deathmatch = selectedConfiguration as DeathmatchModeConfiguration;
+            var elimination = selectedConfiguration as EliminationModeConfiguration;
             var nextVariant = string.IsNullOrWhiteSpace(variantName)
                 ? "Default"
                 : variantName.Trim();
@@ -904,50 +946,47 @@ namespace BattleRoyale.Maps.EditorTools
                 selectedConfiguration.variantName == nextVariant &&
                 selectedConfiguration.teamCount == nextTeamCount &&
                 selectedConfiguration.teamSize == nextTeamSize;
-            if (selectedConfiguration.IsDeathmatch)
+            if (deathmatch != null)
             {
                 settingsMatch = settingsMatch &&
-                    selectedConfiguration.scoreLimit == nextScoreLimit &&
+                    deathmatch.scoreLimit == nextScoreLimit &&
                     Mathf.Approximately(
-                        selectedConfiguration.respawnSeconds,
+                        deathmatch.respawnSeconds,
                         nextRespawnSeconds);
             }
-            else if (selectedConfiguration.IsElimination)
+            else if (elimination != null)
             {
                 settingsMatch = settingsMatch &&
-                    selectedConfiguration.roundWinLimit == nextRoundWinLimit &&
+                    elimination.roundWinLimit == nextRoundWinLimit &&
                     Mathf.Approximately(
-                        selectedConfiguration.roundSeconds,
+                        elimination.roundSeconds,
                         nextRoundSeconds) &&
                     Mathf.Approximately(
-                        selectedConfiguration.intermissionSeconds,
+                        elimination.intermissionSeconds,
                         nextIntermissionSeconds);
             }
 
             if (settingsMatch)
             {
-                if (selectedConfiguration.IsCaptureTheFlag)
+                if (captureTheFlag != null)
                 {
-                    EnsureCaptureTheFlagTeams(selectedConfiguration);
+                    EnsureCaptureTheFlagTeams(captureTheFlag);
                 }
-                else if (selectedConfiguration.IsDeathmatch)
+                else if (deathmatch != null)
                 {
-                    spawnCountChanged = DeathmatchRules.EnsureTeamSpawns(
-                        selectedConfiguration);
+                    spawnCountChanged = DeathmatchRules.EnsureTeamSpawns(deathmatch);
                 }
-                else if (selectedConfiguration.IsElimination)
+                else if (elimination != null)
                 {
-                    spawnCountChanged = EliminationRules.EnsureTeamSpawns(
-                        selectedConfiguration);
+                    spawnCountChanged = EliminationRules.EnsureTeamSpawns(elimination);
                 }
-                else if (selectedConfiguration.IsBattleRoyale &&
-                         SpawnCountNeedsUpdate(selectedConfiguration))
+                else if (battleRoyale != null &&
+                         SpawnCountNeedsUpdate(battleRoyale))
                 {
                     Undo.RecordObject(
                         selectedConfiguration,
                         "Update Battle Royale Spawn Points");
-                    spawnCountChanged = EnsureBattleRoyaleSpawnPoints(
-                        selectedConfiguration);
+                    spawnCountChanged = EnsureBattleRoyaleSpawnPoints(battleRoyale);
                 }
 
                 if (spawnCountChanged)
@@ -963,29 +1002,26 @@ namespace BattleRoyale.Maps.EditorTools
             selectedConfiguration.variantName = nextVariant;
             selectedConfiguration.teamCount = nextTeamCount;
             selectedConfiguration.teamSize = nextTeamSize;
-            if (selectedConfiguration.IsDeathmatch)
+            if (deathmatch != null)
             {
-                selectedConfiguration.scoreLimit = nextScoreLimit;
-                selectedConfiguration.respawnSeconds = nextRespawnSeconds;
-                spawnCountChanged = DeathmatchRules.EnsureTeamSpawns(
-                    selectedConfiguration);
+                deathmatch.scoreLimit = nextScoreLimit;
+                deathmatch.respawnSeconds = nextRespawnSeconds;
+                spawnCountChanged = DeathmatchRules.EnsureTeamSpawns(deathmatch);
             }
-            else if (selectedConfiguration.IsElimination)
+            else if (elimination != null)
             {
-                selectedConfiguration.roundWinLimit = nextRoundWinLimit;
-                selectedConfiguration.roundSeconds = nextRoundSeconds;
-                selectedConfiguration.intermissionSeconds = nextIntermissionSeconds;
-                spawnCountChanged = EliminationRules.EnsureTeamSpawns(
-                    selectedConfiguration);
+                elimination.roundWinLimit = nextRoundWinLimit;
+                elimination.roundSeconds = nextRoundSeconds;
+                elimination.intermissionSeconds = nextIntermissionSeconds;
+                spawnCountChanged = EliminationRules.EnsureTeamSpawns(elimination);
             }
-            else if (selectedConfiguration.IsCaptureTheFlag)
+            else if (captureTheFlag != null)
             {
-                EnsureCaptureTheFlagTeams(selectedConfiguration);
+                EnsureCaptureTheFlagTeams(captureTheFlag);
             }
-            else if (selectedConfiguration.IsBattleRoyale)
+            else if (battleRoyale != null)
             {
-                spawnCountChanged = EnsureBattleRoyaleSpawnPoints(
-                    selectedConfiguration);
+                spawnCountChanged = EnsureBattleRoyaleSpawnPoints(battleRoyale);
             }
 
             EditorUtility.SetDirty(selectedConfiguration);
@@ -997,17 +1033,17 @@ namespace BattleRoyale.Maps.EditorTools
 
         private static void SyncModeMarkers(MapModeConfiguration configuration)
         {
-            if (configuration.IsBattleRoyale)
+            if (configuration is BattleRoyaleModeConfiguration battleRoyale)
             {
-                SyncBattleRoyaleMarkers(configuration);
+                SyncBattleRoyaleMarkers(battleRoyale);
             }
-            else if (configuration.IsDeathmatch)
+            else if (configuration is DeathmatchModeConfiguration deathmatch)
             {
-                SyncDeathmatchMarkers(configuration);
+                SyncDeathmatchMarkers(deathmatch);
             }
-            else if (configuration.IsElimination)
+            else if (configuration is EliminationModeConfiguration elimination)
             {
-                SyncEliminationMarkers(configuration);
+                SyncEliminationMarkers(elimination);
             }
         }
 
@@ -1071,25 +1107,23 @@ namespace BattleRoyale.Maps.EditorTools
             variantName = selectedConfiguration.variantName;
             teamCount = selectedConfiguration.teamCount;
             teamSize = selectedConfiguration.teamSize;
-            scoreLimit = Mathf.Max(1, selectedConfiguration.scoreLimit);
-            respawnSeconds = Mathf.Max(0f, selectedConfiguration.respawnSeconds);
-            roundWinLimit = Mathf.Max(1, selectedConfiguration.roundWinLimit);
-            roundSeconds = Mathf.Max(1f, selectedConfiguration.roundSeconds);
-            intermissionSeconds = Mathf.Max(
-                0f,
-                selectedConfiguration.intermissionSeconds);
             EnsureLists(selectedConfiguration);
-            if (selectedConfiguration.IsCaptureTheFlag)
+            if (selectedConfiguration is CaptureTheFlagModeConfiguration captureTheFlag)
             {
-                EnsureCaptureTheFlagTeams(selectedConfiguration);
+                EnsureCaptureTheFlagTeams(captureTheFlag);
             }
-            else if (selectedConfiguration.IsDeathmatch)
+            else if (selectedConfiguration is DeathmatchModeConfiguration deathmatch)
             {
-                DeathmatchRules.EnsureTeamSpawns(selectedConfiguration);
+                scoreLimit = Mathf.Max(1, deathmatch.scoreLimit);
+                respawnSeconds = Mathf.Max(0f, deathmatch.respawnSeconds);
+                DeathmatchRules.EnsureTeamSpawns(deathmatch);
             }
-            else if (selectedConfiguration.IsElimination)
+            else if (selectedConfiguration is EliminationModeConfiguration elimination)
             {
-                EliminationRules.EnsureTeamSpawns(selectedConfiguration);
+                roundWinLimit = Mathf.Max(1, elimination.roundWinLimit);
+                roundSeconds = Mathf.Max(1f, elimination.roundSeconds);
+                intermissionSeconds = Mathf.Max(0f, elimination.intermissionSeconds);
+                EliminationRules.EnsureTeamSpawns(elimination);
             }
         }
 
@@ -1181,19 +1215,19 @@ namespace BattleRoyale.Maps.EditorTools
                 return;
             }
 
-            if (selectedConfiguration.IsBattleRoyale)
+            if (selectedConfiguration is BattleRoyaleModeConfiguration)
             {
                 DrawBattleRoyaleHandles(mapRoot);
             }
-            else if (selectedConfiguration.IsCaptureTheFlag)
+            else if (selectedConfiguration is CaptureTheFlagModeConfiguration)
             {
                 DrawCaptureTheFlagHandles(mapRoot);
             }
-            else if (selectedConfiguration.IsDeathmatch)
+            else if (selectedConfiguration is DeathmatchModeConfiguration)
             {
                 DrawDeathmatchHandles(mapRoot);
             }
-            else if (selectedConfiguration.IsElimination)
+            else if (selectedConfiguration is EliminationModeConfiguration)
             {
                 DrawEliminationHandles(mapRoot);
             }
@@ -1201,14 +1235,19 @@ namespace BattleRoyale.Maps.EditorTools
 
         private void DrawBattleRoyaleHandles(Transform mapRoot)
         {
-            if (selectedConfiguration.battleRoyaleSpawnPoints == null)
+            if (selectedConfiguration is not BattleRoyaleModeConfiguration battleRoyale)
             {
                 return;
             }
 
-            for (var i = 0; i < selectedConfiguration.battleRoyaleSpawnPoints.Count; i++)
+            if (battleRoyale.spawnPoints == null)
             {
-                var point = selectedConfiguration.battleRoyaleSpawnPoints[i];
+                return;
+            }
+
+            for (var i = 0; i < battleRoyale.spawnPoints.Count; i++)
+            {
+                var point = battleRoyale.spawnPoints[i];
                 if (point == null)
                 {
                     continue;
@@ -1216,7 +1255,7 @@ namespace BattleRoyale.Maps.EditorTools
 
                 DrawPositionHandle(
                     mapRoot,
-                    selectedConfiguration,
+                    battleRoyale,
                     MapModePointType.BattleRoyaleSpawn,
                     i,
                     -1,
@@ -1228,14 +1267,19 @@ namespace BattleRoyale.Maps.EditorTools
 
         private void DrawCaptureTheFlagHandles(Transform mapRoot)
         {
-            if (selectedConfiguration.captureTheFlagTeams == null)
+            if (selectedConfiguration is not CaptureTheFlagModeConfiguration captureTheFlag)
             {
                 return;
             }
 
-            for (var i = 0; i < selectedConfiguration.captureTheFlagTeams.Count; i++)
+            if (captureTheFlag.teams == null)
             {
-                var team = selectedConfiguration.captureTheFlagTeams[i];
+                return;
+            }
+
+            for (var i = 0; i < captureTheFlag.teams.Count; i++)
+            {
+                var team = captureTheFlag.teams[i];
                 if (team == null)
                 {
                     continue;
@@ -1243,7 +1287,7 @@ namespace BattleRoyale.Maps.EditorTools
 
                 DrawPositionHandle(
                     mapRoot,
-                    selectedConfiguration,
+                    captureTheFlag,
                     MapModePointType.TeamSpawn,
                     i,
                     i,
@@ -1252,7 +1296,7 @@ namespace BattleRoyale.Maps.EditorTools
                     ref team.spawnPosition);
                 DrawPositionHandle(
                     mapRoot,
-                    selectedConfiguration,
+                    captureTheFlag,
                     MapModePointType.TeamBase,
                     i,
                     i,
@@ -1261,7 +1305,7 @@ namespace BattleRoyale.Maps.EditorTools
                     ref team.basePosition);
                 DrawPositionHandle(
                     mapRoot,
-                    selectedConfiguration,
+                    captureTheFlag,
                     MapModePointType.TeamFlag,
                     i,
                     i,
@@ -1273,14 +1317,19 @@ namespace BattleRoyale.Maps.EditorTools
 
         private void DrawDeathmatchHandles(Transform mapRoot)
         {
-            if (selectedConfiguration.deathmatchTeams == null)
+            if (selectedConfiguration is not DeathmatchModeConfiguration deathmatch)
             {
                 return;
             }
 
-            for (var i = 0; i < selectedConfiguration.deathmatchTeams.Count; i++)
+            if (deathmatch.teams == null)
             {
-                var team = selectedConfiguration.deathmatchTeams[i];
+                return;
+            }
+
+            for (var i = 0; i < deathmatch.teams.Count; i++)
+            {
+                var team = deathmatch.teams[i];
                 if (team == null)
                 {
                     continue;
@@ -1288,7 +1337,7 @@ namespace BattleRoyale.Maps.EditorTools
 
                 DrawPositionHandle(
                     mapRoot,
-                    selectedConfiguration,
+                    deathmatch,
                     MapModePointType.DeathmatchSpawn,
                     i,
                     i,
@@ -1300,14 +1349,19 @@ namespace BattleRoyale.Maps.EditorTools
 
         private void DrawEliminationHandles(Transform mapRoot)
         {
-            if (selectedConfiguration.eliminationTeams == null)
+            if (selectedConfiguration is not EliminationModeConfiguration elimination)
             {
                 return;
             }
 
-            for (var i = 0; i < selectedConfiguration.eliminationTeams.Count; i++)
+            if (elimination.teams == null)
             {
-                var team = selectedConfiguration.eliminationTeams[i];
+                return;
+            }
+
+            for (var i = 0; i < elimination.teams.Count; i++)
+            {
+                var team = elimination.teams[i];
                 if (team == null)
                 {
                     continue;
@@ -1315,7 +1369,7 @@ namespace BattleRoyale.Maps.EditorTools
 
                 DrawPositionHandle(
                     mapRoot,
-                    selectedConfiguration,
+                    elimination,
                     MapModePointType.EliminationSpawn,
                     i,
                     i,
@@ -1406,16 +1460,16 @@ namespace BattleRoyale.Maps.EditorTools
 
         private static void AddBattleRoyaleMarkers(
             Transform parent,
-            MapModeConfiguration configuration)
+            BattleRoyaleModeConfiguration configuration)
         {
-            if (configuration.battleRoyaleSpawnPoints == null)
+            if (configuration.spawnPoints == null)
             {
                 return;
             }
 
-            for (var i = 0; i < configuration.battleRoyaleSpawnPoints.Count; i++)
+            for (var i = 0; i < configuration.spawnPoints.Count; i++)
             {
-                var point = configuration.battleRoyaleSpawnPoints[i];
+                var point = configuration.spawnPoints[i];
                 if (point == null)
                 {
                     continue;
@@ -1434,16 +1488,16 @@ namespace BattleRoyale.Maps.EditorTools
 
         private static void AddCaptureTheFlagMarkers(
             Transform parent,
-            MapModeConfiguration configuration)
+            CaptureTheFlagModeConfiguration configuration)
         {
-            if (configuration.captureTheFlagTeams == null)
+            if (configuration.teams == null)
             {
                 return;
             }
 
-            for (var i = 0; i < configuration.captureTheFlagTeams.Count; i++)
+            for (var i = 0; i < configuration.teams.Count; i++)
             {
-                var team = configuration.captureTheFlagTeams[i];
+                var team = configuration.teams[i];
                 if (team == null)
                 {
                     continue;
@@ -1478,16 +1532,16 @@ namespace BattleRoyale.Maps.EditorTools
 
         private static void AddDeathmatchMarkers(
             Transform parent,
-            MapModeConfiguration configuration)
+            DeathmatchModeConfiguration configuration)
         {
-            if (configuration.deathmatchTeams == null)
+            if (configuration.teams == null)
             {
                 return;
             }
 
-            for (var i = 0; i < configuration.deathmatchTeams.Count; i++)
+            for (var i = 0; i < configuration.teams.Count; i++)
             {
-                var team = configuration.deathmatchTeams[i];
+                var team = configuration.teams[i];
                 if (team == null)
                 {
                     continue;
@@ -1506,16 +1560,16 @@ namespace BattleRoyale.Maps.EditorTools
 
         private static void AddEliminationMarkers(
             Transform parent,
-            MapModeConfiguration configuration)
+            EliminationModeConfiguration configuration)
         {
-            if (configuration.eliminationTeams == null)
+            if (configuration.teams == null)
             {
                 return;
             }
 
-            for (var i = 0; i < configuration.eliminationTeams.Count; i++)
+            for (var i = 0; i < configuration.teams.Count; i++)
             {
-                var team = configuration.eliminationTeams[i];
+                var team = configuration.teams[i];
                 if (team == null)
                 {
                     continue;
@@ -1550,31 +1604,7 @@ namespace BattleRoyale.Maps.EditorTools
             marker.pointType = pointType;
             marker.index = index;
             marker.teamIndex = teamIndex;
-            var scatterRadius = 0f;
-            if (pointType == MapModePointType.BattleRoyaleSpawn &&
-                configuration.battleRoyaleSpawnPoints != null &&
-                index >= 0 &&
-                index < configuration.battleRoyaleSpawnPoints.Count &&
-                configuration.battleRoyaleSpawnPoints[index] != null)
-            {
-                scatterRadius = configuration.battleRoyaleSpawnPoints[index].radius;
-            }
-            else if (pointType == MapModePointType.DeathmatchSpawn &&
-                     configuration.deathmatchTeams != null &&
-                     index >= 0 &&
-                     index < configuration.deathmatchTeams.Count &&
-                     configuration.deathmatchTeams[index] != null)
-            {
-                scatterRadius = configuration.deathmatchTeams[index].radius;
-            }
-            else if (pointType == MapModePointType.EliminationSpawn &&
-                     configuration.eliminationTeams != null &&
-                     index >= 0 &&
-                     index < configuration.eliminationTeams.Count &&
-                     configuration.eliminationTeams[index] != null)
-            {
-                scatterRadius = configuration.eliminationTeams[index].radius;
-            }
+            var scatterRadius = GetScatterRadius(configuration, pointType, index);
             AddMarkerDisc(
                 markerObject.transform,
                 scatterRadius,
@@ -1590,6 +1620,10 @@ namespace BattleRoyale.Maps.EditorTools
 
             Undo.RecordObject(selectedConfiguration, "Save Point Positions To Map Data");
             EnsureLists(selectedConfiguration);
+            var battleRoyale = selectedConfiguration as BattleRoyaleModeConfiguration;
+            var captureTheFlag = selectedConfiguration as CaptureTheFlagModeConfiguration;
+            var deathmatch = selectedConfiguration as DeathmatchModeConfiguration;
+            var elimination = selectedConfiguration as EliminationModeConfiguration;
             foreach (var marker in Resources.FindObjectsOfTypeAll<MapModePointMarker>())
             {
                 if (marker.configuration != selectedConfiguration ||
@@ -1601,46 +1635,50 @@ namespace BattleRoyale.Maps.EditorTools
 
                 var position = marker.transform.localPosition;
                 if (marker.pointType == MapModePointType.BattleRoyaleSpawn &&
-                    selectedConfiguration.battleRoyaleSpawnPoints != null &&
+                    battleRoyale != null &&
+                    battleRoyale.spawnPoints != null &&
                     marker.index >= 0 &&
-                    marker.index < selectedConfiguration.battleRoyaleSpawnPoints.Count &&
-                    selectedConfiguration.battleRoyaleSpawnPoints[marker.index] != null)
+                    marker.index < battleRoyale.spawnPoints.Count &&
+                    battleRoyale.spawnPoints[marker.index] != null)
                 {
-                    selectedConfiguration.battleRoyaleSpawnPoints[marker.index].position =
+                    battleRoyale.spawnPoints[marker.index].position =
                         position;
                     continue;
                 }
 
                 if (marker.pointType == MapModePointType.DeathmatchSpawn &&
-                    selectedConfiguration.deathmatchTeams != null &&
+                    deathmatch != null &&
+                    deathmatch.teams != null &&
                     marker.index >= 0 &&
-                    marker.index < selectedConfiguration.deathmatchTeams.Count &&
-                    selectedConfiguration.deathmatchTeams[marker.index] != null)
+                    marker.index < deathmatch.teams.Count &&
+                    deathmatch.teams[marker.index] != null)
                 {
-                    selectedConfiguration.deathmatchTeams[marker.index].spawnPosition =
+                    deathmatch.teams[marker.index].spawnPosition =
                         position;
                     continue;
                 }
 
                 if (marker.pointType == MapModePointType.EliminationSpawn &&
-                    selectedConfiguration.eliminationTeams != null &&
+                    elimination != null &&
+                    elimination.teams != null &&
                     marker.index >= 0 &&
-                    marker.index < selectedConfiguration.eliminationTeams.Count &&
-                    selectedConfiguration.eliminationTeams[marker.index] != null)
+                    marker.index < elimination.teams.Count &&
+                    elimination.teams[marker.index] != null)
                 {
-                    selectedConfiguration.eliminationTeams[marker.index].spawnPosition =
+                    elimination.teams[marker.index].spawnPosition =
                         position;
                     continue;
                 }
 
-                if (selectedConfiguration.captureTheFlagTeams == null ||
+                if (captureTheFlag == null ||
+                    captureTheFlag.teams == null ||
                     marker.teamIndex < 0 ||
-                    marker.teamIndex >= selectedConfiguration.captureTheFlagTeams.Count)
+                    marker.teamIndex >= captureTheFlag.teams.Count)
                 {
                     continue;
                 }
 
-                var team = selectedConfiguration.captureTheFlagTeams[marker.teamIndex];
+                var team = captureTheFlag.teams[marker.teamIndex];
                 if (team == null)
                 {
                     continue;
@@ -1664,36 +1702,36 @@ namespace BattleRoyale.Maps.EditorTools
             AssetDatabase.SaveAssets();
         }
 
-        private static bool SpawnCountNeedsUpdate(MapModeConfiguration configuration)
+        private static bool SpawnCountNeedsUpdate(BattleRoyaleModeConfiguration configuration)
         {
-            if (configuration == null || !configuration.IsBattleRoyale)
+            if (configuration == null)
             {
                 return false;
             }
 
-            var count = configuration.battleRoyaleSpawnPoints == null
+            var count = configuration.spawnPoints == null
                 ? 0
-                : configuration.battleRoyaleSpawnPoints.Count;
+                : configuration.spawnPoints.Count;
             return count != Mathf.Max(1, configuration.teamCount);
         }
 
         private static bool EnsureBattleRoyaleSpawnPoints(
-            MapModeConfiguration configuration)
+            BattleRoyaleModeConfiguration configuration)
         {
-            if (configuration == null || !configuration.IsBattleRoyale)
+            if (configuration == null)
             {
                 return false;
             }
 
-            EnsureLists(configuration);
+            configuration.spawnPoints ??= new List<MapModePoint>();
             var requiredCount = Mathf.Max(1, configuration.teamCount);
             var changed = false;
             var center = GetMapCenter(configuration.map);
-            while (configuration.battleRoyaleSpawnPoints.Count < requiredCount)
+            while (configuration.spawnPoints.Count < requiredCount)
             {
-                var index = configuration.battleRoyaleSpawnPoints.Count;
+                var index = configuration.spawnPoints.Count;
                 var angle = (index + 0.5f) / requiredCount * Mathf.PI * 2f;
-                configuration.battleRoyaleSpawnPoints.Add(
+                configuration.spawnPoints.Add(
                     new MapModePoint
                     {
                         id = $"Spawn {index + 1}",
@@ -1705,10 +1743,10 @@ namespace BattleRoyale.Maps.EditorTools
                 changed = true;
             }
 
-            while (configuration.battleRoyaleSpawnPoints.Count > requiredCount)
+            while (configuration.spawnPoints.Count > requiredCount)
             {
-                configuration.battleRoyaleSpawnPoints.RemoveAt(
-                    configuration.battleRoyaleSpawnPoints.Count - 1);
+                configuration.spawnPoints.RemoveAt(
+                    configuration.spawnPoints.Count - 1);
                 changed = true;
             }
 
@@ -1716,9 +1754,9 @@ namespace BattleRoyale.Maps.EditorTools
         }
 
         private static void SyncBattleRoyaleMarkers(
-            MapModeConfiguration configuration)
+            BattleRoyaleModeConfiguration configuration)
         {
-            if (configuration == null || !configuration.IsBattleRoyale)
+            if (configuration == null)
             {
                 return;
             }
@@ -1729,7 +1767,7 @@ namespace BattleRoyale.Maps.EditorTools
                 return;
             }
 
-            var points = configuration.battleRoyaleSpawnPoints;
+            var points = configuration.spawnPoints;
             var existing = new Dictionary<int, MapModePointMarker>();
             for (var childIndex = parent.childCount - 1; childIndex >= 0; childIndex--)
             {
@@ -1778,9 +1816,9 @@ namespace BattleRoyale.Maps.EditorTools
         }
 
         private static void SyncDeathmatchMarkers(
-            MapModeConfiguration configuration)
+            DeathmatchModeConfiguration configuration)
         {
-            if (configuration == null || !configuration.IsDeathmatch)
+            if (configuration == null)
             {
                 return;
             }
@@ -1791,7 +1829,7 @@ namespace BattleRoyale.Maps.EditorTools
                 return;
             }
 
-            var teams = configuration.deathmatchTeams;
+            var teams = configuration.teams;
             var existing = new Dictionary<int, MapModePointMarker>();
             for (var childIndex = parent.childCount - 1; childIndex >= 0; childIndex--)
             {
@@ -1840,9 +1878,9 @@ namespace BattleRoyale.Maps.EditorTools
         }
 
         private static void SyncEliminationMarkers(
-            MapModeConfiguration configuration)
+            EliminationModeConfiguration configuration)
         {
-            if (configuration == null || !configuration.IsElimination)
+            if (configuration == null)
             {
                 return;
             }
@@ -1853,7 +1891,7 @@ namespace BattleRoyale.Maps.EditorTools
                 return;
             }
 
-            var teams = configuration.eliminationTeams;
+            var teams = configuration.teams;
             var existing = new Dictionary<int, MapModePointMarker>();
             for (var childIndex = parent.childCount - 1; childIndex >= 0; childIndex--)
             {
@@ -1953,31 +1991,10 @@ namespace BattleRoyale.Maps.EditorTools
                     continue;
                 }
 
-                var radius = 0f;
-                if (marker.pointType == MapModePointType.BattleRoyaleSpawn &&
-                    configuration.battleRoyaleSpawnPoints != null &&
-                    marker.index >= 0 &&
-                    marker.index < configuration.battleRoyaleSpawnPoints.Count &&
-                    configuration.battleRoyaleSpawnPoints[marker.index] != null)
-                {
-                    radius = configuration.battleRoyaleSpawnPoints[marker.index].radius;
-                }
-                else if (marker.pointType == MapModePointType.DeathmatchSpawn &&
-                         configuration.deathmatchTeams != null &&
-                         marker.index >= 0 &&
-                         marker.index < configuration.deathmatchTeams.Count &&
-                         configuration.deathmatchTeams[marker.index] != null)
-                {
-                    radius = configuration.deathmatchTeams[marker.index].radius;
-                }
-                else if (marker.pointType == MapModePointType.EliminationSpawn &&
-                         configuration.eliminationTeams != null &&
-                         marker.index >= 0 &&
-                         marker.index < configuration.eliminationTeams.Count &&
-                         configuration.eliminationTeams[marker.index] != null)
-                {
-                    radius = configuration.eliminationTeams[marker.index].radius;
-                }
+                var radius = GetScatterRadius(
+                    configuration,
+                    marker.pointType,
+                    marker.index);
 
                 AddMarkerDisc(
                     marker.transform,
@@ -1987,6 +2004,46 @@ namespace BattleRoyale.Maps.EditorTools
                     marker.transform.Find(MarkerDiscName).gameObject,
                     "Show Spawn Marker");
             }
+        }
+
+        private static float GetScatterRadius(
+            MapModeConfiguration configuration,
+            MapModePointType pointType,
+            int index)
+        {
+            if (index < 0)
+            {
+                return 0f;
+            }
+
+            if (pointType == MapModePointType.BattleRoyaleSpawn &&
+                configuration is BattleRoyaleModeConfiguration battleRoyale &&
+                battleRoyale.spawnPoints != null &&
+                index < battleRoyale.spawnPoints.Count &&
+                battleRoyale.spawnPoints[index] != null)
+            {
+                return battleRoyale.spawnPoints[index].radius;
+            }
+
+            if (pointType == MapModePointType.DeathmatchSpawn &&
+                configuration is DeathmatchModeConfiguration deathmatch &&
+                deathmatch.teams != null &&
+                index < deathmatch.teams.Count &&
+                deathmatch.teams[index] != null)
+            {
+                return deathmatch.teams[index].radius;
+            }
+
+            if (pointType == MapModePointType.EliminationSpawn &&
+                configuration is EliminationModeConfiguration elimination &&
+                elimination.teams != null &&
+                index < elimination.teams.Count &&
+                elimination.teams[index] != null)
+            {
+                return elimination.teams[index].radius;
+            }
+
+            return 0f;
         }
 
         private static void UpdateMarkerDiscDiameter(
@@ -2073,31 +2130,42 @@ namespace BattleRoyale.Maps.EditorTools
 
         private static void EnsureLists(MapModeConfiguration configuration)
         {
-            configuration.battleRoyaleSpawnPoints ??= new List<MapModePoint>();
-            configuration.captureTheFlagTeams ??= new List<MapModeTeamPoints>();
-            configuration.deathmatchTeams ??= new List<MapModeTeamSpawn>();
-            configuration.eliminationTeams ??= new List<MapModeTeamSpawn>();
+            switch (configuration)
+            {
+                case BattleRoyaleModeConfiguration battleRoyale:
+                    battleRoyale.spawnPoints ??= new List<MapModePoint>();
+                    break;
+                case CaptureTheFlagModeConfiguration captureTheFlag:
+                    captureTheFlag.teams ??= new List<MapModeTeamPoints>();
+                    break;
+                case DeathmatchModeConfiguration deathmatch:
+                    deathmatch.teams ??= new List<MapTeamSpawn>();
+                    break;
+                case EliminationModeConfiguration elimination:
+                    elimination.teams ??= new List<MapTeamSpawn>();
+                    break;
+            }
         }
 
         private static void EnsureCaptureTheFlagTeams(
-            MapModeConfiguration configuration)
+            CaptureTheFlagModeConfiguration configuration)
         {
-            EnsureLists(configuration);
+            configuration.teams ??= new List<MapModeTeamPoints>();
             var requiredCount = Mathf.Max(2, configuration.teamCount);
-            while (configuration.captureTheFlagTeams.Count < requiredCount)
+            while (configuration.teams.Count < requiredCount)
             {
-                var index = configuration.captureTheFlagTeams.Count;
-                configuration.captureTheFlagTeams.Add(
+                var index = configuration.teams.Count;
+                configuration.teams.Add(
                     new MapModeTeamPoints
                     {
                         teamId = $"Team {index + 1}"
                     });
             }
 
-            while (configuration.captureTheFlagTeams.Count > requiredCount)
+            while (configuration.teams.Count > requiredCount)
             {
-                configuration.captureTheFlagTeams.RemoveAt(
-                    configuration.captureTheFlagTeams.Count - 1);
+                configuration.teams.RemoveAt(
+                    configuration.teams.Count - 1);
             }
         }
 

@@ -1,4 +1,8 @@
 using System.Collections.Generic;
+using BattleRoyale.GameModes;
+using BattleRoyale.GameModes.BattleRoyale;
+using BattleRoyale.GameModes.Deathmatch;
+using BattleRoyale.GameModes.Elimination;
 using Unity.AI.Navigation;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -29,6 +33,103 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             return $"{folder}/{definition.name}.prefab";
+        }
+
+        public static bool UseModeOnSlot(SimulationStage stage, int slot, MapGameMode mode)
+        {
+            if (stage == null)
+            {
+                return false;
+            }
+
+            var stageObject = new SerializedObject(stage);
+            var slots = stageObject.FindProperty("slots");
+            if (slots == null || slot < 0 || slot >= slots.arraySize)
+            {
+                return false;
+            }
+
+            var matchProperty = slots.GetArrayElementAtIndex(slot).FindPropertyRelative("match");
+            var current = matchProperty.objectReferenceValue as SimulationMatch;
+            if (current == null)
+            {
+                return false;
+            }
+
+            if (current.Runs(mode))
+            {
+                StatTrackerScenePlacement.Sync(stage);
+                return true;
+            }
+
+            var replacement = CreateMatch(current.gameObject, mode);
+            if (replacement == null)
+            {
+                return false;
+            }
+
+            CopyMatchSetup(current, replacement);
+            replacement.gameObject.name = ObjectNames.NicifyVariableName(mode.ToString());
+            if (Application.isPlaying)
+            {
+                Object.DestroyImmediate(current);
+            }
+            else
+            {
+                Undo.DestroyObjectImmediate(current);
+            }
+
+            matchProperty.objectReferenceValue = replacement;
+            stageObject.ApplyModifiedProperties();
+            StatTrackerScenePlacement.Sync(stage);
+            return true;
+        }
+
+        private static SimulationMatch CreateMatch(GameObject host, MapGameMode mode)
+        {
+            switch (mode)
+            {
+                case MapGameMode.Deathmatch:
+                    return AddMatch<DeathmatchGameMode>(host);
+                case MapGameMode.BattleRoyale:
+                    return AddMatch<BattleRoyaleGameMode>(host);
+                case MapGameMode.Elimination:
+                    return AddMatch<EliminationGameMode>(host);
+                default:
+                    Debug.LogError($"No match component exists for {mode}.");
+                    return null;
+            }
+        }
+
+        private static SimulationMatch AddMatch<T>(GameObject host) where T : SimulationMatch
+        {
+            return Application.isPlaying
+                ? host.AddComponent<T>()
+                : Undo.AddComponent<T>(host);
+        }
+
+        private static void CopyMatchSetup(SimulationMatch from, SimulationMatch to)
+        {
+            var source = new SerializedObject(from);
+            var destination = new SerializedObject(to);
+            var property = source.GetIterator();
+            if (!property.NextVisible(true))
+            {
+                return;
+            }
+
+            do
+            {
+                if (property.name.StartsWith("m_"))
+                {
+                    continue;
+                }
+
+                destination.CopyFromSerializedProperty(property);
+            }
+            while (property.NextVisible(false));
+
+            destination.ApplyModifiedPropertiesWithoutUndo();
         }
 
         public static MapInstance Commit(
@@ -601,12 +702,17 @@ namespace BattleRoyale.Maps.EditorTools
 
         // Placing a map dirties the inspector and rebuilds this editor. These stay on the type so the popups keep the chosen entry.
         private static int readyMapIndex;
-        private static int modeIndex;
+        private static MapGameMode selectedMode;
 
         private void DrawPlayableMaps(ActiveMapManager manager)
         {
             EditorGUILayout.Space(8f);
             EditorGUILayout.LabelField("Ready Maps", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(
+                serializedObject.FindProperty("stage"),
+                new GUIContent(
+                    "Simulation Stage",
+                    "Stage that owns the slots. Slot chooses which one receives the map."));
             EditorGUILayout.PropertyField(
                 serializedObject.FindProperty("playableMaps"),
                 new GUIContent(
@@ -648,85 +754,206 @@ namespace BattleRoyale.Maps.EditorTools
                 }
 
                 readyMapIndex = EditorGUILayout.Popup("Ready Map", readyMapIndex, names);
-                if (GUILayout.Button("Use Ready Map"))
-                {
-                    var definition = ready[readyMapIndex];
-                    modeIndex = ReadyModeIndex(definition, modeIndex);
-                    PlaceReadyMap(definition.bakedPrefab);
-                }
             }
 
-            var modes = (MapGameMode[])global::System.Enum.GetValues(typeof(MapGameMode));
-            modeIndex = Mathf.Clamp(modeIndex, 0, modes.Length - 1);
-            var modeNames = new string[modes.Length];
-            for (var i = 0; i < modes.Length; i++)
-            {
-                modeNames[i] = ObjectNames.NicifyVariableName(modes[i].ToString());
-            }
-
-            modeIndex = EditorGUILayout.Popup("Game Mode", modeIndex, modeNames);
-            var mode = modes[modeIndex];
-            var current = manager.ActiveMap != null ? manager.ActiveMap.definition : null;
-            if (catalog.IsPlayable(current, mode))
+            var selectedMap = ready.Count == 0 ? null : ready[readyMapIndex];
+            var modes = ModesFor(selectedMap);
+            if (modes.Count == 0)
             {
                 EditorGUILayout.HelpBox(
-                    "The active map is already a ready map for this mode.",
-                    MessageType.None);
-            }
-
-            if (GUILayout.Button("Use Ready Map For Mode") &&
-                !catalog.IsPlayable(current, mode))
-            {
-                var next = catalog.FirstPlayable(mode);
-                if (next == null)
-                {
-                    Debug.LogError($"The playable catalog has no baked map for {mode}.");
-                }
-                else
-                {
-                    PlaceReadyMap(next.bakedPrefab);
-                }
-            }
-        }
-
-        private static int ReadyModeIndex(MapDefinition definition, int currentIndex)
-        {
-            var modes = (MapGameMode[])global::System.Enum.GetValues(typeof(MapGameMode));
-            currentIndex = Mathf.Clamp(currentIndex, 0, modes.Length - 1);
-            if (definition?.supportedGameModes == null || definition.supportedGameModes.Count == 0)
-            {
-                return currentIndex;
-            }
-
-            if (definition.SupportsMode(modes[currentIndex]))
-            {
-                return currentIndex;
-            }
-
-            var readyMode = definition.supportedGameModes[0];
-            for (var i = 0; i < modes.Length; i++)
-            {
-                if (modes[i] == readyMode)
-                {
-                    return i;
-                }
-            }
-
-            return currentIndex;
-        }
-
-        private void PlaceReadyMap(GameObject prefab)
-        {
-            var manager = (ActiveMapManager)target;
-            if (Application.isPlaying)
-            {
-                manager.ActivateBakedMap(prefab);
+                    "This map has no supported mode with one configuration.",
+                    MessageType.Info);
             }
             else
             {
-                MapBakeOutput.PlacePrefabInScene(prefab);
+                var modeNames = new string[modes.Count];
+                var modeIndex = 0;
+                for (var i = 0; i < modes.Count; i++)
+                {
+                    modeNames[i] = ObjectNames.NicifyVariableName(modes[i].ToString());
+                    if (modes[i] == selectedMode)
+                    {
+                        modeIndex = i;
+                    }
+                }
+
+                modeIndex = EditorGUILayout.Popup("Game Mode", modeIndex, modeNames);
+                selectedMode = modes[modeIndex];
             }
 
+            var slotProperty = serializedObject.FindProperty("slotIndex");
+            DrawSlots(manager, slotProperty.intValue);
+            EditorGUILayout.IntSlider(
+                slotProperty,
+                0,
+                SimulationStageLayout.SlotCount - 1,
+                new GUIContent("Slot", "Index of the slot that receives the map."));
+            serializedObject.ApplyModifiedProperties();
+            if (modes.Count > 0)
+            {
+                var mode = selectedMode;
+                if (ready.Count > 0 && GUILayout.Button("Assign To Slot"))
+                {
+                    AssignReadyMap(ready[readyMapIndex], mode);
+                }
+
+                if (GUILayout.Button("Assign Catalog Map For Mode"))
+                {
+                    var next = catalog.FirstPlayable(mode);
+                    if (next == null)
+                    {
+                        Debug.LogError($"The playable catalog has no baked map for {mode}.");
+                    }
+                    else
+                    {
+                        AssignReadyMap(next, mode);
+                    }
+                }
+            }
+
+            if (GUILayout.Button("Empty Slot"))
+            {
+                EmptySelectedSlot();
+            }
+        }
+
+        private static List<MapGameMode> ModesFor(MapDefinition definition)
+        {
+            var available = new List<MapGameMode>();
+            var modes = (MapGameMode[])global::System.Enum.GetValues(typeof(MapGameMode));
+            foreach (var mode in modes)
+            {
+                if (definition == null ||
+                    (definition.SupportsMode(mode) &&
+                     definition.TryGetSingleConfiguration(mode, out _)))
+                {
+                    available.Add(mode);
+                }
+            }
+
+            return available;
+        }
+
+        private static void DrawSlots(ActiveMapManager manager, int selectedSlot)
+        {
+            var stageProperty = new SerializedObject(manager).FindProperty("stage");
+            var stage = stageProperty == null ? null : stageProperty.objectReferenceValue as BattleRoyale.Maps.SimulationStage;
+            if (stage == null)
+            {
+                EditorGUILayout.HelpBox(
+                    "Assign a simulation stage. Each slot keeps its own map and mode.",
+                    MessageType.Warning);
+                return;
+            }
+
+            var stageObject = new SerializedObject(stage);
+            var slots = stageObject.FindProperty("slots");
+            if (slots == null)
+            {
+                return;
+            }
+
+            for (var index = 0; index < slots.arraySize && index < SimulationStageLayout.SlotCount; index++)
+            {
+                var match = slots.GetArrayElementAtIndex(index)
+                    .FindPropertyRelative("match").objectReferenceValue as SimulationMatch;
+                var configuration = match == null ? null : match.ModeConfiguration;
+                var occupied = match != null &&
+                    match.gameObject.activeInHierarchy &&
+                    configuration != null;
+                var label = "Empty";
+                if (occupied)
+                {
+                    var mapName = configuration.map == null ? "none" : configuration.map.name;
+                    var modeName = ObjectNames.NicifyVariableName(configuration.mode.ToString());
+                    label = $"{modeName} — {mapName}";
+                }
+
+                if (index == selectedSlot)
+                {
+                    label += "  (selected)";
+                }
+
+                EditorGUILayout.LabelField($"Slot {index}", label);
+            }
+        }
+
+        private void EmptySelectedSlot()
+        {
+            var manager = (ActiveMapManager)target;
+            var stageObject = new SerializedObject(manager);
+            var stage = stageObject.FindProperty("stage").objectReferenceValue as SimulationStage;
+            var slot = stageObject.FindProperty("slotIndex").intValue;
+            if (stage != null)
+            {
+                var slots = new SerializedObject(stage).FindProperty("slots");
+                if (slots != null && slot >= 0 && slot < slots.arraySize)
+                {
+                    var match = slots.GetArrayElementAtIndex(slot)
+                        .FindPropertyRelative("match").objectReferenceValue as SimulationMatch;
+                    if (match != null)
+                    {
+                        Undo.RecordObject(match.gameObject, "Empty Map Slot");
+                        Undo.RecordObject(match, "Empty Map Slot");
+                    }
+                }
+            }
+
+            Undo.RecordObject(manager, "Empty Map Slot");
+            manager.ClearSlot();
+            if (stage != null)
+            {
+                EditorSceneManager.MarkSceneDirty(stage.gameObject.scene);
+            }
+
+            EditorUtility.SetDirty(manager);
+            serializedObject.Update();
+        }
+
+        private void AssignReadyMap(MapDefinition definition, MapGameMode mode)
+        {
+            var manager = (ActiveMapManager)target;
+            var stageObject = new SerializedObject(manager);
+            var stage = stageObject.FindProperty("stage").objectReferenceValue as BattleRoyale.Maps.SimulationStage;
+            if (stage != null)
+            {
+                var slots = new SerializedObject(stage).FindProperty("slots");
+                for (var index = 0; slots != null && index < slots.arraySize; index++)
+                {
+                    var match = slots.GetArrayElementAtIndex(index)
+                        .FindPropertyRelative("match").objectReferenceValue;
+                    if (match != null)
+                    {
+                        Undo.RecordObject(match, "Assign Map Slot");
+                    }
+                }
+            }
+
+            Undo.RecordObject(manager, "Assign Map Slot");
+            var slot = stageObject.FindProperty("slotIndex").intValue;
+            if (stage != null && !MapBakeOutput.UseModeOnSlot(stage, slot, mode))
+            {
+                return;
+            }
+
+            manager.AssignSlot(definition, mode);
+            if (stage != null)
+            {
+                var slots = new SerializedObject(stage).FindProperty("slots");
+                for (var index = 0; slots != null && index < slots.arraySize; index++)
+                {
+                    var match = slots.GetArrayElementAtIndex(index)
+                        .FindPropertyRelative("match").objectReferenceValue;
+                    if (match != null)
+                    {
+                        EditorUtility.SetDirty(match);
+                    }
+                }
+
+                EditorSceneManager.MarkSceneDirty(stage.gameObject.scene);
+            }
+
+            EditorUtility.SetDirty(manager);
             serializedObject.Update();
         }
     }

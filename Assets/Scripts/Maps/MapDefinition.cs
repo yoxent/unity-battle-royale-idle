@@ -77,7 +77,7 @@ namespace BattleRoyale.Maps
 
         [Header("Bake")]
         [Tooltip(
-            "Baked floor, walls, colliders, and NavMesh. The active map manager places one instance of this prefab.")]
+            "Baked floor, walls, colliders, and NavMesh. A simulation slot places one instance of this prefab.")]
         public GameObject bakedPrefab;
 
         [Header("Imported Metadata")]
@@ -99,6 +99,33 @@ namespace BattleRoyale.Maps
         public bool SupportsMode(MapGameMode mode) =>
             supportedGameModes != null &&
             supportedGameModes.Contains(mode);
+
+        public bool TryGetSingleConfiguration(MapGameMode mode, out MapModeConfiguration configuration)
+        {
+            configuration = null;
+            if (modeConfigurations == null)
+            {
+                return false;
+            }
+
+            foreach (var candidate in modeConfigurations)
+            {
+                if (candidate == null || candidate.mode != mode)
+                {
+                    continue;
+                }
+
+                if (configuration != null)
+                {
+                    configuration = null;
+                    return false;
+                }
+
+                configuration = candidate;
+            }
+
+            return configuration != null;
+        }
 
         public Vector2 SourceSize => sourceMax - sourceMin;
 

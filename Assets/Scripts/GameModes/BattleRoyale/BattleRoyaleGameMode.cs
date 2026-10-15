@@ -1,4 +1,7 @@
+using BattleRoyale.Company;
+using BattleRoyale.Company;
 using BattleRoyale.GameModes;
+using BattleRoyale.Maps;
 using UnityEngine;
 
 namespace BattleRoyale.GameModes.BattleRoyale
@@ -29,14 +32,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
         [Header("Runtime")]
         [SerializeField] private bool drawSafeZone = true;
 
-        private static readonly Color[] TeamColors =
-        {
-            new(0.2f, 0.45f, 1f),
-            new(1f, 0.45f, 0.15f),
-            new(0.2f, 0.8f, 0.35f),
-            new(0.75f, 0.3f, 0.9f)
-        };
-
+        private readonly BattleRoyaleRosterOrder rosterOrder = new();
         private int[] livingCounts = System.Array.Empty<int>();
         private float elapsedMatchTime;
         private Vector3 safeZoneCenter;
@@ -45,10 +41,13 @@ namespace BattleRoyale.GameModes.BattleRoyale
         private float safeZoneFinalRadius;
         private bool winnerAnnounced;
 
+        public override bool Runs(MapGameMode mode) => mode == MapGameMode.BattleRoyale;
+
         protected override string AgentRootName => "BattleRoyaleAgents";
         protected override string ProjectileRootName => "BattleRoyaleProjectiles";
         protected override string RuntimeProfileName => "Runtime Battle Royale Profile";
 
+        public BattleRoyaleRosterOrder RosterOrder => rosterOrder;
         public BattleRoyaleAgent Winner { get; private set; }
         public int WinningTeam { get; private set; } = -1;
         public int AliveCount
@@ -71,6 +70,11 @@ namespace BattleRoyale.GameModes.BattleRoyale
 
         public Vector3 SafeZoneCenter => safeZoneCenter;
         public float SafeZoneRadius => safeZoneRadius;
+
+        public Color TeamColorAt(int teamIndex)
+        {
+            return SideColorRules.Fallback(teamIndex).AsColor();
+        }
 
         private void Update()
         {
@@ -102,6 +106,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
             PrepareSafeZone();
             EnsureSimulation();
 
+            rosterOrder.Clear();
             var teamSize = Mathf.Max(1, ModeConfiguration.teamSize);
             var spawnCount = botCount + (SpawnTestPlayer ? 1 : 0);
             for (var index = 0; index < spawnCount; index++)
@@ -112,12 +117,13 @@ namespace BattleRoyale.GameModes.BattleRoyale
                     : GetStrategy(index - (SpawnTestPlayer ? 1 : 0));
                 var teamIndex = BattleRoyaleRules.TeamIndexForSlot(index, teamSize);
                 var spawnPosition = GetSpawnPosition(index);
-                SpawnAgent(
+                var agent = SpawnAgent(
                     $"BR_T{teamIndex + 1}_{index + 1:00}_{strategy}",
                     spawnPosition,
                     strategy,
                     !isPlayer,
-                    agent => AssignSpawnedTeam(agent, teamIndex, teamSize));
+                    spawned => AssignSpawnedTeam(spawned, teamIndex, teamSize));
+                PresentRosterAgent(agent);
             }
 
             if (Roster.Count == 0)
@@ -150,11 +156,50 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 ? "the safe zone"
                 : damageSource.name;
             damageSource?.RegisterKill();
+            rosterOrder.RecordDeath(FindRosterIndex(eliminated));
             Debug.Log(
                 $"{eliminated.name} was eliminated by {sourceName}. " +
                 $"{AliveCount} agent(s) remain.",
                 eliminated);
             CheckForWinner();
+        }
+
+        protected override void StopRunningMatch()
+        {
+            rosterOrder.Clear();
+            base.StopRunningMatch();
+        }
+
+        private void PresentRosterAgent(BattleRoyaleAgent agent)
+        {
+            var rosterIndex = FindRosterIndex(agent);
+            if (rosterIndex < 0)
+            {
+                return;
+            }
+
+            var displayName = agent.Profile == null
+                ? null
+                : agent.Profile.displayName;
+            rosterOrder.Present(rosterIndex, agent.TeamIndex, displayName);
+        }
+
+        private int FindRosterIndex(BattleRoyaleAgent agent)
+        {
+            if (agent == null)
+            {
+                return -1;
+            }
+
+            for (var index = 0; index < Roster.Count; index++)
+            {
+                if (Roster[index] == agent)
+                {
+                    return index;
+                }
+            }
+
+            return -1;
         }
 
         public bool IsInsideSafeZone(Vector3 position)
@@ -242,6 +287,9 @@ namespace BattleRoyale.GameModes.BattleRoyale
             return SnapToNavigation(point);
         }
 
+        private BattleRoyaleModeConfiguration Configuration =>
+            ModeConfiguration as BattleRoyaleModeConfiguration;
+
         private bool ResolveMapAndConfiguration()
         {
             if (!TryBindActiveMap(
@@ -252,10 +300,10 @@ namespace BattleRoyale.GameModes.BattleRoyale
 
             if (ModeConfiguration == null ||
                 ModeConfiguration.map != ActiveMap.definition ||
-                !ModeConfiguration.IsBattleRoyale)
+                ModeConfiguration is not BattleRoyaleModeConfiguration)
             {
                 SetModeConfiguration(
-                    FindConfiguration(configuration => configuration.IsBattleRoyale));
+                    FindConfiguration(configuration => configuration is BattleRoyaleModeConfiguration));
             }
 
             if (ModeConfiguration == null)
@@ -266,8 +314,8 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 return false;
             }
 
-            if (ModeConfiguration.battleRoyaleSpawnPoints == null ||
-                ModeConfiguration.battleRoyaleSpawnPoints.Count == 0)
+            if (Configuration.spawnPoints == null ||
+                Configuration.spawnPoints.Count == 0)
             {
                 Debug.LogWarning(
                     "No Battle Royale spawn points are configured. " +
@@ -294,8 +342,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
         private void PrepareSafeZone()
         {
             var definition = ActiveMap.definition;
-            safeZoneCenter = ActiveMap.transform.TransformPoint(
-                definition.WorldCenter);
+            safeZoneCenter = ActiveMap.WorldPoint(definition.WorldCenter);
             var localWidth = definition.WorldSize.x *
                              Mathf.Abs(ActiveMap.transform.lossyScale.x);
             var localDepth = definition.WorldSize.z *
@@ -341,8 +388,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
                     agent.IsAlive &&
                     !IsInsideSafeZone(agent.transform.position))
                 {
-                    agent.ApplyDamage(
-                        damage * agent.SafeZoneDamageMultiplier);
+                    agent.ApplyHazardDamage(damage);
                 }
             }
         }
@@ -358,7 +404,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 return;
             }
 
-            agent.SetTeamColor(TeamColors[teamIndex % TeamColors.Length]);
+            agent.SetTeamColor(SideColorRules.Fallback(teamIndex).AsColor());
         }
 
         private void CheckForWinner()
@@ -463,7 +509,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
 
         private Vector3 GetSpawnPosition(int index)
         {
-            var points = ModeConfiguration.battleRoyaleSpawnPoints;
+            var points = Configuration == null ? null : Configuration.spawnPoints;
             if (points != null && points.Count > 0)
             {
                 var point = points[index % points.Count];
@@ -472,8 +518,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
                     var offset = Random.insideUnitCircle * point.radius;
                     var localPosition = point.position +
                                          new Vector3(offset.x, 0f, offset.y);
-                    return SnapToNavigation(
-                        ActiveMap.transform.TransformPoint(localPosition));
+                    return SnapToNavigation(ActiveMap.WorldPoint(localPosition));
                 }
             }
 

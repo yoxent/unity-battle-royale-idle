@@ -7,6 +7,8 @@ namespace BattleRoyale.Maps
     public sealed class ActiveMapManager : MonoBehaviour
     {
         [SerializeField] private PlayableMapCatalog playableMaps;
+        [SerializeField] private SimulationStage stage;
+        [SerializeField] private int slotIndex;
         [SerializeField] private GameObject activeMapPrefab;
         [SerializeField] private MapInstance activeMap;
 
@@ -15,6 +17,11 @@ namespace BattleRoyale.Maps
             playableMaps != null ? playableMaps : PlayableMapCatalog.Load();
         public GameObject ActiveMapPrefab => activeMapPrefab;
         public MapInstance ActiveMap => activeMap;
+        public int SlotIndex
+        {
+            get => slotIndex;
+            set => slotIndex = value;
+        }
 
         public void SetPlayableMaps(PlayableMapCatalog catalog)
         {
@@ -58,6 +65,51 @@ namespace BattleRoyale.Maps
             }
 
             return ActivatePlayableMap(next);
+        }
+
+        public bool AssignSlot(MapDefinition definition, MapGameMode mode)
+        {
+            if (stage == null)
+            {
+                Debug.LogError("The active map manager needs a simulation stage.", this);
+                return false;
+            }
+
+            var catalog = PlayableMaps;
+            if (catalog == null || !catalog.IsPlayable(definition, mode))
+            {
+                Debug.LogError(
+                    "Choose a map from the playable catalog. It needs a baked prefab for this mode.",
+                    definition);
+                return false;
+            }
+
+            if (!definition.TryGetSingleConfiguration(mode, out var configuration))
+            {
+                Debug.LogError(
+                    $"'{definition.name}' needs one {mode} configuration.",
+                    definition);
+                return false;
+            }
+
+            if (!stage.TryAssign(slotIndex, configuration))
+            {
+                return false;
+            }
+
+            stage.EnsureTrackers();
+            return true;
+        }
+
+        public bool ClearSlot()
+        {
+            if (stage == null)
+            {
+                Debug.LogError("The active map manager needs a simulation stage.", this);
+                return false;
+            }
+
+            return stage.TryClear(slotIndex);
         }
 
         public MapInstance ActivateBakedMap(GameObject prefab)

@@ -77,7 +77,7 @@ MonoBehaviour:
   supportedGameModes: 000000000f00000002000000
   modeConfigurations:
   - {fileID: 0}
-  - {fileID: 11400000, guid: c3026b515b360324294ca0638d147e6a, type: 2}
+  - {fileID: 11400000, guid: 4431bf40905f8b943991814a1d3a77c2, type: 2}
   - {fileID: 0}
-  - {fileID: 11400000, guid: 947605ec3bec154459da194a93d98122, type: 2}
-  - {fileID: 11400000, guid: 5c7e2a9d4b1f48e6a0d3c5b7e9f10284, type: 2}
+  - {fileID: 11400000, guid: fc1bfc6aee798164c8e327420d6b8579, type: 2}
+  - {fileID: 11400000, guid: 43f12d2b29a6b5e41983f3d63420a6c5, type: 2}

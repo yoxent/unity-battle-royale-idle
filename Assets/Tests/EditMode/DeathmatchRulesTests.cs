@@ -80,25 +80,24 @@ namespace BattleRoyale.Tests.EditMode
             var map = Create<MapDefinition>("Map");
             map.sourceMin = Vector2.zero;
             map.sourceMax = new Vector2(200f, 200f);
-            var configuration = Create<MapModeConfiguration>("Deathmatch");
+            var configuration = Create<DeathmatchModeConfiguration>("Deathmatch");
             configuration.map = map;
             configuration.mode = MapGameMode.Deathmatch;
             configuration.teamCount = 2;
             configuration.teamSize = DeathmatchRules.DefaultTeamSize;
 
-            Assert.IsTrue(configuration.IsDeathmatch);
             Assert.IsTrue(DeathmatchRules.EnsureTeamSpawns(configuration));
-            Assert.AreEqual(2, configuration.deathmatchTeams.Count);
+            Assert.AreEqual(2, configuration.teams.Count);
             Assert.AreNotEqual(
-                configuration.deathmatchTeams[0].spawnPosition,
-                configuration.deathmatchTeams[1].spawnPosition);
+                configuration.teams[0].spawnPosition,
+                configuration.teams[1].spawnPosition);
             Assert.IsFalse(DeathmatchRules.EnsureTeamSpawns(configuration));
 
             configuration.teamCount = 1;
             Assert.IsTrue(DeathmatchRules.EnsureTeamSpawns(configuration));
             Assert.AreEqual(
                 DeathmatchRules.MinimumTeamCount,
-                configuration.deathmatchTeams.Count);
+                configuration.teams.Count);
         }
 
         [Test]

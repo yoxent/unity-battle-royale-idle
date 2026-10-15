@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using BattleRoyale.Company;
 using BattleRoyale.GameModes.BattleRoyale;
+using BattleRoyale.Maps;
 using UnityEngine;
 
 namespace BattleRoyale.GameModes.Deathmatch
@@ -8,14 +10,6 @@ namespace BattleRoyale.GameModes.Deathmatch
     [DefaultExecutionOrder(-50)]
     public sealed class DeathmatchGameMode : SimulationMatch
     {
-        private static readonly Color[] TeamColors =
-        {
-            new(0.2f, 0.45f, 1f),
-            new(1f, 0.45f, 0.15f),
-            new(0.2f, 0.8f, 0.35f),
-            new(0.75f, 0.3f, 0.9f)
-        };
-
         private struct PendingRespawn
         {
             public BattleRoyaleAgent Agent;
@@ -27,11 +21,20 @@ namespace BattleRoyale.GameModes.Deathmatch
         private int[] teamScores = System.Array.Empty<int>();
         private int scoreLimit = DeathmatchRules.DefaultScoreLimit;
         private float respawnSeconds = DeathmatchRules.DefaultRespawnSeconds;
+        private FieldSnapshot companyPlayer;
+        private FieldSnapshot companyOpponent;
+        private BattleRoyaleAgentProfile[] companyPlayerProfiles;
+        private BattleRoyaleAgentProfile[] companyOpponentProfiles;
+        private readonly List<BattleRoyaleAgentProfile> runtimeProfiles = new();
+
+        public const int CompanyPlayerTeam = 0;
         private float elapsedMatchTime;
 
         protected override string AgentRootName => "DeathmatchAgents";
         protected override string ProjectileRootName => "DeathmatchProjectiles";
         protected override string RuntimeProfileName => "Runtime Deathmatch Profile";
+
+        public override bool Runs(MapGameMode mode) => mode == MapGameMode.Deathmatch;
 
         public IReadOnlyList<int> TeamScores => teamScores;
         public int WinningTeam { get; private set; } = -1;
@@ -65,7 +68,17 @@ namespace BattleRoyale.GameModes.Deathmatch
                 return Color.white;
             }
 
-            return TeamColors[teamIndex % TeamColors.Length];
+            var emblem = default(FieldEmblem);
+            if (teamIndex == CompanyPlayerTeam && companyPlayer != null)
+            {
+                emblem = companyPlayer.Emblem;
+            }
+            else if (teamIndex == 1 && companyOpponent != null)
+            {
+                emblem = companyOpponent.Emblem;
+            }
+
+            return SideColorRules.ForSide(emblem, teamIndex).AsColor();
         }
 
         private void Update()
@@ -77,6 +90,145 @@ namespace BattleRoyale.GameModes.Deathmatch
 
             elapsedMatchTime += Time.deltaTime;
             RespawnReadyAgents();
+        }
+
+        public bool TryArmCompanyMatch(
+            FieldSnapshot player,
+            FieldSnapshot opponent,
+            BattleRoyaleAgentProfile[] playerProfiles,
+            BattleRoyaleAgentProfile[] opponentProfiles)
+        {
+            if (player == null ||
+                opponent == null ||
+                player.Agents == null ||
+                opponent.Agents == null ||
+                playerProfiles == null ||
+                opponentProfiles == null ||
+                player.Agents.Length == 0 ||
+                player.Agents.Length != opponent.Agents.Length ||
+                playerProfiles.Length != player.Agents.Length ||
+                opponentProfiles.Length != opponent.Agents.Length)
+            {
+                return false;
+            }
+
+            companyPlayer = player;
+            companyOpponent = opponent;
+            companyPlayerProfiles = playerProfiles;
+            companyOpponentProfiles = opponentProfiles;
+            return true;
+        }
+
+        protected override void StopRunningMatch()
+        {
+            ClearCompanyMatch();
+        }
+
+        public void ClearCompanyMatch()
+        {
+            for (var i = Roster.Count - 1; i >= 0; i--)
+            {
+                if (Roster[i] != null)
+                {
+                    Destroy(Roster[i].gameObject);
+                }
+            }
+
+            Roster.Clear();
+            pendingRespawns.Clear();
+            combatStats.Clear();
+            WinningTeam = -1;
+            MatchStarted = false;
+            companyPlayer = null;
+            companyOpponent = null;
+            companyPlayerProfiles = null;
+            companyOpponentProfiles = null;
+            DestroyRuntimeProfiles();
+        }
+
+        protected override void OnDestroy()
+        {
+            DestroyRuntimeProfiles();
+            base.OnDestroy();
+        }
+
+        bool SpawnCompanySides(int teamCount)
+        {
+            var teamSize = Mathf.Max(1, ModeConfiguration.teamSize);
+            if (teamCount < 2 || companyPlayer.Agents.Length != teamSize)
+            {
+                Debug.LogError(
+                    "The company match does not match this Deathmatch's side size.",
+                    this);
+                return false;
+            }
+
+            SetTeamPlaystyle(companyPlayer.Stance);
+            for (var teamIndex = 0; teamIndex < 2; teamIndex++)
+            {
+                var snapshot = teamIndex == CompanyPlayerTeam
+                    ? companyPlayer
+                    : companyOpponent;
+                var profiles = teamIndex == CompanyPlayerTeam
+                    ? companyPlayerProfiles
+                    : companyOpponentProfiles;
+                for (var index = 0; index < teamSize; index++)
+                {
+                    var runtime = FieldedAgentProfile.Create(
+                        profiles[index],
+                        snapshot.Agents[index].Rolls);
+                    if (runtime == null)
+                    {
+                        Debug.LogError(
+                            "A company agent is missing an archetype or a six-stat roll.",
+                            this);
+                        return false;
+                    }
+
+                    runtimeProfiles.Add(runtime);
+                    var strategy = runtime.defaultStrategy;
+                    var sideStance = snapshot.Stance;
+                    var color = TeamColorAt(teamIndex);
+                    SpawnAgent(
+                        $"DM_T{teamIndex + 1}_{index + 1:00}_{strategy}",
+                        GetSpawnPosition(teamIndex),
+                        strategy,
+                        true,
+                        agent =>
+                        {
+                            agent.AssignTeam(teamIndex);
+                            agent.SetTeamColor(color);
+                            agent.AssignSidePlaystyle(sideStance);
+                        },
+                        runtime);
+                }
+            }
+
+            return true;
+        }
+
+        void DestroyRuntimeProfiles()
+        {
+            for (var i = 0; i < runtimeProfiles.Count; i++)
+            {
+                if (runtimeProfiles[i] != null)
+                {
+                    Destroy(runtimeProfiles[i]);
+                }
+            }
+
+            runtimeProfiles.Clear();
+        }
+
+        void DestroyRosterObjects()
+        {
+            for (var i = 0; i < Roster.Count; i++)
+            {
+                if (Roster[i] != null)
+                {
+                    Destroy(Roster[i].gameObject);
+                }
+            }
         }
 
         public override bool BeginMatch()
@@ -93,6 +245,11 @@ namespace BattleRoyale.GameModes.Deathmatch
 
             ApplyLoadedModeConfiguration();
             EnsureSimulation();
+            if (companyPlayer != null)
+            {
+                DestroyRosterObjects();
+            }
+
             Roster.Clear();
             pendingRespawns.Clear();
             WinningTeam = -1;
@@ -100,24 +257,37 @@ namespace BattleRoyale.GameModes.Deathmatch
             combatStats.Clear();
 
             var teamCount = teamScores.Length;
-            var rosterSize = teamCount * Mathf.Max(1, ModeConfiguration.teamSize);
-            for (var index = 0; index < rosterSize; index++)
+            if (companyPlayer != null)
             {
-                var teamIndex = index % teamCount;
-                var isPlayer = SpawnTestPlayer && index == 0;
-                var strategy = isPlayer
-                    ? FallbackStrategy
-                    : GetStrategy(index);
-                SpawnAgent(
-                    $"DM_T{teamIndex + 1}_{index + 1:00}_{strategy}",
-                    GetSpawnPosition(teamIndex),
-                    strategy,
-                    !isPlayer,
-                    agent =>
-                    {
-                        agent.AssignTeam(teamIndex);
-                        agent.SetTeamColor(TeamColors[teamIndex % TeamColors.Length]);
-                    });
+                if (!SpawnCompanySides(teamCount))
+                {
+                    DestroyRosterObjects();
+                    Roster.Clear();
+                    DestroyRuntimeProfiles();
+                    return false;
+                }
+            }
+            else
+            {
+                var rosterSize = teamCount * Mathf.Max(1, ModeConfiguration.teamSize);
+                for (var index = 0; index < rosterSize; index++)
+                {
+                    var teamIndex = index % teamCount;
+                    var isPlayer = SpawnTestPlayer && index == 0;
+                    var strategy = isPlayer
+                        ? FallbackStrategy
+                        : GetStrategy(index);
+                    SpawnAgent(
+                        $"DM_T{teamIndex + 1}_{index + 1:00}_{strategy}",
+                        GetSpawnPosition(teamIndex),
+                        strategy,
+                        !isPlayer,
+                        agent =>
+                        {
+                            agent.AssignTeam(teamIndex);
+                            agent.SetTeamColor(TeamColorAt(teamIndex));
+                        });
+                }
             }
 
             if (Roster.Count == 0)
@@ -219,9 +389,9 @@ namespace BattleRoyale.GameModes.Deathmatch
                 combatStats.RegisterAgent(index, agent.TeamIndex, displayName);
             }
 
-            var teams = ModeConfiguration == null
+            var teams = Configuration == null
                 ? null
-                : ModeConfiguration.deathmatchTeams;
+                : Configuration.teams;
             for (var team = 0; team < teamScores.Length; team++)
             {
                 var configured = teams != null &&
@@ -273,14 +443,6 @@ namespace BattleRoyale.GameModes.Deathmatch
             }
 
             return -1;
-        }
-
-        public override bool TryGetHazardDestination(
-            Vector3 fromPosition,
-            out Vector3 destination)
-        {
-            destination = fromPosition;
-            return false;
         }
 
         public override Vector3 GetRetreatPoint(Vector3 fromPosition, Vector3 threatPosition)
@@ -342,6 +504,9 @@ namespace BattleRoyale.GameModes.Deathmatch
             return false;
         }
 
+        private DeathmatchModeConfiguration Configuration =>
+            ModeConfiguration as DeathmatchModeConfiguration;
+
         private bool ResolveMapAndConfiguration()
         {
             if (!TryBindActiveMap(
@@ -352,10 +517,10 @@ namespace BattleRoyale.GameModes.Deathmatch
 
             if (ModeConfiguration == null ||
                 ModeConfiguration.map != ActiveMap.definition ||
-                !ModeConfiguration.IsDeathmatch)
+                ModeConfiguration is not DeathmatchModeConfiguration)
             {
                 SetModeConfiguration(
-                    FindConfiguration(configuration => configuration.IsDeathmatch));
+                    FindConfiguration(configuration => configuration is DeathmatchModeConfiguration));
             }
 
             if (ModeConfiguration == null)
@@ -366,8 +531,8 @@ namespace BattleRoyale.GameModes.Deathmatch
                 return false;
             }
 
-            if (ModeConfiguration.deathmatchTeams == null ||
-                ModeConfiguration.deathmatchTeams.Count <
+            if (Configuration.teams == null ||
+                Configuration.teams.Count <
                 DeathmatchRules.RequiredTeamCount(ModeConfiguration.teamCount))
             {
                 Debug.LogWarning(
@@ -385,18 +550,18 @@ namespace BattleRoyale.GameModes.Deathmatch
                 ModeConfiguration.teamCount);
             scoreLimit = Mathf.Max(
                 1,
-                ModeConfiguration.scoreLimit <= 0
+                Configuration.scoreLimit <= 0
                     ? DeathmatchRules.DefaultScoreLimit
-                    : ModeConfiguration.scoreLimit);
-            respawnSeconds = Mathf.Max(0f, ModeConfiguration.respawnSeconds);
+                    : Configuration.scoreLimit);
+            respawnSeconds = Mathf.Max(0f, Configuration.respawnSeconds);
             teamScores = new int[teamCount];
         }
 
         private Vector3 GetSpawnPosition(int teamIndex)
         {
-            var teams = ModeConfiguration == null
+            var teams = Configuration == null
                 ? null
-                : ModeConfiguration.deathmatchTeams;
+                : Configuration.teams;
             if (teams != null &&
                 teamIndex >= 0 &&
                 teamIndex < teams.Count &&
@@ -406,12 +571,11 @@ namespace BattleRoyale.GameModes.Deathmatch
                 var offset = Random.insideUnitCircle * Mathf.Max(0f, point.radius);
                 var localPosition = point.spawnPosition +
                                     new Vector3(offset.x, 0f, offset.y);
-                return SnapToNavigation(
-                    ActiveMap.transform.TransformPoint(localPosition));
+                return SnapToNavigation(ActiveMap.WorldPoint(localPosition));
             }
 
             var center = ActiveMap.definition.WorldCenter;
-            return SnapToNavigation(ActiveMap.transform.TransformPoint(center));
+            return SnapToNavigation(ActiveMap.WorldPoint(center));
         }
     }
 }

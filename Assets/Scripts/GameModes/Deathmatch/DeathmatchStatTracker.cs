@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BattleRoyale.GameModes;
 using BattleRoyale.GameModes.BattleRoyale;
 using TMPro;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 
 namespace BattleRoyale.GameModes.Deathmatch
 {
-    public sealed class DeathmatchStatTracker : MonoBehaviour
+    public sealed class DeathmatchStatTracker : StatSheetView
     {
         [SerializeField] DeathmatchGameMode match;
         [SerializeField] GameObject board;
@@ -41,10 +42,42 @@ namespace BattleRoyale.GameModes.Deathmatch
         bool reportedTeamCount;
         bool tableOpen;
 
+        public override bool Matches(SimulationMatch candidate)
+        {
+            return candidate is DeathmatchGameMode;
+        }
+
+        public override SimulationMatch BoundMatch => match;
+
+        public override void Bind(SimulationMatch candidate)
+        {
+            if (candidate is not DeathmatchGameMode deathmatch)
+            {
+                return;
+            }
+
+            match = deathmatch;
+            if (isActiveAndEnabled)
+            {
+                Begin();
+            }
+        }
+
         void OnEnable()
         {
+            Begin();
+        }
+
+        void Begin()
+        {
+            if (match == null)
+            {
+                configured = false;
+                return;
+            }
+
             configured = HasReferences();
-            if (!configured || !Application.isPlaying)
+            if (!configured || !Application.isPlaying || listening)
             {
                 return;
             }
@@ -116,14 +149,16 @@ namespace BattleRoyale.GameModes.Deathmatch
         void Refresh()
         {
             var stats = match.CombatStats;
+            stats.NoteMatchClock(match.ElapsedMatchTime);
+            stats.NoteTeamScores(match.TeamScores);
+            NoteLiving(stats);
             teamOneCaption.text = stats.TeamName(0);
             teamOneCaption.color = match.TeamColorAt(0);
-            teamOneScore.text = match.TeamScores[0].ToString();
-            matchTime.text = DeathmatchCombatStats.FormatClock(
-                match.ElapsedMatchTime);
+            teamOneScore.text = stats.TeamScoreAt(0).ToString();
+            matchTime.text = DeathmatchCombatStats.FormatClock(stats.MatchClock);
             teamTwoCaption.text = stats.TeamName(1);
             teamTwoCaption.color = match.TeamColorAt(1);
-            teamTwoScore.text = match.TeamScores[1].ToString();
+            teamTwoScore.text = stats.TeamScoreAt(1).ToString();
             ShowTeamNames(teamOneNames, stats.TeamName(0), match.TeamColorAt(0));
             ShowTeamNames(teamTwoNames, stats.TeamName(1), match.TeamColorAt(1));
             ShowEvent(stats.LatestEvent);
@@ -151,6 +186,16 @@ namespace BattleRoyale.GameModes.Deathmatch
             HideSpare(sideTwo, two);
             HideSpare(tableOne, one);
             HideSpare(tableTwo, two);
+        }
+
+        void NoteLiving(DeathmatchCombatStats stats)
+        {
+            var agents = match.Agents;
+            for (var index = 0; index < stats.AgentCount; index++)
+            {
+                var agent = index < agents.Count ? agents[index] : null;
+                stats.NoteAlive(index, agent != null && agent.IsAlive);
+            }
         }
 
         void ShowEvent(DeathmatchEventLine line)
@@ -198,7 +243,7 @@ namespace BattleRoyale.GameModes.Deathmatch
                 agent = agents[line.RosterIndex];
             }
 
-            var alive = agent != null && agent.IsAlive;
+            var alive = line.Alive;
             var respawnSeconds = 0;
             if (!alive && agent != null)
             {

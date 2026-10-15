@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdf01e6692116044d8dd2aec2c3b75c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 96bb8df985600dc469f9fd4e71d30c52, type: 3}
   m_Name: twilight_maze_of_the_vampire_lady_Deathmatch_Team
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.MapModeConfiguration
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.DeathmatchModeConfiguration
   map: {fileID: 11400000, guid: 2a056bffcfc033c499671bea51df534e, type: 2}
   mode: 2
   variantName: Team
@@ -19,16 +19,19 @@ MonoBehaviour:
   teamSize: 5
   battleRoyaleSpawnPoints: []
   captureTheFlagTeams: []
-  deathmatchTeams:
+  deathmatchTeams: []
+  eliminationTeams: []
+  legacyScoreLimit: 50
+  legacyRespawnSeconds: 3
+  legacyRoundWinLimit: 13
+  legacyRoundSeconds: 115
+  legacyIntermissionSeconds: 7
+  teams:
   - teamId: Team 1
     spawnPosition: {x: 184.67899, y: 0, z: -287.6855}
     radius: 8
   - teamId: Team 2
     spawnPosition: {x: -359.73343, y: 0, z: 189.45966}
     radius: 8
-  eliminationTeams: []
   scoreLimit: 20
   respawnSeconds: 5
-  roundWinLimit: 13
-  roundSeconds: 115
-  intermissionSeconds: 7

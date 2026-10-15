@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
 namespace BattleRoyale.Maps
 {
     public enum GameModeOpposition
@@ -76,10 +75,7 @@ namespace BattleRoyale.Maps
         EliminationSpawn
     }
 
-    [CreateAssetMenu(
-        fileName = "MapModeConfiguration",
-        menuName = "Battle Royale/Maps/Map Mode Configuration")]
-    public sealed class MapModeConfiguration : ScriptableObject
+    public abstract class MapModeConfiguration : ScriptableObject
     {
         public MapDefinition map;
         public MapGameMode mode;
@@ -91,30 +87,6 @@ namespace BattleRoyale.Maps
         [Min(1)]
         public int teamSize = 1;
 
-        public List<MapModePoint> battleRoyaleSpawnPoints = new();
-        public List<MapModeTeamPoints> captureTheFlagTeams = new();
-        public List<MapModeTeamSpawn> deathmatchTeams = new();
-        public List<MapModeTeamSpawn> eliminationTeams = new();
-
-        [Min(1)]
-        public int scoreLimit = 50;
-
-        [Min(0f)]
-        public float respawnSeconds = 3f;
-
-        [Min(1)]
-        public int roundWinLimit = 13;
-
-        [Min(1f)]
-        public float roundSeconds = 115f;
-
-        [Min(0f)]
-        public float intermissionSeconds = 7f;
-
-        public bool IsBattleRoyale => mode == MapGameMode.BattleRoyale;
-        public bool IsCaptureTheFlag => mode == MapGameMode.CaptureTheFlag;
-        public bool IsDeathmatch => mode == MapGameMode.Deathmatch;
-        public bool IsElimination => mode == MapGameMode.Elimination;
     }
 
     [Serializable]
@@ -136,7 +108,7 @@ namespace BattleRoyale.Maps
     }
 
     [Serializable]
-    public sealed class MapModeTeamSpawn
+    public sealed class MapTeamSpawn
     {
         public string teamId = "Team 1";
         public Vector3 spawnPosition;

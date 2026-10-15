@@ -9,15 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdf01e6692116044d8dd2aec2c3b75c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1eebe1ad934c2c643b23353138263380, type: 3}
   m_Name: plaguecrown_chambers_BattleRoyale_Solo
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.MapModeConfiguration
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.BattleRoyaleModeConfiguration
   map: {fileID: 11400000, guid: 2f73855a16f81174da4d25f004f8c7a2, type: 2}
   mode: 0
   variantName: Solo
   teamCount: 10
   teamSize: 1
-  battleRoyaleSpawnPoints:
+  battleRoyaleSpawnPoints: []
+  captureTheFlagTeams: []
+  deathmatchTeams: []
+  eliminationTeams: []
+  legacyScoreLimit: 50
+  legacyRespawnSeconds: 3
+  legacyRoundWinLimit: 13
+  legacyRoundSeconds: 115
+  legacyIntermissionSeconds: 7
+  spawnPoints:
   - id: Spawn 1
     position: {x: 157.07137, y: 0, z: -289.8222}
     radius: 0
@@ -48,11 +57,3 @@ MonoBehaviour:
   - id: Spawn 10
     position: {x: 107.87395, y: 0, z: -37.261154}
     radius: 0
-  captureTheFlagTeams: []
-  deathmatchTeams: []
-  eliminationTeams: []
-  scoreLimit: 50
-  respawnSeconds: 3
-  roundWinLimit: 13
-  roundSeconds: 115
-  intermissionSeconds: 7

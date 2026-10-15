@@ -1,34 +1,52 @@
 using System;
 using System.Collections.Generic;
+using BattleRoyale.GameModes;
 
 namespace BattleRoyale.GameModes.Deathmatch
 {
-    public readonly struct DeathmatchAgentLine
+    public sealed class DeathmatchAgentLine : StatSheetRow
     {
-        public readonly int RosterIndex;
-        public readonly int TeamIndex;
-        public readonly string DisplayName;
-        public readonly int Kills;
-        public readonly int Deaths;
-        public readonly int Assists;
-        public readonly float DamageDealt;
-        public readonly int ShotsFired;
-        public readonly int Hits;
-
         public DeathmatchAgentLine(
             int rosterIndex,
             int teamIndex,
             string displayName,
+            bool alive,
             int kills,
             int deaths,
             int assists,
             float damageDealt,
             int shotsFired,
             int hits)
+            : this(
+                rosterIndex,
+                teamIndex,
+                displayName,
+                alive,
+                kills,
+                deaths,
+                assists,
+                damageDealt,
+                shotsFired,
+                hits,
+                true)
+        {
+        }
+
+        DeathmatchAgentLine(
+            int rosterIndex,
+            int teamIndex,
+            string displayName,
+            bool alive,
+            int kills,
+            int deaths,
+            int assists,
+            float damageDealt,
+            int shotsFired,
+            int hits,
+            bool cleanBlank)
+            : base(displayName, teamIndex, alive, cleanBlank)
         {
             RosterIndex = rosterIndex;
-            TeamIndex = teamIndex;
-            DisplayName = displayName ?? string.Empty;
             Kills = kills;
             Deaths = deaths;
             Assists = assists;
@@ -37,8 +55,30 @@ namespace BattleRoyale.GameModes.Deathmatch
             Hits = hits;
         }
 
+        public int RosterIndex { get; }
+        public int Kills { get; }
+        public int Deaths { get; }
+        public int Assists { get; }
+        public float DamageDealt { get; }
+        public int ShotsFired { get; }
+        public int Hits { get; }
+
         public float Accuracy =>
             ShotsFired <= 0 ? 0f : (float)Hits / ShotsFired;
+
+        public static DeathmatchAgentLine Missing =>
+            new(
+                -1,
+                -1,
+                string.Empty,
+                false,
+                0,
+                0,
+                0,
+                0f,
+                0,
+                0,
+                false);
     }
 
     public readonly struct DeathmatchEventLine
@@ -73,23 +113,135 @@ namespace BattleRoyale.GameModes.Deathmatch
             new(false, false, string.Empty, string.Empty, -1, string.Empty, -1);
     }
 
-    public sealed class DeathmatchCombatStats
+    public sealed class DeathmatchCombatStats : StatSheet
     {
         public const float AssistWindowSeconds = 5f;
 
         readonly List<AgentRow> agents = new();
         readonly List<string> teamNames = new();
+        readonly List<int> teamScores = new();
 
-        public DeathmatchEventLine LatestEvent { get; private set; } =
-            DeathmatchEventLine.None;
+        public float MatchClock { get; private set; }
+
+        public DeathmatchEventLine LatestEvent
+        {
+            get
+            {
+                var elimination = LatestElimination;
+                if (!elimination.HasEvent)
+                {
+                    return DeathmatchEventLine.None;
+                }
+
+                var phrase = elimination.HasActor
+                    ? elimination.ActorName + " eliminated " + elimination.SubjectName
+                    : elimination.SubjectName + " died";
+                return new DeathmatchEventLine(
+                    true,
+                    elimination.HasActor,
+                    phrase,
+                    elimination.ActorName,
+                    elimination.ActorTeam,
+                    elimination.SubjectName,
+                    elimination.SubjectTeam);
+            }
+        }
 
         public int AgentCount => agents.Count;
+
+        public int TeamScoreCount => teamScores.Count;
+
+        public override int RowCount
+        {
+            get
+            {
+                var count = 0;
+                for (var index = 0; index < agents.Count; index++)
+                {
+                    if (agents[index] != null)
+                    {
+                        count++;
+                    }
+                }
+
+                return count;
+            }
+        }
+
+        public override StatSheetRow RowAt(int index)
+        {
+            if (index < 0)
+            {
+                return null;
+            }
+
+            var seen = 0;
+            for (var rosterIndex = 0; rosterIndex < agents.Count; rosterIndex++)
+            {
+                var agent = agents[rosterIndex];
+                if (agent == null)
+                {
+                    continue;
+                }
+
+                if (seen == index)
+                {
+                    return ToLine(rosterIndex, agent);
+                }
+
+                seen++;
+            }
+
+            return null;
+        }
 
         public void Clear()
         {
             agents.Clear();
             teamNames.Clear();
-            LatestEvent = DeathmatchEventLine.None;
+            teamScores.Clear();
+            MatchClock = 0f;
+            ClearElimination();
+        }
+
+        public void NoteMatchClock(float seconds)
+        {
+            MatchClock = seconds;
+        }
+
+        public void NoteTeamScores(IReadOnlyList<int> scores)
+        {
+            teamScores.Clear();
+            if (scores == null)
+            {
+                return;
+            }
+
+            for (var index = 0; index < scores.Count; index++)
+            {
+                teamScores.Add(scores[index]);
+            }
+        }
+
+        public int TeamScoreAt(int teamIndex)
+        {
+            if (teamIndex < 0 || teamIndex >= teamScores.Count)
+            {
+                return 0;
+            }
+
+            return teamScores[teamIndex];
+        }
+
+        public void NoteAlive(int rosterIndex, bool alive)
+        {
+            var agent = Find(rosterIndex);
+            if (agent == null)
+            {
+                return;
+            }
+
+            agent.Alive = alive;
         }
 
         public void RegisterAgent(
@@ -110,7 +262,8 @@ namespace BattleRoyale.GameModes.Deathmatch
             agents[rosterIndex] = new AgentRow
             {
                 TeamIndex = teamIndex,
-                DisplayName = CleanName(displayName)
+                DisplayName = StatSheetRow.CleanName(displayName),
+                Alive = true
             };
         }
 
@@ -160,6 +313,7 @@ namespace BattleRoyale.GameModes.Deathmatch
             float healthRemoved,
             float matchTime)
         {
+            NoteMatchClock(matchTime);
             if (healthRemoved <= 0f || attackerIndex == victimIndex)
             {
                 return;
@@ -184,6 +338,7 @@ namespace BattleRoyale.GameModes.Deathmatch
             int killerIndex,
             float matchTime)
         {
+            NoteMatchClock(matchTime);
             var victim = Find(victimIndex);
             if (victim == null)
             {
@@ -194,27 +349,25 @@ namespace BattleRoyale.GameModes.Deathmatch
             var killer = Find(killerIndex);
             if (killer == null || killer.TeamIndex == victim.TeamIndex)
             {
-                LatestEvent = new DeathmatchEventLine(
+                SetLatestElimination(new StatSheetElimination(
                     true,
                     false,
-                    victim.DisplayName + " died",
                     string.Empty,
                     -1,
                     victim.DisplayName,
-                    victim.TeamIndex);
+                    victim.TeamIndex));
                 return;
             }
 
             killer.Kills++;
             AwardAssists(victim, killerIndex, killer.TeamIndex, matchTime);
-            LatestEvent = new DeathmatchEventLine(
+            SetLatestElimination(new StatSheetElimination(
                 true,
                 true,
-                killer.DisplayName + " eliminated " + victim.DisplayName,
                 killer.DisplayName,
                 killer.TeamIndex,
                 victim.DisplayName,
-                victim.TeamIndex);
+                victim.TeamIndex));
         }
 
         public DeathmatchAgentLine AgentAt(int rosterIndex)
@@ -222,16 +375,7 @@ namespace BattleRoyale.GameModes.Deathmatch
             var agent = Find(rosterIndex);
             if (agent == null)
             {
-                return new DeathmatchAgentLine(
-                    -1,
-                    -1,
-                    string.Empty,
-                    0,
-                    0,
-                    0,
-                    0f,
-                    0,
-                    0);
+                return DeathmatchAgentLine.Missing;
             }
 
             return ToLine(rosterIndex, agent);
@@ -304,13 +448,6 @@ namespace BattleRoyale.GameModes.Deathmatch
             return "Team " + (teamIndex + 1);
         }
 
-        static string CleanName(string displayName)
-        {
-            return string.IsNullOrWhiteSpace(displayName)
-                ? "Unknown"
-                : displayName.Trim();
-        }
-
         AgentRow Find(int rosterIndex)
         {
             if (rosterIndex < 0 || rosterIndex >= agents.Count)
@@ -372,6 +509,7 @@ namespace BattleRoyale.GameModes.Deathmatch
                 rosterIndex,
                 agent.TeamIndex,
                 agent.DisplayName,
+                agent.Alive,
                 agent.Kills,
                 agent.Deaths,
                 agent.Assists,
@@ -384,6 +522,7 @@ namespace BattleRoyale.GameModes.Deathmatch
         {
             public int TeamIndex;
             public string DisplayName;
+            public bool Alive;
             public int Kills;
             public int Deaths;
             public int Assists;

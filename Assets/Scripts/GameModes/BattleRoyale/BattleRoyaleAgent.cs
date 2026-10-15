@@ -20,6 +20,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
         [SerializeField] private float specialtyScore;
         [SerializeField] private float killBuffRemaining;
         [SerializeField] private float currentHealth;
+        [SerializeField] private float corpseDrop = 1f;
         [SerializeField] private bool isBot = true;
         [SerializeField] private int teamIndex = -1;
 
@@ -29,12 +30,15 @@ namespace BattleRoyale.GameModes.BattleRoyale
         private BattleRoyaleWeapon weapon;
         private IMatch match;
         private bool hasTeamColor;
+        private bool hasSidePlaystyle;
+        private TeamPlaystyle sidePlaystyle;
         private Color teamColor = Color.white;
         private BattleRoyaleSpecialtyModifiers specialtyModifiers =
             BattleRoyaleAgentSpecialtyRules.GetModifiers(
                 BattleRoyaleAgentSpecialty.Balanced);
         private Vector3 lastPosition;
         private float stationaryDuration;
+        private bool visualsDropped;
 
         public event Action<BattleRoyaleAgent, BattleRoyaleAgent> Eliminated;
 
@@ -50,26 +54,17 @@ namespace BattleRoyale.GameModes.BattleRoyale
         public BattleRoyaleWeapon Weapon => weapon;
         public IMatch Match => match;
         public int TeamIndex => teamIndex;
+        public bool HasSidePlaystyle => hasSidePlaystyle;
+        public TeamPlaystyle SidePlaystyle => sidePlaystyle;
         public float MaxHealth =>
-            AgentStats == null
-                ? 0f
-                : AgentStats.maxHealth *
-                  specialtyModifiers.maxHealthMultiplier;
+            BattleRoyaleCombatStats.MaxHealth(AgentStats);
         public float MoveSpeed =>
-            AgentStats == null
-                ? 0f
-                : AgentStats.moveSpeed *
-                  Mathf.Lerp(0.85f, 1.15f, AgentStats.athleticism) *
-                  specialtyModifiers.moveSpeedMultiplier *
-                  (HasKillBuff
-                      ? specialtyModifiers.killBuffMoveSpeedMultiplier
-                      : 1f);
+            BattleRoyaleCombatStats.MoveSpeed(
+                AgentStats,
+                specialtyModifiers,
+                HasKillBuff);
         public float PerceptionRange =>
-            AgentStats == null
-                ? 0f
-                : AgentStats.perceptionRange *
-                  Mathf.Lerp(0.75f, 1.25f, AgentStats.awareness) *
-                  specialtyModifiers.perceptionMultiplier;
+            BattleRoyaleCombatStats.Perception(AgentStats, specialtyModifiers);
         public float WeaponRange =>
             weapon == null
                 ? 0f
@@ -146,6 +141,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
             strategy = agentStrategy;
             isBot = bot;
             teamIndex = -1;
+            hasSidePlaystyle = false;
             hasTeamColor = false;
             agent = GetComponent<NavMeshAgent>();
             if (profile == null)
@@ -193,6 +189,12 @@ namespace BattleRoyale.GameModes.BattleRoyale
             teamIndex = index;
         }
 
+        public void AssignSidePlaystyle(TeamPlaystyle playstyle)
+        {
+            hasSidePlaystyle = true;
+            sidePlaystyle = playstyle;
+        }
+
         public void AssignSquadRole(BattleRoyaleSquadRole role)
         {
             squadRole = role;
@@ -218,6 +220,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 agent = GetComponent<NavMeshAgent>();
             }
 
+            PresentLivingBody();
             if (agent != null)
             {
                 agent.enabled = true;
@@ -283,19 +286,35 @@ namespace BattleRoyale.GameModes.BattleRoyale
             float damage,
             BattleRoyaleAgent damageSource = null)
         {
+            return ApplyResolvedDamage(
+                BattleRoyaleCombatStats.BulletDamage(
+                    damage,
+                    AgentStats,
+                    DamageTakenMultiplier),
+                damageSource);
+        }
+
+        public float ApplyHazardDamage(float damage)
+        {
+            return ApplyResolvedDamage(
+                BattleRoyaleCombatStats.HazardDamage(
+                    damage,
+                    AgentStats,
+                    SafeZoneDamageMultiplier),
+                null);
+        }
+
+        float ApplyResolvedDamage(
+            float mitigatedDamage,
+            BattleRoyaleAgent damageSource)
+        {
             if (!IsAlive ||
-                damage <= 0f ||
+                mitigatedDamage <= 0f ||
                 (match is IMatchCombatGate combatGate && !combatGate.CombatEnabled))
             {
                 return 0f;
             }
 
-            var resilience = profile == null || profile.stats == null
-                ? 0f
-                : Mathf.Clamp01(profile.stats.resilience);
-            var mitigatedDamage = damage *
-                                  Mathf.Lerp(1f, 0.65f, resilience) *
-                                  DamageTakenMultiplier;
             var removed = DeathmatchCombatStats.HealthRemoved(
                 currentHealth,
                 mitigatedDamage);
@@ -316,12 +335,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
             }
 
             State = BattleRoyaleAgentState.Eliminated;
-            if (agent != null)
-            {
-                agent.isStopped = true;
-                agent.enabled = false;
-            }
-
+            PresentCorpse();
             if (agentRenderer != null)
             {
                 agentRenderer.material.color = Color.gray;
@@ -343,6 +357,77 @@ namespace BattleRoyale.GameModes.BattleRoyale
             agentRenderer.material.color = State == BattleRoyaleAgentState.Engaging
                 ? FiringColor
                 : bodyColor;
+        }
+
+        void PresentCorpse()
+        {
+            if (agent != null)
+            {
+                agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+                agent.isStopped = true;
+                agent.enabled = false;
+            }
+
+            SetBodyColliders(false);
+            DropVisuals();
+        }
+
+        void PresentLivingBody()
+        {
+            RaiseVisuals();
+            SetBodyColliders(true);
+            var body = GetComponent<CapsuleCollider>();
+            if (agent != null && body != null)
+            {
+                ApplyClearance(agent, body);
+            }
+        }
+
+        void DropVisuals()
+        {
+            if (visualsDropped)
+            {
+                return;
+            }
+
+            var drop = Mathf.Max(0f, corpseDrop);
+            for (var i = 0; i < transform.childCount; i++)
+            {
+                var child = transform.GetChild(i);
+                var local = child.localPosition;
+                local.y -= drop;
+                child.localPosition = local;
+            }
+
+            visualsDropped = true;
+        }
+
+        void RaiseVisuals()
+        {
+            if (!visualsDropped)
+            {
+                return;
+            }
+
+            var drop = Mathf.Max(0f, corpseDrop);
+            for (var i = 0; i < transform.childCount; i++)
+            {
+                var child = transform.GetChild(i);
+                var local = child.localPosition;
+                local.y += drop;
+                child.localPosition = local;
+            }
+
+            visualsDropped = false;
+        }
+
+        void SetBodyColliders(bool enabled)
+        {
+            var colliders = GetComponentsInChildren<Collider>(true);
+            for (var i = 0; i < colliders.Length; i++)
+            {
+                colliders[i].enabled = enabled;
+            }
         }
 
         private void ConfigureAgent()

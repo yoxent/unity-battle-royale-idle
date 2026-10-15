@@ -14,8 +14,10 @@ namespace BattleRoyale.Tests.EditMode
         public void DeselectingAModeRemovesOnlyThatModesMarkers()
         {
             var root = new GameObject("Map");
-            var battleConfiguration = ScriptableObject.CreateInstance<MapModeConfiguration>();
-            var deathmatchConfiguration = ScriptableObject.CreateInstance<MapModeConfiguration>();
+            var battleConfiguration =
+                ScriptableObject.CreateInstance<BattleRoyaleModeConfiguration>();
+            var deathmatchConfiguration =
+                ScriptableObject.CreateInstance<DeathmatchModeConfiguration>();
             try
             {
                 battleConfiguration.mode = MapGameMode.BattleRoyale;

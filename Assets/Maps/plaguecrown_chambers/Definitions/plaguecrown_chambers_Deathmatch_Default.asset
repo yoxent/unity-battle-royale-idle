@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdf01e6692116044d8dd2aec2c3b75c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 96bb8df985600dc469f9fd4e71d30c52, type: 3}
   m_Name: plaguecrown_chambers_Deathmatch_Default
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.MapModeConfiguration
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.DeathmatchModeConfiguration
   map: {fileID: 11400000, guid: 2f73855a16f81174da4d25f004f8c7a2, type: 2}
   mode: 2
   variantName: Default
@@ -19,16 +19,19 @@ MonoBehaviour:
   teamSize: 5
   battleRoyaleSpawnPoints: []
   captureTheFlagTeams: []
-  deathmatchTeams:
+  deathmatchTeams: []
+  eliminationTeams: []
+  legacyScoreLimit: 50
+  legacyRespawnSeconds: 3
+  legacyRoundWinLimit: 13
+  legacyRoundSeconds: 115
+  legacyIntermissionSeconds: 7
+  teams:
   - teamId: Team 1
     spawnPosition: {x: 50.71878, y: 0, z: 166.94017}
     radius: 8
   - teamId: Team 2
     spawnPosition: {x: 130.13904, y: 0, z: -285.64163}
     radius: 8
-  eliminationTeams: []
   scoreLimit: 20
   respawnSeconds: 5
-  roundWinLimit: 13
-  roundSeconds: 115
-  intermissionSeconds: 7

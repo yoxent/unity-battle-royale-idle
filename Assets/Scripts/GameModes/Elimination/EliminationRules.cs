@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BattleRoyale.GameModes;
 using BattleRoyale.Maps;
 using UnityEngine;
 
@@ -16,54 +17,22 @@ namespace BattleRoyale.GameModes.Elimination
 
         public static int RequiredTeamCount(int teamCount)
         {
-            return Mathf.Max(MinimumTeamCount, teamCount);
+            return SideRules.RequiredTeamCount(teamCount);
         }
 
         public static bool SharesTeam(int teamA, int teamB)
         {
-            return teamA >= 0 && teamA == teamB;
+            return SideRules.SharesTeam(teamA, teamB);
         }
 
         public static bool IsRoundOver(IReadOnlyList<int> livingCounts)
         {
-            if (livingCounts == null)
-            {
-                return false;
-            }
-
-            var teamsAlive = 0;
-            for (var team = 0; team < livingCounts.Count; team++)
-            {
-                if (livingCounts[team] > 0)
-                {
-                    teamsAlive++;
-                }
-            }
-
-            return teamsAlive < 2;
+            return LivingSideRules.IsDecided(livingCounts);
         }
 
         public static int SoleSurvivor(IReadOnlyList<int> livingCounts)
         {
-            if (livingCounts == null)
-            {
-                return -1;
-            }
-
-            var survivor = -1;
-            var teamsAlive = 0;
-            for (var team = 0; team < livingCounts.Count; team++)
-            {
-                if (livingCounts[team] <= 0)
-                {
-                    continue;
-                }
-
-                teamsAlive++;
-                survivor = team;
-            }
-
-            return teamsAlive == 1 ? survivor : -1;
+            return LivingSideRules.SoleSurvivor(livingCounts);
         }
 
         public static int TimeExpiryWinner(IReadOnlyList<int> livingCounts)
@@ -133,26 +102,26 @@ namespace BattleRoyale.GameModes.Elimination
             return winner;
         }
 
-        public static bool EnsureTeamSpawns(MapModeConfiguration configuration)
+        public static bool EnsureTeamSpawns(EliminationModeConfiguration configuration)
         {
-            if (configuration == null || !configuration.IsElimination)
+            if (configuration == null)
             {
                 return false;
             }
 
-            configuration.eliminationTeams ??= new List<MapModeTeamSpawn>();
+            configuration.teams ??= new List<MapTeamSpawn>();
             var requiredCount = RequiredTeamCount(configuration.teamCount);
             var changed = configuration.teamCount != requiredCount;
             configuration.teamCount = requiredCount;
             var center = configuration.map != null
                 ? configuration.map.WorldCenter
                 : Vector3.zero;
-            while (configuration.eliminationTeams.Count < requiredCount)
+            while (configuration.teams.Count < requiredCount)
             {
-                var index = configuration.eliminationTeams.Count;
+                var index = configuration.teams.Count;
                 var angle = (index + 0.5f) / requiredCount * Mathf.PI * 2f;
-                configuration.eliminationTeams.Add(
-                    new MapModeTeamSpawn
+                configuration.teams.Add(
+                    new MapTeamSpawn
                     {
                         teamId = $"Team {index + 1}",
                         spawnPosition = center + new Vector3(
@@ -164,10 +133,10 @@ namespace BattleRoyale.GameModes.Elimination
                 changed = true;
             }
 
-            while (configuration.eliminationTeams.Count > requiredCount)
+            while (configuration.teams.Count > requiredCount)
             {
-                configuration.eliminationTeams.RemoveAt(
-                    configuration.eliminationTeams.Count - 1);
+                configuration.teams.RemoveAt(
+                    configuration.teams.Count - 1);
                 changed = true;
             }
 

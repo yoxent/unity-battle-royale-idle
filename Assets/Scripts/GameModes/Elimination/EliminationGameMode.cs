@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using BattleRoyale.Company;
 using BattleRoyale.GameModes.BattleRoyale;
 using BattleRoyale.GameModes.Deathmatch;
+using BattleRoyale.Maps;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,14 +12,6 @@ namespace BattleRoyale.GameModes.Elimination
     [DefaultExecutionOrder(-50)]
     public sealed class EliminationGameMode : SimulationMatch, IMatchCombatGate
     {
-        private static readonly Color[] TeamColors =
-        {
-            new(0.2f, 0.45f, 1f),
-            new(1f, 0.45f, 0.15f),
-            new(0.2f, 0.8f, 0.35f),
-            new(0.75f, 0.3f, 0.9f)
-        };
-
         private readonly DeathmatchCombatStats combatStats = new();
         private int[] roundWins = System.Array.Empty<int>();
         private int[] livingCounts = System.Array.Empty<int>();
@@ -27,6 +21,8 @@ namespace BattleRoyale.GameModes.Elimination
         private float roundElapsed;
         private float intermissionRemaining;
         private bool roundLive;
+
+        public override bool Runs(MapGameMode mode) => mode == MapGameMode.Elimination;
 
         protected override string AgentRootName => "EliminationAgents";
         protected override string ProjectileRootName => "EliminationProjectiles";
@@ -49,7 +45,7 @@ namespace BattleRoyale.GameModes.Elimination
                 return Color.white;
             }
 
-            return TeamColors[teamIndex % TeamColors.Length];
+            return SideColorRules.Fallback(teamIndex).AsColor();
         }
 
         private void Update()
@@ -113,7 +109,7 @@ namespace BattleRoyale.GameModes.Elimination
                     agent =>
                     {
                         agent.AssignTeam(teamIndex);
-                        agent.SetTeamColor(TeamColors[teamIndex % TeamColors.Length]);
+                        agent.SetTeamColor(TeamColorAt(teamIndex));
                     });
             }
 
@@ -179,14 +175,6 @@ namespace BattleRoyale.GameModes.Elimination
                 RosterIndex(victim),
                 healthRemoved,
                 roundElapsed);
-        }
-
-        public override bool TryGetHazardDestination(
-            Vector3 fromPosition,
-            out Vector3 destination)
-        {
-            destination = fromPosition;
-            return false;
         }
 
         public override Vector3 GetRetreatPoint(Vector3 fromPosition, Vector3 threatPosition)
@@ -346,9 +334,9 @@ namespace BattleRoyale.GameModes.Elimination
                 combatStats.RegisterAgent(index, agent.TeamIndex, displayName);
             }
 
-            var teams = ModeConfiguration == null
+            var teams = Configuration == null
                 ? null
-                : ModeConfiguration.eliminationTeams;
+                : Configuration.teams;
             for (var team = 0; team < roundWins.Length; team++)
             {
                 var configured = teams != null &&
@@ -397,6 +385,9 @@ namespace BattleRoyale.GameModes.Elimination
             return -1;
         }
 
+        private EliminationModeConfiguration Configuration =>
+            ModeConfiguration as EliminationModeConfiguration;
+
         private bool ResolveMapAndConfiguration()
         {
             if (!TryBindActiveMap(
@@ -407,10 +398,10 @@ namespace BattleRoyale.GameModes.Elimination
 
             if (ModeConfiguration == null ||
                 ModeConfiguration.map != ActiveMap.definition ||
-                !ModeConfiguration.IsElimination)
+                ModeConfiguration is not EliminationModeConfiguration)
             {
                 SetModeConfiguration(
-                    FindConfiguration(configuration => configuration.IsElimination));
+                    FindConfiguration(configuration => configuration is EliminationModeConfiguration));
             }
 
             if (ModeConfiguration == null)
@@ -421,8 +412,8 @@ namespace BattleRoyale.GameModes.Elimination
                 return false;
             }
 
-            if (ModeConfiguration.eliminationTeams == null ||
-                ModeConfiguration.eliminationTeams.Count <
+            if (Configuration.teams == null ||
+                Configuration.teams.Count <
                 EliminationRules.RequiredTeamCount(ModeConfiguration.teamCount))
             {
                 Debug.LogWarning(
@@ -440,24 +431,24 @@ namespace BattleRoyale.GameModes.Elimination
                 ModeConfiguration.teamCount);
             roundWinLimit = Mathf.Max(
                 1,
-                ModeConfiguration.roundWinLimit <= 0
+                Configuration.roundWinLimit <= 0
                     ? EliminationRules.DefaultRoundWinLimit
-                    : ModeConfiguration.roundWinLimit);
+                    : Configuration.roundWinLimit);
             roundSeconds = Mathf.Max(
                 1f,
-                ModeConfiguration.roundSeconds <= 0f
+                Configuration.roundSeconds <= 0f
                     ? EliminationRules.DefaultRoundSeconds
-                    : ModeConfiguration.roundSeconds);
-            intermissionSeconds = Mathf.Max(0f, ModeConfiguration.intermissionSeconds);
+                    : Configuration.roundSeconds);
+            intermissionSeconds = Mathf.Max(0f, Configuration.intermissionSeconds);
             roundWins = new int[teamCount];
             livingCounts = new int[teamCount];
         }
 
         private Vector3 GetSpawnPosition(int teamIndex)
         {
-            var teams = ModeConfiguration == null
+            var teams = Configuration == null
                 ? null
-                : ModeConfiguration.eliminationTeams;
+                : Configuration.teams;
             if (teams != null &&
                 teamIndex >= 0 &&
                 teamIndex < teams.Count &&
@@ -467,12 +458,11 @@ namespace BattleRoyale.GameModes.Elimination
                 var offset = Random.insideUnitCircle * Mathf.Max(0f, point.radius);
                 var localPosition = point.spawnPosition +
                                     new Vector3(offset.x, 0f, offset.y);
-                return SnapToNavigation(
-                    ActiveMap.transform.TransformPoint(localPosition));
+                return SnapToNavigation(ActiveMap.WorldPoint(localPosition));
             }
 
             var center = ActiveMap.definition.WorldCenter;
-            return SnapToNavigation(ActiveMap.transform.TransformPoint(center));
+            return SnapToNavigation(ActiveMap.WorldPoint(center));
         }
     }
 }

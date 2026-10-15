@@ -105,6 +105,9 @@ namespace BattleRoyale.Tests.EditMode
             Assert.AreEqual(0, stats.AgentAt(2).Assists);
             Assert.AreEqual("Scout died", stats.LatestEvent.Phrase);
             Assert.IsFalse(stats.LatestEvent.HasActor);
+            Assert.IsFalse(stats.LatestElimination.HasActor);
+            Assert.AreEqual("Scout", stats.LatestElimination.SubjectName);
+            Assert.AreEqual(0, stats.LatestElimination.SubjectTeam);
         }
 
         [Test]
@@ -120,6 +123,55 @@ namespace BattleRoyale.Tests.EditMode
         public void ClockFormatsMinutesAndSeconds()
         {
             Assert.AreEqual("04:12", DeathmatchCombatStats.FormatClock(252f));
+        }
+
+        [Test]
+        public void EliminationFillsTheSharedSheetAndStoresThePassedClock()
+        {
+            var stats = TwoAgents();
+            stats.RecordElimination(1, 0, 3f);
+
+            var elimination = stats.LatestElimination;
+            Assert.IsTrue(elimination.HasEvent);
+            Assert.IsTrue(elimination.HasActor);
+            Assert.AreEqual("Gunner", elimination.ActorName);
+            Assert.AreEqual(1, elimination.ActorTeam);
+            Assert.AreEqual("Scout", elimination.SubjectName);
+            Assert.AreEqual(0, elimination.SubjectTeam);
+            Assert.AreEqual(3f, stats.MatchClock, 0.001f);
+            Assert.IsTrue(stats.RowAt(0).Alive);
+        }
+
+        [Test]
+        public void TeamScoresAndAliveStayWithTheDeathmatchSheet()
+        {
+            var stats = TwoAgents();
+            stats.NoteTeamScores(new[] { 4, 1 });
+            stats.NoteMatchClock(252f);
+            stats.NoteAlive(1, false);
+
+            Assert.AreEqual(2, stats.TeamScoreCount);
+            Assert.AreEqual(4, stats.TeamScoreAt(0));
+            Assert.AreEqual(1, stats.TeamScoreAt(1));
+            Assert.AreEqual(252f, stats.MatchClock, 0.001f);
+            Assert.IsTrue(stats.AgentAt(0).Alive);
+            Assert.IsFalse(stats.RowAt(1).Alive);
+            Assert.AreEqual(0, stats.AgentAt(0).Kills);
+        }
+
+        [Test]
+        public void ClearDropsScoresClockAndElimination()
+        {
+            var stats = TwoAgents();
+            stats.NoteTeamScores(new[] { 1, 1 });
+            stats.RecordElimination(1, 0, 4f);
+            stats.Clear();
+
+            Assert.AreEqual(0, stats.TeamScoreCount);
+            Assert.AreEqual(0f, stats.MatchClock, 0.001f);
+            Assert.IsFalse(stats.LatestElimination.HasEvent);
+            Assert.AreEqual(0, stats.RowCount);
+            Assert.IsFalse(stats.LatestEvent.HasEvent);
         }
 
         static DeathmatchCombatStats TwoAgents()
