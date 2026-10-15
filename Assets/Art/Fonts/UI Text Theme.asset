@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5aa14df45965e574db514fd799d6daa3, type: 3}
-  m_Name: Ui Text Theme
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextTheme
+  m_Name: UI Text Theme
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextTheme
   styles:
   - id: heading-1
     color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}

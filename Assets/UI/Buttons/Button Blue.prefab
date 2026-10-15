@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd194eb4eaa93c149a80f521a4ea4cb1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiButton
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UIButton
   m_Navigation:
     m_Mode: 3
     m_WrapAround: 0
@@ -362,7 +362,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: medium-bold
   label: {fileID: 6869689881353542139}

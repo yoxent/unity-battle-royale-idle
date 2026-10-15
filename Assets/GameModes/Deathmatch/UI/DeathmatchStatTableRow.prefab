@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-bold
   label: {fileID: 4345541620959538141}
@@ -345,7 +345,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-bold
   label: {fileID: 3098275377372757769}
@@ -520,7 +520,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-bold
   label: {fileID: 4883616038186912897}
@@ -695,7 +695,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-bold
   label: {fileID: 4541210283807768129}
@@ -870,7 +870,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-bold
   label: {fileID: 1699848954024069139}

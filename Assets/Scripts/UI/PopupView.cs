@@ -248,7 +248,7 @@ namespace BattleRoyale.UI
 
         static void SetButtonCaption(Button button, TMP_Text label, string caption)
         {
-            var uiButton = button as UiButton;
+            var uiButton = button as UIButton;
             if (uiButton != null)
             {
                 uiButton.SetLabel(caption);

@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace BattleRoyale.Tests.EditMode
 {
-    public sealed class UiTextThemeTests
+    public sealed class UITextThemeTests
     {
-        UiTextTheme _theme;
+        UITextTheme _theme;
         TMP_FontAsset _bodyFont;
         TMP_FontAsset _titleFont;
         GameObject _labelObject;
@@ -18,7 +18,7 @@ namespace BattleRoyale.Tests.EditMode
         {
             _bodyFont = ScriptableObject.CreateInstance<TMP_FontAsset>();
             _titleFont = ScriptableObject.CreateInstance<TMP_FontAsset>();
-            _theme = ScriptableObject.CreateInstance<UiTextTheme>();
+            _theme = ScriptableObject.CreateInstance<UITextTheme>();
             var serialized = new SerializedObject(_theme);
             var styles = serialized.FindProperty("styles");
             styles.arraySize = 2;
@@ -82,7 +82,7 @@ namespace BattleRoyale.Tests.EditMode
             var label = _labelObject.AddComponent<TextMeshProUGUI>();
             var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(
                 "Assets/Art/Fonts/Baloo/SDF/Baloo2-Regular SDF.asset");
-            var style = new UiTextStyleDefinition
+            var style = new UITextStyleDefinition
             {
                 id = "company-body",
                 color = Color.black,

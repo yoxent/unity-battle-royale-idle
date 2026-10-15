@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace BattleRoyale.UI.EditorTools
 {
-    [CustomPropertyDrawer(typeof(UiTextStyleDefinition))]
-    sealed class UiTextStyleDefinitionDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(UITextStyleDefinition))]
+    sealed class UITextStyleDefinitionDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
@@ -19,7 +19,7 @@ namespace BattleRoyale.UI.EditorTools
             var end = child.GetEndProperty();
             if (!child.NextVisible(true))
             {
-                return height + EditorGUIUtility.standardVerticalSpacing + UiTextStylePreview.Height(property);
+                return height + EditorGUIUtility.standardVerticalSpacing + UITextStylePreview.Height(property);
             }
 
             while (!SerializedProperty.EqualContents(child, end))
@@ -31,7 +31,7 @@ namespace BattleRoyale.UI.EditorTools
                 }
             }
 
-            return height + EditorGUIUtility.standardVerticalSpacing + UiTextStylePreview.Height(property);
+            return height + EditorGUIUtility.standardVerticalSpacing + UITextStylePreview.Height(property);
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -65,14 +65,14 @@ namespace BattleRoyale.UI.EditorTools
                 }
             }
 
-            var preview = EditorGUI.IndentedRect(new Rect(position.x, y, position.width, UiTextStylePreview.Height(property)));
-            UiTextStylePreview.Draw(preview, property);
+            var preview = EditorGUI.IndentedRect(new Rect(position.x, y, position.width, UITextStylePreview.Height(property)));
+            UITextStylePreview.Draw(preview, property);
             EditorGUI.indentLevel--;
             EditorGUI.EndProperty();
         }
     }
 
-    static class UiTextStylePreview
+    static class UITextStylePreview
     {
         const float MaxPreviewSize = 64f;
 

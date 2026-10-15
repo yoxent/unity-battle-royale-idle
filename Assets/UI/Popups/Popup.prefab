@@ -561,7 +561,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: heading-5
   label: {fileID: 100044}
@@ -715,7 +715,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: normal-regular
   label: {fileID: 100054}
@@ -1011,7 +1011,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: heading-5
   label: {fileID: 100114}
@@ -1556,7 +1556,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: normal-regular
   label: {fileID: 100164}
@@ -1684,7 +1684,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd194eb4eaa93c149a80f521a4ea4cb1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiButton
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UIButton
 --- !u!114 &2088502429566090012 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5200852727553766395, guid: 316301dbabfc872448c3297b4ee8ff73, type: 3}
@@ -1824,7 +1824,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd194eb4eaa93c149a80f521a4ea4cb1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiButton
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UIButton
 --- !u!114 &3599615406198535124 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6869689881353542139, guid: ce3d79f8f00629c4890e2676609c6cd1, type: 3}

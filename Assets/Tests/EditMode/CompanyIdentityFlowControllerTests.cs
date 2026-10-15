@@ -17,7 +17,7 @@ namespace BattleRoyale.Tests.EditMode
         public void SetUp()
         {
             var prefab = LoadPrefab(
-                "Assets/CompanyIdentity/Ui/CompanyIdentity.prefab");
+                "Assets/CompanyIdentity/UI/CompanyIdentity.prefab");
             _companyIdentityObject = Object.Instantiate(prefab);
             _companyIdentityObject.name = prefab.name;
 

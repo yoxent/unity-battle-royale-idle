@@ -445,7 +445,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: medium-extra-bold
   label: {fileID: 8813621841617748546}
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: very-small-regular
   label: {fileID: 3404033921566911635}
@@ -795,7 +795,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-bold
   label: {fileID: 6710671480740149393}

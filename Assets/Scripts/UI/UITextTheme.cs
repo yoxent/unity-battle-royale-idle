@@ -5,7 +5,7 @@ using UnityEngine;
 namespace BattleRoyale.UI
 {
     [Serializable]
-    public struct UiTextStyleDefinition
+    public struct UITextStyleDefinition
     {
         public string id;
         public Color color;
@@ -31,10 +31,10 @@ namespace BattleRoyale.UI
         }
     }
 
-    [CreateAssetMenu(fileName = "Ui Text Theme", menuName = "Battle Royale/UI/Text Theme")]
-    public sealed class UiTextTheme : ScriptableObject
+    [CreateAssetMenu(fileName = "UI Text Theme", menuName = "Battle Royale/UI/Text Theme")]
+    public sealed class UITextTheme : ScriptableObject
     {
-        [SerializeField] UiTextStyleDefinition[] styles;
+        [SerializeField] UITextStyleDefinition[] styles;
 
         public int StyleCount => styles == null ? 0 : styles.Length;
 
@@ -74,7 +74,7 @@ namespace BattleRoyale.UI
             }
         }
 
-        public bool TryGet(string id, out UiTextStyleDefinition style)
+        public bool TryGet(string id, out UITextStyleDefinition style)
         {
             id = NormalizeId(id);
             if (styles != null && id.Length > 0)

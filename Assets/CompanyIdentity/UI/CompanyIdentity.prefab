@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 7132247279197410113}
@@ -515,7 +515,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 2760007246424436723}
@@ -669,7 +669,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 4164168031157299698}
@@ -996,7 +996,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 5442335739394198617}
@@ -1150,7 +1150,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: heading-5
   label: {fileID: 293959076390232353}
@@ -1381,7 +1381,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 6837929449894146662}
@@ -1689,7 +1689,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 4458014379886071831}
@@ -2861,7 +2861,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 644885068201757328}
@@ -3051,7 +3051,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 654938026710992979}
@@ -3277,7 +3277,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 8909512641407679825}
@@ -3705,7 +3705,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 1607538928132962624}
@@ -3933,7 +3933,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 4632406894216974335}
@@ -4087,7 +4087,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 4863686163095353597}
@@ -4570,7 +4570,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 982743183948620701}
@@ -4776,7 +4776,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: error
   label: {fileID: 7880482456125788624}
@@ -5081,7 +5081,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: heading-5
   label: {fileID: 5566274809027694383}
@@ -5235,7 +5235,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 5567618922099948390}
@@ -5389,7 +5389,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 6146385504614412905}
@@ -5680,7 +5680,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 5985580510644182352}
@@ -5909,7 +5909,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 6110784872392292010}
@@ -6337,7 +6337,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 8735055179156987474}
@@ -6527,7 +6527,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 8774777536600136392}
@@ -7167,7 +7167,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 2896003402614761676}
@@ -7321,7 +7321,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 3504065169658423463}
@@ -7475,7 +7475,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 1680224249887983849}
@@ -7903,7 +7903,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 8197745608217991040}
@@ -8294,7 +8294,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 935151632676438966}
@@ -8967,7 +8967,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 8752594311366727918}
@@ -9121,7 +9121,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 2438011727966069915}
@@ -9562,7 +9562,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 2481245940425868795}
@@ -9752,7 +9752,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 830797681945240953}
@@ -9906,7 +9906,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: placeholder
   label: {fileID: 6559231871982681225}
@@ -10060,7 +10060,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 8904574652801376015}
@@ -10278,7 +10278,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 317315358909168463}
@@ -10569,7 +10569,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: heading-5
   label: {fileID: 4066388007113629395}
@@ -10723,7 +10723,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 537238744384290785}
@@ -10877,7 +10877,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 5354531304395956449}
@@ -11111,7 +11111,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 7567072696408206098}
@@ -11689,7 +11689,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 7937517566969951658}
@@ -11843,7 +11843,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: heading-5
   label: {fileID: 3131364588246406724}
@@ -11997,7 +11997,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 1691892153149300575}
@@ -12151,7 +12151,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 3945938638231389992}
@@ -12997,7 +12997,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 7315992383866719972}
@@ -13151,7 +13151,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-bold
   label: {fileID: 5676589664932479148}
@@ -13380,7 +13380,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 6559748355371477080}
@@ -13919,7 +13919,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 5522010681424689441}
@@ -14248,7 +14248,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 6226650448854946742}
@@ -14438,7 +14438,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 3150369772537072775}
@@ -14592,7 +14592,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 3938542121577025962}
@@ -14746,7 +14746,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 5747707552867732405}
@@ -15549,7 +15549,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 2842074907388990070}
@@ -15703,7 +15703,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 6627705039658483232}
@@ -15857,7 +15857,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: heading-5
   label: {fileID: 8507918233061574466}
@@ -16148,7 +16148,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 6569823686602649982}
@@ -17361,7 +17361,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 4076386887506408218}
@@ -17551,7 +17551,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 4041616788035043269}
@@ -17705,7 +17705,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 3763658313864364291}
@@ -18172,7 +18172,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 2424198693204248134}
@@ -18326,7 +18326,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 7997859011101384493}
@@ -18480,7 +18480,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67acec33c827b284fa26f90b64b1c5d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UiTextStyle
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextStyle
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: small-regular
   label: {fileID: 612169727732638009}

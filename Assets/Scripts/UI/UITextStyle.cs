@@ -8,15 +8,15 @@ namespace BattleRoyale.UI
     /// The style id is chosen from the theme in the inspector.
     /// </summary>
     [DisallowMultipleComponent]
-    public sealed class UiTextStyle : MonoBehaviour
+    public sealed class UITextStyle : MonoBehaviour
     {
-        [SerializeField] UiTextTheme theme;
+        [SerializeField] UITextTheme theme;
         [SerializeField] string styleId;
         [SerializeField] TMP_Text label;
         [Tooltip("Off keeps this label's color. Font and size still come from the style.")]
         [SerializeField] bool applyColor = true;
 
-        public bool Uses(UiTextTheme candidate)
+        public bool Uses(UITextTheme candidate)
         {
             return theme == candidate;
         }
@@ -47,15 +47,15 @@ namespace BattleRoyale.UI
 
                 if (label == null)
                 {
-                    Debug.LogError("UiTextStyle: assign a label.", this);
+                    Debug.LogError("UITextStyle: assign a label.", this);
                 }
                 else if (theme == null)
                 {
-                    Debug.LogError("UiTextStyle: assign a text theme.", this);
+                    Debug.LogError("UITextStyle: assign a text theme.", this);
                 }
                 else
                 {
-                    Debug.LogError("UiTextStyle: choose a style.", this);
+                    Debug.LogError("UITextStyle: choose a style.", this);
                 }
 
                 return;
@@ -66,7 +66,7 @@ namespace BattleRoyale.UI
                 if (logMissing)
                 {
                     Debug.LogError(
-                        $"UiTextStyle: theme '{theme.name}' has no style '{styleId}'.",
+                        $"UITextStyle: theme '{theme.name}' has no style '{styleId}'.",
                         this);
                 }
 
@@ -76,7 +76,7 @@ namespace BattleRoyale.UI
             if (style.font == null && logMissing)
             {
                 Debug.LogError(
-                    $"UiTextStyle: theme '{theme.name}' style '{styleId}' has no font.",
+                    $"UITextStyle: theme '{theme.name}' style '{styleId}' has no font.",
                     this);
             }
 

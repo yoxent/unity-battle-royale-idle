@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace BattleRoyale.UI
 {
-    public enum UiButtonTreatment
+    public enum UIButtonTreatment
     {
         Filled = 0,
         Outlined = 1,
@@ -15,9 +15,9 @@ namespace BattleRoyale.UI
     /// </summary>
     [DisallowMultipleComponent]
     [AddComponentMenu("Battle Royale/UI/Button")]
-    public sealed class UiButton : Button
+    public sealed class UIButton : Button
     {
-        [SerializeField] UiButtonTreatment treatment;
+        [SerializeField] UIButtonTreatment treatment;
         [Tooltip("Shown on the label. A screen can replace the text after the button enables.")]
         [SerializeField] string labelText = "Button";
         [SerializeField] bool showLabel = true;
@@ -68,7 +68,7 @@ namespace BattleRoyale.UI
             {
                 if (logMissing)
                 {
-                    Debug.LogError("UiButton: assign the background, icon, label, and layout elements.", this);
+                    Debug.LogError("UIButton: assign the background, icon, label, and layout elements.", this);
                 }
 
                 return;
@@ -76,20 +76,20 @@ namespace BattleRoyale.UI
 
             if (!showLabel && !showIcon && logMissing)
             {
-                Debug.LogError("UiButton: show the label, the icon, or both.", this);
+                Debug.LogError("UIButton: show the label, the icon, or both.", this);
             }
 
             if (!HasSprites())
             {
                 if (logMissing)
                 {
-                    Debug.LogError("UiButton: assign the filled and outlined sprites.", this);
+                    Debug.LogError("UIButton: assign the filled and outlined sprites.", this);
                 }
 
                 return;
             }
 
-            var filled = treatment == UiButtonTreatment.Filled;
+            var filled = treatment == UIButtonTreatment.Filled;
             background.sprite = filled ? filledNormal : outlinedNormal;
             background.type = Image.Type.Sliced;
             background.color = Color.white;
@@ -147,7 +147,7 @@ namespace BattleRoyale.UI
                 return;
             }
 
-            var filled = treatment == UiButtonTreatment.Filled;
+            var filled = treatment == UIButtonTreatment.Filled;
             var color = filled
                 ? (disabled ? filledDisabledContentColor : filledContentColor)
                 : (disabled ? outlinedDisabledContentColor : outlinedContentColor);

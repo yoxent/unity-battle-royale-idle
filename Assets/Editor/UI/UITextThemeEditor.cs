@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 
 namespace BattleRoyale.UI.EditorTools
 {
-    [CustomEditor(typeof(UiTextTheme))]
-    sealed class UiTextThemeEditor : UnityEditor.Editor
+    [CustomEditor(typeof(UITextTheme))]
+    sealed class UITextThemeEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
@@ -19,14 +19,14 @@ namespace BattleRoyale.UI.EditorTools
             {
                 if (GUILayout.Button("Apply to prefabs and open scenes"))
                 {
-                    UiTextThemeApply.ApplyAll((UiTextTheme)target);
+                    UITextThemeApply.ApplyAll((UITextTheme)target);
                 }
             }
         }
     }
 
-    [CustomEditor(typeof(UiTextStyle))]
-    sealed class UiTextStyleEditor : UnityEditor.Editor
+    [CustomEditor(typeof(UITextStyle))]
+    sealed class UITextStyleEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
@@ -56,7 +56,7 @@ namespace BattleRoyale.UI.EditorTools
 
             for (var i = 0; i < targets.Length; i++)
             {
-                var style = (UiTextStyle)targets[i];
+                var style = (UITextStyle)targets[i];
                 if (style == null)
                 {
                     continue;
@@ -77,7 +77,7 @@ namespace BattleRoyale.UI.EditorTools
         {
             if (labelProperty.objectReferenceValue == null)
             {
-                var found = ((UiTextStyle)target).GetComponent<TMP_Text>();
+                var found = ((UITextStyle)target).GetComponent<TMP_Text>();
                 if (found != null)
                 {
                     labelProperty.objectReferenceValue = found;
@@ -89,19 +89,19 @@ namespace BattleRoyale.UI.EditorTools
                 return;
             }
 
-            var guids = AssetDatabase.FindAssets("t:UiTextTheme");
+            var guids = AssetDatabase.FindAssets("t:UITextTheme");
             if (guids.Length != 1)
             {
                 return;
             }
 
             var path = AssetDatabase.GUIDToAssetPath(guids[0]);
-            themeProperty.objectReferenceValue = AssetDatabase.LoadAssetAtPath<UiTextTheme>(path);
+            themeProperty.objectReferenceValue = AssetDatabase.LoadAssetAtPath<UITextTheme>(path);
         }
 
         static void DrawStylePopup(SerializedProperty themeProperty, SerializedProperty styleProperty)
         {
-            var theme = themeProperty.objectReferenceValue as UiTextTheme;
+            var theme = themeProperty.objectReferenceValue as UITextTheme;
             if (themeProperty.hasMultipleDifferentValues)
             {
                 EditorGUILayout.PropertyField(styleProperty);
@@ -160,7 +160,7 @@ namespace BattleRoyale.UI.EditorTools
                 return;
             }
 
-            var theme = themeProperty.objectReferenceValue as UiTextTheme;
+            var theme = themeProperty.objectReferenceValue as UITextTheme;
             if (theme == null || !theme.TryGet(styleProperty.stringValue, out var style))
             {
                 return;
@@ -170,14 +170,14 @@ namespace BattleRoyale.UI.EditorTools
             var rect = GUILayoutUtility.GetRect(0f, height, GUILayout.ExpandWidth(true));
             var font = style.font == null ? null : style.font.sourceFontFile;
             var sample = string.IsNullOrEmpty(style.id) ? "Ag" : style.id;
-            UiTextStylePreview.Draw(rect, font, Mathf.Clamp(style.fontSize, 12f, 64f), style.color, sample);
+            UITextStylePreview.Draw(rect, font, Mathf.Clamp(style.fontSize, 12f, 64f), style.color, sample);
             if (!colorProperty.hasMultipleDifferentValues && !colorProperty.boolValue)
             {
                 EditorGUILayout.LabelField("This label keeps its own color.", EditorStyles.miniLabel);
             }
         }
 
-        static string[] ReadIds(UiTextTheme theme)
+        static string[] ReadIds(UITextTheme theme)
         {
             var serialized = new SerializedObject(theme);
             var styles = serialized.FindProperty("styles");
@@ -201,10 +201,10 @@ namespace BattleRoyale.UI.EditorTools
 
         static int IndexOf(string[] ids, string id)
         {
-            var normalized = UiTextTheme.NormalizeId(id);
+            var normalized = UITextTheme.NormalizeId(id);
             for (var i = 0; i < ids.Length; i++)
             {
-                if (UiTextTheme.NormalizeId(ids[i]) == normalized)
+                if (UITextTheme.NormalizeId(ids[i]) == normalized)
                 {
                     return i;
                 }
@@ -214,13 +214,13 @@ namespace BattleRoyale.UI.EditorTools
         }
     }
 
-    static class UiTextThemeApply
+    static class UITextThemeApply
     {
-        public static void ApplyAll(UiTextTheme theme)
+        public static void ApplyAll(UITextTheme theme)
         {
             if (theme == null)
             {
-                Debug.LogError("UiTextThemeApply: text theme is missing.");
+                Debug.LogError("UITextThemeApply: text theme is missing.");
                 return;
             }
 
@@ -238,7 +238,7 @@ namespace BattleRoyale.UI.EditorTools
             return stage == null ? null : stage.assetPath;
         }
 
-        static int ApplyPrefabs(UiTextTheme theme, string skipPath)
+        static int ApplyPrefabs(UITextTheme theme, string skipPath)
         {
             var count = 0;
             var guids = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets" });
@@ -269,7 +269,7 @@ namespace BattleRoyale.UI.EditorTools
             return count;
         }
 
-        static int ApplyOpenPrefabStage(UiTextTheme theme)
+        static int ApplyOpenPrefabStage(UITextTheme theme)
         {
             var stage = PrefabStageUtility.GetCurrentPrefabStage();
             if (stage == null || stage.prefabContentsRoot == null)
@@ -286,7 +286,7 @@ namespace BattleRoyale.UI.EditorTools
             return 1;
         }
 
-        static int ApplyOpenScenes(UiTextTheme theme)
+        static int ApplyOpenScenes(UITextTheme theme)
         {
             var count = 0;
             for (var i = 0; i < SceneManager.sceneCount; i++)
@@ -301,7 +301,7 @@ namespace BattleRoyale.UI.EditorTools
                 var sceneCount = 0;
                 for (var r = 0; r < roots.Length; r++)
                 {
-                    var styles = roots[r].GetComponentsInChildren<UiTextStyle>(true);
+                    var styles = roots[r].GetComponentsInChildren<UITextStyle>(true);
                     for (var s = 0; s < styles.Length; s++)
                     {
                         var style = styles[s];
@@ -332,9 +332,9 @@ namespace BattleRoyale.UI.EditorTools
             return count;
         }
 
-        static bool ApplyOwned(GameObject prefabRoot, UiTextTheme theme)
+        static bool ApplyOwned(GameObject prefabRoot, UITextTheme theme)
         {
-            var styles = prefabRoot.GetComponentsInChildren<UiTextStyle>(true);
+            var styles = prefabRoot.GetComponentsInChildren<UITextStyle>(true);
             var changed = false;
             for (var i = 0; i < styles.Length; i++)
             {
