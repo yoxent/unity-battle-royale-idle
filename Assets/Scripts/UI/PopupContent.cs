@@ -95,11 +95,29 @@ namespace BattleRoyale.UI
             return this;
         }
 
+        public static PopupContent Hire(int price, int balanceAfter)
+        {
+            return Create(
+                "Hire this agent",
+                $"The contract costs {price}. After you pay, the company has {balanceAfter} gold.",
+                "Hire",
+                "Not now");
+        }
+
+        public static PopupContent Refresh(int fee, int nextFee)
+        {
+            return Create(
+                "Refresh the board",
+                $"This refresh costs {fee}. The next one today costs {nextFee}.",
+                "Refresh",
+                "Not now");
+        }
+
         public static PopupContent EntryCommit()
         {
             return Create(
                 "Entering this tournament",
-                "The entrance fee and your agents' upkeep are held when you enter. They are not spent yet.\n\nYou can leave before the match starts and get that gold back. Your agents stay free, and no result is recorded.\n\nOnce the match starts, that gold is spent. Leaving after that, or closing the game, counts as a loss. There is no prize, and the fee and upkeep are not returned.",
+                "The entrance fee and your agents' upkeep are held when you enter. They are not spent yet.\n\nYou can leave before the match starts and get that gold back. Your agents stay free, and no result is recorded.\n\nOnce the match starts, that gold is spent. Forfeiting is a loss: no prize, and the fee and upkeep are not returned. Closing the game before a result keeps the company as it was when this entry began.",
                 "Enter",
                 "Not now");
         }

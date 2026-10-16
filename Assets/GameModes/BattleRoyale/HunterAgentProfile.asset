@@ -14,9 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.GameModes.BattleRoyale.BattleRoyaleAgentProfile
   displayName: Hunter
   stats:
-    maxHealth: 90
-    moveSpeed: 9.5
-    perceptionRange: 75
     accuracy: 0.6
     awareness: 0.45
     resilience: 0.4

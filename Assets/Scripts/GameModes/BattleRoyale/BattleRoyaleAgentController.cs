@@ -1,3 +1,4 @@
+using BattleRoyale.Company;
 using BattleRoyale.GameModes;
 using BattleRoyale.GameModes.Deathmatch;
 using UnityEngine;
@@ -331,12 +332,16 @@ namespace BattleRoyale.GameModes.BattleRoyale
 
         private void RefreshTuning()
         {
+            var matchPlaystyle = match == null
+                ? TeamPlaystyle.Neutral
+                : match.TeamPlaystyle;
             tuning = BattleRoyaleStrategyRules.GetTuning(
                 agent.Strategy,
                 agent.Profile.ai,
-                match == null
-                    ? TeamPlaystyle.Neutral
-                    : match.TeamPlaystyle);
+                SideStanceRules.Resolve(
+                    agent.HasSidePlaystyle,
+                    agent.SidePlaystyle,
+                    matchPlaystyle));
         }
 
         private void RefreshDirectiveState()
@@ -357,9 +362,20 @@ namespace BattleRoyale.GameModes.BattleRoyale
 
         private BattleRoyaleAgentDirective GetCurrentDirective()
         {
-            return directiveProvider == null
-                ? null
-                : directiveProvider.CurrentDirective;
+            if (directiveProvider == null || agent == null)
+            {
+                return null;
+            }
+
+            if (!SideStanceRules.ReceivesCoachDirective(
+                    agent.HasSidePlaystyle,
+                    agent.TeamIndex,
+                    playerTeamIndex: 0))
+            {
+                return null;
+            }
+
+            return directiveProvider.CurrentDirective;
         }
 
         private void Act()

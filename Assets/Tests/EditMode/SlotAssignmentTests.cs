@@ -79,44 +79,6 @@ namespace BattleRoyale.Tests.EditMode
         }
 
         [Test]
-        public void EnsureTrackers_SpawnsThePrefabThatMatchesTheSlot()
-        {
-            var match = Create<DeathmatchGameMode>("Deathmatch");
-            var stage = CreateStage(match);
-            var prefab = Create<DeathmatchStatTracker>("DeathmatchStatTracker");
-            prefab.gameObject.SetActive(false);
-            AssignPrefab(stage, prefab);
-
-            stage.EnsureTrackers();
-            stage.EnsureTrackers();
-
-            var tracker = SlotTracker(stage, 0) as DeathmatchStatTracker;
-            Assert.IsNotNull(tracker);
-            Assert.AreNotSame(prefab, tracker);
-            Assert.AreSame(match, tracker.BoundMatch);
-            Assert.AreEqual(1, CountChildren<DeathmatchStatTracker>(stage));
-        }
-
-        [Test]
-        public void EnsureTrackers_ReplacesATrackerForTheWrongMode()
-        {
-            var match = Create<EliminationGameMode>("Elimination");
-            var stage = CreateStage(match);
-            var wrong = Create<DeathmatchStatTracker>("DeathmatchStatTracker");
-            stage.SetTracker(0, wrong);
-            var prefab = Create<EliminationStatTracker>("EliminationStatTracker");
-            prefab.gameObject.SetActive(false);
-            AssignPrefab(stage, prefab);
-
-            stage.EnsureTrackers();
-
-            var tracker = SlotTracker(stage, 0);
-            Assert.IsInstanceOf<EliminationStatTracker>(tracker);
-            Assert.AreSame(match, tracker.BoundMatch);
-            Assert.IsTrue(wrong == null);
-        }
-
-        [Test]
         public void ClearSlot_KeepsTheMatchAndStopsIt()
         {
             var deathmatchMap = ReadyDefinition(MapGameMode.Deathmatch);
@@ -325,36 +287,6 @@ namespace BattleRoyale.Tests.EditMode
             var slots = new SerializedObject(stage).FindProperty("slots");
             return slots.GetArrayElementAtIndex(index)
                 .FindPropertyRelative("match").objectReferenceValue as SimulationMatch;
-        }
-
-        private static StatSheetView SlotTracker(Stage stage, int index)
-        {
-            var slots = new SerializedObject(stage).FindProperty("slots");
-            return slots.GetArrayElementAtIndex(index)
-                .FindPropertyRelative("tracker").objectReferenceValue as StatSheetView;
-        }
-
-        private static void AssignPrefab(Stage stage, StatSheetView prefab)
-        {
-            var serialized = new SerializedObject(stage);
-            var prefabs = serialized.FindProperty("trackerPrefabs");
-            prefabs.arraySize = 1;
-            prefabs.GetArrayElementAtIndex(0).objectReferenceValue = prefab;
-            serialized.ApplyModifiedPropertiesWithoutUndo();
-        }
-
-        private static int CountChildren<T>(Stage stage) where T : Component
-        {
-            var count = 0;
-            for (var index = 0; index < stage.transform.childCount; index++)
-            {
-                if (stage.transform.GetChild(index).GetComponent<T>() != null)
-                {
-                    count++;
-                }
-            }
-
-            return count;
         }
 
         private T Create<T>(string name) where T : Component

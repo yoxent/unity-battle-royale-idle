@@ -14,9 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.GameModes.BattleRoyale.BattleRoyaleAgentProfile
   displayName: Survivor
   stats:
-    maxHealth: 115
-    moveSpeed: 7.5
-    perceptionRange: 85
     accuracy: 0.6
     awareness: 0.65
     resilience: 0.75

@@ -41,15 +41,6 @@ namespace BattleRoyale.GameModes.BattleRoyale
     [Serializable]
     public sealed class BattleRoyaleAgentStats
     {
-        [Min(1f)]
-        public float maxHealth = 100f;
-
-        [Min(0f)]
-        public float moveSpeed = 8f;
-
-        [Min(0f)]
-        public float perceptionRange = 80f;
-
         [Range(0f, 1f)]
         public float accuracy = 0.65f;
 
@@ -126,7 +117,6 @@ namespace BattleRoyale.GameModes.BattleRoyale
     public sealed class BattleRoyaleSpecialtyModifiers
     {
         public float moveSpeedMultiplier = 1f;
-        public float maxHealthMultiplier = 1f;
         public float damageTakenMultiplier = 1f;
         public float safeZoneDamageMultiplier = 1f;
         public float perceptionMultiplier = 1f;
@@ -156,12 +146,6 @@ namespace BattleRoyale.GameModes.BattleRoyale
                     0f);
             }
 
-            var health = Mathf.InverseLerp(75f, 150f, stats.maxHealth);
-            var speed = Mathf.InverseLerp(5f, 12f, stats.moveSpeed);
-            var perception = Mathf.InverseLerp(
-                50f,
-                120f,
-                stats.perceptionRange);
             var bestSpecialty = BattleRoyaleAgentSpecialty.Balanced;
             var bestScore = 0.55f;
 
@@ -174,8 +158,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 ref bestScore);
             Consider(
                 BattleRoyaleAgentSpecialty.Athletic,
-                stats.athleticism * 0.45f +
-                speed * 0.35f +
+                stats.athleticism * 0.8f +
                 stats.endurance * 0.2f,
                 ref bestSpecialty,
                 ref bestScore);
@@ -196,16 +179,14 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 ref bestScore);
             Consider(
                 BattleRoyaleAgentSpecialty.Juggernaut,
-                health * 0.55f +
-                stats.resilience * 0.3f +
+                stats.resilience * 0.85f +
                 stats.endurance * 0.15f,
                 ref bestSpecialty,
                 ref bestScore);
             Consider(
                 BattleRoyaleAgentSpecialty.ReconSpecialist,
-                stats.awareness * 0.45f +
-                perception * 0.35f +
-                speed * 0.2f,
+                stats.awareness * 0.8f +
+                stats.athleticism * 0.2f,
                 ref bestSpecialty,
                 ref bestScore);
             Consider(
@@ -253,8 +234,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 BattleRoyaleAgentSpecialty.Juggernaut =>
                     new BattleRoyaleSpecialtyModifiers
                     {
-                        maxHealthMultiplier = 1.2f,
-                        damageTakenMultiplier = 0.8f,
+                        damageTakenMultiplier = 2f / 3f,
                         moveSpeedMultiplier = 0.9f
                     },
                 BattleRoyaleAgentSpecialty.ReconSpecialist =>

@@ -14,9 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.GameModes.BattleRoyale.BattleRoyaleAgentProfile
   displayName: Gunner
   stats:
-    maxHealth: 105
-    moveSpeed: 7
-    perceptionRange: 80
     accuracy: 0.72
     awareness: 0.55
     resilience: 0.55

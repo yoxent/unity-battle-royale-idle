@@ -58,7 +58,6 @@ namespace BattleRoyale.Maps.EditorTools
 
             if (current.Runs(mode))
             {
-                StatTrackerScenePlacement.Sync(stage);
                 return true;
             }
 
@@ -81,7 +80,6 @@ namespace BattleRoyale.Maps.EditorTools
 
             matchProperty.objectReferenceValue = replacement;
             stageObject.ApplyModifiedProperties();
-            StatTrackerScenePlacement.Sync(stage);
             return true;
         }
 

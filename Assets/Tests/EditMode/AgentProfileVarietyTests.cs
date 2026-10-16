@@ -29,10 +29,10 @@ namespace BattleRoyale.Tests.EditMode
             var names = new HashSet<string>();
             var aggressionMinimum = 1f;
             var aggressionMaximum = 0f;
-            var healthMinimum = float.MaxValue;
-            var healthMaximum = float.MinValue;
-            var perceptionMinimum = float.MaxValue;
-            var perceptionMaximum = float.MinValue;
+            var resilienceMinimum = 1f;
+            var resilienceMaximum = 0f;
+            var awarenessMinimum = 1f;
+            var awarenessMaximum = 0f;
 
             foreach (var path in ProfilePaths)
             {
@@ -55,27 +55,27 @@ namespace BattleRoyale.Tests.EditMode
                     System.Math.Max(
                         aggressionMaximum,
                         profile.ai.aggression);
-                healthMinimum =
+                resilienceMinimum =
                     System.Math.Min(
-                        healthMinimum,
-                        profile.stats.maxHealth);
-                healthMaximum =
+                        resilienceMinimum,
+                        profile.stats.resilience);
+                resilienceMaximum =
                     System.Math.Max(
-                        healthMaximum,
-                        profile.stats.maxHealth);
-                perceptionMinimum =
+                        resilienceMaximum,
+                        profile.stats.resilience);
+                awarenessMinimum =
                     System.Math.Min(
-                        perceptionMinimum,
-                        profile.stats.perceptionRange);
-                perceptionMaximum =
+                        awarenessMinimum,
+                        profile.stats.awareness);
+                awarenessMaximum =
                     System.Math.Max(
-                        perceptionMaximum,
-                        profile.stats.perceptionRange);
+                        awarenessMaximum,
+                        profile.stats.awareness);
             }
 
             Assert.Greater(aggressionMaximum - aggressionMinimum, 0.5f);
-            Assert.Greater(healthMaximum - healthMinimum, 30f);
-            Assert.Greater(perceptionMaximum - perceptionMinimum, 25f);
+            Assert.Greater(resilienceMaximum - resilienceMinimum, 0.3f);
+            Assert.Greater(awarenessMaximum - awarenessMinimum, 0.3f);
         }
 
         [Test]

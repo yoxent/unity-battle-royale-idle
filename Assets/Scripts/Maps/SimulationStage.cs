@@ -10,7 +10,6 @@ namespace BattleRoyale.Maps
     public sealed class SimulationSlot
     {
         public SimulationMatch match;
-        public StatSheetView tracker;
     }
 
     // Places one baked map per slot side by side and keeps the slots apart with barriers.
@@ -19,8 +18,9 @@ namespace BattleRoyale.Maps
         [SerializeField] private SimulationSlot[] slots = new SimulationSlot[3];
         [SerializeField] private BoxCollider[] barriers = new BoxCollider[2];
         [SerializeField] private PlayableMapCatalog playableMaps;
+        [Tooltip("Empty space between the widest maps. The match preview camera is wider than those maps, so a short gap lets the next slot show in the frame.")]
         [Min(0f)]
-        [SerializeField] private float gap = 40f;
+        [SerializeField] private float gap = 400f;
         [Min(0.5f)]
         [SerializeField] private float barrierThickness = 4f;
         [Min(1.5f)]
@@ -28,7 +28,6 @@ namespace BattleRoyale.Maps
         [SerializeField] private SimulationCameraController watchCamera;
         [Tooltip("Authored map that shares slot 0's center. Disabled when a slot map is placed; never destroyed.")]
         [SerializeField] private MapInstance sceneMapToDisable;
-        [SerializeField] private StatSheetView[] trackerPrefabs = System.Array.Empty<StatSheetView>();
         [Tooltip("Unity time scale for the fight. The company abort window and session day stay on unscaled time.")]
         [Min(0.1f)]
         [SerializeField] private float matchTimeScale = 4f;
@@ -37,6 +36,20 @@ namespace BattleRoyale.Maps
         private Vector3[] slotCenters;
 
         public int WatchedSlot { get; private set; }
+
+        public SimulationMatch WatchedMatch
+        {
+            get
+            {
+                if (slots == null || WatchedSlot < 0 || WatchedSlot >= slots.Length)
+                {
+                    return null;
+                }
+
+                var entry = slots[WatchedSlot];
+                return entry == null ? null : entry.match;
+            }
+        }
 
         public int OccupiedMapCount
         {
@@ -65,7 +78,6 @@ namespace BattleRoyale.Maps
         {
             Time.timeScale = Mathf.Max(0.1f, matchTimeScale);
             placedMaps = new MapInstance[SimulationStageLayout.SlotCount];
-            EnsureTrackers();
             if (!TryMeasureCatalog(out var largestWidth, out var largestDepth))
             {
                 return;
@@ -77,7 +89,6 @@ namespace BattleRoyale.Maps
             PlaceBarriers(slotCenters, largestDepth);
             SetBarrierRenderersEnabled(false);
             ShowWatchedMap();
-            ApplyWatchedTrackers();
         }
 
         private void OnEnable()
@@ -121,16 +132,11 @@ namespace BattleRoyale.Maps
             }
 
             var presented = fade
-                ? watchCamera.Watch(placedMaps[slot], ApplyWatchedTrackers)
+                ? watchCamera.Watch(placedMaps[slot], null)
                 : watchCamera.Show(placedMaps[slot]);
             if (!presented)
             {
                 return;
-            }
-
-            if (!fade)
-            {
-                ApplyWatchedTrackers();
             }
 
             var previousSlot = WatchedSlot;
@@ -247,13 +253,11 @@ namespace BattleRoyale.Maps
 
             RemovePlacedMap(slot);
             match.Vacate();
-            var moved = Application.isPlaying &&
+            if (Application.isPlaying &&
                 placedMaps != null &&
-                slot == WatchedSlot &&
-                ShowNextOccupied(slot);
-            if (!moved)
+                slot == WatchedSlot)
             {
-                ApplyWatchedTrackers();
+                ShowNextOccupied(slot);
             }
 
             PublishPlacement();
@@ -296,158 +300,6 @@ namespace BattleRoyale.Maps
             }
 
             watchCamera.Show(map);
-        }
-
-        private void ApplyWatchedTrackers()
-        {
-            if (slots == null)
-            {
-                return;
-            }
-
-            var count = Mathf.Min(slots.Length, SimulationStageLayout.SlotCount);
-            for (var slot = 0; slot < count; slot++)
-            {
-                var tracker = slots[slot] == null ? null : slots[slot].tracker;
-                if (tracker == null)
-                {
-                    continue;
-                }
-
-                tracker.SetWatched(slot == WatchedSlot);
-            }
-        }
-
-        public void EnsureTrackers()
-        {
-            if (slots == null)
-            {
-                return;
-            }
-
-            var count = Mathf.Min(slots.Length, SimulationStageLayout.SlotCount);
-            for (var slot = 0; slot < count; slot++)
-            {
-                EnsureTracker(slot);
-            }
-
-            ApplyWatchedTrackers();
-        }
-
-        public StatSheetView TrackerPrefabFor(SimulationMatch match)
-        {
-            if (match == null || trackerPrefabs == null)
-            {
-                return null;
-            }
-
-            for (var index = 0; index < trackerPrefabs.Length; index++)
-            {
-                var prefab = trackerPrefabs[index];
-                if (prefab != null && prefab.Matches(match))
-                {
-                    return prefab;
-                }
-            }
-
-            return null;
-        }
-
-        public void SetTracker(int slot, StatSheetView tracker)
-        {
-            if (slots == null || slot < 0 || slot >= slots.Length)
-            {
-                return;
-            }
-
-            if (slots[slot] == null)
-            {
-                slots[slot] = new SimulationSlot();
-            }
-
-            slots[slot].tracker = tracker;
-            if (tracker != null)
-            {
-                tracker.SetWatched(slot == WatchedSlot);
-            }
-        }
-
-        private void EnsureTracker(int slot)
-        {
-            var entry = slots[slot];
-            if (entry == null)
-            {
-                return;
-            }
-
-            var match = entry.match;
-            var current = entry.tracker;
-            if (match == null)
-            {
-                DestroyTracker(current);
-                entry.tracker = null;
-                return;
-            }
-
-            if (current != null && current.Matches(match) && current.BoundMatch == match)
-            {
-                return;
-            }
-
-            DestroyTracker(current);
-            entry.tracker = null;
-            var prefab = TrackerPrefabFor(match);
-            if (prefab == null)
-            {
-                if (HasTrackerPrefab())
-                {
-                    Debug.LogError(
-                        $"Simulation slot {slot} has no stat tracker prefab for {match.GetType().Name}.",
-                        this);
-                }
-
-                return;
-            }
-
-            var instance = Instantiate(prefab, transform);
-            instance.name = prefab.name;
-            instance.Bind(match);
-            entry.tracker = instance;
-        }
-
-        private bool HasTrackerPrefab()
-        {
-            if (trackerPrefabs == null)
-            {
-                return false;
-            }
-
-            for (var index = 0; index < trackerPrefabs.Length; index++)
-            {
-                if (trackerPrefabs[index] != null)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private void DestroyTracker(StatSheetView tracker)
-        {
-            if (tracker == null)
-            {
-                return;
-            }
-
-            if (Application.isPlaying)
-            {
-                Destroy(tracker.gameObject);
-            }
-            else
-            {
-                DestroyImmediate(tracker.gameObject);
-            }
         }
 
         private bool TryMeasureCatalog(out float largestWidth, out float largestDepth)

@@ -63,6 +63,30 @@ namespace BattleRoyale.Maps
                 _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
             };
         }
+
+        public static string Label(MapGameMode mode)
+        {
+            return mode switch
+            {
+                MapGameMode.BattleRoyale => "Battle Royale",
+                MapGameMode.CaptureTheFlag => "Capture the Flag",
+                MapGameMode.Deathmatch => "Deathmatch",
+                MapGameMode.Control => "Control",
+                MapGameMode.KingOfTheHill => "King of the Hill",
+                MapGameMode.Assault => "Assault",
+                MapGameMode.Extraction => "Extraction",
+                MapGameMode.Oddball => "Oddball",
+                MapGameMode.Infection => "Infection",
+                MapGameMode.Firefight => "Firefight",
+                MapGameMode.BountyHunt => "Bounty Hunt",
+                MapGameMode.Payload => "Payload",
+                MapGameMode.Survival => "Survival",
+                MapGameMode.Extermination => "Extermination",
+                MapGameMode.Raid => "Raid",
+                MapGameMode.Elimination => "Elimination",
+                _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
+            };
+        }
     }
 
     public enum MapModePointType

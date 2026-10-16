@@ -92,13 +92,7 @@ namespace BattleRoyale.Maps
                 return false;
             }
 
-            if (!stage.TryAssign(slotIndex, configuration))
-            {
-                return false;
-            }
-
-            stage.EnsureTrackers();
-            return true;
+            return stage.TryAssign(slotIndex, configuration);
         }
 
         public bool ClearSlot()

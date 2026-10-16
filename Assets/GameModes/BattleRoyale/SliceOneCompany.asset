@@ -51,6 +51,13 @@ MonoBehaviour:
     rarity: 0
     rolls: 090000000400000006000000020000001100000005000000
     waivedAppearances: 1
+  recruitArchetypes:
+  - {fileID: 11400000, guid: 4a8d1f6c3e7b49a0b5d2f8c1e6a9d4b7, type: 2}
+  - {fileID: 11400000, guid: d6f1a3c8e4b74920a5d7c1f9b2e6a8c3, type: 2}
+  - {fileID: 11400000, guid: c1a4d6e8f5b7428a9c3d1e7f0b6a2d4e, type: 2}
+  - {fileID: 11400000, guid: 8b00a57ab3a58d74f91a6bec1e628ab1, type: 2}
+  - {fileID: 11400000, guid: 7e2b4c9a1d6f43b8a5c0e7d2f9b6a1c3, type: 2}
+  - {fileID: 11400000, guid: 9b3e6a1d7c4f48a2b5d8e0c6f1a9b7d3, type: 2}
   opponentName: Ash Court
   opponentStance: 2
   opponentEmblem:

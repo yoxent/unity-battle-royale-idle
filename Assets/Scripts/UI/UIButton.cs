@@ -140,6 +140,12 @@ namespace BattleRoyale.UI
             }
         }
 
+        public void SetTreatment(UIButtonTreatment value)
+        {
+            treatment = value;
+            Apply(false);
+        }
+
         void ApplyContentColor(bool disabled)
         {
             if (label == null || icon == null)

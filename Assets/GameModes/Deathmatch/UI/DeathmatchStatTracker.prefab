@@ -3671,7 +3671,6 @@ GameObject:
   - component: {fileID: 8455079756084312720}
   - component: {fileID: 5895293876229979301}
   - component: {fileID: 9041044893030293416}
-  - component: {fileID: 7834467697170009082}
   m_Layer: 0
   m_Name: DeathmatchStatTracker
   m_TagString: Untagged
@@ -3762,47 +3761,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7834467697170009082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4798445119017956587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be32c932ddba2aa45be9a4996cb8d651, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.GameModes.Deathmatch.DeathmatchStatTracker
-  match: {fileID: 0}
-  board: {fileID: 2459111648460033456}
-  teamOneCaption: {fileID: 362414859526226932}
-  teamOneScore: {fileID: 6145908578090208037}
-  matchTime: {fileID: 7083437785872213505}
-  teamTwoCaption: {fileID: 8220934434730640679}
-  teamTwoScore: {fileID: 1707236108260177420}
-  eventLine: {fileID: 8814661786910900592}
-  teamOneNames:
-  - {fileID: 4518166159650363755}
-  - {fileID: 1930182966460065643}
-  teamTwoNames:
-  - {fileID: 3297090834923867272}
-  - {fileID: 3495395421771436007}
-  teamOneLogos:
-  - {fileID: 3906754007666744543}
-  - {fileID: 8404114591816901554}
-  teamTwoLogos:
-  - {fileID: 4933602843342176261}
-  - {fileID: 4540211608664965890}
-  teamOneRows: {fileID: 639638938889774318}
-  teamTwoRows: {fileID: 3642063718611190119}
-  rowPrefab: {fileID: 5577878948056889726, guid: cd59806701315c94fa9c79b91af153fe, type: 3}
-  tableRoot: {fileID: 6983665287199129401}
-  teamOneTable: {fileID: 5899683141713641909}
-  teamTwoTable: {fileID: 7333438475561476491}
-  tableRowPrefab: {fileID: 2730548012796961947, guid: 837616754c764794898b691490611f65, type: 3}
-  statsButton: {fileID: 8797461908564036688}
-  statsButtonLabel: {fileID: 5574745113972886627}
 --- !u!1 &4801735000242278556
 GameObject:
   m_ObjectHideFlags: 0

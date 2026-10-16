@@ -14,9 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.GameModes.BattleRoyale.BattleRoyaleAgentProfile
   displayName: Prototype Agent
   stats:
-    maxHealth: 100
-    moveSpeed: 8
-    perceptionRange: 80
     accuracy: 0.65
     awareness: 0.5
     resilience: 0.5

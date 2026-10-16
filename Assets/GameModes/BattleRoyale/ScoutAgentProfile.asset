@@ -14,9 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.GameModes.BattleRoyale.BattleRoyaleAgentProfile
   displayName: Scout
   stats:
-    maxHealth: 85
-    moveSpeed: 9
-    perceptionRange: 110
     accuracy: 0.7
     awareness: 0.9
     resilience: 0.35

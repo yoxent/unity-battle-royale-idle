@@ -14,9 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.GameModes.BattleRoyale.BattleRoyaleAgentProfile
   displayName: Anchor
   stats:
-    maxHealth: 135
-    moveSpeed: 6
-    perceptionRange: 75
     accuracy: 0.7
     awareness: 0.7
     resilience: 0.85

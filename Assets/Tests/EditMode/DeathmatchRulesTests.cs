@@ -101,6 +101,14 @@ namespace BattleRoyale.Tests.EditMode
         }
 
         [Test]
+        public void ModeLabelNamesThePlayedModes()
+        {
+            Assert.AreEqual("Deathmatch", MapGameModes.Label(MapGameMode.Deathmatch));
+            Assert.AreEqual("Elimination", MapGameModes.Label(MapGameMode.Elimination));
+            Assert.AreEqual("Battle Royale", MapGameModes.Label(MapGameMode.BattleRoyale));
+        }
+
+        [Test]
         public void KillsScoreUntilATeamReachesTheLimit()
         {
             var scores = new List<int> { 0, 0 };
