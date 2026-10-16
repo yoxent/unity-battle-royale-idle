@@ -23,6 +23,7 @@ namespace BattleRoyale.Company
         public TeamPlaystyle playerStance = TeamPlaystyle.Neutral;
         public FieldEmblem playerEmblem;
         public AuthoredAgent[] playerAgents;
+        public BattleRoyaleAgentProfile[] recruitArchetypes;
         public string opponentName = "Ash Court";
         public TeamPlaystyle opponentStance = TeamPlaystyle.Defensive;
         public FieldEmblem opponentEmblem;

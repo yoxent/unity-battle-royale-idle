@@ -10,6 +10,7 @@ namespace BattleRoyale.Input
     {
         [Header("Input")]
         [SerializeField] private Camera inputCamera;
+        [SerializeField] private RectTransform viewRect;
         [SerializeField] private UnitMovement controlledUnit;
         [SerializeField] private bool ignoreClicksOverUI = true;
 
@@ -63,7 +64,7 @@ namespace BattleRoyale.Input
             }
 
             var screenPosition = Mouse.current.position.ReadValue();
-            var ray = inputCamera.ScreenPointToRay(screenPosition);
+            var ray = PointerRay(screenPosition);
             if (!Physics.Raycast(
                     ray,
                     out var hit,
@@ -86,6 +87,28 @@ namespace BattleRoyale.Input
             }
 
             ShowDestinationMarker(acceptedDestination);
+        }
+
+        private Ray PointerRay(Vector2 screenPosition)
+        {
+            if (viewRect == null || !viewRect.gameObject.activeInHierarchy)
+            {
+                return inputCamera.ScreenPointToRay(screenPosition);
+            }
+
+            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    viewRect,
+                    screenPosition,
+                    null,
+                    out var local))
+            {
+                return inputCamera.ScreenPointToRay(screenPosition);
+            }
+
+            var rect = viewRect.rect;
+            var x = rect.width <= 0f ? 0.5f : (local.x - rect.xMin) / rect.width;
+            var y = rect.height <= 0f ? 0.5f : (local.y - rect.yMin) / rect.height;
+            return inputCamera.ViewportPointToRay(new Vector3(x, y, 0f));
         }
 
         private void ShowDestinationMarker(Vector3 destination)

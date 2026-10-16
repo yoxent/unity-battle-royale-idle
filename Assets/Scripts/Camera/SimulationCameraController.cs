@@ -37,6 +37,7 @@ namespace BattleRoyale.CameraSystems
 
         private Camera simulationCamera;
         private Action onWatchFramed;
+        private float viewAspect;
 
         public MapInstance ActiveMap => activeMap;
 
@@ -58,16 +59,17 @@ namespace BattleRoyale.CameraSystems
         }
 
         // Frames the map at once, with no fade. Used when the stage first places its maps.
-        public void Show(MapInstance map)
+        public bool Show(MapInstance map)
         {
             if (!CanFrame(map))
             {
-                return;
+                return false;
             }
 
             CancelWatchFade();
             ApplyMapFraming(map);
             activeMap = map;
+            return true;
         }
 
         // Covered cut: fade to black, frame the destination map, fade back in.
@@ -155,6 +157,26 @@ namespace BattleRoyale.CameraSystems
         public void SyncFromManager()
         {
             SyncFromManager(logIfMissing: false);
+        }
+
+        public void FrameForView(float aspect)
+        {
+            if (simulationCamera == null)
+            {
+                simulationCamera = GetComponent<Camera>();
+            }
+
+            if (simulationCamera == null)
+            {
+                Debug.LogError(
+                    $"{nameof(SimulationCameraController)} needs its camera to frame the map view.",
+                    this);
+                return;
+            }
+
+            viewAspect = Mathf.Max(0.01f, aspect);
+            simulationCamera.aspect = viewAspect;
+            RefreshActiveMap();
         }
 
         public void RefreshActiveMap()
@@ -266,6 +288,8 @@ namespace BattleRoyale.CameraSystems
             simulationCamera.orthographic = true;
 
             var definition = map.definition;
+            var aspect = viewAspect > 0f ? viewAspect : simulationCamera.aspect;
+            simulationCamera.aspect = Mathf.Max(0.01f, aspect);
             simulationCamera.orthographicSize = SimulationCameraFraming.OrthographicSize(
                 definition.WorldSize.x,
                 definition.WorldSize.z,

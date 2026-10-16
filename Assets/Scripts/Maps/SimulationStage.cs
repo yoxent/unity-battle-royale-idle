@@ -38,6 +38,29 @@ namespace BattleRoyale.Maps
 
         public int WatchedSlot { get; private set; }
 
+        public int OccupiedMapCount
+        {
+            get
+            {
+                if (placedMaps == null)
+                {
+                    return 0;
+                }
+
+                var count = 0;
+                var limit = Mathf.Min(placedMaps.Length, SimulationStageLayout.SlotCount);
+                for (var slot = 0; slot < limit; slot++)
+                {
+                    if (placedMaps[slot] != null)
+                    {
+                        count++;
+                    }
+                }
+
+                return count;
+            }
+        }
+
         private void Awake()
         {
             Time.timeScale = Mathf.Max(0.1f, matchTimeScale);
@@ -69,6 +92,11 @@ namespace BattleRoyale.Maps
 
         public void Watch(int slot)
         {
+            Watch(slot, true);
+        }
+
+        private void Watch(int slot, bool fade)
+        {
             if (slot < 0 || slot >= SimulationStageLayout.SlotCount)
             {
                 Debug.LogWarning($"Simulation slot {slot} does not exist.", this);
@@ -92,9 +120,17 @@ namespace BattleRoyale.Maps
                 return;
             }
 
-            if (!watchCamera.Watch(placedMaps[slot], ApplyWatchedTrackers))
+            var presented = fade
+                ? watchCamera.Watch(placedMaps[slot], ApplyWatchedTrackers)
+                : watchCamera.Show(placedMaps[slot]);
+            if (!presented)
             {
                 return;
+            }
+
+            if (!fade)
+            {
+                ApplyWatchedTrackers();
             }
 
             var previousSlot = WatchedSlot;
@@ -104,10 +140,10 @@ namespace BattleRoyale.Maps
 
         private void HandleMapViewStep(MapViewStepRequested request)
         {
-            WatchOffset(request.Direction);
+            WatchOffset(request.Direction, request.UseFade);
         }
 
-        public void WatchOffset(int direction)
+        public void WatchOffset(int direction, bool useFade)
         {
             if (direction == 0)
             {
@@ -136,7 +172,7 @@ namespace BattleRoyale.Maps
 
                 if (placedMaps[slot] != null)
                 {
-                    Watch(slot);
+                    Watch(slot, useFade);
                     return;
                 }
             }
@@ -182,6 +218,7 @@ namespace BattleRoyale.Maps
             }
 
             ReplaceSlotMap(slot);
+            PublishPlacement();
             if (placedMaps[slot] == null)
             {
                 return false;
@@ -219,6 +256,7 @@ namespace BattleRoyale.Maps
                 ApplyWatchedTrackers();
             }
 
+            PublishPlacement();
             return true;
         }
 
@@ -464,6 +502,13 @@ namespace BattleRoyale.Maps
                 placedMaps[slot] = map;
                 match.BindMap(map);
             }
+
+            PublishPlacement();
+        }
+
+        private void PublishPlacement()
+        {
+            EventBus.Publish(new MapPlacementChanged(OccupiedMapCount));
         }
 
         private static bool SlotRuns(SimulationMatch match)

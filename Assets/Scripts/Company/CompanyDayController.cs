@@ -1,3 +1,4 @@
+using BattleRoyale.CameraSystems;
 using BattleRoyale.Events;
 using BattleRoyale.GameModes;
 using BattleRoyale.GameModes.BattleRoyale;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 
 namespace BattleRoyale.Company
 {
-    public sealed class CompanyDayController : MonoBehaviour
+    public sealed partial class CompanyDayController : MonoBehaviour
     {
         [SerializeField] private CompanyDaySetup setup;
         [SerializeField] private DeathmatchGameMode match;
@@ -18,6 +19,9 @@ namespace BattleRoyale.Company
         [SerializeField] private UIPage modeSelect;
         [SerializeField] private UIPage matchSetupPage;
         [SerializeField] private UIPage resultPage;
+        [SerializeField] private CompanyTabBar tabBar;
+        [SerializeField] private UIPage matchPreview;
+        [SerializeField] private SimulationMapView mapView;
         [SerializeField] private TMP_Text balanceLabel;
         [SerializeField] private TMP_Text rosterLabel;
         [SerializeField] private TMP_Text stanceLabel;
@@ -37,7 +41,6 @@ namespace BattleRoyale.Company
         TeamPlaystyle stance;
         TournamentEntryPhase phase;
         TournamentResult result;
-        int[] waived;
         AgentAvailability[] availability;
         bool resultApplied;
         bool ready;
@@ -61,9 +64,12 @@ namespace BattleRoyale.Company
             }
 
             if (pageTransition == null || dashboard == null || modeSelect == null ||
-                matchSetupPage == null || resultPage == null)
+                matchSetupPage == null || resultPage == null || matchPreview == null ||
+                mapView == null)
             {
-                Debug.LogError("Company day needs its page transition and pages.", this);
+                Debug.LogError(
+                    "Company day needs its page transition, pages, and match preview.",
+                    this);
                 return;
             }
 
@@ -73,21 +79,52 @@ namespace BattleRoyale.Company
                 return;
             }
 
+            if (saveFile == null)
+            {
+                BootAuthoredCompany();
+                return;
+            }
+
+            LoadSession();
+        }
+
+        void BootAuthoredCompany()
+        {
             tuning = EconomyTuning.Illustration();
             balance = tuning.StartingGold;
             fans = tuning.FanPayCap;
             companyDate = 1;
             stance = setup.playerStance;
             phase = TournamentEntryPhase.Open;
-            waived = new int[setup.playerAgents.Length];
-            availability = new AgentAvailability[setup.playerAgents.Length];
-            for (var i = 0; i < setup.playerAgents.Length; i++)
+            var count = setup.playerAgents.Length;
+            squad = new SignedAgent[count];
+            availability = new AgentAvailability[count];
+            for (var i = 0; i < count; i++)
             {
-                waived[i] = setup.playerAgents[i].waivedAppearances;
+                var agent = setup.playerAgents[i];
+                squad[i] = new SignedAgent
+                {
+                    Profile = agent.archetype,
+                    Rarity = agent.rarity,
+                    Rolls = agent.rolls,
+                    Waived = agent.waivedAppearances,
+                };
                 availability[i] = new AgentAvailability { Id = i };
             }
 
+            recruit = new RecruitBoard
+            {
+                Slots = new RecruitCard[RecruitBoardRules.BoardSize],
+                Remaining = 0f,
+                Rolled = false,
+            };
+            for (var i = 0; i < recruit.Slots.Length; i++)
+            {
+                recruit.Slots[i] = new RecruitCard();
+            }
+
             ready = true;
+            RefreshFielding();
             Show(dashboard);
             RefreshLabels();
         }
@@ -100,6 +137,7 @@ namespace BattleRoyale.Company
             }
 
             var elapsed = Time.unscaledDeltaTime;
+            AdvanceRecruit(elapsed);
             AdvanceIdle(elapsed);
             if (phase == TournamentEntryPhase.Window)
             {
@@ -119,7 +157,7 @@ namespace BattleRoyale.Company
 
         public void ShowModeSelect()
         {
-            if (!ready || phase == TournamentEntryPhase.Running)
+            if (!ready)
             {
                 return;
             }
@@ -139,8 +177,7 @@ namespace BattleRoyale.Company
 
         public void ShowDashboard()
         {
-            if (!ready || phase == TournamentEntryPhase.Window ||
-                phase == TournamentEntryPhase.Running)
+            if (!ready)
             {
                 return;
             }
@@ -188,12 +225,8 @@ namespace BattleRoyale.Company
             }
 
             ApplyEntry(aborted);
-            var ids = AgentIds();
-            if (AgentAvailabilityRules.TryAbort(availability, ids, out var freed))
-            {
-                availability = freed;
-            }
-
+            NoteFreed();
+            SaveCompany();
             Show(matchSetupPage);
         }
 
@@ -210,37 +243,34 @@ namespace BattleRoyale.Company
             reserved = 0;
             resultApplied = false;
             spent = 0;
+            RefreshFielding();
+            SaveCompany();
             Show(dashboard);
         }
 
         void OnPopupClosed(PopupClosed closed)
         {
-            if (!ready || closed.Id != PopupId.EntryCommit ||
-                closed.Result != PopupResult.Confirmed ||
-                phase != TournamentEntryPhase.Open)
+            if (!ready || closed.Result != PopupResult.Confirmed)
             {
                 return;
             }
 
-            if (!TournamentEconomyRules.TryEnter(
-                    CaptureEntry(),
-                    tuning,
-                    tuning.CheapEntranceFee,
-                    FieldedRoster(),
-                    out var entered))
+            if (closed.Id == PopupId.EntryCommit)
             {
-                Debug.LogError("The company cannot cover this entry.", this);
+                CommitEntry();
                 return;
             }
 
-            ApplyEntry(entered);
-            var ids = AgentIds();
-            if (AgentAvailabilityRules.TryDeploy(availability, ids, out var busy))
+            if (closed.Id == PopupId.HireConfirm)
             {
-                availability = busy;
+                ConfirmHire();
+                return;
             }
 
-            Show(matchSetupPage);
+            if (closed.Id == PopupId.RefreshConfirm)
+            {
+                ConfirmRefresh();
+            }
         }
 
         void AdvanceIdle(float elapsed)
@@ -281,13 +311,7 @@ namespace BattleRoyale.Company
 
         void StartCompanyMatch()
         {
-            if (!TryBuildSnapshot(
-                    setup.playerName,
-                    setup.playerEmblem,
-                    stance,
-                    setup.playerAgents,
-                    out var player,
-                    out var playerProfiles) ||
+            if (!TryBuildPlayerSide(out var player, out var playerProfiles) ||
                 !TryBuildSnapshot(
                     setup.opponentName,
                     setup.opponentEmblem,
@@ -332,11 +356,8 @@ namespace BattleRoyale.Company
             }
 
             ApplyEntry(resolved);
-            var ids = AgentIds();
-            if (AgentAvailabilityRules.TryFinish(availability, ids, out var freed))
-            {
-                availability = freed;
-            }
+            NoteFreed();
+            SaveCompany();
 
             resultApplied = true;
             if (resultLabel != null)
@@ -381,41 +402,12 @@ namespace BattleRoyale.Company
             phase = next.Phase;
             result = next.Result;
             windowRemaining = next.WindowRemaining;
-            if (next.Agents == null)
-            {
-                return;
-            }
-
-            for (var i = 0; i < next.Agents.Length && i < waived.Length; i++)
-            {
-                waived[i] = next.Agents[i].WaivedAppearances;
-            }
+            ApplyWaived(next.Agents);
         }
 
         FieldedAgent[] FieldedRoster()
         {
-            var fielded = new FieldedAgent[waived.Length];
-            for (var i = 0; i < waived.Length; i++)
-            {
-                fielded[i] = new FieldedAgent
-                {
-                    Rarity = setup.playerAgents[i].rarity,
-                    WaivedAppearances = waived[i],
-                };
-            }
-
-            return fielded;
-        }
-
-        int[] AgentIds()
-        {
-            var ids = new int[availability.Length];
-            for (var i = 0; i < ids.Length; i++)
-            {
-                ids[i] = availability[i].Id;
-            }
-
-            return ids;
+            return FieldedFromSquad();
         }
 
         static bool TryBuildSnapshot(
@@ -488,18 +480,12 @@ namespace BattleRoyale.Company
                     : "";
             }
 
-            if (rosterLabel != null && setup != null && waived != null)
+            if (rosterLabel != null)
             {
-                var lines = "";
-                for (var i = 0; i < setup.playerAgents.Length; i++)
-                {
-                    var archetype = setup.playerAgents[i].archetype;
-                    var name = archetype == null ? "Missing" : archetype.displayName;
-                    lines += $"{name}  {setup.playerAgents[i].rarity}  waived {waived[i]}\n";
-                }
-
-                rosterLabel.text = lines;
+                rosterLabel.text = FieldedLines();
             }
+
+            RefreshSessionPresentation();
 
             if (deployButton != null)
             {
@@ -510,23 +496,7 @@ namespace BattleRoyale.Company
 
         bool CanAffordEntry()
         {
-            var cost = tuning.CheapEntranceFee;
-            for (var i = 0; i < waived.Length; i++)
-            {
-                if (!ContractRules.TryChargeUpkeep(
-                        setup.playerAgents[i].rarity,
-                        waived[i],
-                        tuning,
-                        out var charge,
-                        out _))
-                {
-                    return false;
-                }
-
-                cost += charge;
-            }
-
-            return balance >= cost;
+            return CanAffordFielding();
         }
 
         void Show(UIPage page)
@@ -538,6 +508,34 @@ namespace BattleRoyale.Company
             }
 
             pageTransition.Show(page);
+            var matches = page == modeSelect || page == matchSetupPage || page == resultPage;
+            if (matches)
+            {
+                ShowMatchPreview();
+            }
+            else
+            {
+                HideMatchPreview();
+            }
+
+            if (tabBar == null)
+            {
+                return;
+            }
+
+            tabBar.SetVisible(true);
+            if (page == dashboard)
+            {
+                tabBar.SelectCompany();
+            }
+            else if (page == recruitPage)
+            {
+                tabBar.SelectRecruit();
+            }
+            else if (page == modeSelect || page == matchSetupPage || page == resultPage)
+            {
+                tabBar.SelectMatches();
+            }
         }
 
         void HidePages()
@@ -549,6 +547,46 @@ namespace BattleRoyale.Company
             }
 
             pageTransition.Hide();
+            ShowMatchPreview();
+            if (tabBar != null)
+            {
+                tabBar.SetVisible(false);
+            }
+        }
+
+        void ShowMatchPreview()
+        {
+            if (matchPreview == null)
+            {
+                Debug.LogError("Company day needs its match preview.", this);
+                return;
+            }
+
+            matchPreview.ShowImmediate();
+            SetMapShown(true);
+        }
+
+        void HideMatchPreview()
+        {
+            if (matchPreview == null)
+            {
+                Debug.LogError("Company day needs its match preview.", this);
+                return;
+            }
+
+            SetMapShown(false);
+            matchPreview.HideImmediate();
+        }
+
+        void SetMapShown(bool shown)
+        {
+            if (mapView == null)
+            {
+                Debug.LogError("Company day needs its simulation map view.", this);
+                return;
+            }
+
+            mapView.SetShown(shown);
         }
     }
 }

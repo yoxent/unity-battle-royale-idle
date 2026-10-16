@@ -18,6 +18,18 @@ namespace BattleRoyale.Tests.EditMode
         }
 
         [Test]
+        public void OrthographicSize_FitsTheFullMapInTheViewAspect()
+        {
+            var square = SimulationCameraFraming.OrthographicSize(
+                200f, 100f, 1f, 0f, 1f, 2000f);
+            var wide = SimulationCameraFraming.OrthographicSize(
+                200f, 100f, 2f, 0f, 1f, 2000f);
+
+            Assert.AreEqual(100f, square);
+            Assert.AreEqual(50f, wide);
+        }
+
+        [Test]
         public void OrthographicSize_Clamps()
         {
             var size = SimulationCameraFraming.OrthographicSize(
