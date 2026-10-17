@@ -1,22 +1,46 @@
+using BattleRoyale.Agents;
+using BattleRoyale.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace BattleRoyale.Company
 {
-    public sealed class RecruitCardView : MonoBehaviour
+    public sealed class RecruitSlotView : MonoBehaviour
     {
-        [SerializeField] TMP_Text body;
+        [SerializeField] TMP_Text nameValue;
+        [SerializeField] TMP_Text specialtyValue;
+        [SerializeField] TMP_Text rarityValue;
+        [SerializeField] AgentRarityColors rarityColors;
+        [SerializeField] Image border;
+        [SerializeField] Image background;
+        [SerializeField] TMP_Text weaponValue;
+        [SerializeField] TMP_Text upkeepValue;
+        [SerializeField] TMP_Text waivedValue;
         [SerializeField] TMP_Text blockReason;
-        [SerializeField] Button hireButton;
+        [SerializeField] UIButton hireButton;
+        [SerializeField] SpiderChartGraphic chart;
+        [SerializeField] AgentAvatarView avatar;
+        [SerializeField] Image avatarBorder;
 
         public Button HireButton => hireButton;
 
         public void ShowEmpty()
         {
-            if (body != null)
+            SetValue(nameValue, "Empty", "name");
+            SetValue(specialtyValue, "", "position");
+            SetValue(rarityValue, "", "rarity");
+            SetValue(weaponValue, "", "weapon");
+            SetValue(upkeepValue, "", "upkeep");
+            SetValue(waivedValue, "", "waived");
+            SetHireLabel(null);
+            ShowAvatar(null, false);
+            SetBorder(Color.white);
+            SetBackground(Color.white);
+            SetAvatarBorder(Color.white);
+            if (avatar != null)
             {
-                body.text = "Empty";
+                avatar.SetBorder(Color.white);
             }
 
             if (blockReason != null)
@@ -28,14 +52,39 @@ namespace BattleRoyale.Company
             {
                 hireButton.interactable = false;
             }
+
+            if (chart == null)
+            {
+                Debug.LogError("Recruit slot is missing its spider chart.", this);
+                return;
+            }
+
+            chart.Clear();
+            chart.gameObject.SetActive(false);
         }
 
-        public void Show(string text, string block, bool canHire)
+        public void Show(
+            string name,
+            string specialty,
+            AgentRarity rarity,
+            string weapon,
+            string upkeep,
+            string waived,
+            int contract,
+            int[] rolls,
+            AgentAvatarAppearance appearance,
+            string block,
+            bool canHire)
         {
-            if (body != null)
-            {
-                body.text = text;
-            }
+            SetValue(nameValue, name, "name");
+            SetValue(specialtyValue, specialty, "position");
+            SetValue(rarityValue, rarity.ToString(), "rarity");
+            SetValue(weaponValue, weapon, "weapon");
+            SetValue(upkeepValue, upkeep, "upkeep");
+            SetValue(waivedValue, waived, "waived");
+            SetHireLabel(contract);
+            ShowAvatar(appearance, true);
+            SetRarityColor(rarity);
 
             if (blockReason != null)
             {
@@ -46,6 +95,117 @@ namespace BattleRoyale.Company
             {
                 hireButton.interactable = canHire;
             }
+
+            if (chart == null)
+            {
+                Debug.LogError("Recruit slot is missing its spider chart.", this);
+                return;
+            }
+
+            chart.gameObject.SetActive(true);
+            chart.Show(rolls);
+        }
+
+        void SetValue(TMP_Text label, string value, string slot)
+        {
+            if (label == null)
+            {
+                Debug.LogError("Recruit slot is missing its " + slot + " value.", this);
+                return;
+            }
+
+            label.text = value ?? "";
+        }
+
+        void ShowAvatar(AgentAvatarAppearance appearance, bool required)
+        {
+            if (avatar == null)
+            {
+                Debug.LogError("Recruit slot is missing its avatar.", this);
+                return;
+            }
+
+            if (appearance == null)
+            {
+                avatar.gameObject.SetActive(false);
+                if (required)
+                {
+                    Debug.LogError("Recruit slot is missing an avatar appearance.", this);
+                }
+
+                return;
+            }
+
+            avatar.gameObject.SetActive(true);
+            avatar.Show(appearance);
+        }
+
+        void SetRarityColor(AgentRarity rarity)
+        {
+            if (rarityColors == null || !rarityColors.TryGet(rarity, out var color))
+            {
+                Debug.LogError("Recruit slot is missing a color for " + rarity + ".", this);
+                return;
+            }
+
+            if (rarityValue != null)
+            {
+                rarityValue.color = color;
+            }
+
+            SetBorder(color);
+            SetBackground(color);
+            SetAvatarBorder(color);
+            if (avatar != null)
+            {
+                avatar.SetBorder(color);
+            }
+        }
+
+        void SetAvatarBorder(Color color)
+        {
+            if (avatarBorder == null)
+            {
+                Debug.LogError("Recruit slot is missing its avatar border.", this);
+                return;
+            }
+
+            avatarBorder.color = color;
+        }
+
+        void SetBorder(Color color)
+        {
+            if (border == null)
+            {
+                Debug.LogError("Recruit slot is missing its border.", this);
+                return;
+            }
+
+            border.color = color;
+        }
+
+        void SetBackground(Color color)
+        {
+            if (background == null)
+            {
+                Debug.LogError("Recruit slot is missing its background.", this);
+                return;
+            }
+
+            var wash = Color.Lerp(color, Color.white, 0.35f);
+            wash.a = 0.2f;
+            background.color = wash;
+        }
+
+        void SetHireLabel(int? contract)
+        {
+            if (hireButton == null)
+            {
+                Debug.LogError("Recruit slot is missing its hire button.", this);
+                return;
+            }
+
+            hireButton.SetLabel(contract.HasValue ? "Hire · " + contract.Value + "g" : "Hire");
         }
     }
 

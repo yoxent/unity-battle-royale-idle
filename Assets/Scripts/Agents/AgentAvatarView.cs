@@ -13,6 +13,7 @@ namespace BattleRoyale.Agents
         [SerializeField] Part kit;
         [SerializeField] Image face;
         [SerializeField] Part hair;
+        [SerializeField] Image border;
 
         readonly List<Image> bodyFills = new();
         readonly List<Image> kitFills = new();
@@ -40,6 +41,17 @@ namespace BattleRoyale.Agents
 
             Show(appearance);
             return true;
+        }
+
+        public void SetBorder(Color color)
+        {
+            if (border == null)
+            {
+                Debug.LogError(name + " is missing its border.", this);
+                return;
+            }
+
+            border.color = color;
         }
 
         public void Show(AgentAvatarAppearance appearance)

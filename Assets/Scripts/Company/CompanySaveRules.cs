@@ -9,6 +9,7 @@ namespace BattleRoyale.Company
         public int Rarity;
         public int[] Rolls;
         public int Waived;
+        public string Avatar;
     }
 
     [Serializable]
@@ -18,6 +19,7 @@ namespace BattleRoyale.Company
         public string ArchetypeId;
         public int Rarity;
         public int[] Rolls;
+        public string Avatar;
     }
 
     [Serializable]

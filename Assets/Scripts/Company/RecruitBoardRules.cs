@@ -11,6 +11,7 @@ namespace BattleRoyale.Company
         public int Contract;
         public int Upkeep;
         public int Waived;
+        public BattleRoyale.Agents.AgentAvatarAppearance Avatar;
         public string DisplayName;
         public string Specialty;
         public string Weapon;

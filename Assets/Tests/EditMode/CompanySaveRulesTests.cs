@@ -1,5 +1,7 @@
+using BattleRoyale.Agents;
 using BattleRoyale.Company;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace BattleRoyale.Tests.EditMode
 {
@@ -18,6 +20,44 @@ namespace BattleRoyale.Tests.EditMode
             Assert.AreEqual(1, loaded.Roster.Length);
             Assert.AreEqual("Scout", loaded.Roster[0].ArchetypeId);
             Assert.IsFalse(loaded.HasCheckpoint);
+        }
+
+        [Test]
+        public void AHiredAvatarStaysOnTheAgent()
+        {
+            var appearance = new AgentAvatarAppearance
+            {
+                version = AgentAvatarAppearanceRules.Version,
+                bodyIndex = 1,
+                faceIndex = 2,
+                hairIndex = 0,
+                kitIndex = 3,
+                bodyColors = new[] { Color.red },
+                hairColors = new[] { Color.blue },
+                kitColors = new Color[0],
+            };
+            var written = AgentAvatarAppearanceRules.Write(appearance);
+            var company = Sample();
+            company.Roster[0].Avatar = written;
+            company.Board = new[]
+            {
+                new CompanySaveCard
+                {
+                    Filled = true,
+                    ArchetypeId = "Scout",
+                    Rarity = (int)AgentRarity.Common,
+                    Rolls = new[] { 1, 2, 3, 4, 5, 6 },
+                    Avatar = written,
+                },
+            };
+
+            Assert.IsTrue(CompanySaveRules.TryWrite(company, out var json));
+            Assert.IsTrue(CompanySaveRules.TryRead(json, out var loaded));
+            Assert.IsTrue(AgentAvatarAppearanceRules.TryRead(loaded.Roster[0].Avatar, out var rosterFace));
+            Assert.IsTrue(AgentAvatarAppearanceRules.TryRead(loaded.Board[0].Avatar, out var cardFace));
+            Assert.AreEqual(2, rosterFace.faceIndex);
+            Assert.AreEqual(rosterFace.faceIndex, cardFace.faceIndex);
+            Assert.AreEqual(rosterFace.hairIndex, cardFace.hairIndex);
         }
 
         [Test]

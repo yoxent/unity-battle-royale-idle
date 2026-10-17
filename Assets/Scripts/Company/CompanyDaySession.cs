@@ -1,4 +1,5 @@
 using System;
+using BattleRoyale.Agents;
 using BattleRoyale.Events;
 using BattleRoyale.GameModes;
 using BattleRoyale.GameModes.BattleRoyale;
@@ -22,6 +23,7 @@ namespace BattleRoyale.Company
         [SerializeField] TutorialHintView tutorialHints;
         [SerializeField] TMP_Text companyNameLabel;
         [SerializeField] GameObject leaveMatchButton;
+        [SerializeField] AgentAvatarCatalog avatarCatalog;
 
         sealed class SignedAgent
         {
@@ -29,6 +31,7 @@ namespace BattleRoyale.Company
             public AgentRarity Rarity;
             public int[] Rolls;
             public int Waived;
+            public AgentAvatarAppearance Avatar;
             public bool Busy;
         }
 
@@ -44,9 +47,10 @@ namespace BattleRoyale.Company
             if (saveFile == null || recruitPage == null || profilePage == null ||
                 editorPage == null || settingsPage == null || identityHost == null ||
                 recruitView == null || rosterView == null || offlineReport == null ||
-                tutorialHints == null || companyNameLabel == null || leaveMatchButton == null)
+                tutorialHints == null || companyNameLabel == null || leaveMatchButton == null ||
+                avatarCatalog == null)
             {
-                Debug.LogError("Company day needs its save and session pages.", this);
+                Debug.LogError("Company day needs its save, session pages, and avatar catalog.", this);
                 return;
             }
 
@@ -306,6 +310,7 @@ namespace BattleRoyale.Company
                 Rarity = hired.Rarity,
                 Rolls = hired.Rolls,
                 Waived = hired.Waived,
+                Avatar = hired.Avatar,
             };
             squad = grown;
             Describe(hired);
@@ -471,16 +476,33 @@ namespace BattleRoyale.Company
                 return false;
             }
 
+            var random = new System.Random();
             if (!RecruitBoardRules.TryRoll(
                     ids,
                     tuning,
-                    new System.Random(),
+                    random,
                     forceAffordable,
                     balance,
                     out var cards))
             {
                 Debug.LogError("The recruit board could not be rolled.", this);
                 return false;
+            }
+
+            for (var i = 0; i < cards.Length; i++)
+            {
+                if (cards[i] == null || !cards[i].Filled)
+                {
+                    continue;
+                }
+
+                if (!avatarCatalog.TryCreateAppearance(random, out var appearance))
+                {
+                    Debug.LogError("Company day could not roll an avatar.", this);
+                    return false;
+                }
+
+                cards[i].Avatar = appearance;
             }
 
             recruit.Slots = cards;
@@ -793,12 +815,21 @@ namespace BattleRoyale.Company
                     rolls[roll] = saved.Rolls[roll];
                 }
 
+                AgentAvatarAppearance appearance = null;
+                if (!string.IsNullOrEmpty(saved.Avatar) &&
+                    !AgentAvatarAppearanceRules.TryRead(saved.Avatar, out appearance))
+                {
+                    Debug.LogError("Company day has a broken avatar.", this);
+                    return false;
+                }
+
                 squad[i] = new SignedAgent
                 {
                     Profile = profile,
                     Rarity = (AgentRarity)saved.Rarity,
                     Rolls = rolls,
                     Waived = saved.Waived,
+                    Avatar = appearance,
                 };
             }
 
@@ -832,6 +863,21 @@ namespace BattleRoyale.Company
                     return false;
                 }
 
+                AgentAvatarAppearance appearance = null;
+                if (!string.IsNullOrEmpty(saved.Avatar) &&
+                    !AgentAvatarAppearanceRules.TryRead(saved.Avatar, out appearance))
+                {
+                    Debug.LogError("Company day has a broken avatar.", this);
+                    return false;
+                }
+
+                if (appearance == null &&
+                    !avatarCatalog.TryCreateAppearance(new System.Random(i + 1), out appearance))
+                {
+                    Debug.LogError("Company day could not roll an avatar.", this);
+                    return false;
+                }
+
                 recruit.Slots[i] = new RecruitCard
                 {
                     Filled = true,
@@ -841,6 +887,7 @@ namespace BattleRoyale.Company
                     Contract = price.Contract,
                     Upkeep = price.Upkeep,
                     Waived = price.WaivedAppearances,
+                    Avatar = appearance,
                 };
                 Describe(recruit.Slots[i]);
             }
@@ -939,6 +986,7 @@ namespace BattleRoyale.Company
                     Rarity = (int)squad[i].Rarity,
                     Rolls = squad[i].Rolls,
                     Waived = squad[i].Waived,
+                    Avatar = AgentAvatarAppearanceRules.Write(squad[i].Avatar),
                 };
             }
 
@@ -964,6 +1012,7 @@ namespace BattleRoyale.Company
                     ArchetypeId = card.ArchetypeId,
                     Rarity = (int)card.Rarity,
                     Rolls = card.Rolls,
+                    Avatar = AgentAvatarAppearanceRules.Write(card.Avatar),
                 };
             }
 

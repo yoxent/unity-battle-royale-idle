@@ -7,7 +7,7 @@ namespace BattleRoyale.Company
     public sealed class RecruitBoardView : MonoBehaviour
     {
         [SerializeField] CompanyDayController company;
-        [SerializeField] RecruitCardView[] cards;
+        [SerializeField] RecruitSlotView[] cards;
         [SerializeField] TMP_Text balanceLabel;
         [SerializeField] TMP_Text spotsLabel;
         [SerializeField] TMP_Text refreshLabel;
@@ -127,27 +127,20 @@ namespace BattleRoyale.Company
                     canHire = false;
                 }
 
-                cards[i].Show(CardText(card), block, canHire);
+                var name = string.IsNullOrEmpty(card.DisplayName) ? card.ArchetypeId : card.DisplayName;
+                cards[i].Show(
+                    name,
+                    card.Specialty,
+                    card.Rarity,
+                    card.Weapon,
+                    card.Upkeep.ToString(),
+                    card.Waived.ToString(),
+                    card.Contract,
+                    card.Rolls,
+                    card.Avatar,
+                    block,
+                    canHire);
             }
-        }
-
-        static string CardText(RecruitCard card)
-        {
-            var rolls = "";
-            if (card.Rolls != null)
-            {
-                for (var i = 0; i < card.Rolls.Length; i++)
-                {
-                    rolls += card.Rolls[i];
-                    if (i + 1 < card.Rolls.Length)
-                    {
-                        rolls += " ";
-                    }
-                }
-            }
-
-            var name = string.IsNullOrEmpty(card.DisplayName) ? card.ArchetypeId : card.DisplayName;
-            return $"{name}\n{card.Rarity}  {card.Specialty}\n{rolls}\n{card.Weapon}\nContract {card.Contract}  Upkeep {card.Upkeep}  Waived {card.Waived}";
         }
     }
 }
