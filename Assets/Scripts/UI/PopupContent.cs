@@ -108,7 +108,7 @@ namespace BattleRoyale.UI
         {
             return Create(
                 "Refresh the board",
-                $"This refresh costs {fee}. The next one today costs {nextFee}.",
+                $"This refresh costs {fee}g. The next one today costs {nextFee}g.",
                 "Refresh",
                 "Not now");
         }

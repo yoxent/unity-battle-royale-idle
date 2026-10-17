@@ -90,36 +90,130 @@ namespace BattleRoyale.Tests.EditMode
         }
 
         [Test]
-        public void EightPaidRefreshesQuoteTwentySevenAndANewDateQuotesTheBase()
+        public void EightPaidRefreshesQuoteTwentySevenAndANewUtcDayQuotesFree()
         {
             var tuning = EconomyTuning.Illustration();
+            const long accepted = 1_700_000_000;
 
             Assert.AreEqual(3, tuning.BaseEarlyRefreshFee);
             Assert.AreEqual(3, tuning.EarlyRefreshRaise);
-            Assert.AreEqual(600f, tuning.RecruitRefreshSeconds);
-            Assert.AreEqual(27, RecruitBoardRules.QuoteFee(tuning, 8, 1, 1));
-            Assert.AreEqual(3, RecruitBoardRules.QuoteFee(tuning, 8, 1, 2));
+            Assert.AreEqual(3, tuning.FreeRefreshesPerDay);
+            Assert.AreEqual(14400f, tuning.RecruitRefreshSeconds);
+            Assert.AreEqual(27, RecruitBoardRules.QuoteFee(tuning, 3, 8));
+            Assert.AreEqual("Refresh · 27g", RecruitBoardRules.FormatRefreshCost(27));
+            Assert.AreEqual("Refresh · Free", RecruitBoardRules.FormatRefreshCost(0));
+
+            Assert.IsTrue(RecruitBoardRules.TryAcceptWorldTime(
+                3, 8, (int)(accepted / RecruitBoardRules.UnixDaySeconds), accepted, accepted + 86400,
+                out var freeUsed, out var paidRetries, out _, out _, out var reset));
+            Assert.IsTrue(reset);
+            Assert.AreEqual(0, freeUsed);
+            Assert.AreEqual(0, paidRetries);
+            Assert.AreEqual(0, RecruitBoardRules.QuoteFee(tuning, freeUsed, paidRetries));
+            Assert.AreEqual(3, RecruitBoardRules.QuoteFee(tuning, 3, 0));
         }
 
         [Test]
-        public void APaidRefreshRaisesTheNextFeeAndAFreeRefreshDoesNot()
+        public void AnEarlierWorldTimeDoesNotResetTheRaisedFee()
+        {
+            const long accepted = 1_700_000_000;
+
+            Assert.IsFalse(RecruitBoardRules.TryAcceptWorldTime(
+                3, 4, 19675, accepted, accepted - 86400,
+                out var freeUsed, out var paidRetries, out var day, out var nextAccepted, out var reset));
+
+            Assert.IsFalse(reset);
+            Assert.AreEqual(3, freeUsed);
+            Assert.AreEqual(4, paidRetries);
+            Assert.AreEqual(19675, day);
+            Assert.AreEqual(accepted, nextAccepted);
+            Assert.AreEqual(0f, RecruitBoardRules.OfflineSeconds(accepted, accepted - 3600, 0f));
+
+            Assert.IsTrue(RecruitBoardRules.TryAcceptWorldTime(
+                3, 4, (int)(accepted / RecruitBoardRules.UnixDaySeconds), accepted, accepted + 3600,
+                out freeUsed, out paidRetries, out day, out nextAccepted, out reset));
+            Assert.IsFalse(reset);
+            Assert.AreEqual(3, freeUsed);
+            Assert.AreEqual(4, paidRetries);
+            Assert.AreEqual((int)(accepted / RecruitBoardRules.UnixDaySeconds), day);
+            Assert.AreEqual(accepted + 3600, nextAccepted);
+        }
+
+        [Test]
+        public void TheFirstThreeRefreshesAreFreeAndTheNextTwoRaiseTheFee()
+        {
+            var tuning = EconomyTuning.Illustration();
+            var balance = 30;
+            var freeUsed = 0;
+            var paidRetries = 0;
+
+            for (var i = 0; i < 3; i++)
+            {
+                Assert.AreEqual(0, RecruitBoardRules.QuoteFee(tuning, freeUsed, paidRetries));
+                Assert.IsTrue(RecruitBoardRules.TryPayRefresh(
+                    tuning, balance, freeUsed, paidRetries,
+                    out balance, out freeUsed, out paidRetries, out var paid));
+                Assert.IsFalse(paid);
+            }
+
+            Assert.AreEqual(30, balance);
+            Assert.AreEqual(3, freeUsed);
+            Assert.AreEqual(0, paidRetries);
+            Assert.AreEqual("Refresh · 3g", RecruitBoardRules.FormatRefreshCost(
+                RecruitBoardRules.QuoteFee(tuning, freeUsed, paidRetries)));
+
+            Assert.IsTrue(RecruitBoardRules.TryPayRefresh(
+                tuning, balance, freeUsed, paidRetries,
+                out balance, out freeUsed, out paidRetries, out var firstPaid));
+            Assert.IsTrue(firstPaid);
+            Assert.AreEqual(27, balance);
+            Assert.AreEqual(1, paidRetries);
+
+            Assert.IsTrue(RecruitBoardRules.TryPayRefresh(
+                tuning, balance, freeUsed, paidRetries,
+                out balance, out freeUsed, out paidRetries, out var secondPaid));
+            Assert.IsTrue(secondPaid);
+            Assert.AreEqual(21, balance);
+            Assert.AreEqual(2, paidRetries);
+            Assert.AreEqual("Refresh · 9g", RecruitBoardRules.FormatRefreshCost(
+                RecruitBoardRules.QuoteFee(tuning, freeUsed, paidRetries)));
+        }
+
+        [Test]
+        public void AShortBalanceDoesNotBuyARefresh()
         {
             var tuning = EconomyTuning.Illustration();
 
-            Assert.IsTrue(RecruitBoardRules.TryPayRefresh(
-                tuning, 20, 10f, 0, 1, 1,
-                out var balance, out var retries, out var date, out var paid));
-            Assert.IsTrue(paid);
-            Assert.AreEqual(17, balance);
-            Assert.AreEqual(1, retries);
-            Assert.AreEqual(1, date);
+            Assert.IsFalse(RecruitBoardRules.TryPayRefresh(
+                tuning, 2, 3, 0,
+                out var balance, out var freeUsed, out var paidRetries, out var paid));
 
-            Assert.IsTrue(RecruitBoardRules.TryPayRefresh(
-                tuning, 20, 0f, 4, 1, 1,
-                out var freeBalance, out var freeRetries, out _, out var freePaid));
-            Assert.IsFalse(freePaid);
-            Assert.AreEqual(20, freeBalance);
-            Assert.AreEqual(4, freeRetries);
+            Assert.IsFalse(paid);
+            Assert.AreEqual(2, balance);
+            Assert.AreEqual(3, freeUsed);
+            Assert.AreEqual(0, paidRetries);
+        }
+
+        [Test]
+        public void FourHoursCatchesUpOneBoardAndKeepsTheRemainder()
+        {
+            Assert.IsTrue(RecruitBoardRules.TryCatchUp(
+                100f, 40f, 14400f, out var waiting, out var notDue));
+            Assert.IsFalse(notDue);
+            Assert.AreEqual(60f, waiting);
+
+            Assert.IsTrue(RecruitBoardRules.TryCatchUp(
+                100f, 14400f, 14400f, out var landed, out var due));
+            Assert.IsTrue(due);
+            Assert.AreEqual(100f, landed);
+
+            Assert.IsTrue(RecruitBoardRules.TryCatchUp(
+                100f, 14400f + 50f, 14400f, out var into, out var later));
+            Assert.IsTrue(later);
+            Assert.AreEqual(50f, into);
+
+            Assert.IsFalse(RecruitBoardRules.TryCatchUp(100f, -1f, 14400f, out _, out _));
+            Assert.AreEqual(40f, RecruitBoardRules.OfflineSeconds(1_000, 1_050, 10f));
         }
 
         static RecruitBoard Board(int contract)

@@ -4,6 +4,9 @@ namespace BattleRoyale.Company
     {
         public const int RarityCount = 5;
         public const int StatCount = 6;
+        public const int StatFloor = 10;
+
+        static readonly int[] Caps = { 25, 45, 65, 85, 100 };
 
         public static bool TryRoll(
             int[] weights,
@@ -34,12 +37,11 @@ namespace BattleRoyale.Company
             var rarity = ChooseRarity(weights, total, random);
             var peakIndex = random.Next(statNames.Length);
             var cap = Cap(rarity);
-            var peakMinimum = PeakMinimum(rarity);
+            var minimum = Minimum(rarity);
             var values = new int[statNames.Length];
 
             for (var i = 0; i < values.Length; i++)
             {
-                var minimum = i == peakIndex ? peakMinimum : 1;
                 values[i] = random.Next(minimum, cap + 1);
             }
 
@@ -55,12 +57,24 @@ namespace BattleRoyale.Company
 
         public static int Cap(AgentRarity rarity)
         {
-            return ((int)rarity + 1) * 20;
+            var index = (int)rarity;
+            if (index < 0 || index >= Caps.Length)
+            {
+                return StatFloor;
+            }
+
+            return Caps[index];
         }
 
-        public static int PeakMinimum(AgentRarity rarity)
+        public static int Minimum(AgentRarity rarity)
         {
-            return (int)rarity * 20 + 1;
+            var earlier = (int)rarity - 2;
+            if (earlier < 0)
+            {
+                return StatFloor;
+            }
+
+            return System.Math.Max(StatFloor, Cap((AgentRarity)earlier) + 1);
         }
 
         static bool TryTotalWeight(int[] weights, out int total)

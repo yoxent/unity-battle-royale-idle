@@ -49,6 +49,9 @@ namespace BattleRoyale.Company
         public float RefreshRemaining;
         public int RefreshRetries;
         public int RefreshRetryDate;
+        public int RefreshFreeUsed;
+        public int RefreshDay;
+        public long TrustedUnix;
         public bool BoardRolled;
         public int TutorialStep;
         public string UtcStamp;

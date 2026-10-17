@@ -101,7 +101,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1821,7 +1821,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2563,7 +2563,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -3169,7 +3169,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -3319,7 +3319,7 @@ MonoBehaviour:
   hireButton: {fileID: 4910185106363504000}
   chart: {fileID: 8666491576984751790}
   avatar: {fileID: 5765817365364827195}
-  avatarBorder: {fileID: 720040001}
+  avatarBorder: {fileID: 7002685883236661700}
 --- !u!222 &6034117468995373744
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4071,7 +4071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 199e48f4970251a42878762e57b43300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Agents.AgentAvatarView
---- !u!114 &720040001 stripped
+--- !u!114 &7002685883236661700 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8071700894856585606, guid: 730f80fe67ec63e44a98502bbc816bce, type: 3}
   m_PrefabInstance: {fileID: 1237074309673359426}

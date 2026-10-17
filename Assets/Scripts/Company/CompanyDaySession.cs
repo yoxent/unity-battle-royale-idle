@@ -113,12 +113,131 @@ namespace BattleRoyale.Company
 
         void AdvanceRecruit(float elapsed)
         {
-            if (recruit == null || !recruit.Rolled)
+            if (recruit == null || elapsed <= 0f)
             {
                 return;
             }
 
-            recruit.Remaining = RecruitBoardRules.AdvanceClock(recruit.Remaining, elapsed);
+            tickedSinceWorld += elapsed;
+            CatchUpRecruit(elapsed);
+            ProjectRecruitDay();
+        }
+
+        void ApplyWorldSample(long worldUnix)
+        {
+            if (recruit == null || worldUnix <= 0)
+            {
+                return;
+            }
+
+            var offline = RecruitBoardRules.OfflineSeconds(
+                recruit.AcceptedUnix,
+                worldUnix,
+                tickedSinceWorld);
+            CatchUpRecruit(offline);
+            if (!RecruitBoardRules.TryAcceptWorldTime(
+                    recruit.FreeUsed,
+                    recruit.PaidRetries,
+                    recruit.DayIndex,
+                    recruit.AcceptedUnix,
+                    worldUnix,
+                    out var freeUsed,
+                    out var paidRetries,
+                    out var dayIndex,
+                    out var acceptedUnix,
+                    out _))
+            {
+                return;
+            }
+
+            recruit.FreeUsed = freeUsed;
+            recruit.PaidRetries = paidRetries;
+            recruit.DayIndex = dayIndex;
+            recruit.AcceptedUnix = acceptedUnix;
+            tickedSinceWorld = 0f;
+            SaveCompany();
+        }
+
+        void CatchUpRecruit(float elapsed)
+        {
+            if (recruit == null || !recruit.Rolled || elapsed <= 0f || tuning == null)
+            {
+                return;
+            }
+
+            if (!RecruitBoardRules.TryCatchUp(
+                    recruit.Remaining,
+                    elapsed,
+                    tuning.RecruitRefreshSeconds,
+                    out var next,
+                    out var due))
+            {
+                return;
+            }
+
+            if (!due)
+            {
+                recruit.Remaining = next;
+                return;
+            }
+
+            if (!RollBoard(false))
+            {
+                recruit.Remaining = next;
+                return;
+            }
+
+            recruit.Remaining = next;
+            SaveCompany();
+        }
+
+        void ProjectRecruitDay()
+        {
+            if (recruit == null || recruit.AcceptedUnix <= 0)
+            {
+                return;
+            }
+
+            var projected = recruit.AcceptedUnix + (long)tickedSinceWorld;
+            if (!RecruitBoardRules.TryAcceptWorldTime(
+                    recruit.FreeUsed,
+                    recruit.PaidRetries,
+                    recruit.DayIndex,
+                    recruit.AcceptedUnix,
+                    projected,
+                    out var freeUsed,
+                    out var paidRetries,
+                    out var dayIndex,
+                    out var acceptedUnix,
+                    out var dayReset) ||
+                !dayReset)
+            {
+                return;
+            }
+
+            recruit.FreeUsed = freeUsed;
+            recruit.PaidRetries = paidRetries;
+            recruit.DayIndex = dayIndex;
+            recruit.AcceptedUnix = acceptedUnix;
+            tickedSinceWorld = 0f;
+            SaveCompany();
+        }
+
+        void StampTrustedClock()
+        {
+            if (recruit == null || recruit.AcceptedUnix <= 0)
+            {
+                return;
+            }
+
+            var whole = (long)tickedSinceWorld;
+            if (whole <= 0)
+            {
+                return;
+            }
+
+            recruit.AcceptedUnix += whole;
+            tickedSinceWorld -= whole;
         }
 
         public void ShowRecruit()
@@ -206,19 +325,14 @@ namespace BattleRoyale.Company
                 return;
             }
 
-            if (recruit.Remaining <= 0f)
+            var fee = RecruitBoardRules.QuoteFee(tuning, recruit.FreeUsed, recruit.PaidRetries);
+            if (fee <= 0)
             {
                 ConfirmRefresh();
                 return;
             }
 
-            var fee = RecruitBoardRules.QuoteFee(
-                tuning,
-                recruit.PaidRetries,
-                recruit.RetryDate,
-                companyDate);
-            var effective = recruit.RetryDate == companyDate ? recruit.PaidRetries : 0;
-            var nextFee = RecruitBoardRules.QuoteFee(tuning, effective + 1, companyDate, companyDate);
+            var nextFee = RecruitBoardRules.QuoteFee(tuning, recruit.FreeUsed, recruit.PaidRetries + 1);
             EventBus.Publish(new PopupRequested(
                 PopupId.RefreshConfirm,
                 PopupContent.Refresh(fee, nextFee)));
@@ -327,21 +441,19 @@ namespace BattleRoyale.Company
             if (!RecruitBoardRules.TryPayRefresh(
                     tuning,
                     balance,
-                    recruit.Remaining,
+                    recruit.FreeUsed,
                     recruit.PaidRetries,
-                    recruit.RetryDate,
-                    companyDate,
                     out var nextBalance,
+                    out var freeUsed,
                     out var retries,
-                    out var retryDate,
                     out _))
             {
                 return;
             }
 
             balance = nextBalance;
+            recruit.FreeUsed = freeUsed;
             recruit.PaidRetries = retries;
-            recruit.RetryDate = retryDate;
             if (!RollBoard(false))
             {
                 return;
@@ -434,6 +546,7 @@ namespace BattleRoyale.Company
                 return;
             }
 
+            StampTrustedClock();
             var record = new CompanySaveRecord
             {
                 CompanyName = identity.companyName,
@@ -446,7 +559,9 @@ namespace BattleRoyale.Company
                 Board = ToSaveCards(),
                 RefreshRemaining = recruit == null ? 0f : recruit.Remaining,
                 RefreshRetries = recruit == null ? 0 : recruit.PaidRetries,
-                RefreshRetryDate = recruit == null ? 0 : recruit.RetryDate,
+                RefreshFreeUsed = recruit == null ? 0 : recruit.FreeUsed,
+                RefreshDay = recruit == null ? 0 : recruit.DayIndex,
+                TrustedUnix = recruit == null ? 0 : recruit.AcceptedUnix,
                 BoardRolled = recruit != null && recruit.Rolled,
                 TutorialStep = (int)tutorial,
                 UtcStamp = DateTime.UtcNow.Ticks.ToString(),
@@ -547,14 +662,8 @@ namespace BattleRoyale.Company
                 return;
             }
 
-            var fee = RecruitBoardRules.QuoteFee(
-                tuning,
-                recruit.PaidRetries,
-                recruit.RetryDate,
-                companyDate);
-            var effective = recruit.RetryDate == companyDate ? recruit.PaidRetries : 0;
-            var nextFee = RecruitBoardRules.QuoteFee(tuning, effective + 1, companyDate, companyDate);
-            recruitView.Refresh(recruit, balance, squad == null ? 0 : squad.Length, fee, nextFee);
+            var fee = RecruitBoardRules.QuoteFee(tuning, recruit.FreeUsed, recruit.PaidRetries);
+            recruitView.Refresh(recruit, balance, squad == null ? 0 : squad.Length, fee);
         }
 
         void RefreshSessionPresentation()
@@ -843,7 +952,9 @@ namespace BattleRoyale.Company
                 Slots = new RecruitCard[RecruitBoardRules.BoardSize],
                 Remaining = record.RefreshRemaining,
                 PaidRetries = record.RefreshRetries,
-                RetryDate = record.RefreshRetryDate,
+                FreeUsed = record.RefreshFreeUsed,
+                DayIndex = record.RefreshDay,
+                AcceptedUnix = record.TrustedUnix,
                 Rolled = record.BoardRolled,
             };
             for (var i = 0; i < recruit.Slots.Length; i++)

@@ -22,7 +22,9 @@ namespace BattleRoyale.Company
         public RecruitCard[] Slots;
         public float Remaining;
         public int PaidRetries;
-        public int RetryDate;
+        public int FreeUsed;
+        public int DayIndex;
+        public long AcceptedUnix;
         public bool Rolled;
     }
 
@@ -130,69 +132,171 @@ namespace BattleRoyale.Company
             return true;
         }
 
-        public static int QuoteFee(
-            EconomyTuning tuning,
-            int retries,
-            int retryDate,
-            int companyDate)
+        public const int UnixDaySeconds = 86400;
+
+        public static int QuoteFee(EconomyTuning tuning, int freeUsed, int paidRetries)
         {
-            if (tuning == null)
+            if (tuning == null || freeUsed < 0 || paidRetries < 0)
             {
                 return 0;
             }
 
-            var effective = retryDate == companyDate ? retries : 0;
-            if (effective < 0)
+            if (freeUsed < tuning.FreeRefreshesPerDay)
             {
-                effective = 0;
+                return 0;
             }
 
-            return tuning.BaseEarlyRefreshFee + (effective * tuning.EarlyRefreshRaise);
+            return tuning.BaseEarlyRefreshFee + (paidRetries * tuning.EarlyRefreshRaise);
+        }
+
+        public static string FormatRefreshCost(int fee)
+        {
+            if (fee <= 0)
+            {
+                return "Refresh · Free";
+            }
+
+            return $"Refresh · {fee}g";
         }
 
         public static bool TryPayRefresh(
             EconomyTuning tuning,
             int balance,
-            float remaining,
-            int retries,
-            int retryDate,
-            int companyDate,
+            int freeUsed,
+            int paidRetries,
             out int nextBalance,
-            out int nextRetries,
-            out int nextRetryDate,
+            out int nextFreeUsed,
+            out int nextPaidRetries,
             out bool paid)
         {
             nextBalance = balance;
-            nextRetries = retries;
-            nextRetryDate = retryDate;
+            nextFreeUsed = freeUsed;
+            nextPaidRetries = paidRetries;
             paid = false;
-            if (tuning == null || balance < 0 || remaining < 0f)
+            if (tuning == null || balance < 0 || freeUsed < 0 || paidRetries < 0)
+            {
+                return false;
+            }
+
+            if (freeUsed < tuning.FreeRefreshesPerDay)
+            {
+                nextFreeUsed = freeUsed + 1;
+                return true;
+            }
+
+            var fee = QuoteFee(tuning, freeUsed, paidRetries);
+            if (balance < fee)
+            {
+                return false;
+            }
+
+            nextBalance = balance - fee;
+            nextPaidRetries = paidRetries + 1;
+            paid = true;
+            return true;
+        }
+
+        public static bool TryAcceptWorldTime(
+            int freeUsed,
+            int paidRetries,
+            int dayIndex,
+            long acceptedUnix,
+            long worldUnix,
+            out int nextFreeUsed,
+            out int nextPaidRetries,
+            out int nextDayIndex,
+            out long nextAcceptedUnix,
+            out bool dayReset)
+        {
+            nextFreeUsed = freeUsed;
+            nextPaidRetries = paidRetries;
+            nextDayIndex = dayIndex;
+            nextAcceptedUnix = acceptedUnix;
+            dayReset = false;
+            if (worldUnix <= 0 || (acceptedUnix > 0 && worldUnix < acceptedUnix))
+            {
+                return false;
+            }
+
+            var day = (int)(worldUnix / UnixDaySeconds);
+            nextAcceptedUnix = worldUnix;
+            if (acceptedUnix <= 0)
+            {
+                nextDayIndex = day;
+                return true;
+            }
+
+            if (day <= dayIndex)
+            {
+                return true;
+            }
+
+            nextFreeUsed = 0;
+            nextPaidRetries = 0;
+            nextDayIndex = day;
+            dayReset = true;
+            return true;
+        }
+
+        public static float OfflineSeconds(long acceptedUnix, long worldUnix, float tickedSeconds)
+        {
+            if (acceptedUnix <= 0 || worldUnix < acceptedUnix || tickedSeconds < 0f)
+            {
+                return 0f;
+            }
+
+            var gap = (float)(worldUnix - acceptedUnix);
+            var offline = gap - tickedSeconds;
+            return offline < 0f ? 0f : offline;
+        }
+
+        public static bool TryCatchUp(
+            float remaining,
+            float elapsed,
+            float period,
+            out float nextRemaining,
+            out bool refreshDue)
+        {
+            nextRemaining = remaining;
+            refreshDue = false;
+            if (elapsed < 0f || period <= 0f)
             {
                 return false;
             }
 
             if (remaining <= 0f)
             {
+                if (elapsed <= 0f)
+                {
+                    return true;
+                }
+
+                refreshDue = true;
+                nextRemaining = WindowRemainder(elapsed, period);
                 return true;
             }
 
-            var fee = QuoteFee(tuning, retries, retryDate, companyDate);
-            if (balance < fee)
+            var next = remaining - elapsed;
+            if (next > 0f)
             {
-                return false;
+                nextRemaining = next;
+                return true;
             }
 
-            var effective = retryDate == companyDate ? retries : 0;
-            if (effective < 0)
-            {
-                effective = 0;
-            }
-
-            nextBalance = balance - fee;
-            nextRetries = effective + 1;
-            nextRetryDate = companyDate;
-            paid = true;
+            refreshDue = true;
+            nextRemaining = WindowRemainder(elapsed - remaining, period);
             return true;
+        }
+
+        static float WindowRemainder(float overshoot, float period)
+        {
+            var into = overshoot % period;
+            if (into <= 0f)
+            {
+                return period;
+            }
+
+            return period - into;
         }
 
         public static float AdvanceClock(float remaining, float elapsed)

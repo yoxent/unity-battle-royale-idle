@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using BattleRoyale.CameraSystems;
 using BattleRoyale.Events;
 using BattleRoyale.GameModes;
@@ -44,6 +46,20 @@ namespace BattleRoyale.Company
         AgentAvailability[] availability;
         bool resultApplied;
         bool ready;
+        float worldClockWait;
+        float tickedSinceWorld;
+        bool worldClockBusy;
+        readonly WorldClockSample worldClockSample = new WorldClockSample();
+
+        const float WorldClockPeriodSeconds = 60f;
+        const float WorldClockRetrySeconds = 20f;
+
+        sealed class WorldClockSample
+        {
+            public int Ready;
+            public int Cancelled;
+            public long Unix;
+        }
 
         void OnEnable()
         {
@@ -53,6 +69,19 @@ namespace BattleRoyale.Company
         void OnDisable()
         {
             EventBus.Unsubscribe<PopupClosed>(OnPopupClosed);
+        }
+
+        void OnDestroy()
+        {
+            worldClockSample.Cancelled = 1;
+        }
+
+        void OnApplicationFocus(bool focused)
+        {
+            if (focused)
+            {
+                worldClockWait = 0f;
+            }
         }
 
         void Start()
@@ -136,6 +165,7 @@ namespace BattleRoyale.Company
                 return;
             }
 
+            PollWorldClock();
             var elapsed = Time.unscaledDeltaTime;
             AdvanceRecruit(elapsed);
             AdvanceIdle(elapsed);
@@ -153,6 +183,50 @@ namespace BattleRoyale.Company
             }
 
             RefreshLabels();
+        }
+
+        void PollWorldClock()
+        {
+            if (Interlocked.Exchange(ref worldClockSample.Ready, 0) == 1)
+            {
+                worldClockBusy = false;
+                var unix = Interlocked.Read(ref worldClockSample.Unix);
+                if (unix > 0)
+                {
+                    ApplyWorldSample(unix);
+                    worldClockWait = WorldClockPeriodSeconds;
+                }
+                else
+                {
+                    worldClockWait = WorldClockRetrySeconds;
+                }
+            }
+
+            if (worldClockBusy)
+            {
+                return;
+            }
+
+            worldClockWait -= Time.unscaledDeltaTime;
+            if (worldClockWait > 0f)
+            {
+                return;
+            }
+
+            worldClockBusy = true;
+            worldClockWait = WorldClockPeriodSeconds;
+            var sample = worldClockSample;
+            Task.Run(() =>
+            {
+                long unix;
+                if (sample.Cancelled != 0 || !WorldClock.TryQuery(out unix))
+                {
+                    unix = 0;
+                }
+
+                Interlocked.Exchange(ref sample.Unix, unix);
+                Interlocked.Exchange(ref sample.Ready, 1);
+            });
         }
 
         public void ShowModeSelect()

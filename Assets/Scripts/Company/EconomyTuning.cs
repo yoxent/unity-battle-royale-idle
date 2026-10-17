@@ -14,7 +14,8 @@ namespace BattleRoyale.Company
         public int[] RarityWeights;
         public int BaseEarlyRefreshFee;
         public int EarlyRefreshRaise;
-        public float RecruitRefreshSeconds = 600f;
+        public int FreeRefreshesPerDay = 3;
+        public float RecruitRefreshSeconds = 14400f;
         public float AbortWindowSeconds = 15f;
         public float SessionDaySeconds = 600f;
         public float OfflineEarningRate = 0.5f;
@@ -31,11 +32,12 @@ namespace BattleRoyale.Company
                 CheapLastPrize = 0,
                 Salary = 5,
                 FanPayCap = 5,
-                StartingGold = 20,
-                RarityWeights = new[] { 55, 25, 12, 6, 2 },
+                StartingGold = 100,
+                RarityWeights = new[] { 700, 200, 70, 25, 5 },
                 BaseEarlyRefreshFee = 3,
                 EarlyRefreshRaise = 3,
-                RecruitRefreshSeconds = 600f,
+                FreeRefreshesPerDay = 3,
+                RecruitRefreshSeconds = 14400f,
                 AbortWindowSeconds = 15f,
                 SessionDaySeconds = 600f,
                 OfflineEarningRate = 0.5f,

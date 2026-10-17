@@ -133,10 +133,11 @@ namespace BattleRoyale.Tests.EditMode
                 tuning,
                 out var legendary));
 
+            Assert.AreEqual(100, tuning.StartingGold);
             Assert.GreaterOrEqual(
                 tuning.StartingGold,
                 common.Contract + tuning.CheapEntranceFee);
-            Assert.Less(tuning.StartingGold, legendary.Contract);
+            Assert.GreaterOrEqual(tuning.StartingGold, legendary.Contract);
             Assert.GreaterOrEqual(
                 tuning.Salary + tuning.FanPayCap,
                 tuning.CheapEntranceFee + 5 * common.Upkeep);

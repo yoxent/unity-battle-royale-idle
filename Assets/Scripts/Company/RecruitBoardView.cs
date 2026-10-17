@@ -74,7 +74,7 @@ namespace BattleRoyale.Company
             subscribed = false;
         }
 
-        public void Refresh(RecruitBoard board, int balance, int rosterCount, int fee, int nextFee)
+        public void Refresh(RecruitBoard board, int balance, int rosterCount, int fee)
         {
             if (balanceLabel != null)
             {
@@ -89,15 +89,12 @@ namespace BattleRoyale.Company
 
             if (refreshLabel != null)
             {
-                refreshLabel.text = board != null && board.Remaining <= 0f
-                    ? "Refresh is free"
-                    : $"Refresh {fee}  next {nextFee}";
+                refreshLabel.text = RecruitBoardRules.FormatRefreshCost(fee);
             }
 
             if (refreshButton != null)
             {
-                var free = board != null && board.Remaining <= 0f;
-                refreshButton.interactable = board != null && board.Rolled && (free || balance >= fee);
+                refreshButton.interactable = board != null && board.Rolled && (fee <= 0 || balance >= fee);
             }
 
             if (cards == null || board == null || board.Slots == null)
