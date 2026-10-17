@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Maps.MapDefinition
   layoutJson: {fileID: 4900000, guid: 31facbfa38ec53745ada7ba67dbb64b5, type: 3}
   visualMap: {fileID: 2800000, guid: b42929cb86951b04a8dff2eb202b662d, type: 3}
+  visualSprite: {fileID: -1637543685897820577, guid: b42929cb86951b04a8dff2eb202b662d, type: 3}
   heightMap: {fileID: 2800000, guid: b87a9eb0cc9f33d44bfac51de05a7d86, type: 2}
   visualMaterial: {fileID: 2100000, guid: 9fddad1c22747674c873a5bb22710044, type: 2}
   worldScale: 1

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace BattleRoyale.Company
 {
-    public sealed partial class CompanyDayController
+    public sealed partial class CompanySessionController
     {
         [SerializeField] CompanySaveFile saveFile;
         [SerializeField] UIPage recruitPage;
@@ -40,6 +40,7 @@ namespace BattleRoyale.Company
         CompanyIdentity.CompanyIdentityData identity;
         TutorialStep tutorial = TutorialStep.Recruit;
         int[] fieldedIndexes;
+        int[] lineup;
         int pendingHireSlot = -1;
 
         void LoadSession()
@@ -83,6 +84,7 @@ namespace BattleRoyale.Company
             fans = settled.Fans;
             dayProgress = settled.DayProgress;
             companyDate = settled.CompanyDate;
+            rankPoints = settled.RankPoints < 0 ? 0 : settled.RankPoints;
             stance = Enum.IsDefined(typeof(TeamPlaystyle), settled.Stance)
                 ? (TeamPlaystyle)settled.Stance
                 : setup.playerStance;
@@ -98,6 +100,7 @@ namespace BattleRoyale.Company
             }
 
             RebuildAvailability();
+            lineup = EmptyLineup(SideSize());
             RefreshFielding();
             ready = true;
             SaveCompany();
@@ -313,6 +316,12 @@ namespace BattleRoyale.Company
             }
 
             pendingHireSlot = slot;
+            if (SavedPopupSkip(PopupId.HireConfirm))
+            {
+                ConfirmHire();
+                return;
+            }
+
             EventBus.Publish(new PopupRequested(
                 PopupId.HireConfirm,
                 PopupContent.Hire(card.Contract, balance - card.Contract)));
@@ -326,7 +335,7 @@ namespace BattleRoyale.Company
             }
 
             var fee = RecruitBoardRules.QuoteFee(tuning, recruit.FreeUsed, recruit.PaidRetries);
-            if (fee <= 0)
+            if (fee <= 0 || RecruitBoardRules.SkipPaidConfirm(SavedRefreshConfirmDay(), recruit.DayIndex))
             {
                 ConfirmRefresh();
                 return;
@@ -365,6 +374,7 @@ namespace BattleRoyale.Company
                 write++;
             }
 
+            LineupRules.RemapRelease(lineup, index);
             squad = next;
             RebuildAvailability();
             RefreshFielding();
@@ -475,7 +485,7 @@ namespace BattleRoyale.Company
             if (!TournamentEconomyRules.TryEnter(
                     CaptureEntry(),
                     tuning,
-                    tuning.CheapEntranceFee,
+                    EntryFee(),
                     FieldedRoster(),
                     out var entered))
             {
@@ -554,6 +564,7 @@ namespace BattleRoyale.Company
                 Fans = fans,
                 DayProgress = dayProgress,
                 CompanyDate = companyDate,
+                RankPoints = rankPoints,
                 Stance = (int)stance,
                 Roster = ToSaveAgents(),
                 Board = ToSaveCards(),
@@ -709,20 +720,48 @@ namespace BattleRoyale.Company
 
         string FieldedLines()
         {
-            if (fieldedIndexes == null)
+            if (squad == null || squad.Length == 0)
             {
-                return "Need five free agents";
+                return "No agents";
             }
 
-            var lines = "";
-            for (var i = 0; i < fieldedIndexes.Length; i++)
+            var lines = fieldedIndexes == null ? "Fill the deployment slots\n" : "";
+            for (var i = 0; i < squad.Length; i++)
             {
-                var agent = squad[fieldedIndexes[i]];
+                var agent = squad[i];
                 var name = agent.Profile == null ? "Missing" : agent.Profile.displayName;
-                lines += $"{name}  {agent.Rarity}  waived {agent.Waived}\n";
+                var mark = "";
+                if (agent.Busy)
+                {
+                    mark = "  · away";
+                }
+                else if (IsFielded(i))
+                {
+                    mark = "  · next match";
+                }
+
+                lines += $"{name}  {agent.Rarity}  waived {agent.Waived}{mark}\n";
             }
 
             return lines;
+        }
+
+        bool IsFielded(int index)
+        {
+            if (fieldedIndexes == null)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < fieldedIndexes.Length; i++)
+            {
+                if (fieldedIndexes[i] == index)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         FieldedAgent[] FieldedFromSquad()
@@ -803,7 +842,7 @@ namespace BattleRoyale.Company
                 return false;
             }
 
-            var cost = tuning.CheapEntranceFee;
+            var cost = EntryFee();
             for (var i = 0; i < fielded.Length; i++)
             {
                 if (!ContractRules.TryChargeUpkeep(
@@ -822,11 +861,79 @@ namespace BattleRoyale.Company
             return balance >= cost;
         }
 
+        public void ClearDeploymentSlot(int slot)
+        {
+            if (!ready || phase != TournamentEntryPhase.Open ||
+                lineup == null || slot < 0 || slot >= lineup.Length)
+            {
+                return;
+            }
+
+            lineup[slot] = -1;
+            RefreshFielding();
+            RefreshLabels();
+        }
+
+        public void ToggleDeploymentAgent(int index)
+        {
+            if (!ready || phase != TournamentEntryPhase.Open ||
+                squad == null || lineup == null ||
+                index < 0 || index >= squad.Length)
+            {
+                return;
+            }
+
+            if (!LineupRules.TryToggle(
+                    lineup,
+                    index,
+                    squad[index].Busy,
+                    lineup.Length,
+                    out var next))
+            {
+                return;
+            }
+
+            lineup = next;
+            RefreshFielding();
+            RefreshLabels();
+        }
+
+        public void AutoFillDeployment()
+        {
+            if (!ready || phase != TournamentEntryPhase.Open || squad == null)
+            {
+                return;
+            }
+
+            var scores = new int[squad.Length];
+            var busy = new bool[squad.Length];
+            for (var i = 0; i < squad.Length; i++)
+            {
+                scores[i] = LineupRules.Score(squad[i].Rolls);
+                busy[i] = squad[i].Busy;
+            }
+
+            if (!LineupRules.TryAutoFill(scores, busy, SideSize(), out lineup))
+            {
+                Debug.LogError("Not enough free agents to fill the deployment.", this);
+                return;
+            }
+
+            RefreshFielding();
+            RefreshLabels();
+        }
+
         void RefreshFielding()
         {
             if (squad == null || phase != TournamentEntryPhase.Open)
             {
                 return;
+            }
+
+            var count = SideSize();
+            if (lineup == null || lineup.Length != count)
+            {
+                lineup = EmptyLineup(count);
             }
 
             var busy = new bool[squad.Length];
@@ -835,14 +942,131 @@ namespace BattleRoyale.Company
                 busy[i] = squad[i].Busy;
             }
 
-            if (!RosterFieldRules.TryTakeFree(busy, SideSize(), out fieldedIndexes))
+            fieldedIndexes = LineupRules.IsComplete(lineup, squad.Length, busy)
+                ? (int[])lineup.Clone()
+                : null;
+        }
+
+        void RefreshDeployment()
+        {
+            if (deployment == null || squad == null || lineup == null ||
+                !deployment.gameObject.activeInHierarchy)
             {
-                fieldedIndexes = null;
+                return;
             }
+
+            var slots = new string[lineup.Length];
+            for (var i = 0; i < lineup.Length; i++)
+            {
+                var index = lineup[i];
+                slots[i] = index >= 0 && index < squad.Length
+                    ? AgentName(squad[index])
+                    : "Empty";
+            }
+
+            var names = new string[squad.Length];
+            var chosen = new bool[squad.Length];
+            for (var i = 0; i < squad.Length; i++)
+            {
+                names[i] = AgentName(squad[i]);
+                for (var slot = 0; slot < lineup.Length; slot++)
+                {
+                    if (lineup[slot] == i)
+                    {
+                        chosen[i] = true;
+                    }
+                }
+            }
+
+            deployment.ShowLineup(slots, names, chosen);
+        }
+
+        static int[] EmptyLineup(int count)
+        {
+            var slots = new int[Math.Max(0, count)];
+            for (var i = 0; i < slots.Length; i++)
+            {
+                slots[i] = -1;
+            }
+
+            return slots;
+        }
+
+        static string AgentName(SignedAgent agent)
+        {
+            return agent.Profile == null ? "Missing" : agent.Profile.displayName;
+        }
+
+        public void SelectTournament(int index)
+        {
+            if (!ready)
+            {
+                return;
+            }
+
+            var offer = OfferAt(index);
+            if (offer == null)
+            {
+                return;
+            }
+
+            viewedCard = index;
+            if (phase != TournamentEntryPhase.Open)
+            {
+                PublishViewedCard();
+                return;
+            }
+
+            if (offer.Configuration == null || match == null)
+            {
+                Debug.LogError("This tournament has no map setup.", this);
+                PublishViewedCard();
+                return;
+            }
+
+            selectedTournament = index;
+            match.UseConfiguration(offer.Configuration);
+            lineup = EmptyLineup(offer.TeamSize);
+            RefreshFielding();
+            RefreshLabels();
+            Show(matchSetupPage);
+        }
+
+        TournamentOffer SelectedOffer()
+        {
+            return OfferAt(selectedTournament);
+        }
+
+        TournamentOffer OfferAt(int index)
+        {
+            if (tournaments == null || tournaments.Offers == null ||
+                index < 0 || index >= tournaments.Offers.Length)
+            {
+                return null;
+            }
+
+            return tournaments.Offers[index];
+        }
+
+        int EntryFee()
+        {
+            var offer = SelectedOffer();
+            if (offer != null)
+            {
+                return offer.EntryFee;
+            }
+
+            return tuning == null ? 0 : tuning.CheapEntranceFee;
         }
 
         int SideSize()
         {
+            var offer = SelectedOffer();
+            if (offer != null && offer.TeamSize > 0)
+            {
+                return offer.TeamSize;
+            }
+
             if (match == null || match.ModeConfiguration == null)
             {
                 return 0;

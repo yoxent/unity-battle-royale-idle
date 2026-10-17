@@ -13,6 +13,7 @@ namespace BattleRoyale.Maps
         public TextAsset layoutJson;
         public TextAsset narrativeMarkdown;
         public Texture2D visualMap;
+        public Sprite visualSprite;
         public Texture2D heightMap;
         public Material visualMaterial;
 

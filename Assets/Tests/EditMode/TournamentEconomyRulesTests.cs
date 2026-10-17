@@ -20,7 +20,7 @@ namespace BattleRoyale.Tests.EditMode
 
             Assert.AreEqual(tuning.StartingGold, entered.Balance);
             Assert.AreEqual(6, entered.Reserved);
-            Assert.AreEqual(14, entered.Spendable);
+            Assert.AreEqual(tuning.StartingGold - 6, entered.Spendable);
             Assert.AreEqual(TournamentEntryPhase.Window, entered.Phase);
             Assert.AreEqual(tuning.AbortWindowSeconds, entered.WindowRemaining);
             Assert.AreEqual(4, entered.CompanyDate);
@@ -67,7 +67,7 @@ namespace BattleRoyale.Tests.EditMode
 
             Assert.AreEqual(TournamentEntryPhase.Running, started.Phase);
             Assert.AreEqual(0, started.Reserved);
-            Assert.AreEqual(14, started.Balance);
+            Assert.AreEqual(tuning.StartingGold - 6, started.Balance);
             Assert.AreEqual(4, started.CompanyDate);
             Assert.AreEqual(TournamentResult.None, started.Result);
         }
@@ -193,7 +193,8 @@ namespace BattleRoyale.Tests.EditMode
         public void ALegendarySideThatCannotPayIsRefused()
         {
             var tuning = EconomyTuning.Illustration();
-            var treasury = Treasury(tuning.StartingGold);
+            var floor = tuning.Salary + tuning.FanPayCap;
+            var treasury = Treasury(floor);
             var side = new[]
             {
                 Agent(AgentRarity.Legendary, 0),
@@ -209,7 +210,7 @@ namespace BattleRoyale.Tests.EditMode
                 tuning.CheapEntranceFee,
                 side,
                 out _));
-            Assert.AreEqual(tuning.StartingGold, treasury.Balance);
+            Assert.AreEqual(floor, treasury.Balance);
             Assert.AreEqual(0, treasury.Reserved);
         }
 

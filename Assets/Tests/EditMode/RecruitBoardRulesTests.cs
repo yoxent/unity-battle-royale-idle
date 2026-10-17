@@ -19,9 +19,21 @@ namespace BattleRoyale.Tests.EditMode
                 tuning.StartingGold,
                 out var cards));
 
-            Assert.AreEqual(AgentRarity.Common, cards[0].Rarity);
-            Assert.AreEqual(6, cards[0].Contract);
-            Assert.AreEqual(AgentRarity.Legendary, cards[1].Rarity);
+            Assert.AreEqual(AgentRarity.Legendary, cards[0].Rarity);
+            Assert.AreEqual(48, cards[0].Contract);
+            Assert.LessOrEqual(cards[0].Contract, tuning.StartingGold);
+
+            Assert.IsTrue(RecruitBoardRules.TryRoll(
+                new[] { "Scout" },
+                tuning,
+                new System.Random(1),
+                true,
+                cards[0].Contract - 1,
+                out var forced));
+
+            Assert.AreEqual(AgentRarity.Common, forced[0].Rarity);
+            Assert.AreEqual(6, forced[0].Contract);
+            Assert.AreEqual(AgentRarity.Legendary, forced[1].Rarity);
         }
 
         [Test]
@@ -177,6 +189,14 @@ namespace BattleRoyale.Tests.EditMode
             Assert.AreEqual(2, paidRetries);
             Assert.AreEqual("Refresh · 9g", RecruitBoardRules.FormatRefreshCost(
                 RecruitBoardRules.QuoteFee(tuning, freeUsed, paidRetries)));
+        }
+
+        [Test]
+        public void APaidConfirmSkipLastsForThatRefreshDay()
+        {
+            Assert.IsFalse(RecruitBoardRules.SkipPaidConfirm(0, 20000));
+            Assert.IsTrue(RecruitBoardRules.SkipPaidConfirm(20000, 20000));
+            Assert.IsFalse(RecruitBoardRules.SkipPaidConfirm(20000, 20001));
         }
 
         [Test]

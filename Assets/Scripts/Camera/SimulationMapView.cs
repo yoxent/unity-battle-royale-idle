@@ -11,7 +11,6 @@ namespace BattleRoyale.CameraSystems
     {
         [SerializeField] private Camera simulationCamera;
         [SerializeField] private RawImage view;
-        [SerializeField] private GameObject backdrop;
         [SerializeField] private RenderTexture texture;
         [SerializeField] private SimulationCameraController framing;
 
@@ -20,11 +19,10 @@ namespace BattleRoyale.CameraSystems
 
         void Awake()
         {
-            if (simulationCamera == null || view == null || backdrop == null ||
-                texture == null || framing == null)
+            if (simulationCamera == null || view == null || texture == null || framing == null)
             {
                 Debug.LogError(
-                    "The simulation map view needs a camera, an image, a backdrop, a render texture, and framing.",
+                    "The simulation map view needs a camera, an image, a render texture, and framing.",
                     this);
                 return;
             }
@@ -59,10 +57,10 @@ namespace BattleRoyale.CameraSystems
 
         public void SetShown(bool shown)
         {
-            if (simulationCamera == null || view == null || backdrop == null)
+            if (simulationCamera == null || view == null)
             {
                 Debug.LogError(
-                    "The simulation map view needs a camera, an image, and a backdrop.",
+                    "The simulation map view needs a camera and an image.",
                     this);
                 return;
             }
@@ -70,7 +68,6 @@ namespace BattleRoyale.CameraSystems
             if (!shown)
             {
                 view.gameObject.SetActive(false);
-                backdrop.SetActive(true);
                 simulationCamera.enabled = false;
                 return;
             }
@@ -81,7 +78,6 @@ namespace BattleRoyale.CameraSystems
             }
 
             view.gameObject.SetActive(true);
-            backdrop.SetActive(false);
             simulationCamera.enabled = true;
 
             Canvas.ForceUpdateCanvases();

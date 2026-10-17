@@ -10,7 +10,7 @@ namespace BattleRoyale.Company
         [SerializeField] CompanyIdentity.CompanyIdentityPreviewViewBindings editorPreviewBindings;
         [SerializeField] CompanyIdentity.CompanyIdentityPreviewViewBindings summaryPreviewBindings;
         [SerializeField] CompanyIdentity.CompanyIdentityPreviewViewBindings dashboardPreviewBindings;
-        [SerializeField] CompanyDayController company;
+        [SerializeField] CompanySessionController company;
 
         CompanyIdentity.CompanyIdentityEditorView editor;
         CompanyIdentity.CompanyIdentitySummaryView summary;

@@ -43,6 +43,7 @@ namespace BattleRoyale.Company
         public int Fans;
         public float DayProgress;
         public int CompanyDate;
+        public int RankPoints;
         public int Stance;
         public CompanySaveAgent[] Roster;
         public CompanySaveCard[] Board;

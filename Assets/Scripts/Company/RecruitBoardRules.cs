@@ -149,6 +149,11 @@ namespace BattleRoyale.Company
             return tuning.BaseEarlyRefreshFee + (paidRetries * tuning.EarlyRefreshRaise);
         }
 
+        public static bool SkipPaidConfirm(int savedDay, int today)
+        {
+            return today > 0 && savedDay == today;
+        }
+
         public static string FormatRefreshCost(int fee)
         {
             if (fee <= 0)

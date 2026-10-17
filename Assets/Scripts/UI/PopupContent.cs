@@ -101,7 +101,7 @@ namespace BattleRoyale.UI
                 "Hire this agent",
                 $"The contract costs {price}. After you pay, the company has {balanceAfter} gold.",
                 "Hire",
-                "Not now");
+                "Not now").WithDoNotShowAgain();
         }
 
         public static PopupContent Refresh(int fee, int nextFee)
@@ -110,7 +110,7 @@ namespace BattleRoyale.UI
                 "Refresh the board",
                 $"This refresh costs {fee}g. The next one today costs {nextFee}g.",
                 "Refresh",
-                "Not now");
+                "Not now").WithDoNotShowAgain("Don't ask again today");
         }
 
         public static PopupContent EntryCommit()
@@ -119,7 +119,7 @@ namespace BattleRoyale.UI
                 "Entering this tournament",
                 "The entrance fee and your agents' upkeep are held when you enter. They are not spent yet.\n\nYou can leave before the match starts and get that gold back. Your agents stay free, and no result is recorded.\n\nOnce the match starts, that gold is spent. Forfeiting is a loss: no prize, and the fee and upkeep are not returned. Closing the game before a result keeps the company as it was when this entry began.",
                 "Enter",
-                "Not now");
+                "Not now").WithDoNotShowAgain();
         }
     }
 }

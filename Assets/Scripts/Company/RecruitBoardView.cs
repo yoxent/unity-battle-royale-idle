@@ -6,7 +6,7 @@ namespace BattleRoyale.Company
 {
     public sealed class RecruitBoardView : MonoBehaviour
     {
-        [SerializeField] CompanyDayController company;
+        [SerializeField] CompanySessionController company;
         [SerializeField] RecruitSlotView[] cards;
         [SerializeField] TMP_Text balanceLabel;
         [SerializeField] TMP_Text spotsLabel;
