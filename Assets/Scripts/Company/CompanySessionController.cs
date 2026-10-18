@@ -118,7 +118,9 @@ namespace BattleRoyale.Company
                 return;
             }
 
-            if (saveFile == null)
+            var saveAssigned = saveFile != null;
+            var fileExists = saveAssigned && saveFile.Exists();
+            if (CompanySessionBoot.Choose(saveAssigned, fileExists, true) == CompanyBoot.Authored)
             {
                 BootAuthoredCompany();
                 return;
@@ -163,6 +165,7 @@ namespace BattleRoyale.Company
             }
 
             ready = true;
+            ApplyAuthoredIdentity();
             RefreshFielding();
             Show(dashboard);
             RefreshLabels();
@@ -267,6 +270,7 @@ namespace BattleRoyale.Company
             }
 
             Show(dashboard);
+            RefreshLabels();
         }
 
         public void SetAggressive()
@@ -632,7 +636,8 @@ namespace BattleRoyale.Company
 
             if (rosterLabel != null)
             {
-                rosterLabel.text = FieldedLines();
+                var count = squad == null ? 0 : squad.Length;
+                rosterLabel.text = count + " / " + RecruitBoardRules.RosterCap;
             }
 
             RefreshSessionPresentation();

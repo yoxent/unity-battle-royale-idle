@@ -19,6 +19,7 @@ namespace BattleRoyale.Company
         [SerializeField] CompanyIdentitySessionHost identityHost;
         [SerializeField] RecruitBoardView recruitView;
         [SerializeField] CompanyRosterView rosterView;
+        [SerializeField] CompanyDashboardView dashboardView;
         [SerializeField] OfflineReportView offlineReport;
         [SerializeField] TutorialHintView tutorialHints;
         [SerializeField] TMP_Text companyNameLabel;
@@ -38,6 +39,8 @@ namespace BattleRoyale.Company
         SignedAgent[] squad;
         RecruitBoard recruit;
         CompanyIdentity.CompanyIdentityData identity;
+        CompanyIdentity.CompanyIdentityData authoredIdentity;
+        RosterSlotPresentation[] rosterSlots;
         TutorialStep tutorial = TutorialStep.Recruit;
         int[] fieldedIndexes;
         int[] lineup;
@@ -45,19 +48,16 @@ namespace BattleRoyale.Company
 
         void LoadSession()
         {
-            if (saveFile == null || recruitPage == null || profilePage == null ||
-                editorPage == null || settingsPage == null || identityHost == null ||
-                recruitView == null || rosterView == null || offlineReport == null ||
-                tutorialHints == null || companyNameLabel == null || leaveMatchButton == null ||
-                avatarCatalog == null)
+            if (saveFile == null)
             {
-                Debug.LogError("Company day needs its save, session pages, and avatar catalog.", this);
+                Debug.LogError("Company day needs its save.", this);
                 return;
             }
 
-            if (!saveFile.TryLoad(out var record))
+            var parsed = saveFile.TryLoad(out var record);
+            if (CompanySessionBoot.Choose(true, true, parsed) != CompanyBoot.Saved)
             {
-                Debug.LogError("Company day needs a company file. Start from the title.", this);
+                Debug.LogError("Company day could not read the company file.", this);
                 return;
             }
 
@@ -106,7 +106,10 @@ namespace BattleRoyale.Company
             SaveCompany();
             Show(dashboard);
             RefreshLabels();
-            identityHost.Show(identity);
+            if (identityHost != null)
+            {
+                identityHost.Show(identity);
+            }
             if (salary + fansPaid > 0 && offlineReport != null)
             {
                 offlineReport.Show(
@@ -622,7 +625,8 @@ namespace BattleRoyale.Company
                     continue;
                 }
 
-                if (!avatarCatalog.TryCreateAppearance(random, out var appearance))
+                if (avatarCatalog == null ||
+                    !avatarCatalog.TryCreateAppearance(random, out var appearance))
                 {
                     Debug.LogError("Company day could not roll an avatar.", this);
                     return false;
@@ -701,49 +705,141 @@ namespace BattleRoyale.Company
                 tutorialHints.Show(tutorial);
             }
 
-            if (rosterView != null && squad != null)
-            {
-                var lines = new string[squad.Length];
-                var canRelease = new bool[squad.Length];
-                for (var i = 0; i < squad.Length; i++)
-                {
-                    var name = squad[i].Profile == null ? "Missing" : squad[i].Profile.displayName;
-                    lines[i] = $"{name}  {squad[i].Rarity}  waived {squad[i].Waived}";
-                    canRelease[i] = phase == TournamentEntryPhase.Open && !squad[i].Busy;
-                }
-
-                rosterView.Show(lines, canRelease);
-            }
-
+            PresentDashboard();
+            RefreshRoster();
             RefreshRecruit();
         }
 
-        string FieldedLines()
+        void ApplyAuthoredIdentity()
         {
-            if (squad == null || squad.Length == 0)
+            authoredIdentity = null;
+            if (setup == null)
             {
-                return "No agents";
+                return;
             }
 
-            var lines = fieldedIndexes == null ? "Fill the deployment slots\n" : "";
-            for (var i = 0; i < squad.Length; i++)
+            var emblem = setup.playerEmblem;
+            if (!System.Enum.IsDefined(typeof(CompanyIdentity.CompanyInsigniaShape), emblem.InsigniaShape) ||
+                !System.Enum.IsDefined(typeof(CompanyIdentity.CompanyIcon), emblem.Icon) ||
+                !System.Enum.IsDefined(typeof(CompanyIdentity.CompanyFlagPattern), emblem.FlagPattern))
             {
+                return;
+            }
+
+            authoredIdentity = new CompanyIdentity.CompanyIdentityData
+            {
+                companyName = setup.playerName,
+                insigniaShape = (CompanyIdentity.CompanyInsigniaShape)emblem.InsigniaShape,
+                icon = (CompanyIdentity.CompanyIcon)emblem.Icon,
+                flagPattern = (CompanyIdentity.CompanyFlagPattern)emblem.FlagPattern,
+                primaryColor = emblem.Primary.AsColor(),
+                secondaryColor = emblem.Secondary.AsColor(),
+                accentColor = emblem.Accent.AsColor(),
+            };
+        }
+
+        void PresentDashboard()
+        {
+            if (dashboardView == null)
+            {
+                return;
+            }
+
+            var source = identity != null ? identity : authoredIdentity;
+            var companyName = source != null
+                ? source.companyName
+                : setup != null ? setup.playerName : "";
+            var count = squad == null ? 0 : squad.Length;
+            dashboardView.Present(
+                companyName,
+                source,
+                rankPoints,
+                reserved > 0 ? "Gold " + balance + "  Held " + reserved : "Gold " + balance,
+                fans,
+                companyDate,
+                stance.ToString(),
+                count,
+                RecruitBoardRules.RosterCap);
+        }
+
+        void RefreshRoster()
+        {
+            if (rosterView == null)
+            {
+                return;
+            }
+
+            if (rosterSlots == null || rosterSlots.Length != RecruitBoardRules.RosterCap)
+            {
+                rosterSlots = new RosterSlotPresentation[RecruitBoardRules.RosterCap];
+            }
+
+            for (var i = 0; i < rosterSlots.Length; i++)
+            {
+                rosterSlots[i] = default;
+                if (squad == null || i >= squad.Length || squad[i] == null)
+                {
+                    continue;
+                }
+
                 var agent = squad[i];
-                var name = agent.Profile == null ? "Missing" : agent.Profile.displayName;
-                var mark = "";
-                if (agent.Busy)
+                var profile = agent.Profile;
+                rosterSlots[i] = new RosterSlotPresentation
                 {
-                    mark = "  · away";
-                }
-                else if (IsFielded(i))
-                {
-                    mark = "  · next match";
-                }
-
-                lines += $"{name}  {agent.Rarity}  waived {agent.Waived}{mark}\n";
+                    Occupied = true,
+                    Name = profile == null ? "Missing" : profile.displayName,
+                    Rarity = agent.Rarity,
+                    Specialty = SpecialtyName(agent.Rolls),
+                    Weapon = profile == null || profile.defaultWeapon == null
+                        ? ""
+                        : profile.defaultWeapon.displayName,
+                    Upkeep = UpkeepOf(agent.Rarity),
+                    Waived = agent.Waived,
+                    Availability = AvailabilityOf(i, agent.Busy),
+                    CanRelease = phase == TournamentEntryPhase.Open && !agent.Busy,
+                    Avatar = agent.Avatar,
+                };
             }
 
-            return lines;
+            rosterView.Show(rosterSlots);
+        }
+
+        string AvailabilityOf(int index, bool busy)
+        {
+            if (busy)
+            {
+                return "Away";
+            }
+
+            if (IsFielded(index))
+            {
+                return "Next match";
+            }
+
+            return "Free";
+        }
+
+        int UpkeepOf(AgentRarity rarity)
+        {
+            if (tuning == null || !ContractRules.TryPrice(rarity, tuning, out var price))
+            {
+                return 0;
+            }
+
+            return price.Upkeep;
+        }
+
+        string SpecialtyName(int[] rolls)
+        {
+            if (!FieldedAgentProfile.HasRolls(rolls))
+            {
+                return "";
+            }
+
+            var stats = new BattleRoyaleAgentStats();
+            FieldedAgentProfile.WriteRolls(stats, rolls);
+            return BattleRoyaleAgentSpecialtyRules.GetDisplayName(
+                BattleRoyaleAgentSpecialtyRules.Evaluate(stats).Specialty);
         }
 
         bool IsFielded(int index)
@@ -1207,7 +1303,8 @@ namespace BattleRoyale.Company
                 }
 
                 if (appearance == null &&
-                    !avatarCatalog.TryCreateAppearance(new System.Random(i + 1), out appearance))
+                    (avatarCatalog == null ||
+                     !avatarCatalog.TryCreateAppearance(new System.Random(i + 1), out appearance)))
                 {
                     Debug.LogError("Company day could not roll an avatar.", this);
                     return false;

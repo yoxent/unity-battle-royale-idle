@@ -6,7 +6,6 @@ namespace BattleRoyale.Maps
     public readonly struct DungeonMapAuthoringSettings
     {
         public DungeonMapAuthoringSettings(
-            bool showDungeonWalls,
             bool overrideNavMeshVoxelSize,
             float navMeshVoxelSize,
             bool replaceGeneratedRoot,
@@ -18,7 +17,6 @@ namespace BattleRoyale.Maps
             bool editImageCornersInScene,
             bool editPointsInSceneView)
         {
-            ShowDungeonWalls = showDungeonWalls;
             OverrideNavMeshVoxelSize = overrideNavMeshVoxelSize;
             NavMeshVoxelSize = navMeshVoxelSize;
             ReplaceGeneratedRoot = replaceGeneratedRoot;
@@ -31,7 +29,6 @@ namespace BattleRoyale.Maps
             EditPointsInSceneView = editPointsInSceneView;
         }
 
-        public bool ShowDungeonWalls { get; }
         public bool OverrideNavMeshVoxelSize { get; }
         public float NavMeshVoxelSize { get; }
         public bool ReplaceGeneratedRoot { get; }
@@ -54,7 +51,6 @@ namespace BattleRoyale.Maps
 
         public static DungeonMapAuthoringSettings Defaults { get; } = new(
             false,
-            false,
             DefaultNavMeshVoxelSize,
             true,
             true,
@@ -73,7 +69,6 @@ namespace BattleRoyale.Maps
             }
 
             return new DungeonMapAuthoringSettings(
-                definition.showDungeonWalls,
                 definition.overrideNavMeshVoxelSize,
                 definition.navMeshVoxelSize,
                 definition.replaceGeneratedRoot,
@@ -90,7 +85,6 @@ namespace BattleRoyale.Maps
             MapDefinition definition,
             DungeonMapAuthoringSettings settings)
         {
-            definition.showDungeonWalls = settings.ShowDungeonWalls;
             definition.overrideNavMeshVoxelSize = settings.OverrideNavMeshVoxelSize;
             definition.navMeshVoxelSize = settings.NavMeshVoxelSize;
             definition.replaceGeneratedRoot = settings.ReplaceGeneratedRoot;

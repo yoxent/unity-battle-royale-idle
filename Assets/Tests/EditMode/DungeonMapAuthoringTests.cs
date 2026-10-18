@@ -13,7 +13,6 @@ namespace BattleRoyale.Tests.EditMode
             definition.worldScale = 4f;
             definition.wallHeight = 3f;
             definition.wallThickness = 0.7f;
-            definition.showDungeonWalls = true;
             definition.overrideNavMeshVoxelSize = true;
             definition.navMeshVoxelSize = 0.5f;
             definition.replaceGeneratedRoot = false;
@@ -37,7 +36,7 @@ namespace BattleRoyale.Tests.EditMode
                 Assert.AreEqual(DungeonMapGeometry.DefaultWallHeight, geometry.WallHeight);
                 Assert.AreEqual(DungeonMapGeometry.DefaultWallThickness, geometry.WallThickness);
                 Assert.AreEqual(DungeonMapGeometry.DefaultColumnSize, geometry.ColumnSize);
-                Assert.AreEqual(DungeonMapGeometry.DefaultDungeonUnitScale, geometry.DungeonUnitScale);
+                Assert.AreEqual(DungeonMapGeometry.DefaultUnitScale, geometry.UnitScale);
                 AssertAuthoringEquals(DungeonMapAuthoring.Defaults, authoring);
                 Assert.AreEqual(0, definition.supportedGameModes.Count);
                 Assert.AreEqual(0, definition.modeConfigurations.Count);
@@ -52,7 +51,6 @@ namespace BattleRoyale.Tests.EditMode
         public void SavedAuthoringLoadsInsteadOfDefaults()
         {
             var definition = ScriptableObject.CreateInstance<MapDefinition>();
-            definition.showDungeonWalls = true;
             definition.overrideNavMeshVoxelSize = true;
             definition.navMeshVoxelSize = 0.42f;
             definition.replaceGeneratedRoot = false;
@@ -68,7 +66,6 @@ namespace BattleRoyale.Tests.EditMode
             {
                 AssertAuthoringEquals(
                     new DungeonMapAuthoringSettings(
-                        true,
                         true,
                         0.42f,
                         false,
@@ -91,7 +88,6 @@ namespace BattleRoyale.Tests.EditMode
             DungeonMapAuthoringSettings expected,
             DungeonMapAuthoringSettings actual)
         {
-            Assert.AreEqual(expected.ShowDungeonWalls, actual.ShowDungeonWalls);
             Assert.AreEqual(expected.OverrideNavMeshVoxelSize, actual.OverrideNavMeshVoxelSize);
             Assert.AreEqual(expected.NavMeshVoxelSize, actual.NavMeshVoxelSize);
             Assert.AreEqual(expected.ReplaceGeneratedRoot, actual.ReplaceGeneratedRoot);

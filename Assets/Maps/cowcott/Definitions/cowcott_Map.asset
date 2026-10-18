@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: cowcott_Map
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.Maps.MapDefinition
   layoutJson: {fileID: 4900000, guid: 31facbfa38ec53745ada7ba67dbb64b5, type: 3}
+  narrativeMarkdown: {fileID: 0}
   visualMap: {fileID: 2800000, guid: b42929cb86951b04a8dff2eb202b662d, type: 3}
   visualSprite: {fileID: -1637543685897820577, guid: b42929cb86951b04a8dff2eb202b662d, type: 3}
   heightMap: {fileID: 2800000, guid: b87a9eb0cc9f33d44bfac51de05a7d86, type: 2}
@@ -28,6 +29,19 @@ MonoBehaviour:
   wallThickness: 0.7
   generateBuildingWalls: 1
   generateTreeColliders: 0
+  useImageCornerFit: 0
+  imageUpperLeftUv: {x: 0, y: 1}
+  imageLowerRightUv: {x: 1, y: 0}
+  editImageCornersInScene: 0
+  columnSize: 1.5
+  dungeonUnitScale: 10
+  overrideNavMeshVoxelSize: 0
+  navMeshVoxelSize: 0.16666667
+  replaceGeneratedRoot: 1
+  disableOtherGeneratedMaps: 1
+  setAsActiveCameraMap: 1
+  editPointsInSceneView: 1
+  bakedPrefab: {fileID: 0}
   generator: vg
   generatorVersion: 1.6.9
   features:
@@ -67,3 +81,7 @@ MonoBehaviour:
     type: MultiPolygon
     geometryCount: 87
     coordinateCount: 3087
+  tacticalAnchors: []
+  supportedGameModes: 00000000
+  modeConfigurations:
+  - {fileID: 11400000, guid: 3460ae6e9062a5246a802903e1f21060, type: 2}

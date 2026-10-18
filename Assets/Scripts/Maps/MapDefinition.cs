@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BattleRoyale.Maps
 {
@@ -40,10 +41,23 @@ namespace BattleRoyale.Maps
         [Min(0.001f)]
         public float wallThickness = DungeonMapGeometry.DefaultWallThickness;
 
+        [FormerlySerializedAs("dungeonUnitScale")]
+        [Min(0.01f)]
+        public float unitScale = DungeonMapGeometry.DefaultUnitScale;
+
         public bool generateBuildingWalls = true;
         public bool generateTreeColliders;
+        public Vector2 treeUpperLeft;
+        public Vector2 treeLowerRight;
+        public bool editTreeCornersInScene;
 
-        [Header("Dungeon Image Fit")]
+        [Min(0.01f)]
+        public float treeRadiusMultiplier = 1f;
+
+        [Min(0.01f)]
+        public float treeHeight = 2f;
+
+        [Header("Image Fit")]
         public bool useImageCornerFit;
 
         public Vector2 imageUpperLeftUv = new(0f, 1f);
@@ -55,11 +69,6 @@ namespace BattleRoyale.Maps
         [Header("Dungeon Authoring")]
         [Min(0.01f)]
         public float columnSize = DungeonMapGeometry.DefaultColumnSize;
-
-        [Min(0.01f)]
-        public float dungeonUnitScale = DungeonMapGeometry.DefaultDungeonUnitScale;
-
-        public bool showDungeonWalls;
 
         public bool overrideNavMeshVoxelSize;
 

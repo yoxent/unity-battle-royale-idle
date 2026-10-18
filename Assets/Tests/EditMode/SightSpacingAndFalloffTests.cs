@@ -70,6 +70,18 @@ namespace BattleRoyale.Tests.EditMode
         }
 
         [Test]
+        public void BodyBottomSitsOnTheNavMeshPivot()
+        {
+            Assert.AreEqual(10f, BattleRoyaleAgent.CapsuleSeatOffset(10f));
+            Assert.AreEqual(10f, BattleRoyaleAgent.CapsuleSeatOffset(-10f));
+            Assert.AreEqual(
+                10f,
+                BattleRoyaleAgent.SeatedColliderCenter(Vector3.zero, 20f).y);
+            Assert.AreEqual(15f, BattleRoyaleAgent.SeatedHeight(10f, 0.5f));
+            Assert.AreEqual(17.5f, BattleRoyaleAgent.SeatedHeight(10f, 0.75f));
+        }
+
+        [Test]
         public void NavigationRadiusMatchesBodyCollider()
         {
             var host = new GameObject("body");

@@ -450,6 +450,23 @@ namespace BattleRoyale.GameModes.BattleRoyale
             }
         }
 
+        public static float CapsuleSeatOffset(float localScaleY)
+        {
+            return Mathf.Abs(localScaleY);
+        }
+
+        public static Vector3 SeatedColliderCenter(Vector3 center, float height)
+        {
+            center.y = Mathf.Abs(height) * 0.5f;
+            return center;
+        }
+
+        public static float SeatedHeight(float visualScale, float fractionAboveCenter)
+        {
+            var scale = Mathf.Max(0.1f, visualScale);
+            return scale * (1f + fractionAboveCenter);
+        }
+
         public static void ApplyClearance(NavMeshAgent navigation, CapsuleCollider body)
         {
             if (navigation == null || body == null)
@@ -546,21 +563,48 @@ namespace BattleRoyale.GameModes.BattleRoyale
         private void CreatePrimitiveVisual()
         {
             var existingVisual = transform.Find("AgentCapsule");
+            Transform visual;
             if (existingVisual != null)
             {
+                visual = existingVisual;
                 agentRenderer = existingVisual.GetComponent<Renderer>();
-                return;
+            }
+            else
+            {
+                var created = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                created.name = "AgentCapsule";
+                visual = created.transform;
+                visual.SetParent(transform, false);
+                visual.localScale = Vector3.one * profile.visualScale;
+                var visualCollider = created.GetComponent<Collider>();
+                if (visualCollider != null)
+                {
+                    Destroy(visualCollider);
+                }
+
+                agentRenderer = created.GetComponent<Renderer>();
+                if (agentRenderer != null)
+                {
+                    var shader = Shader.Find("Universal Render Pipeline/Lit") ??
+                                 Shader.Find("Standard");
+                    if (shader != null)
+                    {
+                        agentRenderer.material = new Material(shader)
+                        {
+                            color = profile.visualColor
+                        };
+                    }
+                }
             }
 
-            var visual = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            visual.name = "AgentCapsule";
-            visual.transform.SetParent(transform, false);
-            visual.transform.localScale = Vector3.one * profile.visualScale;
-            var visualCollider = visual.GetComponent<Collider>();
-            if (visualCollider != null)
-            {
-                Destroy(visualCollider);
-            }
+            SeatOnPivot(visual);
+        }
+
+        private void SeatOnPivot(Transform visual)
+        {
+            var local = visual.localPosition;
+            local.y = CapsuleSeatOffset(visual.localScale.y);
+            visual.localPosition = local;
 
             var bodyCollider = GetComponent<CapsuleCollider>();
             if (bodyCollider == null)
@@ -568,25 +612,12 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 bodyCollider = gameObject.AddComponent<CapsuleCollider>();
             }
 
-            var visualScale = Mathf.Max(0.1f, profile.visualScale);
-            bodyCollider.center = Vector3.zero;
-            bodyCollider.radius = 0.5f * visualScale;
-            bodyCollider.height = 2f * visualScale;
-            agentRenderer = visual.GetComponent<Renderer>();
-            if (agentRenderer == null)
-            {
-                return;
-            }
-
-            var shader = Shader.Find("Universal Render Pipeline/Lit") ??
-                         Shader.Find("Standard");
-            if (shader != null)
-            {
-                agentRenderer.material = new Material(shader)
-                {
-                    color = profile.visualColor
-                };
-            }
+            var scale = Mathf.Max(0.1f, Mathf.Abs(visual.localScale.y));
+            bodyCollider.radius = 0.5f * scale;
+            bodyCollider.height = 2f * scale;
+            bodyCollider.center = SeatedColliderCenter(
+                bodyCollider.center,
+                bodyCollider.height);
         }
     }
 }

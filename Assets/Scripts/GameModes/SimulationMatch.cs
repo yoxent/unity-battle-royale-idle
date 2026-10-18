@@ -407,14 +407,26 @@ namespace BattleRoyale.GameModes
             Action<BattleRoyaleAgent> configure = null,
             BattleRoyaleAgentProfile profileOverride = null)
         {
-            var agentObject = CreateAgentObject(objectName);
+            var placedOnNavMesh = TrySnapToNavigation(position, out var snappedPosition);
+            var agentObject = CreateAgentObject(objectName, snappedPosition);
             agentObject.transform.SetParent(agentParent, true);
-            agentObject.transform.position = position;
+            agentObject.transform.position = snappedPosition;
 
             var navigationAgent = agentObject.GetComponent<NavMeshAgent>();
             if (navigationAgent == null)
             {
+                var wasActive = agentObject.activeSelf;
+                agentObject.SetActive(false);
                 navigationAgent = agentObject.AddComponent<NavMeshAgent>();
+                navigationAgent.enabled = false;
+                if (wasActive)
+                {
+                    agentObject.SetActive(true);
+                }
+            }
+            else
+            {
+                navigationAgent.enabled = false;
             }
 
             var agent = agentObject.GetComponent<BattleRoyaleAgent>();
@@ -438,14 +450,17 @@ namespace BattleRoyale.GameModes
                     roster.Count));
             configure?.Invoke(agent);
 
-            var snappedPosition = SnapToNavigation(position);
-            if (navigationAgent.enabled && navigationAgent.Warp(snappedPosition))
+            if (placedOnNavMesh)
             {
-                agentObject.transform.position = snappedPosition;
+                navigationAgent.enabled = true;
+                navigationAgent.Warp(snappedPosition);
             }
             else
             {
-                agentObject.transform.position = snappedPosition;
+                Debug.LogWarning(
+                    $"Spawn position {position} is not close enough to the NavMesh. " +
+                    $"{objectName} was left off it.",
+                    agentObject);
             }
 
             if (isBot)
@@ -462,7 +477,7 @@ namespace BattleRoyale.GameModes
             return agent;
         }
 
-        protected Vector3 SnapToNavigation(Vector3 position)
+        protected bool TrySnapToNavigation(Vector3 position, out Vector3 snapped)
         {
             if (NavMesh.SamplePosition(
                     position,
@@ -470,10 +485,18 @@ namespace BattleRoyale.GameModes
                     navMeshSnapDistance,
                     NavMesh.AllAreas))
             {
-                return hit.position;
+                snapped = hit.position;
+                return true;
             }
 
-            return position;
+            snapped = position;
+            return false;
+        }
+
+        protected Vector3 SnapToNavigation(Vector3 position)
+        {
+            TrySnapToNavigation(position, out var snapped);
+            return snapped;
         }
 
         public bool TryGetTacticalAnchor(
@@ -558,15 +581,23 @@ namespace BattleRoyale.GameModes
                 : runtimeDefaultProfile;
         }
 
-        private GameObject CreateAgentObject(string objectName)
+        private GameObject CreateAgentObject(string objectName, Vector3 position)
         {
+            GameObject agentObject;
             if (agentPrefab == null)
             {
-                return new GameObject(objectName);
+                agentObject = new GameObject(objectName);
+            }
+            else
+            {
+                agentObject = Instantiate(
+                    agentPrefab,
+                    position,
+                    Quaternion.identity).gameObject;
+                agentObject.name = objectName;
             }
 
-            var agentObject = Instantiate(agentPrefab).gameObject;
-            agentObject.name = objectName;
+            agentObject.transform.position = position;
             return agentObject;
         }
 

@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3503e613d5c33349941d0854c67e07a, type: 3}
+  m_Name: great_drum_Map
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.MapDefinition
+  layoutJson: {fileID: 4900000, guid: d5f79507756f3954ea8778cdd7cf0690, type: 3}
+  narrativeMarkdown: {fileID: 0}
+  visualMap: {fileID: 2800000, guid: 43a17f5111a6a3d42a02a013d5195baa, type: 3}
+  visualSprite: {fileID: 0}
+  heightMap: {fileID: 0}
+  visualMaterial: {fileID: 2100000, guid: ad78ad57893526f428ef3353b63264a0, type: 2}
+  worldScale: 1
+  flipHeightY: 0
+  sourceMin: {x: -392, y: -392}
+  sourceMax: {x: 392, y: 392}
+  baseHeight: 0
+  heightScale: 20
+  heightResolution: 129
+  wallHeight: 20
+  wallThickness: 2
+  unitScale: 10
+  generateBuildingWalls: 1
+  generateTreeColliders: 1
+  treeUpperLeft: {x: -389.943, y: 390.804}
+  treeLowerRight: {x: 392.75375, y: -391.13727}
+  editTreeCornersInScene: 1
+  treeRadiusMultiplier: 12
+  treeHeight: 20
+  useImageCornerFit: 1
+  imageUpperLeftUv: {x: -0.045344952, y: 1.0442795}
+  imageLowerRightUv: {x: 1.0467567, y: -0.04588836}
+  editImageCornersInScene: 1
+  columnSize: 1.5
+  overrideNavMeshVoxelSize: 0
+  navMeshVoxelSize: 0.16666667
+  replaceGeneratedRoot: 1
+  disableOtherGeneratedMaps: 1
+  setAsActiveCameraMap: 1
+  editPointsInSceneView: 1
+  bakedPrefab: {fileID: 6988332811760410514, guid: 25b8d423079d8b446a3d44fb4c70b1fc, type: 3}
+  generator: vg
+  generatorVersion: 1.6.9
+  features:
+  - id: values
+    type: Feature
+    geometryCount: 0
+    coordinateCount: 0
+  - id: earth
+    type: Polygon
+    geometryCount: 1
+    coordinateCount: 4
+  - id: buildings
+    type: MultiPolygon
+    geometryCount: 781
+    coordinateCount: 3124
+  - id: prisms
+    type: MultiPolygon
+    geometryCount: 1
+    coordinateCount: 16
+  - id: trees
+    type: MultiPoint
+    geometryCount: 894
+    coordinateCount: 894
+  - id: roads
+    type: GeometryCollection
+    geometryCount: 219
+    coordinateCount: 3533
+  - id: planks
+    type: GeometryCollection
+    geometryCount: 0
+    coordinateCount: 0
+  - id: water
+    type: MultiPolygon
+    geometryCount: 1
+    coordinateCount: 115
+  - id: extendable
+    type: MultiPoint
+    geometryCount: 8
+    coordinateCount: 8
+  - id: squares
+    type: MultiPolygon
+    geometryCount: 1
+    coordinateCount: 31
+  - id: fields
+    type: MultiPolygon
+    geometryCount: 106
+    coordinateCount: 2666
+  tacticalAnchors: []
+  supportedGameModes: 00000000
+  modeConfigurations:
+  - {fileID: 11400000, guid: 83abf21180b8db447aa8f6c7bb806e39, type: 2}

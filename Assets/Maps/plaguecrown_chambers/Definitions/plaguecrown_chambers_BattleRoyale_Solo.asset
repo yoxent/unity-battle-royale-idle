@@ -17,15 +17,6 @@ MonoBehaviour:
   variantName: Solo
   teamCount: 10
   teamSize: 1
-  battleRoyaleSpawnPoints: []
-  captureTheFlagTeams: []
-  deathmatchTeams: []
-  eliminationTeams: []
-  legacyScoreLimit: 50
-  legacyRespawnSeconds: 3
-  legacyRoundWinLimit: 13
-  legacyRoundSeconds: 115
-  legacyIntermissionSeconds: 7
   spawnPoints:
   - id: Spawn 1
     position: {x: 157.07137, y: 0, z: -289.8222}

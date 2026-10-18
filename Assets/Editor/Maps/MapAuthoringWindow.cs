@@ -12,18 +12,9 @@ using UnityEngine.Rendering;
 
 namespace BattleRoyale.Maps.EditorTools
 {
-    public sealed class MapAuthoringWindow : EditorWindow
+    public sealed partial class MapAuthoringWindow : EditorWindow
     {
         private const string VisualMaterialTemplatePath = "Assets/Materials/MapPlane.mat";
-        private const int MaximumGeneratedSurfaceResolution = 513;
-
-        private enum HeightPaintMode
-        {
-            Raise,
-            Lower,
-            Smooth,
-            Flatten
-        }
 
         [SerializeField] private TextAsset layoutJson;
         [SerializeField] private Texture2D visualMap;
@@ -31,23 +22,45 @@ namespace BattleRoyale.Maps.EditorTools
         [SerializeField] private MapModeAuthoringPanel modeAuthoring = new();
         [SerializeField] private float worldScale = 1f;
         [SerializeField] private float baseHeight;
-        [SerializeField] private float heightScale = 20f;
-        [SerializeField] private int heightResolution = 129;
         [SerializeField] private float wallHeight = 3f;
         [SerializeField] private float wallThickness = 0.7f;
+        [SerializeField] private float unitScale = DungeonMapGeometry.DefaultUnitScale;
         [SerializeField] private bool generateBuildingWalls = true;
         [SerializeField] private bool generateTreeColliders;
         [SerializeField] private bool replaceGeneratedRoot = true;
-        [SerializeField] private HeightPaintMode heightPaintMode;
-        [SerializeField] private float brushRadiusPixels = 20f;
-        [SerializeField] private float brushStrength = 0.05f;
-        [SerializeField] private float flattenValue = 0.5f;
+        [SerializeField] private bool useImageCornerFit;
+        [SerializeField] private Vector2 imageUpperLeftUv = new(0f, 1f);
+        [SerializeField] private Vector2 imageLowerRightUv = new(1f, 0f);
+        [SerializeField] private bool editImageCornersInScene;
+        [SerializeField] private Vector2 treeUpperLeft;
+        [SerializeField] private Vector2 treeLowerRight;
+        [SerializeField] private bool editTreeCornersInScene;
+        [SerializeField] private float treeRadiusMultiplier = 1f;
+        [SerializeField] private float treeHeight = 2f;
 
         private LayoutData analyzedLayout;
         private string statusMessage;
         private MessageType statusType = MessageType.Info;
         private Vector2 scrollPosition;
-        private bool paintingHeight;
+        private bool saveOptionsRequested;
+        private bool createDefinitionRequested;
+        private bool generateRequested;
+        private bool applyUnitScaleRequested;
+        private bool imageAlignmentSaveRequested;
+        private bool imageAlignmentApplyRequested;
+        private bool treeSaveRequested;
+        private bool treeApplyRequested;
+        private bool deferredActionQueued;
+        private bool cornerSceneGuiRegistered;
+        private bool draggingUpperLeft;
+        private bool draggingLowerRight;
+        private Vector3 draggedUpperLeft;
+        private Vector3 draggedLowerRight;
+        private bool treeSceneGuiRegistered;
+        private bool draggingTreeUpperLeft;
+        private bool draggingTreeLowerRight;
+        private Vector3 draggedTreeUpperLeft;
+        private Vector3 draggedTreeLowerRight;
 
         [MenuItem("Tools/Maps/Village Map Authoring")]
         public static void Open()
@@ -72,21 +85,31 @@ namespace BattleRoyale.Maps.EditorTools
 
         private void OnDisable()
         {
+            EditorApplication.delayCall -= RunDeferredActions;
+            deferredActionQueued = false;
+            StopCornerSceneGui();
+            StopTreeSceneGui();
             modeAuthoring?.Dispose();
         }
 
         private void OnGUI()
         {
+            AuthoringSectionHeader.DrawToolbar("Village");
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
-
+            AuthoringSectionHeader.Begin("Village");
+            try
+            {
             EditorGUILayout.HelpBox(
-                "Import a handpicked map export, create a reusable map definition, paint optional terrain height, and generate invisible collision geometry.",
+                "Import a handpicked map export and its PNG. Create a map definition, then generate a flat visual floor and building collision.",
                 MessageType.Info);
 
             DrawSourceSection();
-            DrawSettingsSection();
             DrawAnalysisSection();
             DrawAssetSection();
+            DrawGeometrySection();
+            DrawSettingsSection();
+            DrawGenerationSection();
+            DrawImageCornerSection();
             modeAuthoring ??= new MapModeAuthoringPanel();
             modeAuthoring.Draw(
                 mapDefinition,
@@ -96,15 +119,94 @@ namespace BattleRoyale.Maps.EditorTools
                         : mapDefinition != null
                             ? mapDefinition.layoutJson
                             : null));
-            DrawHeightSection();
-            DrawGenerationSection();
+            }
+            finally
+            {
+                AuthoringSectionHeader.End();
+                EditorGUILayout.EndScrollView();
+            }
+        }
 
-            EditorGUILayout.EndScrollView();
+        private void QueueDeferredAction()
+        {
+            if (deferredActionQueued)
+            {
+                return;
+            }
+
+            deferredActionQueued = true;
+            EditorApplication.delayCall += RunDeferredActions;
+        }
+
+        private void RunDeferredActions()
+        {
+            deferredActionQueued = false;
+            if (this == null)
+            {
+                return;
+            }
+
+            if (applyUnitScaleRequested)
+            {
+                applyUnitScaleRequested = false;
+                var scaledUnitCount = MapGeometrySection.ApplyToLoadedUnits(unitScale);
+                SetStatus(
+                    $"Applied unit scale {unitScale:0.##} to {scaledUnitCount} unit(s).",
+                    MessageType.Info);
+            }
+
+            if (saveOptionsRequested)
+            {
+                saveOptionsRequested = false;
+                CopyGenerationOptionsToDefinition();
+            }
+
+            if (createDefinitionRequested)
+            {
+                createDefinitionRequested = false;
+                CreateOrUpdateDefinition();
+            }
+
+            if (imageAlignmentSaveRequested)
+            {
+                imageAlignmentSaveRequested = false;
+                CopyImageCornersToDefinition();
+            }
+
+            if (imageAlignmentApplyRequested)
+            {
+                imageAlignmentApplyRequested = false;
+                ApplyImageCornerFitToScene();
+            }
+
+            if (treeSaveRequested)
+            {
+                treeSaveRequested = false;
+                CopyTreeCornersToDefinition();
+            }
+
+            if (treeApplyRequested)
+            {
+                treeApplyRequested = false;
+                ApplyTreePointsToScene();
+            }
+
+            if (generateRequested)
+            {
+                generateRequested = false;
+                GenerateMapRoot();
+            }
+
+            Repaint();
         }
 
         private void DrawSourceSection()
         {
-            EditorGUILayout.LabelField("Source", EditorStyles.boldLabel);
+            if (!AuthoringSectionHeader.Draw("Import"))
+            {
+                return;
+            }
+
 
             var previousJson = layoutJson;
             layoutJson = (TextAsset)EditorGUILayout.ObjectField(
@@ -140,37 +242,54 @@ namespace BattleRoyale.Maps.EditorTools
                     LoadDefinitionIntoWindow();
                 }
             }
+        }
 
-            EditorGUILayout.Space(8f);
+        private void DrawGeometrySection()
+        {
+            var values = new MapGeometrySection.Values
+            {
+                WorldScale = worldScale,
+                BaseHeight = baseHeight,
+                WallHeight = wallHeight,
+                WallThickness = wallThickness,
+                UnitScale = unitScale
+            };
+            MapGeometrySection.Draw(ref values, false, out var changed, out var applyRequested);
+            worldScale = values.WorldScale;
+            baseHeight = values.BaseHeight;
+            wallHeight = values.WallHeight;
+            wallThickness = values.WallThickness;
+            unitScale = values.UnitScale;
+            if (changed)
+            {
+                saveOptionsRequested = true;
+                QueueDeferredAction();
+            }
+
+            if (applyRequested)
+            {
+                applyUnitScaleRequested = true;
+                QueueDeferredAction();
+            }
         }
 
         private void DrawSettingsSection()
         {
-            EditorGUILayout.LabelField("Map Settings", EditorStyles.boldLabel);
+            if (!AuthoringSectionHeader.Draw("Map Settings"))
+            {
+                StopTreeSceneGui();
+                return;
+            }
 
-            worldScale = Mathf.Max(
-                0.0001f,
-                EditorGUILayout.FloatField("World Scale", worldScale));
-            baseHeight = EditorGUILayout.FloatField("Base Height", baseHeight);
-            heightScale = Mathf.Max(
-                0f,
-                EditorGUILayout.FloatField("Maximum Terrain Height", heightScale));
-            heightResolution = Mathf.Clamp(
-                EditorGUILayout.IntField("Height Resolution", heightResolution),
-                2,
-                MaximumGeneratedSurfaceResolution);
-            wallHeight = Mathf.Max(
-                0f,
-                EditorGUILayout.FloatField("Wall Height", wallHeight));
-            wallThickness = Mathf.Max(
-                0.001f,
-                EditorGUILayout.FloatField("Wall Thickness", wallThickness));
+            var previousTrees = generateTreeColliders;
             EditorGUI.BeginChangeCheck();
             generateBuildingWalls = EditorGUILayout.Toggle(
                 "Generate Building Walls",
                 generateBuildingWalls);
             generateTreeColliders = EditorGUILayout.Toggle(
-                "Generate Tree Colliders",
+                new GUIContent(
+                    "Generate Trees",
+                    "Builds one tree mesh and collider. Radius and height set the cylinder. Corner points move the whole tree area."),
                 generateTreeColliders);
             replaceGeneratedRoot = EditorGUILayout.Toggle(
                 new GUIContent(
@@ -179,15 +298,38 @@ namespace BattleRoyale.Maps.EditorTools
                 replaceGeneratedRoot);
             if (EditorGUI.EndChangeCheck())
             {
-                CopyGenerationOptionsToDefinition();
+                saveOptionsRequested = true;
+                QueueDeferredAction();
             }
 
-            EditorGUILayout.Space(8f);
+            if (!generateTreeColliders)
+            {
+                StopTreeSceneGui();
+                if (previousTrees)
+                {
+                    RemoveTreeCornerMarkers();
+                    treeSaveRequested = true;
+                    QueueDeferredAction();
+                }
+
+                return;
+            }
+
+            if (!previousTrees)
+            {
+                EnsureDefaultTreeCorners();
+            }
+
+            DrawTreeCornerOptions();
         }
 
         private void DrawAnalysisSection()
         {
-            EditorGUILayout.LabelField("Analysis", EditorStyles.boldLabel);
+            if (!AuthoringSectionHeader.Draw("Analysis"))
+            {
+                return;
+            }
+
 
             if (analyzedLayout == null)
             {
@@ -222,13 +364,15 @@ namespace BattleRoyale.Maps.EditorTools
                     feature.id,
                     $"{feature.type} | geometries: {feature.geometryCount} | coordinates: {feature.coordinateCount}");
             }
-
-            EditorGUILayout.Space(8f);
         }
 
         private void DrawAssetSection()
         {
-            EditorGUILayout.LabelField("Map Definition", EditorStyles.boldLabel);
+            if (!AuthoringSectionHeader.Draw("Map Definition"))
+            {
+                return;
+            }
+
             mapDefinition = (MapDefinition)EditorGUILayout.ObjectField(
                 "Map Asset",
                 mapDefinition,
@@ -237,7 +381,8 @@ namespace BattleRoyale.Maps.EditorTools
 
             if (GUILayout.Button("Create / Update Map Definition"))
             {
-                CreateOrUpdateDefinition();
+                createDefinitionRequested = true;
+                QueueDeferredAction();
             }
 
             if (IsMapReady())
@@ -257,76 +402,23 @@ namespace BattleRoyale.Maps.EditorTools
                     mapDefinition.visualMap,
                     typeof(Texture2D),
                     false);
-                EditorGUILayout.ObjectField(
-                    "Assigned Height",
-                    mapDefinition.heightMap,
-                    typeof(Texture2D),
-                    false);
             }
-
-            EditorGUILayout.Space(8f);
-        }
-
-        private void DrawHeightSection()
-        {
-            EditorGUILayout.LabelField("Height Authoring", EditorStyles.boldLabel);
-
-            if (!IsMapReady())
-            {
-                EditorGUILayout.HelpBox(
-                    "Create a map definition before creating or painting height data.",
-                    MessageType.None);
-                return;
-            }
-
-            if (GUILayout.Button("Create / Reset Flat Height Map"))
-            {
-                CreateFlatHeightMap();
-            }
-
-            if (mapDefinition.heightMap == null)
-            {
-                EditorGUILayout.HelpBox(
-                    "No height map assigned. Generated terrain will remain flat at Base Height.",
-                    MessageType.None);
-                return;
-            }
-
-            heightPaintMode = (HeightPaintMode)EditorGUILayout.EnumPopup(
-                "Paint Mode",
-                heightPaintMode);
-            brushRadiusPixels = Mathf.Clamp(
-                EditorGUILayout.FloatField("Brush Radius (pixels)", brushRadiusPixels),
-                1f,
-                256f);
-            brushStrength = Mathf.Clamp01(
-                EditorGUILayout.FloatField("Brush Strength", brushStrength));
-            flattenValue = Mathf.Clamp01(
-                EditorGUILayout.FloatField("Flatten Value", flattenValue));
-
-            EditorGUILayout.HelpBox(
-                "Paint directly on the height map preview. Height values are normalized and multiplied by Maximum Terrain Height when the map is generated.",
-                MessageType.None);
-
-            DrawHeightPainter();
-
-            if (GUILayout.Button("Save Height Map"))
-            {
-                SaveHeightMap();
-            }
-
-            EditorGUILayout.Space(8f);
         }
 
         private void DrawGenerationSection()
         {
-            EditorGUILayout.LabelField("Generation", EditorStyles.boldLabel);
+            if (!AuthoringSectionHeader.Draw("Generate"))
+            {
+                return;
+            }
+
 
             using (new EditorGUI.DisabledScope(!IsMapReady()))
             {
                 if (GUILayout.Button("Generate Map Root"))
                 {
-                    GenerateMapRoot();
+                    generateRequested = true;
+                    QueueDeferredAction();
                 }
             }
 
@@ -334,147 +426,6 @@ namespace BattleRoyale.Maps.EditorTools
             {
                 EditorGUILayout.HelpBox(statusMessage, statusType);
             }
-        }
-
-        private void DrawHeightPainter()
-        {
-            var heightMap = mapDefinition.heightMap;
-            if (heightMap == null)
-            {
-                return;
-            }
-
-            var availableWidth = Mathf.Max(1f, position.width - 40f);
-            var aspect = heightMap.width / (float)Mathf.Max(1, heightMap.height);
-            var previewWidth = availableWidth;
-            var previewHeight = previewWidth / aspect;
-            var previewRect = GUILayoutUtility.GetRect(
-                previewWidth,
-                previewHeight,
-                GUILayout.ExpandWidth(false));
-
-            if (visualMap != null)
-            {
-                GUI.DrawTexture(previewRect, visualMap, ScaleMode.ScaleToFit, false);
-                var previousColor = GUI.color;
-                GUI.color = new Color(1f, 1f, 1f, 0.55f);
-                GUI.DrawTexture(previewRect, heightMap, ScaleMode.ScaleToFit, false);
-                GUI.color = previousColor;
-            }
-            else
-            {
-                GUI.DrawTexture(previewRect, heightMap, ScaleMode.ScaleToFit, false);
-            }
-
-            HandleHeightPaint(previewRect, heightMap);
-        }
-
-        private void HandleHeightPaint(Rect previewRect, Texture2D heightMap)
-        {
-            var currentEvent = Event.current;
-            var isPaintingEvent =
-                currentEvent.type == EventType.MouseDown ||
-                currentEvent.type == EventType.MouseDrag;
-
-            if (isPaintingEvent &&
-                currentEvent.button == 0 &&
-                previewRect.Contains(currentEvent.mousePosition))
-            {
-                if (currentEvent.type == EventType.MouseDown)
-                {
-                    Undo.RecordObject(heightMap, "Paint Map Height");
-                    paintingHeight = true;
-                }
-
-                var uv = new Vector2(
-                    Mathf.InverseLerp(previewRect.xMin, previewRect.xMax, currentEvent.mousePosition.x),
-                    1f - Mathf.InverseLerp(
-                        previewRect.yMin,
-                        previewRect.yMax,
-                        currentEvent.mousePosition.y));
-                PaintHeightAt(heightMap, uv);
-                currentEvent.Use();
-                Repaint();
-            }
-            else if (currentEvent.type == EventType.MouseUp && paintingHeight)
-            {
-                paintingHeight = false;
-                SaveHeightMap();
-            }
-        }
-
-        private void PaintHeightAt(Texture2D heightMap, Vector2 uv)
-        {
-            var centerX = Mathf.RoundToInt(uv.x * (heightMap.width - 1));
-            var centerY = Mathf.RoundToInt(uv.y * (heightMap.height - 1));
-            var radius = Mathf.CeilToInt(brushRadiusPixels);
-            var radiusSquared = radius * radius;
-
-            var minX = Mathf.Max(0, centerX - radius);
-            var maxX = Mathf.Min(heightMap.width - 1, centerX + radius);
-            var minY = Mathf.Max(0, centerY - radius);
-            var maxY = Mathf.Min(heightMap.height - 1, centerY + radius);
-
-            for (var y = minY; y <= maxY; y++)
-            {
-                for (var x = minX; x <= maxX; x++)
-                {
-                    var dx = x - centerX;
-                    var dy = y - centerY;
-                    var distanceSquared = dx * dx + dy * dy;
-                    if (distanceSquared > radiusSquared)
-                    {
-                        continue;
-                    }
-
-                    var distance = Mathf.Sqrt(distanceSquared);
-                    var falloff = 1f - distance / radius;
-                    var current = heightMap.GetPixel(x, y).r;
-                    var next = current;
-
-                    switch (heightPaintMode)
-                    {
-                        case HeightPaintMode.Raise:
-                            next = current + brushStrength * falloff;
-                            break;
-                        case HeightPaintMode.Lower:
-                            next = current - brushStrength * falloff;
-                            break;
-                        case HeightPaintMode.Flatten:
-                            next = Mathf.Lerp(current, flattenValue, brushStrength * falloff);
-                            break;
-                        case HeightPaintMode.Smooth:
-                            next = Mathf.Lerp(current, SampleAverage(heightMap, x, y), brushStrength * falloff);
-                            break;
-                    }
-
-                    var value = Mathf.Clamp01(next);
-                    heightMap.SetPixel(x, y, new Color(value, value, value, 1f));
-                }
-            }
-
-            heightMap.Apply(false, false);
-            EditorUtility.SetDirty(heightMap);
-            EditorUtility.SetDirty(mapDefinition);
-        }
-
-        private static float SampleAverage(Texture2D texture, int centerX, int centerY)
-        {
-            var total = 0f;
-            var count = 0;
-
-            for (var y = -1; y <= 1; y++)
-            {
-                for (var x = -1; x <= 1; x++)
-                {
-                    var sampleX = Mathf.Clamp(centerX + x, 0, texture.width - 1);
-                    var sampleY = Mathf.Clamp(centerY + y, 0, texture.height - 1);
-                    total += texture.GetPixel(sampleX, sampleY).r;
-                    count++;
-                }
-            }
-
-            return total / count;
         }
 
         private void AnalyzeLayout()
@@ -552,13 +503,21 @@ namespace BattleRoyale.Maps.EditorTools
                 : FindSiblingVisualMap(layoutJson);
             mapDefinition.worldScale = worldScale;
             mapDefinition.baseHeight = baseHeight;
-            mapDefinition.heightScale = heightScale;
-            mapDefinition.heightResolution = heightResolution;
             mapDefinition.wallHeight = wallHeight;
             mapDefinition.wallThickness = wallThickness;
+            mapDefinition.unitScale = unitScale;
             mapDefinition.generateBuildingWalls = generateBuildingWalls;
             mapDefinition.generateTreeColliders = generateTreeColliders;
             mapDefinition.replaceGeneratedRoot = replaceGeneratedRoot;
+            mapDefinition.useImageCornerFit = useImageCornerFit;
+            mapDefinition.imageUpperLeftUv = imageUpperLeftUv;
+            mapDefinition.imageLowerRightUv = imageLowerRightUv;
+            mapDefinition.editImageCornersInScene = editImageCornersInScene;
+            mapDefinition.treeUpperLeft = treeUpperLeft;
+            mapDefinition.treeLowerRight = treeLowerRight;
+            mapDefinition.editTreeCornersInScene = editTreeCornersInScene;
+            mapDefinition.treeRadiusMultiplier = TreeRadiusScale();
+            mapDefinition.treeHeight = TreeHeight();
             mapDefinition.sourceMin = analyzedLayout.sourceMin;
             mapDefinition.sourceMax = analyzedLayout.sourceMax;
             mapDefinition.generator = analyzedLayout.generator;
@@ -572,76 +531,6 @@ namespace BattleRoyale.Maps.EditorTools
             SetStatus(
                 $"Map definition saved at {AssetDatabase.GetAssetPath(mapDefinition)}.",
                 MessageType.Info);
-        }
-
-        private void CreateFlatHeightMap()
-        {
-            if (!IsMapReady())
-            {
-                SetStatus("Create a map definition before creating a height map.", MessageType.Error);
-                return;
-            }
-
-            var definitionsFolder = MapModeAuthoringPanel.EnsureDefinitionsFolder(
-                mapDefinition.layoutJson);
-            if (string.IsNullOrEmpty(definitionsFolder) ||
-                !AssetDatabase.IsValidFolder(definitionsFolder))
-            {
-                SetStatus(
-                    "Save the layout JSON in the project before creating its Definitions folder.",
-                    MessageType.Error);
-                return;
-            }
-
-            var resolution = Mathf.Clamp(
-                mapDefinition.heightResolution,
-                2,
-                MaximumGeneratedSurfaceResolution);
-            var mapName = mapDefinition.name.Replace("_Map", string.Empty);
-            var path = $"{definitionsFolder}/{mapName}_Height.asset";
-            var heightMap = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
-
-            if (heightMap == null || heightMap.width != resolution || heightMap.height != resolution)
-            {
-                path = AssetDatabase.GenerateUniqueAssetPath(path);
-                heightMap = new Texture2D(
-                    resolution,
-                    resolution,
-                    TextureFormat.RGBA32,
-                    false,
-                    true);
-                heightMap.name = $"{mapName}_Height";
-                AssetDatabase.CreateAsset(heightMap, path);
-            }
-
-            var flatPixels = Enumerable.Repeat(
-                new Color(0f, 0f, 0f, 1f),
-                resolution * resolution).ToArray();
-            heightMap.SetPixels(flatPixels);
-            heightMap.Apply(false, false);
-            mapDefinition.heightMap = heightMap;
-            EditorUtility.SetDirty(heightMap);
-            EditorUtility.SetDirty(mapDefinition);
-            AssetDatabase.SaveAssets();
-
-            SetStatus(
-                $"Flat {resolution}x{resolution} height map created.",
-                MessageType.Info);
-        }
-
-        private void SaveHeightMap()
-        {
-            if (mapDefinition == null || mapDefinition.heightMap == null)
-            {
-                return;
-            }
-
-            mapDefinition.heightMap.Apply(false, false);
-            EditorUtility.SetDirty(mapDefinition.heightMap);
-            EditorUtility.SetDirty(mapDefinition);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-            SetStatus("Height map saved.", MessageType.Info);
         }
 
         private void GenerateMapRoot()
@@ -696,7 +585,17 @@ namespace BattleRoyale.Maps.EditorTools
             var mapInstance = root.AddComponent<MapInstance>();
             mapInstance.definition = mapDefinition;
 
-            var surface = CreateSurface(root.transform);
+            CopyImageCornersToDefinition();
+            CopyTreeCornersToDefinition();
+            CreateVisualMap(root.transform);
+            if (useImageCornerFit)
+            {
+                SyncImageCornerMarkers(root.transform);
+            }
+
+            CreateFloorCollider(root.transform);
+            CreateBoundaryWalls(root.transform);
+            CreateWater(root.transform);
             CreateBuildingWalls(root.transform);
 
             if (generateTreeColliders)
@@ -705,38 +604,284 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             modeAuthoring.GenerateMarkers(root.transform, mapDefinition);
-            var vertexCount = surface.vertexCount;
             var placed = MapBakeOutput.Commit(root, mapDefinition, true);
             SetStatus(
                 placed != null
-                    ? $"Saved {prefabPath} and placed it as the active map. {vertexCount} terrain vertices."
-                    : "The terrain was built, but its prefab was not placed as the active map.",
+                    ? $"Saved {prefabPath} and placed it as the active map."
+                    : "The map was built, but its prefab was not placed as the active map.",
                 placed != null ? MessageType.Info : MessageType.Error);
         }
 
-        private Mesh CreateSurface(Transform parent)
+        private void CreateVisualMap(Transform parent)
         {
-            var surfaceObject = new GameObject("Terrain");
-            surfaceObject.transform.SetParent(parent, false);
+            var visualObject = new GameObject("VisualMap");
+            visualObject.transform.SetParent(parent, false);
+            visualObject.transform.position = new Vector3(
+                0f,
+                mapDefinition.baseHeight - 0.02f,
+                0f);
 
-            var meshFilter = surfaceObject.AddComponent<MeshFilter>();
-            var meshRenderer = surfaceObject.AddComponent<MeshRenderer>();
-            var meshCollider = surfaceObject.AddComponent<MeshCollider>();
-
-            var resolution = mapDefinition.heightMap != null
-                ? Mathf.Clamp(
-                    mapDefinition.heightResolution,
-                    2,
-                    MaximumGeneratedSurfaceResolution)
-                : 2;
-            var mesh = BuildSurfaceMesh(resolution);
-            meshFilter.sharedMesh = mesh;
-            meshCollider.sharedMesh = mesh;
-
+            var meshFilter = visualObject.AddComponent<MeshFilter>();
+            var meshRenderer = visualObject.AddComponent<MeshRenderer>();
+            meshFilter.sharedMesh = BuildVisualQuad();
             var visualMaterial = GetOrCreateVisualMaterial();
             meshRenderer.sharedMaterial = visualMaterial;
             meshRenderer.enabled = visualMaterial != null;
+        }
+
+        private void CreateFloorCollider(Transform parent)
+        {
+            var floorObject = new GameObject("VillageFloor");
+            floorObject.transform.SetParent(parent, false);
+            var groundLayer = LayerMask.NameToLayer("MapGround");
+            if (groundLayer >= 0)
+            {
+                floorObject.layer = groundLayer;
+            }
+
+            var corners = VisualCorners();
+            DungeonFloorBox.GetCenterAndSize(
+                corners[0],
+                corners[1],
+                corners[2],
+                corners[3],
+                mapDefinition.baseHeight,
+                DungeonFloorBox.Thickness,
+                out var center,
+                out var size);
+            var collider = floorObject.AddComponent<BoxCollider>();
+            collider.center = center;
+            collider.size = size;
+        }
+
+        private void CreateBoundaryWalls(Transform parent)
+        {
+            if (!TryVisualRect(out var min, out var max))
+            {
+                return;
+            }
+
+            var height = mapDefinition.wallHeight > 0.01f ? mapDefinition.wallHeight : 2f;
+            var thickness = mapDefinition.wallThickness > 0.01f ? mapDefinition.wallThickness : 1f;
+            MapBoundaryWalls.Create(
+                parent,
+                $"{mapDefinition.name}_BoundaryWalls",
+                min,
+                max,
+                thickness,
+                height,
+                mapDefinition.baseHeight);
+        }
+
+        private bool TryVisualRect(out Vector2 min, out Vector2 max)
+        {
+            return MapPlayBounds.TryGetRect(VisualCorners(), out min, out max);
+        }
+
+        private bool TryInnerRect(float inset, out Vector2 min, out Vector2 max)
+        {
+            if (!TryVisualRect(out var visualMin, out var visualMax))
+            {
+                min = default;
+                max = default;
+                return false;
+            }
+
+            MapPlayBounds.TryInset(visualMin, visualMax, inset, out min, out max);
+            return true;
+        }
+
+        private void CreateWater(Transform parent)
+        {
+            if (analyzedLayout.waterRings.Count == 0)
+            {
+                return;
+            }
+
+            var bridgeIndex = 0;
+            var skippedBridges = 0;
+            var deckWidth = analyzedLayout.roadWidth > 0.01f ? analyzedLayout.roadWidth : 7f;
+            foreach (var ring in analyzedLayout.waterRings)
+            {
+                var clippedRing = ClipWaterRing(ring);
+                if (clippedRing.Count < 3)
+                {
+                    continue;
+                }
+
+                var vertices = new List<Vector3>();
+                var triangles = new List<int>();
+                var decks = new List<List<Vector2>>();
+                var openings = VillageWaterGeometry.FindBridgeOpenings(
+                    clippedRing,
+                    analyzedLayout.roads,
+                    deckWidth,
+                    deckWidth);
+                if (!VillageBridgeCut.TryBuildOpenedVolume(
+                        clippedRing,
+                        openings,
+                        VillageWaterGeometry.BlockHeight,
+                        vertices,
+                        triangles,
+                        decks,
+                        out var skipped))
+                {
+                    SetStatus(
+                        "The river outline could not be turned into a collider.",
+                        MessageType.Warning);
+                    continue;
+                }
+
+                skippedBridges += skipped;
+                ScaleMapHorizontal(vertices);
+                var water = CreateGeneratedMesh(
+                    parent,
+                    "Water",
+                    vertices,
+                    triangles,
+                    new Color(0.2f, 0.45f, 0.85f, 1f),
+                    true);
+                water.transform.localPosition = new Vector3(0f, mapDefinition.baseHeight, 0f);
+
+                for (var i = 0; i < decks.Count; i++)
+                {
+                    var deckVertices = new List<Vector3>();
+                    var deckTriangles = new List<int>();
+                    if (!VillageWaterGeometry.TryBuildDeck(
+                            decks[i],
+                            VillageWaterGeometry.DeckClearance,
+                            deckVertices,
+                            deckTriangles))
+                    {
+                        continue;
+                    }
+
+                    ScaleMapHorizontal(deckVertices);
+                    var bridge = CreateGeneratedMesh(
+                        parent,
+                        $"Bridge_{bridgeIndex:000}",
+                        deckVertices,
+                        deckTriangles,
+                        new Color(0.55f, 0.42f, 0.28f, 1f),
+                        false);
+                    bridge.transform.localPosition = new Vector3(0f, mapDefinition.baseHeight, 0f);
+                    bridgeIndex++;
+                }
+            }
+
+            if (skippedBridges > 0)
+            {
+                SetStatus(
+                    "A road crossing could not be opened through both banks.",
+                    MessageType.Warning);
+            }
+        }
+
+        private void ScaleMapHorizontal(List<Vector3> vertices)
+        {
+            var scale = mapDefinition.worldScale;
+            for (var i = 0; i < vertices.Count; i++)
+            {
+                var point = vertices[i];
+                vertices[i] = new Vector3(point.x * scale, point.y, point.z * scale);
+            }
+        }
+
+        private GameObject CreateGeneratedMesh(
+            Transform parent,
+            string objectName,
+            List<Vector3> vertices,
+            List<int> triangles,
+            Color color,
+            bool blocking)
+        {
+            var meshObject = new GameObject(objectName);
+            meshObject.transform.SetParent(parent, false);
+            if (blocking)
+            {
+                var obstacleLayer = LayerMask.NameToLayer("MapObstacle");
+                if (obstacleLayer >= 0)
+                {
+                    meshObject.layer = obstacleLayer;
+                }
+            }
+
+            var mesh = new Mesh { name = $"{mapDefinition.name}_{objectName}" };
+            if (vertices.Count > 65535)
+            {
+                mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+            }
+
+            mesh.SetVertices(vertices);
+            mesh.SetTriangles(triangles, 0);
+            mesh.RecalculateNormals();
+            mesh.RecalculateBounds();
+            meshObject.AddComponent<MeshFilter>().sharedMesh = mesh;
+            var renderer = meshObject.AddComponent<MeshRenderer>();
+            renderer.sharedMaterial = WallBoxMesh.SharedMaterial();
+            var block = new MaterialPropertyBlock();
+            block.SetColor("_BaseColor", color);
+            block.SetColor("_Color", color);
+            renderer.SetPropertyBlock(block);
+            if (blocking)
+            {
+                var collider = meshObject.AddComponent<MeshCollider>();
+                collider.sharedMesh = mesh;
+                collider.convex = false;
+            }
+
+            return meshObject;
+        }
+
+        private List<Vector2> ClipWaterRing(List<Vector2> ring)
+        {
+            if (!TryVisualRect(out var worldMin, out var worldMax) ||
+                mapDefinition.worldScale <= 0.0001f)
+            {
+                return ring;
+            }
+
+            var scale = mapDefinition.worldScale;
+            return MapPlayBounds.ClipPolygon(
+                ring,
+                worldMin / scale,
+                worldMax / scale);
+        }
+
+        private Mesh BuildVisualQuad()
+        {
+            var mesh = new Mesh
+            {
+                name = $"{mapDefinition.name}_Visual"
+            };
+            var corners = VisualCorners();
+            mesh.vertices = corners;
+            mesh.uv = new[]
+            {
+                new Vector2(0f, 1f),
+                new Vector2(0f, 0f),
+                new Vector2(1f, 0f),
+                new Vector2(1f, 1f)
+            };
+            // Source Y grows with world Z. This winding faces up so the top-down camera sees the PNG.
+            mesh.triangles = new[] { 0, 2, 1, 0, 3, 2 };
+            mesh.RecalculateNormals();
+            mesh.RecalculateBounds();
             return mesh;
+        }
+
+        private Vector3[] SourceCorners()
+        {
+            var scale = mapDefinition.worldScale;
+            var min = mapDefinition.sourceMin;
+            var max = mapDefinition.sourceMax;
+            return new[]
+            {
+                new Vector3(min.x * scale, 0f, max.y * scale),
+                new Vector3(min.x * scale, 0f, min.y * scale),
+                new Vector3(max.x * scale, 0f, min.y * scale),
+                new Vector3(max.x * scale, 0f, max.y * scale)
+            };
         }
 
         private Material GetOrCreateVisualMaterial()
@@ -810,6 +955,8 @@ namespace BattleRoyale.Maps.EditorTools
                 material.SetColor("_Color", Color.white);
             }
 
+            ConfigureVisualMaterial(material);
+
             mapDefinition.visualMaterial = material;
             EditorUtility.SetDirty(material);
             EditorUtility.SetDirty(mapDefinition);
@@ -817,109 +964,47 @@ namespace BattleRoyale.Maps.EditorTools
             return material;
         }
 
-        private Mesh BuildSurfaceMesh(int resolution)
+        private static void ConfigureVisualMaterial(Material material)
         {
-            var mesh = new Mesh
+            if (material.HasProperty("_AlphaClip"))
             {
-                name = $"{mapDefinition.name}_Terrain"
-            };
-
-            var vertexCount = resolution * resolution;
-            var vertices = new Vector3[vertexCount];
-            var uvs = new Vector2[vertexCount];
-            var triangles = new int[(resolution - 1) * (resolution - 1) * 6];
-            var size = mapDefinition.sourceMax - mapDefinition.sourceMin;
-            var vertexIndex = 0;
-
-            for (var z = 0; z < resolution; z++)
-            {
-                var v = resolution == 1 ? 0f : z / (float)(resolution - 1);
-                for (var x = 0; x < resolution; x++)
-                {
-                    var u = resolution == 1 ? 0f : x / (float)(resolution - 1);
-                    var source = new Vector2(
-                        Mathf.Lerp(mapDefinition.sourceMin.x, mapDefinition.sourceMax.x, u),
-                        Mathf.Lerp(mapDefinition.sourceMin.y, mapDefinition.sourceMax.y, v));
-                    var height = SampleHeight(source);
-
-                    vertices[vertexIndex] = new Vector3(
-                        source.x * mapDefinition.worldScale,
-                        height,
-                        source.y * mapDefinition.worldScale);
-                    uvs[vertexIndex] = new Vector2(u, v);
-                    vertexIndex++;
-                }
+                material.SetFloat("_AlphaClip", 1f);
             }
 
-            var triangleIndex = 0;
-            for (var z = 0; z < resolution - 1; z++)
+            if (material.HasProperty("_AlphaToMask"))
             {
-                for (var x = 0; x < resolution - 1; x++)
-                {
-                    var bottomLeft = z * resolution + x;
-                    var topLeft = (z + 1) * resolution + x;
-                    var bottomRight = bottomLeft + 1;
-                    var topRight = topLeft + 1;
-
-                    triangles[triangleIndex++] = bottomLeft;
-                    triangles[triangleIndex++] = topLeft;
-                    triangles[triangleIndex++] = topRight;
-                    triangles[triangleIndex++] = bottomLeft;
-                    triangles[triangleIndex++] = topRight;
-                    triangles[triangleIndex++] = bottomRight;
-                }
+                material.SetFloat("_AlphaToMask", 1f);
             }
 
-            if (vertexCount > 65535)
+            material.EnableKeyword("_ALPHATEST_ON");
+            material.SetOverrideTag("RenderType", "TransparentCutout");
+            material.renderQueue = (int)RenderQueue.AlphaTest;
+
+            if (material.HasProperty("_ReceiveShadows"))
             {
-                mesh.indexFormat = IndexFormat.UInt32;
+                material.SetFloat("_ReceiveShadows", 0f);
             }
 
-            mesh.vertices = vertices;
-            mesh.uv = uvs;
-            mesh.triangles = triangles;
-            mesh.RecalculateNormals();
-            mesh.RecalculateBounds();
-            return mesh;
-        }
-
-        private float SampleHeight(Vector2 sourcePosition)
-        {
-            if (mapDefinition.heightMap == null ||
-                !mapDefinition.heightMap.isReadable)
-            {
-                return mapDefinition.baseHeight;
-            }
-
-            var u = Mathf.InverseLerp(
-                mapDefinition.sourceMin.x,
-                mapDefinition.sourceMax.x,
-                sourcePosition.x);
-            var v = Mathf.InverseLerp(
-                mapDefinition.sourceMin.y,
-                mapDefinition.sourceMax.y,
-                sourcePosition.y);
-            if (mapDefinition.flipHeightY)
-            {
-                v = 1f - v;
-            }
-
-            return mapDefinition.baseHeight +
-                   mapDefinition.heightMap.GetPixelBilinear(u, v).r *
-                   mapDefinition.heightScale;
+            material.EnableKeyword("_RECEIVE_SHADOWS_OFF");
         }
 
         private void CreateBuildingWalls(Transform parent)
         {
             if (!mapDefinition.generateBuildingWalls ||
-                mapDefinition.wallHeight <= 0f)
+                mapDefinition.wallHeight <= 0f ||
+                analyzedLayout == null)
             {
                 return;
             }
 
-            var wallRoot = new GameObject("BuildingColliders");
-            wallRoot.transform.SetParent(parent, false);
-            var wallIndex = 0;
+            var vertices = new List<Vector3>();
+            var triangles = new List<int>();
+            var scale = mapDefinition.worldScale;
+            var halfThickness = mapDefinition.wallThickness * 0.5f;
+            if (!TryInnerRect(halfThickness, out var innerMin, out var innerMax))
+            {
+                return;
+            }
 
             foreach (var ring in analyzedLayout.buildingRings)
             {
@@ -927,55 +1012,136 @@ namespace BattleRoyale.Maps.EditorTools
                 {
                     var start = ring[i];
                     var end = ring[(i + 1) % ring.Count];
-                    var edge = end - start;
-                    var length = edge.magnitude * mapDefinition.worldScale;
+                    if (!MapPlayBounds.TryClipSegment(
+                            new Vector2(start.x * scale, start.y * scale),
+                            new Vector2(end.x * scale, end.y * scale),
+                            innerMin,
+                            innerMax,
+                            out var clippedStart,
+                            out var clippedEnd))
+                    {
+                        continue;
+                    }
+
+                    var edge = clippedEnd - clippedStart;
+                    var length = edge.magnitude;
                     if (length <= 0.001f)
                     {
                         continue;
                     }
 
-                    var midpoint = (start + end) * 0.5f;
+                    var midpoint = (clippedStart + clippedEnd) * 0.5f;
                     var center = new Vector3(
-                        midpoint.x * mapDefinition.worldScale,
-                        SampleHeight(midpoint) + mapDefinition.wallHeight * 0.5f,
-                        midpoint.y * mapDefinition.worldScale);
-                    var wall = new GameObject($"BuildingWall_{wallIndex:0000}");
-                    wall.transform.SetParent(wallRoot.transform, false);
-                    wall.transform.position = center;
-                    wall.transform.rotation = Quaternion.Euler(
-                        0f,
-                        Mathf.Atan2(edge.y, edge.x) * Mathf.Rad2Deg,
-                        0f);
-
-                    var collider = wall.AddComponent<BoxCollider>();
-                    collider.size = new Vector3(
-                        length,
-                        mapDefinition.wallHeight,
-                        mapDefinition.wallThickness);
-                    wallIndex++;
+                        midpoint.x,
+                        mapDefinition.baseHeight + mapDefinition.wallHeight * 0.5f,
+                        midpoint.y);
+                    WallBoxMesh.AppendBox(
+                        vertices,
+                        triangles,
+                        center,
+                        new Vector3(length, mapDefinition.wallHeight, mapDefinition.wallThickness),
+                        Quaternion.Euler(0f, Mathf.Atan2(edge.y, edge.x) * Mathf.Rad2Deg, 0f));
                 }
             }
+
+            if (vertices.Count == 0)
+            {
+                return;
+            }
+
+            var wallObject = new GameObject("BuildingWallMesh");
+            wallObject.transform.SetParent(parent, false);
+            var obstacleLayer = LayerMask.NameToLayer("MapObstacle");
+            if (obstacleLayer >= 0)
+            {
+                wallObject.layer = obstacleLayer;
+            }
+
+            var mesh = WallBoxMesh.Build($"{mapDefinition.name}_BuildingWalls", vertices, triangles);
+            wallObject.AddComponent<MeshFilter>().sharedMesh = mesh;
+            var collider = wallObject.AddComponent<MeshCollider>();
+            collider.sharedMesh = mesh;
+            collider.convex = false;
+            wallObject.AddComponent<MeshRenderer>().sharedMaterial = WallBoxMesh.SharedMaterial();
         }
 
         private void CreateTreeColliders(Transform parent)
         {
-            var treeRoot = new GameObject("TreeColliders");
-            treeRoot.transform.SetParent(parent, false);
+            var mesh = BuildTreeMesh();
+            if (mesh == null)
+            {
+                return;
+            }
 
+            var treeRoot = new GameObject("Trees");
+            treeRoot.transform.SetParent(parent, false);
+            var obstacleLayer = LayerMask.NameToLayer("MapObstacle");
+            if (obstacleLayer >= 0)
+            {
+                treeRoot.layer = obstacleLayer;
+            }
+
+            treeRoot.AddComponent<MeshFilter>().sharedMesh = mesh;
+            var collider = treeRoot.AddComponent<MeshCollider>();
+            collider.sharedMesh = mesh;
+            collider.convex = false;
+            treeRoot.AddComponent<MeshRenderer>().sharedMaterial = WallBoxMesh.SharedMaterial();
+        }
+
+        Mesh BuildTreeMesh()
+        {
+            if (analyzedLayout == null || mapDefinition == null)
+            {
+                return null;
+            }
+
+            var source = SharedTreeMesh();
+            var height = TreeHeight();
+            var scale = new Vector3(TreeRadiusScale(), height / 2f, TreeRadiusScale());
+            var treeRadius = 0.5f * scale.x;
+            var keepTreesInside = TryInnerRect(treeRadius, out var treeMin, out var treeMax);
+            var vertices = new List<Vector3>();
+            var triangles = new List<int>();
             for (var i = 0; i < analyzedLayout.treePoints.Count; i++)
             {
-                var point = analyzedLayout.treePoints[i];
-                var tree = new GameObject($"TreeCollider_{i:0000}");
-                tree.transform.SetParent(treeRoot.transform, false);
-                tree.transform.position = new Vector3(
-                    point.x * mapDefinition.worldScale,
-                    SampleHeight(point) + 1f,
-                    point.y * mapDefinition.worldScale);
+                var placed = PlacedTreePoint(analyzedLayout.treePoints[i]);
+                var world = new Vector2(
+                    placed.x * mapDefinition.worldScale,
+                    placed.y * mapDefinition.worldScale);
+                if (keepTreesInside && !MapPlayBounds.Contains(world, treeMin, treeMax))
+                {
+                    continue;
+                }
 
-                var collider = tree.AddComponent<CapsuleCollider>();
-                collider.radius = 0.5f;
-                collider.height = 2f;
+                WallBoxMesh.AppendMesh(
+                    vertices,
+                    triangles,
+                    source,
+                    new Vector3(world.x, mapDefinition.baseHeight + height * 0.5f, world.y),
+                    scale);
             }
+
+            if (vertices.Count == 0)
+            {
+                return null;
+            }
+
+            return WallBoxMesh.Build($"{mapDefinition.name}_Trees", vertices, triangles);
+        }
+
+        static Mesh sharedTreeMesh;
+
+        static Mesh SharedTreeMesh()
+        {
+            if (sharedTreeMesh != null)
+            {
+                return sharedTreeMesh;
+            }
+
+            var temp = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            sharedTreeMesh = temp.GetComponent<MeshFilter>().sharedMesh;
+            DestroyImmediate(temp);
+            return sharedTreeMesh;
         }
 
         private void CopyGenerationOptionsToDefinition()
@@ -988,6 +1154,20 @@ namespace BattleRoyale.Maps.EditorTools
             mapDefinition.generateBuildingWalls = generateBuildingWalls;
             mapDefinition.generateTreeColliders = generateTreeColliders;
             mapDefinition.replaceGeneratedRoot = replaceGeneratedRoot;
+            mapDefinition.worldScale = worldScale;
+            mapDefinition.baseHeight = baseHeight;
+            mapDefinition.wallHeight = wallHeight;
+            mapDefinition.wallThickness = wallThickness;
+            mapDefinition.unitScale = unitScale;
+            mapDefinition.useImageCornerFit = useImageCornerFit;
+            mapDefinition.imageUpperLeftUv = imageUpperLeftUv;
+            mapDefinition.imageLowerRightUv = imageLowerRightUv;
+            mapDefinition.editImageCornersInScene = editImageCornersInScene;
+            mapDefinition.treeUpperLeft = treeUpperLeft;
+            mapDefinition.treeLowerRight = treeLowerRight;
+            mapDefinition.editTreeCornersInScene = editTreeCornersInScene;
+            mapDefinition.treeRadiusMultiplier = TreeRadiusScale();
+            mapDefinition.treeHeight = TreeHeight();
             EditorUtility.SetDirty(mapDefinition);
             AssetDatabase.SaveAssets();
         }
@@ -1004,14 +1184,27 @@ namespace BattleRoyale.Maps.EditorTools
             visualMap = mapDefinition.visualMap;
             worldScale = mapDefinition.worldScale;
             baseHeight = mapDefinition.baseHeight;
-            heightScale = mapDefinition.heightScale;
-            heightResolution = mapDefinition.heightResolution;
             wallHeight = mapDefinition.wallHeight;
             wallThickness = mapDefinition.wallThickness;
+            unitScale = mapDefinition.unitScale;
             generateBuildingWalls = mapDefinition.generateBuildingWalls;
             generateTreeColliders = mapDefinition.generateTreeColliders;
             replaceGeneratedRoot = mapDefinition.replaceGeneratedRoot;
+            useImageCornerFit = mapDefinition.useImageCornerFit;
+            imageUpperLeftUv = mapDefinition.imageUpperLeftUv;
+            imageLowerRightUv = mapDefinition.imageLowerRightUv;
+            editImageCornersInScene = mapDefinition.editImageCornersInScene;
+            treeUpperLeft = mapDefinition.treeUpperLeft;
+            treeLowerRight = mapDefinition.treeLowerRight;
+            editTreeCornersInScene = mapDefinition.editTreeCornersInScene;
+            treeRadiusMultiplier = mapDefinition.treeRadiusMultiplier > 0f
+                ? mapDefinition.treeRadiusMultiplier
+                : 1f;
+            treeHeight = mapDefinition.treeHeight > 0f
+                ? mapDefinition.treeHeight
+                : 2f;
             AnalyzeLayout();
+            EnsureDefaultTreeCorners();
         }
 
         private bool IsMapReady()
@@ -1048,6 +1241,9 @@ namespace BattleRoyale.Maps.EditorTools
             public readonly List<MapFeatureSummary> summaries = new();
             public readonly List<List<Vector2>> buildingRings = new();
             public readonly List<Vector2> treePoints = new();
+            public readonly List<List<Vector2>> waterRings = new();
+            public readonly List<VillageRoadLine> roads = new();
+            public float roadWidth = 7f;
         }
 
         private static class LayoutReader
@@ -1109,10 +1305,21 @@ namespace BattleRoyale.Maps.EditorTools
                         data.treePoints.AddRange(ReadPointFeatures(coordinates));
                     }
 
+                    if (id == "water")
+                    {
+                        data.waterRings.AddRange(ReadOuterRings(type, coordinates));
+                    }
+
+                    if (id == "roads")
+                    {
+                        ReadRoads(geometries, data.roads);
+                    }
+
                     if (id == "values")
                     {
                         data.generator = featureToken.Value<string>("generator") ?? string.Empty;
                         data.generatorVersion = featureToken.Value<string>("version") ?? string.Empty;
+                        data.roadWidth = featureToken.Value<float?>("roadWidth") ?? data.roadWidth;
                     }
                 }
 
@@ -1183,6 +1390,27 @@ namespace BattleRoyale.Maps.EditorTools
                 }
 
                 return rings;
+            }
+
+            private static void ReadRoads(JArray geometries, List<VillageRoadLine> roads)
+            {
+                if (geometries == null)
+                {
+                    return;
+                }
+
+                foreach (var geometry in geometries.OfType<JObject>())
+                {
+                    var points = ReadPointList(geometry["coordinates"]);
+                    if (points.Count < 2)
+                    {
+                        continue;
+                    }
+
+                    roads.Add(new VillageRoadLine(
+                        points,
+                        geometry.Value<float?>("width") ?? 0f));
+                }
             }
 
             private static void AddOuterRing(JToken polygon, List<List<Vector2>> rings)

@@ -93,7 +93,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 ? 1f
                 : Mathf.Max(0.1f, target.Profile.visualScale);
             var targetPosition = target.transform.position +
-                                 Vector3.up * (targetScale * 0.5f);
+                                 Vector3.up * BattleRoyaleAgent.SeatedHeight(targetScale, 0.5f);
             var direction = targetPosition - origin;
             var distance = direction.magnitude;
             if (distance <= 0.01f)
@@ -301,31 +301,44 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 return gun.position + gun.forward * (gun.lossyScale.z * 0.5f);
             }
 
-            var scale = owner == null || owner.Profile == null
+            return transform.position +
+                   Vector3.up * BattleRoyaleAgent.SeatedHeight(BodyScale(), 0.75f);
+        }
+
+        private float BodyScale()
+        {
+            var body = transform.Find("AgentCapsule");
+            if (body != null)
+            {
+                return Mathf.Max(0.1f, Mathf.Abs(body.localScale.y));
+            }
+
+            return owner == null || owner.Profile == null
                 ? 1f
                 : Mathf.Max(0.1f, owner.Profile.visualScale);
-            return transform.position + Vector3.up * (0.75f * scale);
         }
 
         private void CreatePrimitiveVisual()
         {
-            if (transform.Find("GunCube") != null)
+            var scale = BodyScale();
+            var existingGun = transform.Find("GunCube");
+            if (existingGun != null)
             {
+                var local = existingGun.localPosition;
+                local.y = BattleRoyaleAgent.SeatedHeight(scale, 0.5f);
+                existingGun.localPosition = local;
                 return;
             }
 
             var gun = GameObject.CreatePrimitive(PrimitiveType.Cube);
             gun.name = "GunCube";
             gun.transform.SetParent(transform, false);
-            var scale = owner == null || owner.Profile == null
-                ? 1f
-                : Mathf.Max(0.1f, owner.Profile.visualScale);
             var proportions = GetVisualProportions();
             var length = 1.6f * proportions.x * scale;
             var thickness = 0.25f * proportions.y * scale;
             gun.transform.localPosition = new Vector3(
                 0.85f * scale,
-                0.5f * scale,
+                BattleRoyaleAgent.SeatedHeight(scale, 0.5f),
                 length * 0.5f);
             gun.transform.localScale = new Vector3(
                 thickness,

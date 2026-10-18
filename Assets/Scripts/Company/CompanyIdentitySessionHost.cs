@@ -28,13 +28,23 @@ namespace BattleRoyale.Company
             }
 
             identity = next;
-            summary.Refresh(identity);
+            if (summary != null)
+            {
+                summary.Refresh(identity);
+            }
+
             editorPreview.Render(identity);
-            summaryPreview.Render(identity);
+            if (summaryPreview != null)
+            {
+                summaryPreview.Render(identity);
+            }
+
             if (dashboardPreview != null)
             {
                 dashboardPreview.Render(identity);
             }
+
+            editor.Refresh(identity);
         }
 
         bool Ensure()
@@ -44,18 +54,20 @@ namespace BattleRoyale.Company
                 return true;
             }
 
-            if (editorBindings == null || summaryBindings == null ||
-                editorPreviewBindings == null || summaryPreviewBindings == null ||
-                company == null)
+            if (editorBindings == null || editorPreviewBindings == null || company == null)
             {
-                Debug.LogError("Company identity needs its editor, profile, and previews.", this);
+                Debug.LogError("Company identity needs its editor and preview.", this);
                 return false;
             }
 
             editorPreview = new CompanyIdentity.CompanyIdentityPreviewView();
             editorPreview.Initialize(editorPreviewBindings);
-            summaryPreview = new CompanyIdentity.CompanyIdentityPreviewView();
-            summaryPreview.Initialize(summaryPreviewBindings);
+            if (summaryPreviewBindings != null)
+            {
+                summaryPreview = new CompanyIdentity.CompanyIdentityPreviewView();
+                summaryPreview.Initialize(summaryPreviewBindings);
+            }
+
             if (dashboardPreviewBindings != null)
             {
                 dashboardPreview = new CompanyIdentity.CompanyIdentityPreviewView();
@@ -63,12 +75,15 @@ namespace BattleRoyale.Company
             }
 
             editor = new CompanyIdentity.CompanyIdentityEditorView();
-            editor.Initialize(editorBindings, OnOption, OnColor, company.ShowProfile);
-            summary = new CompanyIdentity.CompanyIdentitySummaryView();
-            summary.Initialize(summaryBindings, summaryPreview, company.ShowEditor, null);
-            if (summaryBindings.ResetButton != null)
+            editor.Initialize(editorBindings, OnOption, OnColor, company.ShowDashboard);
+            if (summaryBindings != null)
             {
-                summaryBindings.ResetButton.gameObject.SetActive(false);
+                summary = new CompanyIdentity.CompanyIdentitySummaryView();
+                summary.Initialize(summaryBindings, summaryPreview, company.ShowEditor, null);
+                if (summaryBindings.ResetButton != null)
+                {
+                    summaryBindings.ResetButton.gameObject.SetActive(false);
+                }
             }
 
             ready = true;
@@ -77,12 +92,12 @@ namespace BattleRoyale.Company
 
         public void OpenEditor()
         {
-            if (!Ensure() || identity == null)
+            if (identity == null)
             {
                 return;
             }
 
-            editor.Refresh(identity);
+            Show(identity);
         }
 
         void OnOption(CompanyIdentity.CompanyIdentityTab tab, int option)

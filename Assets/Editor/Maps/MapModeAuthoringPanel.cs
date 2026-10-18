@@ -62,7 +62,8 @@ namespace BattleRoyale.Maps.EditorTools
             mapDefinition.modeConfigurations ??= new List<MapModeConfiguration>();
             editPointsInSceneView = mapDefinition.editPointsInSceneView;
 
-            EditorGUILayout.LabelField("Game Modes", EditorStyles.boldLabel);
+            if (AuthoringSectionHeader.Draw("Game Modes"))
+            {
             DrawSupportedModes(mapDefinition);
 
             var supportedModes = GetSupportedModes(mapDefinition);
@@ -72,7 +73,6 @@ namespace BattleRoyale.Maps.EditorTools
                 EditorGUILayout.HelpBox(
                     "Select at least one game mode that this map supports.",
                     MessageType.None);
-                EditorGUILayout.Space(8f);
                 return;
             }
 
@@ -102,7 +102,6 @@ namespace BattleRoyale.Maps.EditorTools
                 EditorGUILayout.HelpBox(
                     "This mode is listed so maps can reserve it. Placement and match rules are not implemented yet.",
                     MessageType.None);
-                EditorGUILayout.Space(8f);
                 return;
             }
 
@@ -137,39 +136,12 @@ namespace BattleRoyale.Maps.EditorTools
                     "The selected configuration belongs to a different map or mode.",
                     MessageType.Error);
                 StopSceneGui();
-                EditorGUILayout.Space(8f);
                 return;
+            }
             }
 
             DrawConfigurationSettings(mapDefinition, definitionsFolder);
             DrawConfigurationPoints(mapDefinition);
-            if (selectedConfiguration != null)
-            {
-                EnsureMarkerDiscs(selectedConfiguration);
-            }
-
-            if (selectedConfiguration != null &&
-                GUILayout.Button("Save Point Positions To Map Data"))
-            {
-                SaveScenePointsToConfiguration();
-            }
-
-            var editPoints = EditorGUILayout.Toggle(
-                new GUIContent(
-                    "Edit Points In Scene View",
-                    "Show position handles for the selected configuration in the Scene view."),
-                editPointsInSceneView);
-            if (editPoints != mapDefinition.editPointsInSceneView)
-            {
-                Undo.RecordObject(mapDefinition, "Edit Points In Scene View");
-                mapDefinition.editPointsInSceneView = editPoints;
-                EditorUtility.SetDirty(mapDefinition);
-            }
-
-            editPointsInSceneView = editPoints;
-
-            UpdateSceneGuiRegistration();
-            EditorGUILayout.Space(8f);
         }
 
         public void Dispose()
@@ -333,9 +305,12 @@ namespace BattleRoyale.Maps.EditorTools
             MapDefinition mapDefinition,
             string definitionsFolder)
         {
-            EditorGUILayout.LabelField(
-                $"{ObjectNames.NicifyVariableName(selectedMode.ToString())} Settings",
-                EditorStyles.boldLabel);
+            if (!AuthoringSectionHeader.Draw(
+                    $"{ObjectNames.NicifyVariableName(selectedMode.ToString())} Settings"))
+            {
+                return;
+            }
+
 
             variantName = EditorGUILayout.TextField("Variant", variantName);
             teamCount = Mathf.Max(
@@ -412,6 +387,7 @@ namespace BattleRoyale.Maps.EditorTools
         {
             if (selectedConfiguration == null)
             {
+                StopSceneGui();
                 return;
             }
 
@@ -431,6 +407,10 @@ namespace BattleRoyale.Maps.EditorTools
             {
                 DrawEliminationPoints(mapDefinition);
             }
+            else
+            {
+                StopSceneGui();
+            }
         }
 
         private void DrawBattleRoyalePoints(MapDefinition mapDefinition)
@@ -441,7 +421,12 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             battleRoyale.spawnPoints ??= new List<MapModePoint>();
-            EditorGUILayout.LabelField("Starting Spawn Points", EditorStyles.boldLabel);
+            if (!AuthoringSectionHeader.Draw("Starting Spawn Points"))
+            {
+                StopSceneGui();
+                return;
+            }
+
 
             for (var i = 0; i < battleRoyale.spawnPoints.Count; i++)
             {
@@ -509,6 +494,8 @@ namespace BattleRoyale.Maps.EditorTools
                 EditorUtility.SetDirty(battleRoyale);
                 SyncBattleRoyaleMarkers(battleRoyale);
             }
+
+            DrawPointSceneControls(mapDefinition);
         }
 
         private void DrawCaptureTheFlagPoints(MapDefinition mapDefinition)
@@ -520,7 +507,12 @@ namespace BattleRoyale.Maps.EditorTools
 
             captureTheFlag.teams ??= new List<MapModeTeamPoints>();
             EnsureCaptureTheFlagTeams(captureTheFlag);
-            EditorGUILayout.LabelField("Team Points", EditorStyles.boldLabel);
+            if (!AuthoringSectionHeader.Draw("Team Points"))
+            {
+                StopSceneGui();
+                return;
+            }
+
 
             for (var i = 0; i < captureTheFlag.teams.Count; i++)
             {
@@ -582,6 +574,8 @@ namespace BattleRoyale.Maps.EditorTools
 
                 EditorUtility.SetDirty(captureTheFlag);
             }
+
+            DrawPointSceneControls(mapDefinition);
         }
 
         private void DrawDeathmatchPoints(MapDefinition mapDefinition)
@@ -593,7 +587,12 @@ namespace BattleRoyale.Maps.EditorTools
 
             deathmatch.teams ??= new List<MapTeamSpawn>();
             DeathmatchRules.EnsureTeamSpawns(deathmatch);
-            EditorGUILayout.LabelField("Team Spawns", EditorStyles.boldLabel);
+            if (!AuthoringSectionHeader.Draw("Team Spawns"))
+            {
+                StopSceneGui();
+                return;
+            }
+
 
             for (var i = 0; i < deathmatch.teams.Count; i++)
             {
@@ -699,6 +698,8 @@ namespace BattleRoyale.Maps.EditorTools
 
                 EditorUtility.SetDirty(deathmatch);
             }
+
+            DrawPointSceneControls(mapDefinition);
         }
 
         private void DrawEliminationPoints(MapDefinition mapDefinition)
@@ -710,7 +711,12 @@ namespace BattleRoyale.Maps.EditorTools
 
             elimination.teams ??= new List<MapTeamSpawn>();
             EliminationRules.EnsureTeamSpawns(elimination);
-            EditorGUILayout.LabelField("Team Spawns", EditorStyles.boldLabel);
+            if (!AuthoringSectionHeader.Draw("Team Spawns"))
+            {
+                StopSceneGui();
+                return;
+            }
+
 
             for (var i = 0; i < elimination.teams.Count; i++)
             {
@@ -816,6 +822,37 @@ namespace BattleRoyale.Maps.EditorTools
 
                 EditorUtility.SetDirty(elimination);
             }
+
+            DrawPointSceneControls(mapDefinition);
+        }
+
+        private void DrawPointSceneControls(MapDefinition mapDefinition)
+        {
+            if (selectedConfiguration != null)
+            {
+                EnsureMarkerDiscs(selectedConfiguration);
+            }
+
+            if (selectedConfiguration != null &&
+                GUILayout.Button("Save Point Positions To Map Data"))
+            {
+                SaveScenePointsToConfiguration();
+            }
+
+            var editPoints = EditorGUILayout.Toggle(
+                new GUIContent(
+                    "Edit Points In Scene View",
+                    "Show position handles for the selected configuration in the Scene view."),
+                editPointsInSceneView);
+            if (editPoints != mapDefinition.editPointsInSceneView)
+            {
+                Undo.RecordObject(mapDefinition, "Edit Points In Scene View");
+                mapDefinition.editPointsInSceneView = editPoints;
+                EditorUtility.SetDirty(mapDefinition);
+            }
+
+            editPointsInSceneView = editPoints;
+            UpdateSceneGuiRegistration();
         }
 
         private void DrawPointPosition(
