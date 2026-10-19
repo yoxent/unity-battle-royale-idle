@@ -1341,6 +1341,7 @@ namespace BattleRoyale.Company
             identity = new CompanyIdentity.CompanyIdentityData
             {
                 companyName = record.CompanyName,
+                bodyIndex = record.BodyIndex,
                 insigniaShape = (CompanyIdentity.CompanyInsigniaShape)record.InsigniaShape,
                 icon = (CompanyIdentity.CompanyIcon)record.Icon,
                 flagPattern = (CompanyIdentity.CompanyFlagPattern)record.FlagPattern,
@@ -1348,6 +1349,23 @@ namespace BattleRoyale.Company
                 secondaryColor = new Color(record.SecondaryR, record.SecondaryG, record.SecondaryB, 1f),
                 accentColor = new Color(record.AccentR, record.AccentG, record.AccentB, 1f),
             };
+            CompanyIdentity.CompanyIdentityRules.ReadEmblemPaint(
+                identity,
+                record.HasEmblemPaint,
+                record.BodyFillR,
+                record.BodyFillG,
+                record.BodyFillB,
+                record.BodyBorderR,
+                record.BodyBorderG,
+                record.BodyBorderB,
+                record.SymbolIndex,
+                record.SymbolR,
+                record.SymbolG,
+                record.SymbolB,
+                record.SymbolPositionX,
+                record.SymbolPositionY,
+                record.SymbolRotation,
+                record.SymbolScale);
             return true;
         }
 
@@ -1454,6 +1472,7 @@ namespace BattleRoyale.Company
 
         static void CopyIdentity(CompanyIdentity.CompanyIdentityData source, CompanySaveRecord record)
         {
+            record.BodyIndex = source.bodyIndex;
             record.InsigniaShape = (int)source.insigniaShape;
             record.Icon = (int)source.icon;
             record.FlagPattern = (int)source.flagPattern;
@@ -1466,6 +1485,7 @@ namespace BattleRoyale.Company
             record.AccentR = source.accentColor.r;
             record.AccentG = source.accentColor.g;
             record.AccentB = source.accentColor.b;
+            CompanySaveRules.WriteEmblem(record, source);
         }
 
         static FieldEmblem EmblemFrom(CompanyIdentity.CompanyIdentityData source)

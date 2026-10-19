@@ -33,10 +33,25 @@ namespace BattleRoyale.CompanyIdentity
         Accent
     }
 
+    public enum EmblemPaintTarget
+    {
+        Body,
+        Border,
+        Symbol
+    }
+
     [System.Serializable]
     public sealed class CompanyIdentityData
     {
         public string companyName = "";
+        public int bodyIndex;
+        public Color bodyFillColor = Color.white;
+        public Color bodyBorderColor = CompanyIdentityRules.BodyBorderColor;
+        public int symbolIndex;
+        public Color symbolColor = Color.white;
+        public Vector2 symbolPosition = Vector2.zero;
+        public float symbolRotation;
+        public float symbolScale = 1f;
         public CompanyInsigniaShape insigniaShape = CompanyInsigniaShape.Shield;
         public CompanyIcon icon = CompanyIcon.Star;
         public CompanyFlagPattern flagPattern = CompanyFlagPattern.Solid;
@@ -49,6 +64,14 @@ namespace BattleRoyale.CompanyIdentity
             return new CompanyIdentityData
             {
                 companyName = this.companyName,
+                bodyIndex = this.bodyIndex,
+                bodyFillColor = this.bodyFillColor,
+                bodyBorderColor = this.bodyBorderColor,
+                symbolIndex = this.symbolIndex,
+                symbolColor = this.symbolColor,
+                symbolPosition = this.symbolPosition,
+                symbolRotation = this.symbolRotation,
+                symbolScale = this.symbolScale,
                 insigniaShape = this.insigniaShape,
                 icon = this.icon,
                 flagPattern = this.flagPattern,

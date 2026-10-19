@@ -2,6 +2,7 @@ using BattleRoyale.CompanyIdentity;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BattleRoyale.Tests.EditMode
 {
@@ -167,8 +168,23 @@ namespace BattleRoyale.Tests.EditMode
             var previewBindings =
                 _editorBindings.PreviewParent.GetComponentInChildren<CompanyIdentityPreviewViewBindings>();
             Assert.IsNotNull(previewBindings, "Preview bindings should exist");
-            Assert.AreEqual(selectedPaletteColor, previewBindings.EmblemPanel.color);
+            Assert.AreEqual(selectedPaletteColor, previewBindings.PrimaryColorBar.color);
+            Assert.AreEqual(CompanyIdentityRules.BodyFillColor, previewBindings.EmblemPanel.color);
+            var border = previewBindings.transform.Find("Emblem/BodyBorder").GetComponent<Image>();
+            Assert.AreEqual(CompanyIdentityRules.BodyBorderColor, border.color);
             Assert.AreEqual("Test Company", previewBindings.CompanyNameText.text);
+
+            _editorBindings.NextBodyButton.onClick.Invoke();
+            Assert.AreEqual(1, _controller.CurrentIdentity.bodyIndex);
+            Assert.AreEqual("1", _editorBindings.BodyIndexLabel.text);
+            Assert.AreEqual("emblem_body_fill_1", previewBindings.EmblemPanel.sprite.name);
+
+            _editorBindings.PreviousBodyButton.onClick.Invoke();
+            Assert.AreEqual(0, _controller.CurrentIdentity.bodyIndex);
+            _editorBindings.PreviousBodyButton.onClick.Invoke();
+            Assert.AreEqual(
+                previewBindings.BodyPairCount - 1,
+                _controller.CurrentIdentity.bodyIndex);
 
             // Click Done button
             var doneButton = _editorBindings.DoneButton;
@@ -202,6 +218,62 @@ namespace BattleRoyale.Tests.EditMode
 
             // Verify input field is empty
             Assert.AreEqual(string.Empty, inputField.text);
+        }
+
+        [Test]
+        public void PreviewHousesEmblemLayers()
+        {
+            var preview = InstantiatePrefab(
+                "Assets/CompanyIdentity/UI/CompanyIdentityPreview.prefab");
+            try
+            {
+                AssertEmblemLayers(preview.transform);
+            }
+            finally
+            {
+                Object.DestroyImmediate(preview);
+            }
+
+            AssertEmblemLayers(
+                _editorBindings.PreviewParent
+                    .GetComponentInChildren<CompanyIdentityPreviewViewBindings>(true)
+                    .transform);
+            AssertEmblemLayers(
+                _summaryBindings.PreviewParent
+                    .GetComponentInChildren<CompanyIdentityPreviewViewBindings>(true)
+                    .transform);
+        }
+
+        private static void AssertEmblemLayers(Transform root)
+        {
+            var emblem = root.Find("Emblem");
+            Assert.IsNotNull(emblem, "Emblem layer root should exist");
+
+            var fill = emblem.Find("BodyFill");
+            var stripes = emblem.Find("BodyFill/Stripes");
+            var border = emblem.Find("BodyBorder");
+            Assert.IsNotNull(fill, "BodyFill should exist");
+            Assert.IsNotNull(stripes, "Stripes should exist");
+            Assert.IsNotNull(emblem.Find("BodyFill/Stripes/Stripe01"));
+            Assert.IsNotNull(emblem.Find("BodyFill/Stripes/Stripe02"));
+            Assert.IsNotNull(emblem.Find("BodyFill/Stripes/Stripe03"));
+            Assert.IsNotNull(border, "BodyBorder should exist");
+            Assert.IsNotNull(fill.GetComponent<Mask>());
+            Assert.IsNotNull(stripes.GetComponent<VerticalLayoutGroup>());
+            Assert.AreEqual(0f, emblem.Find("BodyFill/Stripes/Stripe02").GetComponent<CanvasGroup>().alpha);
+
+            var fillImage = fill.GetComponent<Image>();
+            var borderImage = border.GetComponent<Image>();
+            Assert.AreEqual("emblem_body_fill_5", fillImage.sprite.name);
+            Assert.AreEqual("emblem_body_border_5", borderImage.sprite.name);
+
+            var bindings = root.GetComponent<CompanyIdentityPreviewViewBindings>();
+            if (bindings == null)
+            {
+                bindings = root.GetComponentInChildren<CompanyIdentityPreviewViewBindings>(true);
+            }
+
+            Assert.AreEqual(fillImage, bindings.EmblemPanel);
         }
     }
 }

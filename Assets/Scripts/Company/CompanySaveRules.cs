@@ -27,6 +27,7 @@ namespace BattleRoyale.Company
     {
         public int Version = 1;
         public string CompanyName;
+        public int BodyIndex;
         public int InsigniaShape;
         public int Icon;
         public int FlagPattern;
@@ -39,6 +40,21 @@ namespace BattleRoyale.Company
         public float AccentR;
         public float AccentG;
         public float AccentB;
+        public bool HasEmblemPaint;
+        public float BodyFillR;
+        public float BodyFillG;
+        public float BodyFillB;
+        public float BodyBorderR;
+        public float BodyBorderG;
+        public float BodyBorderB;
+        public int SymbolIndex;
+        public float SymbolR;
+        public float SymbolG;
+        public float SymbolB;
+        public float SymbolPositionX;
+        public float SymbolPositionY;
+        public float SymbolRotation;
+        public float SymbolScale;
         public int Balance;
         public int Fans;
         public float DayProgress;
@@ -62,6 +78,27 @@ namespace BattleRoyale.Company
     public static class CompanySaveRules
     {
         public const int Version = 1;
+
+        public static void WriteEmblem(
+            CompanySaveRecord record,
+            CompanyIdentity.CompanyIdentityData source)
+        {
+            record.HasEmblemPaint = true;
+            record.BodyFillR = source.bodyFillColor.r;
+            record.BodyFillG = source.bodyFillColor.g;
+            record.BodyFillB = source.bodyFillColor.b;
+            record.BodyBorderR = source.bodyBorderColor.r;
+            record.BodyBorderG = source.bodyBorderColor.g;
+            record.BodyBorderB = source.bodyBorderColor.b;
+            record.SymbolIndex = source.symbolIndex;
+            record.SymbolR = source.symbolColor.r;
+            record.SymbolG = source.symbolColor.g;
+            record.SymbolB = source.symbolColor.b;
+            record.SymbolPositionX = source.symbolPosition.x;
+            record.SymbolPositionY = source.symbolPosition.y;
+            record.SymbolRotation = source.symbolRotation;
+            record.SymbolScale = source.symbolScale;
+        }
 
         public static bool TryWrite(CompanySaveRecord record, out string json)
         {

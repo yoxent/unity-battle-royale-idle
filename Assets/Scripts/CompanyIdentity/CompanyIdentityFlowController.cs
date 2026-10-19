@@ -81,6 +81,8 @@ namespace BattleRoyale.CompanyIdentity
                 _editorViewBindings,
                 OnOptionSelected,
                 OnColorSelected,
+                OnBodyStep,
+                OnEmblemEdited,
                 OnDoneRequested);
 
             _editorPreview = new CompanyIdentityPreviewView();
@@ -128,7 +130,7 @@ namespace BattleRoyale.CompanyIdentity
 
                 _creationView.SetVisible(false);
                 _editorView.SetVisible(true);
-                _editorView.Refresh(_currentIdentity);
+                _editorView.Refresh(_currentIdentity, _editorPreviewBindings.ShapeSprites);
                 _currentPage = CompanyIdentityPage.Editor;
             }
             catch (System.ArgumentException)
@@ -175,6 +177,27 @@ namespace BattleRoyale.CompanyIdentity
             RefreshIdentityViews();
         }
 
+        private void OnBodyStep(int direction)
+        {
+            if (_currentIdentity == null ||
+                _editorPreviewBindings == null ||
+                _editorPreviewBindings.BodyPairCount <= 0)
+            {
+                return;
+            }
+
+            _currentIdentity.bodyIndex = CompanyIdentityRules.StepBodyIndex(
+                _currentIdentity.bodyIndex,
+                direction,
+                _editorPreviewBindings.BodyPairCount);
+            RefreshIdentityViews();
+        }
+
+        private void OnEmblemEdited()
+        {
+            RefreshIdentityViews();
+        }
+
         private void OnColorSelected(CompanyIdentityColorSlot slot, int paletteIndex)
         {
             if (_currentIdentity == null ||
@@ -190,7 +213,7 @@ namespace BattleRoyale.CompanyIdentity
 
         private void RefreshIdentityViews()
         {
-            _editorView.Refresh(_currentIdentity);
+            _editorView.Refresh(_currentIdentity, _editorPreviewBindings.ShapeSprites);
             _editorPreview.Render(_currentIdentity);
             _summaryView.Refresh(_currentIdentity);
         }

@@ -24,10 +24,12 @@ namespace BattleRoyale.CompanyIdentity
         [SerializeField] private Button button;
         [SerializeField] private Image image;
         [SerializeField] private Outline outline;
+        [SerializeField] private GameObject marker;
 
         public Button Button => button;
         public Image Image => image;
         public Outline Outline => outline;
+        public GameObject Marker => marker;
 
     }
 

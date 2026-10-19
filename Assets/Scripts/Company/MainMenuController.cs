@@ -135,6 +135,7 @@ namespace BattleRoyale.Company
             var record = new CompanySaveRecord
             {
                 CompanyName = identity.companyName,
+                BodyIndex = identity.bodyIndex,
                 InsigniaShape = (int)identity.insigniaShape,
                 Icon = (int)identity.icon,
                 FlagPattern = (int)identity.flagPattern,
@@ -156,6 +157,7 @@ namespace BattleRoyale.Company
                 TutorialStep = (int)TutorialStep.Recruit,
                 UtcStamp = System.DateTime.UtcNow.Ticks.ToString(),
             };
+            CompanySaveRules.WriteEmblem(record, identity);
             for (var i = 0; i < record.Board.Length; i++)
             {
                 record.Board[i] = new CompanySaveCard();

@@ -44,7 +44,7 @@ namespace BattleRoyale.Company
                 dashboardPreview.Render(identity);
             }
 
-            editor.Refresh(identity);
+            editor.Refresh(identity, editorPreviewBindings.ShapeSprites);
         }
 
         bool Ensure()
@@ -75,7 +75,13 @@ namespace BattleRoyale.Company
             }
 
             editor = new CompanyIdentity.CompanyIdentityEditorView();
-            editor.Initialize(editorBindings, OnOption, OnColor, company.ShowDashboard);
+            editor.Initialize(
+                editorBindings,
+                OnOption,
+                OnColor,
+                OnBodyStep,
+                OnEmblemEdited,
+                company.ShowDashboard);
             if (summaryBindings != null)
             {
                 summary = new CompanyIdentity.CompanyIdentitySummaryView();
@@ -136,6 +142,23 @@ namespace BattleRoyale.Company
             company.SaveIdentity(identity);
         }
 
+        void OnBodyStep(int direction)
+        {
+            if (identity == null ||
+                editorPreviewBindings == null ||
+                editorPreviewBindings.BodyPairCount <= 0)
+            {
+                return;
+            }
+
+            identity.bodyIndex = CompanyIdentity.CompanyIdentityRules.StepBodyIndex(
+                identity.bodyIndex,
+                direction,
+                editorPreviewBindings.BodyPairCount);
+            Show(identity);
+            company.SaveIdentity(identity);
+        }
+
         void OnColor(CompanyIdentity.CompanyIdentityColorSlot slot, int paletteIndex)
         {
             if (identity == null)
@@ -150,6 +173,17 @@ namespace BattleRoyale.Company
             }
 
             identity.SetColor(slot, palette[paletteIndex]);
+            Show(identity);
+            company.SaveIdentity(identity);
+        }
+
+        void OnEmblemEdited()
+        {
+            if (identity == null)
+            {
+                return;
+            }
+
             Show(identity);
             company.SaveIdentity(identity);
         }

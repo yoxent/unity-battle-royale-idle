@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,9 @@ namespace BattleRoyale.CompanyIdentity
     {
         private TMP_Text _companyNameText;
         private Image _emblemPanel;
+        private CompanyEmblemGraphic _emblem;
+        private IReadOnlyList<Sprite> _shapeSprites;
+        private IReadOnlyList<Sprite> _shapeBorderSprites;
         private TMP_Text _shapeLabel;
         private TMP_Text _iconLabel;
         private TMP_Text _flagLabel;
@@ -26,6 +30,9 @@ namespace BattleRoyale.CompanyIdentity
 
             _companyNameText = bindings.CompanyNameText;
             _emblemPanel = bindings.EmblemPanel;
+            _emblem = bindings.Emblem;
+            _shapeSprites = bindings.ShapeSprites;
+            _shapeBorderSprites = bindings.ShapeBorderSprites;
             _shapeLabel = bindings.ShapeLabel;
             _iconLabel = bindings.IconLabel;
             _flagLabel = bindings.FlagLabel;
@@ -57,15 +64,49 @@ namespace BattleRoyale.CompanyIdentity
 
             _companyNameText.text = identity.companyName;
 
-            _emblemPanel.color = identity.primaryColor;
+            if (_emblem != null)
+            {
+                _emblem.Apply(
+                    identity.bodyIndex,
+                    _shapeSprites,
+                    _shapeBorderSprites,
+                    identity.bodyFillColor,
+                    identity.bodyBorderColor);
+            }
+            else if (_emblemPanel != null)
+            {
+                _emblemPanel.color = identity.primaryColor;
+            }
 
-            _shapeLabel.text = CompanyIdentityRules.GetDisplayName(identity.insigniaShape);
-            _iconLabel.text = CompanyIdentityRules.GetDisplayName(identity.icon);
-            _flagLabel.text = CompanyIdentityRules.GetDisplayName(identity.flagPattern);
+            if (_shapeLabel != null)
+            {
+                _shapeLabel.text = CompanyIdentityRules.GetDisplayName(identity.insigniaShape);
+            }
 
-            _primaryColorBar.color = identity.primaryColor;
-            _secondaryColorBar.color = identity.secondaryColor;
-            _accentColorBar.color = identity.accentColor;
+            if (_iconLabel != null)
+            {
+                _iconLabel.text = CompanyIdentityRules.GetDisplayName(identity.icon);
+            }
+
+            if (_flagLabel != null)
+            {
+                _flagLabel.text = CompanyIdentityRules.GetDisplayName(identity.flagPattern);
+            }
+
+            if (_primaryColorBar != null)
+            {
+                _primaryColorBar.color = identity.primaryColor;
+            }
+
+            if (_secondaryColorBar != null)
+            {
+                _secondaryColorBar.color = identity.secondaryColor;
+            }
+
+            if (_accentColorBar != null)
+            {
+                _accentColorBar.color = identity.accentColor;
+            }
         }
     }
 }
