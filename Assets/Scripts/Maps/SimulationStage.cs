@@ -234,6 +234,47 @@ namespace BattleRoyale.Maps
             return true;
         }
 
+        public bool TryBegin(int slot)
+        {
+            if (slots == null ||
+                slot < 0 ||
+                slot >= slots.Length ||
+                slot >= SimulationStageLayout.SlotCount)
+            {
+                Debug.LogError($"Simulation slot {slot} does not exist.", this);
+                return false;
+            }
+
+            var match = slots[slot] == null ? null : slots[slot].match;
+            if (match == null || !match.isActiveAndEnabled)
+            {
+                Debug.LogError($"Simulation slot {slot} has no match.", this);
+                return false;
+            }
+
+            return match.BeginMatch();
+        }
+
+        public void HoldMatchesAfterFirst()
+        {
+            if (slots == null)
+            {
+                return;
+            }
+
+            var count = Mathf.Min(slots.Length, SimulationStageLayout.SlotCount);
+            for (var slot = 1; slot < count; slot++)
+            {
+                var match = slots[slot] == null ? null : slots[slot].match;
+                if (match == null)
+                {
+                    continue;
+                }
+
+                match.HoldUntilPlayed();
+            }
+        }
+
         public bool TryClear(int slot)
         {
             if (slots == null ||

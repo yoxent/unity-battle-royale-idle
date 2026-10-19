@@ -140,6 +140,17 @@ namespace BattleRoyale.Company
             return true;
         }
 
+        public static int Spendable(int balance, int unclaimedPrize)
+        {
+            if (unclaimedPrize <= 0)
+            {
+                return balance;
+            }
+
+            var spendable = balance - unclaimedPrize;
+            return spendable < 0 ? 0 : spendable;
+        }
+
         public static bool TryApplyResult(
             TournamentEntryState state,
             TournamentResult result,

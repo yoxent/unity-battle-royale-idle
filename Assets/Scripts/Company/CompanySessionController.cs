@@ -9,6 +9,7 @@ using BattleRoyale.Maps;
 using BattleRoyale.UI;
 using TMPro;
 using UnityEngine;
+using LitMotion;
 using UnityEngine.UI;
 
 namespace BattleRoyale.Company
@@ -31,6 +32,8 @@ namespace BattleRoyale.Company
         [SerializeField] private TMP_Text opponentLabel;
         [SerializeField] private TMP_Text windowLabel;
         [SerializeField] private TMP_Text resultLabel;
+        [SerializeField] private MatchResultPresenter matchResult;
+        [SerializeField] private float goldCountDuration = 0.6f;
         [SerializeField] private Button deployButton;
         [SerializeField] private DeploymentPanel deployment;
         [SerializeField] private TournamentCatalog tournaments;
@@ -41,6 +44,12 @@ namespace BattleRoyale.Company
         EconomyTuning tuning;
         int balance;
         int reserved;
+        int unclaimedPrize;
+        int shownGold;
+        int displayedRankPoints;
+        bool holdMatchPresentation;
+        bool countingGold;
+        MotionHandle goldMotion;
         int companyDate;
         int fans;
         int spent;
@@ -79,6 +88,7 @@ namespace BattleRoyale.Company
         void OnDisable()
         {
             EventBus.Unsubscribe<PopupClosed>(OnPopupClosed);
+            CancelGoldCount();
         }
 
         void OnDestroy()
@@ -505,6 +515,8 @@ namespace BattleRoyale.Company
                 return;
             }
 
+            displayedRankPoints = rankPoints;
+            holdMatchPresentation = true;
             rankPoints = CompanyRankRules.Apply(
                 rankPoints,
                 placement == TournamentResult.First);
@@ -513,6 +525,8 @@ namespace BattleRoyale.Company
             SaveCompany();
 
             resultApplied = true;
+            unclaimedPrize = prize;
+            shownGold = TournamentEconomyRules.Spendable(balance, unclaimedPrize);
             if (resultLabel != null)
             {
                 var net = prize - spent;
@@ -521,7 +535,17 @@ namespace BattleRoyale.Company
             }
 
             RefreshLabels();
-            Show(resultPage);
+            if (matchResult == null)
+            {
+                Debug.LogError("Company day needs its match result presenter.", this);
+                return;
+            }
+
+            matchResult.Begin(
+                placement.ToString(),
+                "Prize " + prize,
+                CompanyRankRules.Label(rankPoints),
+                FinishMatchReveal);
         }
 
         void SetStance(TeamPlaystyle next)
@@ -608,13 +632,67 @@ namespace BattleRoyale.Company
                 out snapshot);
         }
 
+        public void FinishMatchReveal()
+        {
+            if (matchResult != null)
+            {
+                matchResult.Release();
+            }
+
+            holdMatchPresentation = false;
+            var from = TournamentEconomyRules.Spendable(balance, unclaimedPrize);
+            var to = balance;
+            DismissResult();
+            if (from == to)
+            {
+                unclaimedPrize = 0;
+                RefreshLabels();
+                return;
+            }
+
+            CancelGoldCount();
+            countingGold = true;
+            shownGold = from;
+            RefreshLabels();
+            goldMotion = LMotion.Create((float)from, (float)to, goldCountDuration)
+                .WithEase(Ease.OutCubic)
+                .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)
+                .WithOnComplete(() =>
+                {
+                    countingGold = false;
+                    unclaimedPrize = 0;
+                    shownGold = balance;
+                    RefreshLabels();
+                })
+                .Bind(value =>
+                {
+                    shownGold = Mathf.RoundToInt(value);
+                    RefreshLabels();
+                });
+        }
+
+        void CancelGoldCount()
+        {
+            if (goldMotion.IsActive())
+            {
+                goldMotion.Cancel();
+            }
+
+            goldMotion = default;
+        }
+
         void RefreshLabels()
         {
+            if (!countingGold)
+            {
+                shownGold = TournamentEconomyRules.Spendable(balance, unclaimedPrize);
+            }
+
             if (balanceLabel != null)
             {
                 balanceLabel.text = reserved > 0
-                    ? $"Gold {balance}  Held {reserved}"
-                    : $"Gold {balance}";
+                    ? $"Gold {shownGold}  Held {reserved}"
+                    : $"Gold {shownGold}";
             }
 
             if (stanceLabel != null)
@@ -651,7 +729,8 @@ namespace BattleRoyale.Company
             RefreshDeployment();
             if (rankLabel != null)
             {
-                rankLabel.text = CompanyRankRules.Label(rankPoints);
+                var points = holdMatchPresentation ? displayedRankPoints : rankPoints;
+                rankLabel.text = CompanyRankRules.Label(points);
             }
         }
 

@@ -4,7 +4,6 @@ using BattleRoyale.GameModes.BattleRoyale;
 using BattleRoyale.GameModes.Deathmatch;
 using BattleRoyale.Maps;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace BattleRoyale.GameModes.Elimination
 {
@@ -29,7 +28,6 @@ namespace BattleRoyale.GameModes.Elimination
         protected override string RuntimeProfileName => "Runtime Elimination Profile";
 
         public IReadOnlyList<int> RoundWins => roundWins;
-        public int WinningTeam { get; private set; } = -1;
         public int RoundNumber { get; private set; }
         public float RoundSecondsRemaining =>
             roundLive ? Mathf.Max(0f, roundSeconds - roundElapsed) : 0f;
@@ -297,24 +295,6 @@ namespace BattleRoyale.GameModes.Elimination
                 }
 
                 livingCounts[team]++;
-            }
-        }
-
-        private void HoldRoster()
-        {
-            for (var index = 0; index < Roster.Count; index++)
-            {
-                var agent = Roster[index];
-                if (agent == null)
-                {
-                    continue;
-                }
-
-                var navigation = agent.GetComponent<NavMeshAgent>();
-                if (navigation != null && navigation.enabled)
-                {
-                    navigation.isStopped = true;
-                }
             }
         }
 

@@ -89,6 +89,11 @@ namespace BattleRoyale.GameModes
             }
         }
 
+        public void HoldUntilPlayed()
+        {
+            autoStart = false;
+        }
+
         // Activates a vacated slot. A match whose Start already ran begins again
         // only after the stage has bound the replacement map.
         public void Occupy()
@@ -115,6 +120,7 @@ namespace BattleRoyale.GameModes
             return modeConfiguration != null && modeConfiguration.mode == mode;
         }
         public bool IsMatchStarted => MatchStarted;
+        public int WinningTeam { get; protected set; } = -1;
         public virtual IReadOnlyList<BattleRoyaleAgent> Agents
         {
             get
@@ -326,6 +332,27 @@ namespace BattleRoyale.GameModes
 
             roster.Clear();
             MatchStarted = false;
+        }
+
+        protected void HoldRoster()
+        {
+            for (var i = 0; i < roster.Count; i++)
+            {
+                var body = roster[i];
+                if (body == null)
+                {
+                    continue;
+                }
+
+                var navigation = body.Agent;
+                if (navigation == null || !navigation.enabled || !navigation.isOnNavMesh)
+                {
+                    continue;
+                }
+
+                navigation.ResetPath();
+                navigation.isStopped = true;
+            }
         }
 
         private void Start()

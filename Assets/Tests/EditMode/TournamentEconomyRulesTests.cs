@@ -114,6 +114,15 @@ namespace BattleRoyale.Tests.EditMode
         }
 
         [Test]
+        public void UnclaimedPrizeStaysOutOfSpendableGold()
+        {
+            Assert.AreEqual(80, TournamentEconomyRules.Spendable(100, 20));
+            Assert.AreEqual(100, TournamentEconomyRules.Spendable(100, 0));
+            Assert.AreEqual(40, TournamentEconomyRules.Spendable(40, -5));
+            Assert.AreEqual(0, TournamentEconomyRules.Spendable(10, 25));
+        }
+
+        [Test]
         public void FirstPlaceAddsThePrize()
         {
             var started = StartedCommon();

@@ -813,6 +813,14 @@ namespace BattleRoyale.Maps.EditorTools
             {
                 EmptySelectedSlot();
             }
+
+            using (new EditorGUI.DisabledScope(!Application.isPlaying))
+            {
+                if (GUILayout.Button("Play Slot"))
+                {
+                    manager.PlaySlot();
+                }
+            }
         }
 
         private static List<MapGameMode> ModesFor(MapDefinition definition)

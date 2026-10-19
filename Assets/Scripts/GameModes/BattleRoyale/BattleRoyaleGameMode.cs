@@ -8,7 +8,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
 {
     [DisallowMultipleComponent]
     [DefaultExecutionOrder(-50)]
-    public sealed class BattleRoyaleGameMode : SimulationMatch
+    public sealed class BattleRoyaleGameMode : SimulationMatch, IMatchCombatGate
     {
         [Header("Agents")]
         [Tooltip(
@@ -49,7 +49,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
 
         public BattleRoyaleRosterOrder RosterOrder => rosterOrder;
         public BattleRoyaleAgent Winner { get; private set; }
-        public int WinningTeam { get; private set; } = -1;
+        public bool CombatEnabled => MatchStarted && !winnerAnnounced;
         public int AliveCount
         {
             get
@@ -78,7 +78,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
 
         private void Update()
         {
-            if (!MatchStarted)
+            if (!MatchStarted || winnerAnnounced)
             {
                 return;
             }
@@ -423,6 +423,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
 
             winnerAnnounced = true;
             WinningTeam = BattleRoyaleRules.SoleSurvivor(livingCounts);
+            HoldRoster();
             Winner = null;
             foreach (var agent in Roster)
             {

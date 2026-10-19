@@ -312,7 +312,7 @@ namespace BattleRoyale.Company
             }
 
             var card = recruit.Slots[slot];
-            if (card == null || !card.Filled || balance < card.Contract ||
+            if (card == null || !card.Filled || TournamentEconomyRules.Spendable(balance, unclaimedPrize) < card.Contract ||
                 squad.Length >= RecruitBoardRules.RosterCap)
             {
                 return;
@@ -611,7 +611,7 @@ namespace BattleRoyale.Company
                     tuning,
                     random,
                     forceAffordable,
-                    balance,
+                    TournamentEconomyRules.Spendable(balance, unclaimedPrize),
                     out var cards))
             {
                 Debug.LogError("The recruit board could not be rolled.", this);
@@ -678,7 +678,7 @@ namespace BattleRoyale.Company
             }
 
             var fee = RecruitBoardRules.QuoteFee(tuning, recruit.FreeUsed, recruit.PaidRetries);
-            recruitView.Refresh(recruit, balance, squad == null ? 0 : squad.Length, fee);
+            recruitView.Refresh(recruit, TournamentEconomyRules.Spendable(balance, unclaimedPrize), squad == null ? 0 : squad.Length, fee);
         }
 
         void RefreshSessionPresentation()
@@ -750,11 +750,12 @@ namespace BattleRoyale.Company
                 ? source.companyName
                 : setup != null ? setup.playerName : "";
             var count = squad == null ? 0 : squad.Length;
+            var points = holdMatchPresentation ? displayedRankPoints : rankPoints;
             dashboardView.Present(
                 companyName,
                 source,
-                rankPoints,
-                reserved > 0 ? "Gold " + balance + "  Held " + reserved : "Gold " + balance,
+                points,
+                reserved > 0 ? "Gold " + shownGold + "  Held " + reserved : "Gold " + shownGold,
                 fans,
                 companyDate,
                 stance.ToString(),
@@ -954,7 +955,7 @@ namespace BattleRoyale.Company
                 cost += charge;
             }
 
-            return balance >= cost;
+            return TournamentEconomyRules.Spendable(balance, unclaimedPrize) >= cost;
         }
 
         public void ClearDeploymentSlot(int slot)

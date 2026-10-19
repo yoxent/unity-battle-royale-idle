@@ -8,7 +8,7 @@ namespace BattleRoyale.GameModes.Deathmatch
 {
     [DisallowMultipleComponent]
     [DefaultExecutionOrder(-50)]
-    public sealed class DeathmatchGameMode : SimulationMatch
+    public sealed class DeathmatchGameMode : SimulationMatch, IMatchCombatGate
     {
         private struct PendingRespawn
         {
@@ -37,7 +37,7 @@ namespace BattleRoyale.GameModes.Deathmatch
         public override bool Runs(MapGameMode mode) => mode == MapGameMode.Deathmatch;
 
         public IReadOnlyList<int> TeamScores => teamScores;
-        public int WinningTeam { get; private set; } = -1;
+        public bool CombatEnabled => MatchStarted && WinningTeam < 0;
         public float ElapsedMatchTime => elapsedMatchTime;
         public DeathmatchCombatStats CombatStats => combatStats;
 
@@ -331,6 +331,7 @@ namespace BattleRoyale.GameModes.Deathmatch
             {
                 WinningTeam = winner;
                 pendingRespawns.Clear();
+                HoldRoster();
                 Debug.Log($"Deathmatch winner: Team {winner + 1}.", this);
                 return;
             }

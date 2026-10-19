@@ -106,6 +106,23 @@ namespace BattleRoyale.Maps
             return stage.TryClear(slotIndex);
         }
 
+        // Slot 0 starts from its own caller. Later slots wait for this.
+        public bool PlaySlot()
+        {
+            if (!Application.isPlaying)
+            {
+                return false;
+            }
+
+            if (stage == null)
+            {
+                Debug.LogError("The active map manager needs a simulation stage.", this);
+                return false;
+            }
+
+            return stage.TryBegin(slotIndex);
+        }
+
         public MapInstance ActivateBakedMap(GameObject prefab)
         {
             if (prefab == null)
@@ -183,6 +200,16 @@ namespace BattleRoyale.Maps
             var previous = activeMap;
             activeMap = map;
             EventBus.Publish(new ActiveMapChanged(previous, activeMap));
+        }
+
+        private void Awake()
+        {
+            if (!Application.isPlaying || stage == null)
+            {
+                return;
+            }
+
+            stage.HoldMatchesAfterFirst();
         }
 
         private void OnEnable()

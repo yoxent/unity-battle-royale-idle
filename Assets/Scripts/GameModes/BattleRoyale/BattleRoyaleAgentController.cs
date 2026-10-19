@@ -91,8 +91,13 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 tacticalPicture = match as ITeamTacticalPicture;
             }
 
-            if (match == null ||
-                (match is IMatchCombatGate combatGate && !combatGate.CombatEnabled))
+            if (match is IMatchCombatGate combatGate && !combatGate.CombatEnabled)
+            {
+                StopMoving();
+                return;
+            }
+
+            if (match == null)
             {
                 return;
             }

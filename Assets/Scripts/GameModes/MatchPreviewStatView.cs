@@ -44,6 +44,7 @@ namespace BattleRoyale.GameModes
         bool configured;
         bool listening;
         bool tableOpen;
+        bool holdFullTable;
         bool reportedTeamCount;
 
         void OnEnable()
@@ -123,8 +124,30 @@ namespace BattleRoyale.GameModes
             Paint(match);
         }
 
+        public void HoldFullTable()
+        {
+            holdFullTable = true;
+            tableOpen = true;
+            if (statsButton != null)
+            {
+                statsButton.gameObject.SetActive(false);
+            }
+        }
+
+        public void ReleaseFullTable()
+        {
+            holdFullTable = false;
+            tableOpen = false;
+            ApplyButtonLabel();
+        }
+
         void ToggleTable()
         {
+            if (holdFullTable)
+            {
+                return;
+            }
+
             tableOpen = !tableOpen;
             ApplyButtonLabel();
         }
@@ -257,7 +280,12 @@ namespace BattleRoyale.GameModes
             }
 
             var combat = board.Teams;
-            statsButton.gameObject.SetActive(combat);
+            if (holdFullTable && combat)
+            {
+                tableOpen = true;
+            }
+
+            statsButton.gameObject.SetActive(combat && !holdFullTable);
             if (!combat)
             {
                 tableOpen = false;
