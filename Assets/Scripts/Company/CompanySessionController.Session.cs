@@ -6,6 +6,7 @@ using BattleRoyale.GameModes.BattleRoyale;
 using BattleRoyale.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BattleRoyale.Company
 {
@@ -21,7 +22,12 @@ namespace BattleRoyale.Company
         [SerializeField] CompanyRosterView rosterView;
         [SerializeField] CompanyDashboardView dashboardView;
         [SerializeField] OfflineReportView offlineReport;
-        [SerializeField] TutorialHintView tutorialHints;
+        [SerializeField] TutorialPanelView tutorialPanel;
+        [Tooltip("Off hides the tour card and the tutorial match. The company file keeps its step.")]
+        [SerializeField] bool tutorialEnabled = true;
+        [SerializeField] RectTransform recruitTab;
+        [SerializeField] RectTransform newSimulation;
+        [SerializeField] string titleSceneName = "MainMenu";
         [SerializeField] TMP_Text companyNameLabel;
         [SerializeField] GameObject leaveMatchButton;
         [SerializeField] AgentAvatarCatalog avatarCatalog;
@@ -42,6 +48,15 @@ namespace BattleRoyale.Company
         CompanyIdentity.CompanyIdentityData authoredIdentity;
         RosterSlotPresentation[] rosterSlots;
         TutorialStep tutorial = TutorialStep.Recruit;
+        UIPage visiblePage;
+        bool reportOpen;
+        int tutorialHire = -1;
+        bool tutorialPresented;
+        bool tutorialGateReady;
+        bool tutorialEnabledApplied;
+        TutorialStep presentedStep;
+        TutorialPlace presentedPlace;
+        bool presentedReport;
         int[] fieldedIndexes;
         int[] lineup;
         int pendingHireSlot = -1;
@@ -103,6 +118,7 @@ namespace BattleRoyale.Company
             lineup = EmptyLineup(SideSize());
             RefreshFielding();
             ready = true;
+            reportOpen = salary + fansPaid > 0 && offlineReport != null;
             SaveCompany();
             Show(dashboard);
             RefreshLabels();
@@ -110,11 +126,28 @@ namespace BattleRoyale.Company
             {
                 identityHost.Show(identity);
             }
-            if (salary + fansPaid > 0 && offlineReport != null)
+            if (reportOpen)
             {
                 offlineReport.Show(
                     $"While you were away\nSalary {salary}\nFans {fansPaid}\nBalance {balance}");
             }
+        }
+
+        public void ReturnToTitle()
+        {
+            if (!ready)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(titleSceneName))
+            {
+                Debug.LogError("Company day needs the title scene.", this);
+                return;
+            }
+
+            SaveCompany();
+            SceneManager.LoadScene(titleSceneName);
         }
 
         void AdvanceRecruit(float elapsed)
@@ -297,10 +330,13 @@ namespace BattleRoyale.Company
 
         public void DismissOfflineReport()
         {
+            reportOpen = false;
             if (offlineReport != null)
             {
                 offlineReport.Hide();
             }
+
+            PresentTutorial();
         }
 
         public void RequestHire(int slot)
@@ -312,7 +348,8 @@ namespace BattleRoyale.Company
             }
 
             var card = recruit.Slots[slot];
-            if (card == null || !card.Filled || TournamentEconomyRules.Spendable(balance, unclaimedPrize) < card.Contract ||
+            if (card == null || !card.Filled ||
+                TournamentEconomyRules.Spendable(balance, unclaimedPrize) < card.Contract ||
                 squad.Length >= RecruitBoardRules.RosterCap)
             {
                 return;
@@ -440,6 +477,7 @@ namespace BattleRoyale.Company
                 Avatar = hired.Avatar,
             };
             squad = grown;
+            tutorialHire = squad.Length - 1;
             Describe(hired);
             RebuildAvailability();
             RefreshFielding();
@@ -527,8 +565,36 @@ namespace BattleRoyale.Company
             RefreshFielding();
         }
 
+        bool TourActive => TutorialRules.Runs(tutorialEnabled, tutorial);
+
+        void ApplyTutorialEnabled()
+        {
+            if (phase == TournamentEntryPhase.Open)
+            {
+                committedOffer = null;
+                if (!tutorialEnabled)
+                {
+                    RestorePlayableMaps();
+                }
+
+                if (lineup == null || lineup.Length != SideSize())
+                {
+                    lineup = EmptyLineup(SideSize());
+                    RefreshFielding();
+                }
+            }
+
+            RefreshMatchOffer();
+            PresentTutorial();
+        }
+
         void AdvanceTutorial(TutorialAction action)
         {
+            if (!tutorialEnabled)
+            {
+                return;
+            }
+
             tutorial = TutorialRules.Advance(tutorial, action);
             if (phase == TournamentEntryPhase.Open || phase == TournamentEntryPhase.Resolved)
             {
@@ -539,10 +605,7 @@ namespace BattleRoyale.Company
                 PatchDisk(disk => disk.TutorialStep = (int)tutorial);
             }
 
-            if (tutorialHints != null)
-            {
-                tutorialHints.Show(tutorial);
-            }
+            PresentTutorial();
         }
 
         void OnApplicationQuit()
@@ -678,7 +741,11 @@ namespace BattleRoyale.Company
             }
 
             var fee = RecruitBoardRules.QuoteFee(tuning, recruit.FreeUsed, recruit.PaidRetries);
-            recruitView.Refresh(recruit, TournamentEconomyRules.Spendable(balance, unclaimedPrize), squad == null ? 0 : squad.Length, fee);
+            recruitView.Refresh(
+                recruit,
+                TournamentEconomyRules.Spendable(balance, unclaimedPrize),
+                squad == null ? 0 : squad.Length,
+                fee);
         }
 
         void RefreshSessionPresentation()
@@ -700,11 +767,7 @@ namespace BattleRoyale.Company
                     phase == TournamentEntryPhase.Running);
             }
 
-            if (tutorialHints != null)
-            {
-                tutorialHints.Show(tutorial);
-            }
-
+            PresentTutorial();
             PresentDashboard();
             RefreshRoster();
             RefreshRecruit();
@@ -1101,6 +1164,41 @@ namespace BattleRoyale.Company
                 return;
             }
 
+            if (TourActive)
+            {
+                if (index != 0 || phase != TournamentEntryPhase.Open)
+                {
+                    viewedCard = index;
+                    PublishViewedCard();
+                    return;
+                }
+
+                var tutorialOffer = TutorialOffer();
+                if (tutorialOffer == null || tutorialOffer.Configuration == null || !PrepareTutorialMap(tutorialOffer))
+                {
+                    Debug.LogError("This tournament has no map setup.", this);
+                    PublishViewedCard();
+                    return;
+                }
+
+                committedOffer = tutorialOffer;
+                selectedTournament = 0;
+                viewedCard = 0;
+                lineup = EmptyLineup(tutorialOffer.TeamSize);
+                if (tutorialHire >= 0 &&
+                    tutorialHire < squad.Length &&
+                    lineup.Length > 0 &&
+                    !squad[tutorialHire].Busy)
+                {
+                    lineup[0] = tutorialHire;
+                }
+
+                RefreshFielding();
+                RefreshLabels();
+                Show(matchSetupPage);
+                return;
+            }
+
             var offer = OfferAt(index);
             if (offer == null)
             {
@@ -1121,6 +1219,7 @@ namespace BattleRoyale.Company
                 return;
             }
 
+            committedOffer = offer;
             selectedTournament = index;
             match.UseConfiguration(offer.Configuration);
             lineup = EmptyLineup(offer.TeamSize);
@@ -1131,7 +1230,115 @@ namespace BattleRoyale.Company
 
         TournamentOffer SelectedOffer()
         {
+            if (committedOffer != null && phase != TournamentEntryPhase.Open)
+            {
+                return committedOffer;
+            }
+
+            if (TourActive)
+            {
+                return TutorialOffer();
+            }
+
             return OfferAt(selectedTournament);
+        }
+
+        void PresentTutorial()
+        {
+            if (tutorialPanel == null)
+            {
+                return;
+            }
+
+            var place = TutorialPlace.Other;
+            if (visiblePage == dashboard)
+            {
+                place = TutorialPlace.Company;
+            }
+            else if (visiblePage == modeSelect)
+            {
+                place = TutorialPlace.Offers;
+            }
+            else if (visiblePage == matchSetupPage)
+            {
+                place = TutorialPlace.Setup;
+            }
+
+            if (!ready || !TourActive || reportOpen)
+            {
+                tutorialPresented = false;
+                tutorialPanel.Hide();
+                return;
+            }
+
+            if (tutorialPresented &&
+                presentedStep == tutorial &&
+                presentedPlace == place &&
+                presentedReport == reportOpen)
+            {
+                return;
+            }
+
+            if (!TutorialFocus.TryCopy(tutorial, out var title, out var body))
+            {
+                tutorialPanel.Hide();
+                return;
+            }
+
+            var focus = FocusFor(TutorialFocus.TargetFor(tutorial, place));
+            if (focus == null)
+            {
+                Debug.LogError("Tutorial step is missing its control.", this);
+            }
+
+            tutorialPresented = true;
+            presentedStep = tutorial;
+            presentedPlace = place;
+            presentedReport = reportOpen;
+            tutorialPanel.Show(title, body, focus);
+        }
+
+        RectTransform FocusFor(TutorialTarget target)
+        {
+            switch (target)
+            {
+                case TutorialTarget.RecruitTab:
+                    return recruitTab;
+                case TutorialTarget.Hire:
+                    return recruitView == null ? null : recruitView.HireButtonAt(AffordableHireSlot());
+                case TutorialTarget.NewSimulation:
+                    return newSimulation;
+                case TutorialTarget.Offer:
+                    return matchOffers == null || matchOffers.Length == 0 || matchOffers[0] == null
+                        ? null
+                        : matchOffers[0].ChooseTarget;
+                case TutorialTarget.Deploy:
+                    return deployButton == null ? null : deployButton.transform as RectTransform;
+                default:
+                    return null;
+            }
+        }
+
+        int AffordableHireSlot()
+        {
+            if (recruit == null || recruit.Slots == null || squad == null)
+            {
+                return -1;
+            }
+
+            for (var i = 0; i < recruit.Slots.Length; i++)
+            {
+                var card = recruit.Slots[i];
+                if (card != null &&
+                    card.Filled &&
+                    TournamentEconomyRules.Spendable(balance, unclaimedPrize) >= card.Contract &&
+                    squad.Length < RecruitBoardRules.RosterCap)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
         TournamentOffer OfferAt(int index)

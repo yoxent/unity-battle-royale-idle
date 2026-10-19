@@ -7,9 +7,9 @@ using BattleRoyale.GameModes.BattleRoyale;
 using BattleRoyale.GameModes.Deathmatch;
 using BattleRoyale.Maps;
 using BattleRoyale.UI;
+using LitMotion;
 using TMPro;
 using UnityEngine;
-using LitMotion;
 using UnityEngine.UI;
 
 namespace BattleRoyale.Company
@@ -38,6 +38,9 @@ namespace BattleRoyale.Company
         [SerializeField] private DeploymentPanel deployment;
         [SerializeField] private TournamentCatalog tournaments;
         [SerializeField] private PlayableMapCatalog playableMaps;
+        [SerializeField] private PlayableMapCatalog tutorialMaps;
+        [SerializeField] private BattleRoyaleGameMode battleRoyale;
+        [SerializeField] private ActiveMapManager mapManager;
         [SerializeField] private MatchOfferView[] matchOffers;
         [SerializeField] private TMP_Text rankLabel;
 
@@ -61,6 +64,9 @@ namespace BattleRoyale.Company
         int rankPoints;
         int selectedTournament;
         int viewedCard;
+        TournamentOffer committedOffer;
+        SimulationMatch runningMatch;
+        bool tutorialMapActive;
         int startedCard = -1;
         AgentAvailability[] availability;
         bool resultApplied;
@@ -188,6 +194,17 @@ namespace BattleRoyale.Company
                 return;
             }
 
+            if (!tutorialGateReady || tutorialEnabledApplied != tutorialEnabled)
+            {
+                var changed = tutorialGateReady && tutorialEnabledApplied != tutorialEnabled;
+                tutorialGateReady = true;
+                tutorialEnabledApplied = tutorialEnabled;
+                if (changed)
+                {
+                    ApplyTutorialEnabled();
+                }
+            }
+
             PollWorldClock();
             var elapsed = Time.unscaledDeltaTime;
             AdvanceRecruit(elapsed);
@@ -199,10 +216,17 @@ namespace BattleRoyale.Company
 
             if (phase == TournamentEntryPhase.Running &&
                 !resultApplied &&
-                match.IsMatchStarted &&
-                match.WinningTeam >= 0)
+                runningMatch != null &&
+                runningMatch.IsMatchStarted)
             {
-                ApplyPlacement();
+                if (runningMatch.WinningTeam >= 0)
+                {
+                    ApplyPlacement(false);
+                }
+                else if (runningMatch == battleRoyale && battleRoyale.AliveCount == 0)
+                {
+                    ApplyPlacement(true);
+                }
             }
 
             RefreshLabels();
@@ -338,6 +362,8 @@ namespace BattleRoyale.Company
             ApplyEntry(aborted);
             NoteFreed();
             startedCard = -1;
+            committedOffer = null;
+            RestorePlayableMaps();
             SaveCompany();
             Show(matchSetupPage);
         }
@@ -349,7 +375,18 @@ namespace BattleRoyale.Company
                 return;
             }
 
-            match.ClearCompanyMatch();
+            if (runningMatch == battleRoyale && battleRoyale != null)
+            {
+                battleRoyale.ClearCompanyMatch();
+            }
+            else if (match != null)
+            {
+                match.ClearCompanyMatch();
+            }
+
+            runningMatch = null;
+            committedOffer = null;
+            RestorePlayableMaps();
             phase = TournamentEntryPhase.Open;
             startedCard = -1;
             result = TournamentResult.None;
@@ -481,7 +518,27 @@ namespace BattleRoyale.Company
                 return;
             }
 
-            if (!match.TryArmCompanyMatch(
+            var tutorialMatch = committedOffer != null &&
+                committedOffer.Configuration != null &&
+                committedOffer.Configuration.mode == MapGameMode.BattleRoyale;
+            if (tutorialMatch)
+            {
+                if (battleRoyale == null ||
+                    !battleRoyale.TryArmCompanyMatch(
+                        player,
+                        opponent,
+                        playerProfiles,
+                        opponentProfiles,
+                        committedOffer.TeamCount) ||
+                    !battleRoyale.BeginMatch())
+                {
+                    Debug.LogError("Battle Royale did not start from the snapshots.", this);
+                    return;
+                }
+
+                runningMatch = battleRoyale;
+            }
+            else if (!match.TryArmCompanyMatch(
                     player,
                     opponent,
                     playerProfiles,
@@ -491,15 +548,21 @@ namespace BattleRoyale.Company
                 Debug.LogError("Deathmatch did not start from the snapshots.", this);
                 return;
             }
+            else
+            {
+                runningMatch = match;
+            }
 
             startedCard = selectedTournament;
             viewedCard = selectedTournament;
             HidePages();
         }
 
-        void ApplyPlacement()
+        void ApplyPlacement(bool draw)
         {
-            var placement = match.WinningTeam == DeathmatchGameMode.CompanyPlayerTeam
+            var placement = !draw &&
+                runningMatch != null &&
+                runningMatch.WinningTeam == DeathmatchGameMode.CompanyPlayerTeam
                 ? TournamentResult.First
                 : TournamentResult.Last;
             var offer = SelectedOffer();
@@ -517,9 +580,12 @@ namespace BattleRoyale.Company
 
             displayedRankPoints = rankPoints;
             holdMatchPresentation = true;
-            rankPoints = CompanyRankRules.Apply(
-                rankPoints,
-                placement == TournamentResult.First);
+            if (!draw)
+            {
+                rankPoints = CompanyRankRules.Apply(
+                    rankPoints,
+                    placement == TournamentResult.First);
+            }
             ApplyEntry(resolved);
             NoteFreed();
             SaveCompany();
@@ -530,8 +596,9 @@ namespace BattleRoyale.Company
             if (resultLabel != null)
             {
                 var net = prize - spent;
+                var outcome = draw ? "Draw" : placement.ToString();
                 resultLabel.text =
-                    $"{placement}\nPrize {prize}\nFee and upkeep {spent}\nNet {net}\nBalance {balance}\n{CompanyRankRules.Label(rankPoints)}";
+                    $"{outcome}\nPrize {prize}\nFee and upkeep {spent}\nNet {net}\nBalance {balance}\n{CompanyRankRules.Label(rankPoints)}";
             }
 
             RefreshLabels();
@@ -541,8 +608,9 @@ namespace BattleRoyale.Company
                 return;
             }
 
+            var placementLine = draw ? "Draw" : placement.ToString();
             matchResult.Begin(
-                placement.ToString(),
+                placementLine,
                 "Prize " + prize,
                 CompanyRankRules.Label(rankPoints),
                 FinishMatchReveal);
@@ -741,6 +809,12 @@ namespace BattleRoyale.Company
                 return;
             }
 
+            if (TourActive)
+            {
+                ShowTutorialOffer();
+                return;
+            }
+
             if (tournaments == null || tournaments.Offers == null)
             {
                 Debug.LogError("Mode select needs its tournament catalog.", this);
@@ -801,6 +875,131 @@ namespace BattleRoyale.Company
             return playableMaps.maps[index];
         }
 
+        void ShowTutorialOffer()
+        {
+            for (var i = 0; i < matchOffers.Length; i++)
+            {
+                if (matchOffers[i] == null)
+                {
+                    continue;
+                }
+
+                if (i > 0)
+                {
+                    matchOffers[i].Hide();
+                }
+            }
+
+            if (matchOffers.Length == 0 || matchOffers[0] == null)
+            {
+                Debug.LogError("Mode select is missing a tournament card.", this);
+                return;
+            }
+
+            var offer = TutorialOffer();
+            var map = TutorialMap();
+            if (offer == null || map == null)
+            {
+                Debug.LogError("The tutorial map has no solo Battle Royale.", this);
+                matchOffers[0].Hide();
+                return;
+            }
+
+            matchOffers[0].Show(
+                0,
+                string.IsNullOrWhiteSpace(offer.Name) ? "Match" : offer.Name,
+                offer.Difficulty.ToString(),
+                offer.TeamCount,
+                offer.TeamSize,
+                offer.SuggestedRating,
+                offer.EntryFee,
+                offer.PrizePool,
+                true,
+                MapTitle.From(map),
+                map.visualSprite);
+        }
+
+        MapDefinition TutorialMap()
+        {
+            if (tutorialMaps == null || tutorialMaps.maps == null || tutorialMaps.maps.Count == 0)
+            {
+                return null;
+            }
+
+            return tutorialMaps.maps[0];
+        }
+
+        TournamentOffer TutorialOffer()
+        {
+            var map = TutorialMap();
+            if (map == null || !map.TryGetSingleConfiguration(MapGameMode.BattleRoyale, out var configuration))
+            {
+                return null;
+            }
+
+            var battle = configuration as BattleRoyaleModeConfiguration;
+            var spawns = battle == null || battle.spawnPoints == null ? 0 : battle.spawnPoints.Count;
+            var opponents = setup == null || setup.opponentAgents == null
+                ? 0
+                : setup.opponentAgents.Length;
+            if (!TutorialMatchRules.TryOffer(configuration, spawns, opponents, out var teams, out var size))
+            {
+                return null;
+            }
+
+            var fees = tuning ?? EconomyTuning.Illustration();
+            return new TournamentOffer
+            {
+                Name = MapGameModes.Label(MapGameMode.BattleRoyale),
+                Difficulty = TournamentDifficulty.Easy,
+                TeamCount = teams,
+                TeamSize = size,
+                EntryFee = fees.CheapEntranceFee,
+                PrizePool = fees.CheapFirstPrize,
+                Configuration = configuration,
+            };
+        }
+
+        bool PrepareTutorialMap(TournamentOffer offer)
+        {
+            if (mapManager == null || battleRoyale == null || tutorialMaps == null || offer == null)
+            {
+                Debug.LogError("The tutorial match needs its map catalog and Battle Royale.", this);
+                return false;
+            }
+
+            var map = TutorialMap();
+            mapManager.SetPlayableMaps(tutorialMaps);
+            var activated = mapManager.ActivatePlayableMap(map);
+            if (activated == null || activated.definition != map)
+            {
+                Debug.LogError("The tutorial map did not activate.", this);
+                return false;
+            }
+
+            battleRoyale.UseConfiguration(offer.Configuration);
+            tutorialMapActive = true;
+            return true;
+        }
+
+        void RestorePlayableMaps()
+        {
+            if (!tutorialMapActive)
+            {
+                return;
+            }
+
+            tutorialMapActive = false;
+            if (mapManager == null || playableMaps == null)
+            {
+                Debug.LogError("Company day needs the playable map catalog.", this);
+                return;
+            }
+
+            mapManager.SetPlayableMaps(playableMaps);
+            mapManager.ActivateForMode(MapGameMode.Deathmatch);
+        }
+
         bool CanAffordEntry()
         {
             return CanAffordFielding();
@@ -814,6 +1013,7 @@ namespace BattleRoyale.Company
                 return;
             }
 
+            visiblePage = page;
             pageTransition.Show(page);
             var matches = page == modeSelect || page == matchSetupPage || page == resultPage;
             if (matches)
@@ -842,6 +1042,7 @@ namespace BattleRoyale.Company
                 HideMatchPreview();
             }
 
+            PresentTutorial();
             if (tabBar == null)
             {
                 return;

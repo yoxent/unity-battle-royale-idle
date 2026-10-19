@@ -9,6 +9,7 @@ namespace BattleRoyale.Company
     {
         [SerializeField] CompanySessionController company;
         [SerializeField] Button emblemButton;
+        [SerializeField] Button returnToTitleButton;
         [SerializeField] TMP_Text nameLabel;
         [SerializeField] TMP_Text tierLabel;
         [SerializeField] TMP_Text pointsLabel;
@@ -40,13 +41,14 @@ namespace BattleRoyale.Company
                 return;
             }
 
-            if (emblemButton == null)
+            if (emblemButton == null || returnToTitleButton == null)
             {
-                Debug.LogError("Company dashboard needs its emblem button.", this);
+                Debug.LogError("Company dashboard needs its emblem and return buttons.", this);
                 return;
             }
 
             emblemButton.onClick.AddListener(company.ShowEditor);
+            returnToTitleButton.onClick.AddListener(company.ReturnToTitle);
 
             preview = new CompanyIdentityPreviewView();
             preview.Initialize(emblem);
@@ -61,6 +63,7 @@ namespace BattleRoyale.Company
             }
 
             emblemButton.onClick.RemoveListener(company.ShowEditor);
+            returnToTitleButton.onClick.RemoveListener(company.ReturnToTitle);
 
             subscribed = false;
         }

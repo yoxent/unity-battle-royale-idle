@@ -33,6 +33,12 @@ namespace BattleRoyale.GameModes.BattleRoyale
         [SerializeField] private bool drawSafeZone = true;
 
         private readonly BattleRoyaleRosterOrder rosterOrder = new();
+        private readonly System.Collections.Generic.List<BattleRoyaleAgentProfile> runtimeProfiles = new();
+        private FieldSnapshot companyPlayer;
+        private FieldSnapshot companyOpponent;
+        private BattleRoyaleAgentProfile[] companyPlayerProfiles;
+        private BattleRoyaleAgentProfile[] companyOpponentProfiles;
+        private int armedTeamCount;
         private int[] livingCounts = System.Array.Empty<int>();
         private float elapsedMatchTime;
         private Vector3 safeZoneCenter;
@@ -107,6 +113,16 @@ namespace BattleRoyale.GameModes.BattleRoyale
             EnsureSimulation();
 
             rosterOrder.Clear();
+            if (companyPlayer != null)
+            {
+                if (!SpawnCompanySides())
+                {
+                    StopRunningMatch();
+                    return false;
+                }
+            }
+            else
+            {
             var teamSize = Mathf.Max(1, ModeConfiguration.teamSize);
             var spawnCount = botCount + (SpawnTestPlayer ? 1 : 0);
             for (var index = 0; index < spawnCount; index++)
@@ -124,6 +140,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
                     !isPlayer,
                     spawned => AssignSpawnedTeam(spawned, teamIndex, teamSize));
                 PresentRosterAgent(agent);
+            }
             }
 
             if (Roster.Count == 0)
@@ -164,10 +181,143 @@ namespace BattleRoyale.GameModes.BattleRoyale
             CheckForWinner();
         }
 
+        public bool TryArmCompanyMatch(
+            FieldSnapshot player,
+            FieldSnapshot opponent,
+            BattleRoyaleAgentProfile[] playerProfiles,
+            BattleRoyaleAgentProfile[] opponentProfiles,
+            int teamCount)
+        {
+            if (player == null ||
+                opponent == null ||
+                player.Agents == null ||
+                opponent.Agents == null ||
+                playerProfiles == null ||
+                opponentProfiles == null ||
+                ModeConfiguration == null ||
+                !TutorialMatchRules.TryOffer(
+                    ModeConfiguration,
+                    Configuration == null || Configuration.spawnPoints == null
+                        ? 0
+                        : Configuration.spawnPoints.Count,
+                    opponent.Agents.Length,
+                    out var sides,
+                    out var teamSize) ||
+                teamCount != sides ||
+                player.Agents.Length != teamSize ||
+                playerProfiles.Length != player.Agents.Length ||
+                opponentProfiles.Length != opponent.Agents.Length)
+            {
+                return false;
+            }
+
+            companyPlayer = player;
+            companyOpponent = opponent;
+            companyPlayerProfiles = playerProfiles;
+            companyOpponentProfiles = opponentProfiles;
+            armedTeamCount = sides;
+            return true;
+        }
+
         protected override void StopRunningMatch()
         {
             rosterOrder.Clear();
+            ClearCompanyMatch();
             base.StopRunningMatch();
+        }
+
+        public void ClearCompanyMatch()
+        {
+            for (var i = Roster.Count - 1; i >= 0; i--)
+            {
+                if (Roster[i] != null)
+                {
+                    Destroy(Roster[i].gameObject);
+                }
+            }
+
+            Roster.Clear();
+            MatchStarted = false;
+            WinningTeam = -1;
+            winnerAnnounced = false;
+            Winner = null;
+            rosterOrder.Clear();
+            companyPlayer = null;
+            companyOpponent = null;
+            companyPlayerProfiles = null;
+            companyOpponentProfiles = null;
+            armedTeamCount = 0;
+            for (var i = 0; i < runtimeProfiles.Count; i++)
+            {
+                if (runtimeProfiles[i] != null)
+                {
+                    Destroy(runtimeProfiles[i]);
+                }
+            }
+
+            runtimeProfiles.Clear();
+        }
+
+        bool SpawnCompanySides()
+        {
+            var teamSize = Mathf.Max(1, ModeConfiguration.teamSize);
+            if (armedTeamCount < 2 || companyPlayer.Agents.Length != teamSize)
+            {
+                Debug.LogError("The company match does not match this Battle Royale.", this);
+                return false;
+            }
+
+            var opponentCursor = 0;
+            for (var teamIndex = 0; teamIndex < armedTeamCount; teamIndex++)
+            {
+                var playerSide = teamIndex == 0;
+                var snapshot = playerSide ? companyPlayer : companyOpponent;
+                var profiles = playerSide ? companyPlayerProfiles : companyOpponentProfiles;
+                for (var slot = 0; slot < teamSize; slot++)
+                {
+                    var agentIndex = playerSide ? slot : opponentCursor;
+                    if (!playerSide)
+                    {
+                        opponentCursor++;
+                    }
+
+                    if (agentIndex < 0 || agentIndex >= profiles.Length)
+                    {
+                        return false;
+                    }
+
+                    var runtime = FieldedAgentProfile.Create(
+                        profiles[agentIndex],
+                        snapshot.Agents[agentIndex].Rolls);
+                    if (runtime == null)
+                    {
+                        Debug.LogError(
+                            "A company agent is missing an archetype or a six-stat roll.",
+                            this);
+                        return false;
+                    }
+
+                    runtimeProfiles.Add(runtime);
+                    var color = SideColorRules.ForSide(snapshot.Emblem, teamIndex).AsColor();
+                    var sideStance = snapshot.Stance;
+                    var strategy = runtime.defaultStrategy;
+                    var body = SpawnAgent(
+                        $"BR_T{teamIndex + 1}_{slot + 1:00}_{strategy}",
+                        GetSpawnPosition(teamIndex),
+                        strategy,
+                        true,
+                        agent =>
+                        {
+                            agent.AssignTeam(teamIndex);
+                            agent.SetTeamColor(color);
+                            agent.AssignSidePlaystyle(sideStance);
+                        },
+                        runtime);
+                    PresentRosterAgent(body);
+                }
+            }
+
+            return Roster.Count == armedTeamCount * teamSize;
         }
 
         private void PresentRosterAgent(BattleRoyaleAgent agent)
