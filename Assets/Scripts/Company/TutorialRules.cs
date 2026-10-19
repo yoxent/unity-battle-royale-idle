@@ -17,6 +17,11 @@ namespace BattleRoyale.Company
 
     public static class TutorialRules
     {
+        public static bool Runs(bool enabled, TutorialStep step)
+        {
+            return enabled && step != TutorialStep.Done;
+        }
+
         public static TutorialStep Advance(TutorialStep step, TutorialAction action)
         {
             if (action == TutorialAction.Deploy)

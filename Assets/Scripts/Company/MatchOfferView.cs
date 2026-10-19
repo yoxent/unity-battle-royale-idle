@@ -23,6 +23,9 @@ namespace BattleRoyale.Company
 
         int offerIndex = -1;
 
+        public RectTransform ChooseTarget =>
+            chooseButton == null ? null : chooseButton.transform as RectTransform;
+
         void OnEnable()
         {
             if (!HasReferences())

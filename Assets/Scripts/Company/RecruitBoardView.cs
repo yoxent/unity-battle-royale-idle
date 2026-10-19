@@ -74,6 +74,17 @@ namespace BattleRoyale.Company
             subscribed = false;
         }
 
+        public RectTransform HireButtonAt(int slot)
+        {
+            if (cards == null || slot < 0 || slot >= cards.Length || cards[slot] == null ||
+                cards[slot].HireButton == null)
+            {
+                return null;
+            }
+
+            return cards[slot].HireButton.transform as RectTransform;
+        }
+
         public void Refresh(RecruitBoard board, int balance, int rosterCount, int fee)
         {
             if (balanceLabel != null)
