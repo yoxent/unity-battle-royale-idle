@@ -519,6 +519,7 @@ namespace BattleRoyale.Maps.EditorTools
                 mapDefinition.narrativeMarkdown = narrativeMarkdown;
             }
             mapDefinition.visualMap = visualMap;
+            mapDefinition.visualSprite = MapModeAuthoringPanel.SpriteForVisualMap(visualMap);
             DungeonMapGeometry.Write(mapDefinition, CurrentGeometry());
             mapDefinition.flipHeightY = false;
             mapDefinition.sourceMin = analyzedLayout.sourceMin;

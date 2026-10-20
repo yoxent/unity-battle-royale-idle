@@ -2318,6 +2318,70 @@ namespace BattleRoyale.Maps.EditorTools
             return AssetDatabase.LoadAssetAtPath<TextAsset>(
                 Path.ChangeExtension(jsonPath, ".md"));
         }
+
+        public static Sprite SpriteForVisualMap(Texture2D visualMap)
+        {
+            if (visualMap == null)
+            {
+                return null;
+            }
+
+            var path = AssetDatabase.GetAssetPath(visualMap);
+            if (string.IsNullOrEmpty(path))
+            {
+                return null;
+            }
+
+            var assets = AssetDatabase.LoadAllAssetsAtPath(path);
+            Sprite only = null;
+            var count = 0;
+            Sprite named = null;
+            Sprite suffixed = null;
+            Sprite largest = null;
+            var largestArea = 0f;
+            for (var i = 0; i < assets.Length; i++)
+            {
+                if (assets[i] is not Sprite sprite)
+                {
+                    continue;
+                }
+
+                count++;
+                only = sprite;
+                if (sprite.name == visualMap.name)
+                {
+                    named = sprite;
+                }
+                else if (sprite.name == visualMap.name + "_0")
+                {
+                    suffixed = sprite;
+                }
+
+                var area = sprite.rect.width * sprite.rect.height;
+                if (largest == null || area > largestArea)
+                {
+                    largest = sprite;
+                    largestArea = area;
+                }
+            }
+
+            if (count == 0)
+            {
+                return null;
+            }
+
+            if (count == 1)
+            {
+                return only;
+            }
+
+            if (named != null)
+            {
+                return named;
+            }
+
+            return suffixed != null ? suffixed : largest;
+        }
     }
 }
 #endif

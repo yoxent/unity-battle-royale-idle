@@ -501,6 +501,8 @@ namespace BattleRoyale.Maps.EditorTools
             mapDefinition.visualMap = visualMap != null
                 ? visualMap
                 : FindSiblingVisualMap(layoutJson);
+            mapDefinition.visualSprite = MapModeAuthoringPanel.SpriteForVisualMap(
+                mapDefinition.visualMap);
             mapDefinition.worldScale = worldScale;
             mapDefinition.baseHeight = baseHeight;
             mapDefinition.wallHeight = wallHeight;

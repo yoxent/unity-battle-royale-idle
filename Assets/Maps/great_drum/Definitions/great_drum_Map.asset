@@ -15,7 +15,7 @@ MonoBehaviour:
   layoutJson: {fileID: 4900000, guid: d5f79507756f3954ea8778cdd7cf0690, type: 3}
   narrativeMarkdown: {fileID: 0}
   visualMap: {fileID: 2800000, guid: 43a17f5111a6a3d42a02a013d5195baa, type: 3}
-  visualSprite: {fileID: 0}
+  visualSprite: {fileID: 7137472484386193171, guid: 43a17f5111a6a3d42a02a013d5195baa, type: 3}
   heightMap: {fileID: 0}
   visualMaterial: {fileID: 2100000, guid: ad78ad57893526f428ef3353b63264a0, type: 2}
   worldScale: 1
