@@ -60,6 +60,7 @@ namespace BattleRoyale.Company
         int[] fieldedIndexes;
         int[] lineup;
         int pendingHireSlot = -1;
+        int pendingReleaseIndex = -1;
 
         void LoadSession()
         {
@@ -395,6 +396,23 @@ namespace BattleRoyale.Company
                 return;
             }
 
+            pendingReleaseIndex = index;
+            var agentName = AgentName(squad[index]);
+            EventBus.Publish(new PopupRequested(
+                PopupId.ReleaseConfirm,
+                PopupContent.Release(agentName)));
+        }
+
+        void ConfirmRelease()
+        {
+            var index = pendingReleaseIndex;
+            pendingReleaseIndex = -1;
+            if (!ready || phase != TournamentEntryPhase.Open || squad == null ||
+                index < 0 || index >= squad.Length || squad[index].Busy)
+            {
+                return;
+            }
+
             var saved = ToSaveAgents();
             if (!RecruitBoardRules.TryRelease(saved, index, false, out _))
             {
@@ -544,7 +562,7 @@ namespace BattleRoyale.Company
             }
 
             AdvanceTutorial(TutorialAction.Deploy);
-            Show(matchSetupPage);
+            Show(modeSelect);
         }
 
         void NoteFreed()
@@ -762,15 +780,19 @@ namespace BattleRoyale.Company
 
             if (leaveMatchButton != null)
             {
-                leaveMatchButton.SetActive(
-                    phase == TournamentEntryPhase.Window ||
-                    phase == TournamentEntryPhase.Running);
+                leaveMatchButton.SetActive(phase == TournamentEntryPhase.Window);
             }
 
             PresentTutorial();
-            PresentDashboard();
-            RefreshRoster();
-            RefreshRecruit();
+            if (visiblePage == recruitPage)
+            {
+                RefreshRecruit();
+            }
+            else if (visiblePage == dashboard)
+            {
+                PresentDashboard();
+                RefreshRoster();
+            }
         }
 
         void ApplyAuthoredIdentity()
@@ -1195,7 +1217,7 @@ namespace BattleRoyale.Company
 
                 RefreshFielding();
                 RefreshLabels();
-                Show(matchSetupPage);
+                PresentSelectedOffer();
                 return;
             }
 
@@ -1212,7 +1234,8 @@ namespace BattleRoyale.Company
                 return;
             }
 
-            if (offer.Configuration == null || match == null)
+            if (offer.Configuration == null || offer.Configuration.map == null ||
+                !MatchOfferRollRules.CanList(offer.Configuration.mode))
             {
                 Debug.LogError("This tournament has no map setup.", this);
                 PublishViewedCard();
@@ -1221,11 +1244,10 @@ namespace BattleRoyale.Company
 
             committedOffer = offer;
             selectedTournament = index;
-            match.UseConfiguration(offer.Configuration);
             lineup = EmptyLineup(offer.TeamSize);
             RefreshFielding();
             RefreshLabels();
-            Show(matchSetupPage);
+            PresentSelectedOffer();
         }
 
         TournamentOffer SelectedOffer()
@@ -1255,13 +1277,11 @@ namespace BattleRoyale.Company
             {
                 place = TutorialPlace.Company;
             }
-            else if (visiblePage == modeSelect)
+            else if (visiblePage == modeSelect || visiblePage == matchSetupPage)
             {
-                place = TutorialPlace.Offers;
-            }
-            else if (visiblePage == matchSetupPage)
-            {
-                place = TutorialPlace.Setup;
+                place = phase == TournamentEntryPhase.Open && committedOffer != null
+                    ? TutorialPlace.Setup
+                    : TutorialPlace.Offers;
             }
 
             if (!ready || !TourActive || reportOpen)
@@ -1343,6 +1363,12 @@ namespace BattleRoyale.Company
 
         TournamentOffer OfferAt(int index)
         {
+            if (!TourActive && listedOffers != null &&
+                index >= 0 && index < listedOffers.Length)
+            {
+                return listedOffers[index];
+            }
+
             if (tournaments == null || tournaments.Offers == null ||
                 index < 0 || index >= tournaments.Offers.Length)
             {
