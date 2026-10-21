@@ -54,6 +54,47 @@ Read the docs repo before assuming a decision is missing. For other references a
 - Keep `ROADMAP.md` and `PROJECT_CONTEXT.md` aligned with actual progress.
 - Do not add a note that only repeats the work report.
 
+### Change classification
+
+- Treat layout, styling, view binding, UI navigation, and presentation-only
+  prefab changes as presentation work. They must not calculate economy,
+  progression, save settlement, or match results.
+- Treat changes under company rules, game modes, save contracts, economy,
+  identity rules, or progression as domain work. Domain work requires the
+  relevant living-doc review and an EditMode test.
+- If a change crosses both categories, plan and verify the presentation and
+  domain portions as separate slices.
+
+### Naming and serialized compatibility
+
+- Choose a descriptive type name before implementation. New runtime types use
+  the owning namespace and an explicit role suffix such as `View`, `Presenter`,
+  `Rules`, `Signal`, or `Validator`.
+- Avoid generic new names such as `Manager`, `Helper`, or `Utils` unless the
+  type genuinely owns that boundary.
+- Do not rename an existing serialized-facing `MonoBehaviour` or
+  `ScriptableObject` for cosmetic reasons. A rename requires an explicit
+  migration and a scene/prefab audit; `FormerlySerializedAs` is for serialized
+  field names and is not a substitute for a script-class migration.
+- Move Unity assets through Unity-aware tooling or preserve their `.meta`
+  files exactly so asset GUIDs remain stable.
+
+### Agent and file ownership
+
+- Parallel agents may perform independent read-only audits.
+- Only one agent owns a given scene, prefab, or file set at a time. Do not
+  concurrently edit the same Unity scene or prefab.
+- A handoff identifies the owned files, observed evidence, assumptions,
+  changes made, and tests or scene checks that were actually run.
+
+### Presentation verification
+
+- After substantive scene or prefab changes, run the manual UI wiring
+  validator when it is available, then inspect the relevant scene and Unity
+  console.
+- A compile check or passing EditMode suite does not prove rendered UI,
+  navigation, or Play Mode behavior. Report those separately.
+
 ## Working agreements
 
 1. **Docs repo** — write notes there, not in this game repo.
