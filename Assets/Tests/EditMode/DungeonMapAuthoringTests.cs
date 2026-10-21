@@ -22,6 +22,7 @@ namespace BattleRoyale.Tests.EditMode
             definition.imageUpperLeftUv = new Vector2(0.2f, 0.8f);
             definition.imageLowerRightUv = new Vector2(0.9f, 0.1f);
             definition.editImageCornersInScene = true;
+            definition.columnOffset = new Vector2(2f, -1f);
             definition.editPointsInSceneView = false;
             definition.supportedGameModes.Add(MapGameMode.BattleRoyale);
 
@@ -36,6 +37,7 @@ namespace BattleRoyale.Tests.EditMode
                 Assert.AreEqual(DungeonMapGeometry.DefaultWallHeight, geometry.WallHeight);
                 Assert.AreEqual(DungeonMapGeometry.DefaultWallThickness, geometry.WallThickness);
                 Assert.AreEqual(DungeonMapGeometry.DefaultColumnSize, geometry.ColumnSize);
+                Assert.AreEqual(DungeonMapGeometry.DefaultColumnOffset, geometry.ColumnOffset);
                 Assert.AreEqual(DungeonMapGeometry.DefaultUnitScale, geometry.UnitScale);
                 AssertAuthoringEquals(DungeonMapAuthoring.Defaults, authoring);
                 Assert.AreEqual(0, definition.supportedGameModes.Count);

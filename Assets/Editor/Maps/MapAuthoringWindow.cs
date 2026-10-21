@@ -99,26 +99,26 @@ namespace BattleRoyale.Maps.EditorTools
             AuthoringSectionHeader.Begin("Village");
             try
             {
-            EditorGUILayout.HelpBox(
-                "Import a handpicked map export and its PNG. Create a map definition, then generate a flat visual floor and building collision.",
-                MessageType.Info);
+                EditorGUILayout.HelpBox(
+                    "Import a handpicked map export and its PNG. Create a map definition, then generate a flat visual floor and building collision.",
+                    MessageType.Info);
 
-            DrawSourceSection();
-            DrawAnalysisSection();
-            DrawAssetSection();
-            DrawGeometrySection();
-            DrawSettingsSection();
-            DrawGenerationSection();
-            DrawImageCornerSection();
-            modeAuthoring ??= new MapModeAuthoringPanel();
-            modeAuthoring.Draw(
-                mapDefinition,
-                MapModeAuthoringPanel.GetDefinitionsFolder(
-                    layoutJson != null
-                        ? layoutJson
-                        : mapDefinition != null
-                            ? mapDefinition.layoutJson
-                            : null));
+                DrawSourceSection();
+                DrawAnalysisSection();
+                DrawAssetSection();
+                DrawGeometrySection();
+                DrawSettingsSection();
+                DrawGenerationSection();
+                DrawImageCornerSection();
+                modeAuthoring ??= new MapModeAuthoringPanel();
+                modeAuthoring.Draw(
+                    mapDefinition,
+                    MapModeAuthoringPanel.GetDefinitionsFolder(
+                        layoutJson != null
+                            ? layoutJson
+                            : mapDefinition != null
+                                ? mapDefinition.layoutJson
+                                : null));
             }
             finally
             {
@@ -254,7 +254,7 @@ namespace BattleRoyale.Maps.EditorTools
                 WallThickness = wallThickness,
                 UnitScale = unitScale
             };
-            MapGeometrySection.Draw(ref values, false, out var changed, out var applyRequested);
+            MapGeometrySection.Draw(ref values, out var changed, out var applyRequested);
             worldScale = values.WorldScale;
             baseHeight = values.BaseHeight;
             wallHeight = values.WallHeight;

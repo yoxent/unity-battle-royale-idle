@@ -14,12 +14,10 @@ namespace BattleRoyale.Maps.EditorTools
             public float WallHeight;
             public float WallThickness;
             public float UnitScale;
-            public float ColumnSize;
         }
 
         public static bool Draw(
             ref Values values,
-            bool includeColumnSize,
             out bool changed,
             out bool applyRequested)
         {
@@ -45,13 +43,6 @@ namespace BattleRoyale.Maps.EditorTools
             values.WallThickness = Mathf.Max(
                 0.001f,
                 EditorGUILayout.FloatField("Wall Thickness", values.WallThickness));
-            if (includeColumnSize)
-            {
-                values.ColumnSize = Mathf.Max(
-                    0.01f,
-                    EditorGUILayout.FloatField("Column Size", values.ColumnSize));
-            }
-
             values.UnitScale = Mathf.Max(
                 0.01f,
                 EditorGUILayout.FloatField(

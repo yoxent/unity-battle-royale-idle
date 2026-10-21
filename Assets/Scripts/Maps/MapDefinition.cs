@@ -70,6 +70,8 @@ namespace BattleRoyale.Maps
         [Min(0.01f)]
         public float columnSize = DungeonMapGeometry.DefaultColumnSize;
 
+        public Vector2 columnOffset = DungeonMapGeometry.DefaultColumnOffset;
+
         public bool overrideNavMeshVoxelSize;
 
         [Min(0.01f)]

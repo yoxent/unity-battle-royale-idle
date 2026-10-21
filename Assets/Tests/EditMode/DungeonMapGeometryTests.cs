@@ -17,6 +17,7 @@ namespace BattleRoyale.Tests.EditMode
                 Assert.AreEqual(20f, definition.wallHeight);
                 Assert.AreEqual(1f, definition.wallThickness);
                 Assert.AreEqual(1.5f, definition.columnSize);
+                Assert.AreEqual(Vector2.zero, definition.columnOffset);
                 Assert.AreEqual(10f, definition.unitScale);
 
                 var geometry = DungeonMapGeometry.Read(definition);
@@ -26,6 +27,7 @@ namespace BattleRoyale.Tests.EditMode
                 Assert.AreEqual(20f, geometry.WallHeight);
                 Assert.AreEqual(1f, geometry.WallThickness);
                 Assert.AreEqual(1.5f, geometry.ColumnSize);
+                Assert.AreEqual(Vector2.zero, geometry.ColumnOffset);
                 Assert.AreEqual(10f, geometry.UnitScale);
             }
             finally
@@ -44,6 +46,7 @@ namespace BattleRoyale.Tests.EditMode
             definition.wallHeight = 8f;
             definition.wallThickness = 2.5f;
             definition.columnSize = 3f;
+            definition.columnOffset = new Vector2(0.25f, -0.5f);
             definition.unitScale = 6f;
 
             try
@@ -55,6 +58,7 @@ namespace BattleRoyale.Tests.EditMode
                 Assert.AreEqual(8f, geometry.WallHeight);
                 Assert.AreEqual(2.5f, geometry.WallThickness);
                 Assert.AreEqual(3f, geometry.ColumnSize);
+                Assert.AreEqual(new Vector2(0.25f, -0.5f), geometry.ColumnOffset);
                 Assert.AreEqual(6f, geometry.UnitScale);
             }
             finally

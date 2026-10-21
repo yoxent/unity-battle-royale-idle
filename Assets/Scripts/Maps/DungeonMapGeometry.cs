@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace BattleRoyale.Maps
 {
     public readonly struct DungeonMapGeometrySettings
@@ -8,7 +10,8 @@ namespace BattleRoyale.Maps
             float wallHeight,
             float wallThickness,
             float columnSize,
-            float unitScale)
+            float unitScale,
+            Vector2 columnOffset)
         {
             CellWorldSize = cellWorldSize;
             BaseHeight = baseHeight;
@@ -16,6 +19,7 @@ namespace BattleRoyale.Maps
             WallThickness = wallThickness;
             ColumnSize = columnSize;
             UnitScale = unitScale;
+            ColumnOffset = columnOffset;
         }
 
         public float CellWorldSize { get; }
@@ -24,6 +28,7 @@ namespace BattleRoyale.Maps
         public float WallThickness { get; }
         public float ColumnSize { get; }
         public float UnitScale { get; }
+        public Vector2 ColumnOffset { get; }
     }
 
     public static class DungeonMapGeometry
@@ -34,6 +39,7 @@ namespace BattleRoyale.Maps
         public const float DefaultWallThickness = 1f;
         public const float DefaultColumnSize = 1.5f;
         public const float DefaultUnitScale = 10f;
+        public static readonly Vector2 DefaultColumnOffset = Vector2.zero;
 
         public static DungeonMapGeometrySettings Defaults { get; } = new(
             DefaultCellWorldSize,
@@ -41,7 +47,8 @@ namespace BattleRoyale.Maps
             DefaultWallHeight,
             DefaultWallThickness,
             DefaultColumnSize,
-            DefaultUnitScale);
+            DefaultUnitScale,
+            DefaultColumnOffset);
 
         public static DungeonMapGeometrySettings Read(MapDefinition definition)
         {
@@ -56,7 +63,8 @@ namespace BattleRoyale.Maps
                 definition.wallHeight,
                 definition.wallThickness,
                 definition.columnSize,
-                definition.unitScale);
+                definition.unitScale,
+                definition.columnOffset);
         }
 
         public static void Write(MapDefinition definition, DungeonMapGeometrySettings geometry)
@@ -67,6 +75,7 @@ namespace BattleRoyale.Maps
             definition.wallThickness = geometry.WallThickness;
             definition.columnSize = geometry.ColumnSize;
             definition.unitScale = geometry.UnitScale;
+            definition.columnOffset = geometry.ColumnOffset;
         }
     }
 }
