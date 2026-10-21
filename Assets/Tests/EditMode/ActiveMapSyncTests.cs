@@ -4,6 +4,7 @@ using BattleRoyale.Events;
 using BattleRoyale.GameModes.BattleRoyale;
 using BattleRoyale.Maps;
 using NUnit.Framework;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -167,6 +168,65 @@ namespace BattleRoyale.Tests.EditMode
         }
 
         [Test]
+        public void EnsureLoadedKeepsTheSceneMapAndDoesNotSpawnASecondCopy()
+        {
+            var definition = CreateDefinition();
+            var sceneMap = CreateMap("Scene Map", definition);
+            definition.bakedPrefab = sceneMap.gameObject;
+            var manager = CreateManager(definition);
+            manager.SetActiveMap(sceneMap);
+
+            manager.EnsureLoaded();
+            manager.EnsureLoaded();
+
+            Assert.AreSame(sceneMap, manager.ActiveMap);
+            Assert.AreEqual(1, CountInstances(definition));
+        }
+
+        [Test]
+        public void ActivateBakedMapReusesAPreloadedCatalogMap()
+        {
+            var battle = CreateReadyMap(MapGameMode.BattleRoyale);
+            var team = CreateReadyMap(MapGameMode.Deathmatch);
+            var manager = CreateManager(battle.definition, team.definition);
+            manager.SetActiveMap(battle);
+            manager.EnsureLoaded();
+            var loadedCopies = CountInstances(team.definition);
+
+            var shown = manager.ActivateBakedMap(team.definition.bakedPrefab);
+
+            Assert.AreSame(team.definition, shown.definition);
+            Assert.AreNotSame(team, shown);
+            Assert.AreEqual(loadedCopies, CountInstances(team.definition));
+            Assert.IsFalse(battle == null);
+            Assert.IsFalse(battle.gameObject.activeSelf);
+            Assert.AreSame(shown, manager.ActivateBakedMap(team.definition.bakedPrefab));
+        }
+
+        [Test]
+        public void UseAuthoredMapsDropsTheTemporaryCatalog()
+        {
+            var authored = ScriptableObject.CreateInstance<PlayableMapCatalog>();
+            authored.hideFlags = HideFlags.HideAndDontSave;
+            created.Add(authored);
+            authored.maps.Add(CreateDefinition());
+            var temporary = ScriptableObject.CreateInstance<PlayableMapCatalog>();
+            temporary.hideFlags = HideFlags.HideAndDontSave;
+            created.Add(temporary);
+            temporary.maps.Add(CreateDefinition());
+            var manager = Create<ActiveMapManager>("Active Map");
+            var serialized = new SerializedObject(manager);
+            serialized.FindProperty("playableMaps").objectReferenceValue = authored;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+
+            manager.SetPlayableMaps(temporary);
+            Assert.AreSame(temporary, manager.PlayableMaps);
+
+            manager.UseAuthoredMaps();
+            Assert.AreSame(authored, manager.PlayableMaps);
+        }
+
+        [Test]
         public void ActivatePlayableMapIgnoresAMapThatIsNotReady()
         {
             var battle = CreateReadyMap(MapGameMode.BattleRoyale);
@@ -211,6 +271,23 @@ namespace BattleRoyale.Tests.EditMode
             definition.worldScale = 1f;
             created.Add(definition);
             return definition;
+        }
+
+        private static int CountInstances(MapDefinition definition)
+        {
+            var maps = Object.FindObjectsByType<MapInstance>(
+                FindObjectsInactive.Include,
+                FindObjectsSortMode.None);
+            var count = 0;
+            for (var i = 0; i < maps.Length; i++)
+            {
+                if (maps[i] != null && maps[i].definition == definition)
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
 
         private MapInstance CreateMap(string name, MapDefinition definition)

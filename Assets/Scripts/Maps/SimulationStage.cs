@@ -12,22 +12,19 @@ namespace BattleRoyale.Maps
         public SimulationMatch match;
     }
 
-    // Places one baked map per slot side by side and keeps the slots apart with barriers.
+    // Places one baked map per slot on +X. The dashboard preview sits on -Z, clear of that row. Boundary walls stop shots from leaving a map.
     public sealed class SimulationStage : MonoBehaviour
     {
         [SerializeField] private SimulationSlot[] slots = new SimulationSlot[3];
-        [SerializeField] private BoxCollider[] barriers = new BoxCollider[2];
-        [SerializeField] private PlayableMapCatalog playableMaps;
-        [Tooltip("Empty space between the widest maps. The match preview camera is wider than those maps, so a short gap lets the next slot show in the frame.")]
+        [Tooltip("Empty space between the widest maps, and between that row and the dashboard preview. The match preview camera is wider than those maps, so a short gap lets the next slot show in the frame. Slot 0 starts one stride from the origin.")]
         [Min(0f)]
         [SerializeField] private float gap = 400f;
-        [Min(0.5f)]
-        [SerializeField] private float barrierThickness = 4f;
-        [Min(1.5f)]
-        [SerializeField] private float barrierClearance = 4f;
         [SerializeField] private SimulationCameraController watchCamera;
-        [Tooltip("Authored map that shares slot 0's center. Disabled when a slot map is placed; never destroyed.")]
+        [SerializeField] private ActiveMapManager mapManager;
+        [Tooltip("Authored map at the preview origin. Disabled when a slot map is placed; never destroyed.")]
         [SerializeField] private MapInstance sceneMapToDisable;
+        [Tooltip("Dashboard preview. Placed off the slot row when the stage wakes.")]
+        [SerializeField] private MapInstance previewMap;
         [Tooltip("Unity time scale for the fight. The company abort window and session day stay on unscaled time.")]
         [Min(0.1f)]
         [SerializeField] private float matchTimeScale = 4f;
@@ -84,10 +81,9 @@ namespace BattleRoyale.Maps
             }
 
             slotCenters = SimulationStageLayout.Centers(largestWidth, gap);
+            PlacePreviewMap(largestWidth, largestDepth);
             PlaceMaps(slotCenters);
             DisableUnplacedSceneMaps();
-            PlaceBarriers(slotCenters, largestDepth);
-            SetBarrierRenderersEnabled(false);
             ShowWatchedMap();
         }
 
@@ -343,17 +339,77 @@ namespace BattleRoyale.Maps
             watchCamera.Show(map);
         }
 
+        public void AdoptPlacedMap(int slot, MapInstance map)
+        {
+            if (map == null ||
+                placedMaps == null ||
+                slot < 0 ||
+                slot >= placedMaps.Length)
+            {
+                return;
+            }
+
+            if (placedMaps[slot] == map)
+            {
+                map.gameObject.SetActive(true);
+                mapManager?.Claim(map);
+                return;
+            }
+
+            DiscardPlaced(placedMaps[slot]);
+            if (slotCenters != null &&
+                slot < slotCenters.Length &&
+                map.definition != null)
+            {
+                map.transform.SetPositionAndRotation(
+                    slotCenters[slot] - map.definition.WorldCenter,
+                    Quaternion.identity);
+            }
+
+            map.gameObject.SetActive(true);
+            placedMaps[slot] = map;
+            mapManager?.Claim(map);
+        }
+
+        public bool TryPreviewPosition(MapDefinition definition, out Vector3 position)
+        {
+            position = default;
+            if (definition == null ||
+                !TryMeasureCatalog(out var largestWidth, out var largestDepth))
+            {
+                return false;
+            }
+
+            var span = Mathf.Max(largestWidth, largestDepth);
+            position = SimulationStageLayout.PreviewCenter(span, gap) - definition.WorldCenter;
+            return true;
+        }
+
+        private void PlacePreviewMap(float largestWidth, float largestDepth)
+        {
+            if (previewMap == null || previewMap.definition == null)
+            {
+                return;
+            }
+
+            var span = Mathf.Max(largestWidth, largestDepth);
+            previewMap.transform.SetPositionAndRotation(
+                SimulationStageLayout.PreviewCenter(span, gap) - previewMap.definition.WorldCenter,
+                Quaternion.identity);
+        }
+
         private bool TryMeasureCatalog(out float largestWidth, out float largestDepth)
         {
             largestWidth = 0f;
             largestDepth = 0f;
-            if (playableMaps == null || playableMaps.maps == null)
+            var catalog = mapManager == null ? null : mapManager.PlayableMaps;
+            if (catalog == null || catalog.maps == null)
             {
-                Debug.LogError("The simulation stage needs a playable map catalog.", this);
+                Debug.LogError("The simulation stage needs the active map's playable catalog.", this);
                 return false;
             }
 
-            foreach (var definition in playableMaps.maps)
+            foreach (var definition in catalog.maps)
             {
                 if (definition == null)
                 {
@@ -420,12 +476,7 @@ namespace BattleRoyale.Maps
 
             var previous = placedMaps[slot];
             placedMaps[slot] = null;
-            if (previous == null)
-            {
-                return;
-            }
-
-            Destroy(previous.gameObject);
+            DiscardPlaced(previous);
         }
 
         private bool ShowNextOccupied(int cleared)
@@ -452,11 +503,7 @@ namespace BattleRoyale.Maps
 
         private void ReplaceSlotMap(int slot)
         {
-            var previous = placedMaps[slot];
-            if (previous != null)
-            {
-                Destroy(previous.gameObject);
-            }
+            DiscardPlaced(placedMaps[slot]);
 
             var match = slots[slot].match;
             var map = PlaceSlotMap(slot, match.ModeConfiguration, slotCenters);
@@ -493,12 +540,35 @@ namespace BattleRoyale.Maps
                 return null;
             }
 
+            if (mapManager != null && mapManager.TryClaim(definition, out var loaded))
+            {
+                loaded.transform.SetPositionAndRotation(
+                    centers[slot] - definition.WorldCenter,
+                    Quaternion.identity);
+                return loaded;
+            }
+
             var map = Instantiate(
                 prefabMap,
                 centers[slot] - definition.WorldCenter,
                 Quaternion.identity);
             map.name = $"Map Slot {slot}";
             return map;
+        }
+
+        private void DiscardPlaced(MapInstance previous)
+        {
+            if (previous == null)
+            {
+                return;
+            }
+
+            if (mapManager != null && mapManager.Release(previous))
+            {
+                return;
+            }
+
+            Destroy(previous.gameObject);
         }
 
         // The assigned scene map would overlap the slot maps with a second NavMesh
@@ -525,117 +595,10 @@ namespace BattleRoyale.Maps
             sceneMapToDisable.gameObject.SetActive(false);
         }
 
-        private void PlaceBarriers(Vector3[] centers, float depth)
-        {
-            if (barriers == null)
-            {
-                return;
-            }
-
-            var hasFloor = false;
-            var lowestFloor = 0f;
-            var highestFloor = 0f;
-            if (playableMaps != null && playableMaps.maps != null)
-            {
-                foreach (var definition in playableMaps.maps)
-                {
-                    if (definition == null)
-                    {
-                        continue;
-                    }
-
-                    var floor = definition.baseHeight;
-                    lowestFloor = hasFloor ? Mathf.Min(lowestFloor, floor) : floor;
-                    highestFloor = hasFloor ? Mathf.Max(highestFloor, floor) : floor;
-                    hasFloor = true;
-                }
-            }
-
-            if (!hasFloor)
-            {
-                return;
-            }
-
-            var topY = highestFloor + barrierClearance;
-            var count = Mathf.Min(barriers.Length, centers.Length - 1);
-            for (var index = 0; index < count; index++)
-            {
-                if (barriers[index] == null)
-                {
-                    continue;
-                }
-
-                SimulationStageLayout.PlaceBarrier(
-                    barriers[index],
-                    centers[index],
-                    centers[index + 1],
-                    barrierThickness,
-                    depth,
-                    lowestFloor,
-                    topY);
-            }
-        }
-
         private void OnValidate()
         {
             gap = Mathf.Max(0f, gap);
-            barrierThickness = Mathf.Max(0.5f, barrierThickness);
-            barrierClearance = Mathf.Max(1.5f, barrierClearance);
-            if (Application.isPlaying || !TryMeasureCatalogQuiet(out var largestWidth, out var largestDepth))
-            {
-                return;
-            }
-
-            PlaceBarriers(SimulationStageLayout.Centers(largestWidth, gap), largestDepth);
-            SetBarrierRenderersEnabled(true);
         }
 
-        private void SetBarrierRenderersEnabled(bool enabled)
-        {
-            if (barriers == null)
-            {
-                return;
-            }
-
-            foreach (var barrier in barriers)
-            {
-                if (barrier == null)
-                {
-                    continue;
-                }
-
-                var renderer = barrier.GetComponent<MeshRenderer>();
-                if (renderer == null)
-                {
-                    Debug.LogError("A simulation barrier needs a mesh renderer.", barrier);
-                    continue;
-                }
-
-                renderer.enabled = enabled;
-            }
-        }
-
-        private bool TryMeasureCatalogQuiet(out float largestWidth, out float largestDepth)
-        {
-            largestWidth = 0f;
-            largestDepth = 0f;
-            if (playableMaps == null || playableMaps.maps == null)
-            {
-                return false;
-            }
-
-            foreach (var definition in playableMaps.maps)
-            {
-                if (definition == null)
-                {
-                    continue;
-                }
-
-                largestWidth = Mathf.Max(largestWidth, definition.WorldSize.x);
-                largestDepth = Mathf.Max(largestDepth, definition.WorldSize.z);
-            }
-
-            return largestWidth > 0f && largestDepth > 0f;
-        }
     }
 }

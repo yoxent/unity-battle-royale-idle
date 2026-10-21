@@ -2332,55 +2332,21 @@ namespace BattleRoyale.Maps.EditorTools
                 return null;
             }
 
-            var assets = AssetDatabase.LoadAllAssetsAtPath(path);
-            Sprite only = null;
-            var count = 0;
-            Sprite named = null;
-            Sprite suffixed = null;
-            Sprite largest = null;
-            var largestArea = 0f;
-            for (var i = 0; i < assets.Length; i++)
+            // visualMap is the whole PNG. Mode select needs a Sprite, and a
+            // Multiple import stores one Sprite per separated mark. The first
+            // of those is often a glyph. One sprite for the whole texture is
+            // the picture already referenced by visualMap.
+            var importer = AssetImporter.GetAtPath(path) as TextureImporter;
+            if (importer != null &&
+                (importer.textureType != TextureImporterType.Sprite ||
+                 importer.spriteImportMode != SpriteImportMode.Single))
             {
-                if (assets[i] is not Sprite sprite)
-                {
-                    continue;
-                }
-
-                count++;
-                only = sprite;
-                if (sprite.name == visualMap.name)
-                {
-                    named = sprite;
-                }
-                else if (sprite.name == visualMap.name + "_0")
-                {
-                    suffixed = sprite;
-                }
-
-                var area = sprite.rect.width * sprite.rect.height;
-                if (largest == null || area > largestArea)
-                {
-                    largest = sprite;
-                    largestArea = area;
-                }
+                importer.textureType = TextureImporterType.Sprite;
+                importer.spriteImportMode = SpriteImportMode.Single;
+                importer.SaveAndReimport();
             }
 
-            if (count == 0)
-            {
-                return null;
-            }
-
-            if (count == 1)
-            {
-                return only;
-            }
-
-            if (named != null)
-            {
-                return named;
-            }
-
-            return suffixed != null ? suffixed : largest;
+            return AssetDatabase.LoadAssetAtPath<Sprite>(path);
         }
     }
 }

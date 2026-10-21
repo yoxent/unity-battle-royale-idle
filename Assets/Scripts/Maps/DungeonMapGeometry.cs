@@ -50,6 +50,12 @@ namespace BattleRoyale.Maps
             DefaultUnitScale,
             DefaultColumnOffset);
 
+        public static Vector3 UnitLocalScale(float unitScale)
+        {
+            var scale = unitScale < 0.01f ? 0.01f : unitScale;
+            return new Vector3(scale, scale, scale);
+        }
+
         public static DungeonMapGeometrySettings Read(MapDefinition definition)
         {
             if (definition == null)

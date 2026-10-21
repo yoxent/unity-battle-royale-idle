@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3503e613d5c33349941d0854c67e07a, type: 3}
+  m_Name: hall_of_the_raven_savant_Map
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.MapDefinition
+  layoutJson: {fileID: 4900000, guid: 7de86d6e13f489f4aa307eb2f83ec794, type: 3}
+  narrativeMarkdown: {fileID: 4900000, guid: 57d117e86dfd8c34aa861211663d9f36, type: 3}
+  visualMap: {fileID: 2800000, guid: d5e3fde989958464ca9f2e633ee07a4a, type: 3}
+  visualSprite: {fileID: 21300000, guid: d5e3fde989958464ca9f2e633ee07a4a, type: 3}
+  visualMaterial: {fileID: 2100000, guid: 11676fdc2e6a3424797a1603f41ad360, type: 2}
+  worldScale: 20
+  sourceMin: {x: -6, y: -11}
+  sourceMax: {x: 7, y: 1}
+  baseHeight: 0
+  heightScale: 0
+  wallHeight: 3
+  wallThickness: 2
+  unitScale: 10
+  generateBuildingWalls: 0
+  generateTreeColliders: 0
+  treeUpperLeft: {x: 0, y: 0}
+  treeLowerRight: {x: 0, y: 0}
+  editTreeCornersInScene: 0
+  treeRadiusMultiplier: 1
+  treeHeight: 2
+  useImageCornerFit: 1
+  imageUpperLeftUv: {x: 0.06501981, y: 0.9183887}
+  imageLowerRightUv: {x: 0.9369591, y: 0}
+  editImageCornersInScene: 1
+  columnSize: 6
+  columnOffset: {x: -0.5, y: -0.5}
+  overrideNavMeshVoxelSize: 0
+  navMeshVoxelSize: 0.16666667
+  replaceGeneratedRoot: 1
+  disableOtherGeneratedMaps: 1
+  setAsActiveCameraMap: 1
+  editPointsInSceneView: 1
+  bakedPrefab: {fileID: 5270470296670058126, guid: 8406228c88d3bb14ba5e990b57aeaf2a, type: 3}
+  generator: dungeon
+  generatorVersion: 1.2.7
+  features:
+  - id: rects
+    type: Rooms
+    geometryCount: 9
+    coordinateCount: 36
+  - id: doors
+    type: Doors
+    geometryCount: 5
+    coordinateCount: 5
+  - id: water
+    type: BlockedCells
+    geometryCount: 0
+    coordinateCount: 0
+  - id: columns
+    type: Columns
+    geometryCount: 0
+    coordinateCount: 0
+  tacticalAnchors: []
+  supportedGameModes: 020000000f000000
+  modeConfigurations:
+  - {fileID: 11400000, guid: 5b64ee167ca39cf48b25352441b6a86e, type: 2}
+  - {fileID: 11400000, guid: 0f1f036af1580454cacc300aefa9e178, type: 2}

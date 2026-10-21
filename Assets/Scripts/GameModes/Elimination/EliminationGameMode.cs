@@ -438,11 +438,14 @@ namespace BattleRoyale.GameModes.Elimination
                 var offset = Random.insideUnitCircle * Mathf.Max(0f, point.radius);
                 var localPosition = point.spawnPosition +
                                     new Vector3(offset.x, 0f, offset.y);
-                return SnapToNavigation(ActiveMap.WorldPoint(localPosition));
+                return ResolveSpawn(
+                    ActiveMap.WorldPoint(localPosition),
+                    ActiveMap.WorldPoint(point.spawnPosition));
             }
 
             var center = ActiveMap.definition.WorldCenter;
-            return SnapToNavigation(ActiveMap.WorldPoint(center));
+            var worldCenter = ActiveMap.WorldPoint(center);
+            return ResolveSpawn(worldCenter, worldCenter);
         }
     }
 }

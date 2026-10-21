@@ -22,6 +22,7 @@ namespace BattleRoyale.Tests.EditMode
             Assert.AreEqual(6, entered.Reserved);
             Assert.AreEqual(tuning.StartingGold - 6, entered.Spendable);
             Assert.AreEqual(TournamentEntryPhase.Window, entered.Phase);
+            Assert.AreEqual(3f, tuning.AbortWindowSeconds);
             Assert.AreEqual(tuning.AbortWindowSeconds, entered.WindowRemaining);
             Assert.AreEqual(4, entered.CompanyDate);
             Assert.AreEqual(0, entered.Agents[0].WaivedAppearances);
@@ -40,11 +41,11 @@ namespace BattleRoyale.Tests.EditMode
 
             Assert.IsTrue(TournamentEconomyRules.TryAdvance(
                 entered,
-                5f,
+                1f,
                 out var stillOpen));
 
             Assert.AreEqual(TournamentEntryPhase.Window, stillOpen.Phase);
-            Assert.AreEqual(10f, stillOpen.WindowRemaining);
+            Assert.AreEqual(tuning.AbortWindowSeconds - 1f, stillOpen.WindowRemaining);
             Assert.AreEqual(6, stillOpen.Reserved);
             Assert.AreEqual(tuning.StartingGold, stillOpen.Balance);
         }

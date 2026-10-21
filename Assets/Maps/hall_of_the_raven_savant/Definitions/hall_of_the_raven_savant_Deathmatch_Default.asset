@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96bb8df985600dc469f9fd4e71d30c52, type: 3}
+  m_Name: hall_of_the_raven_savant_Deathmatch_Default
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.DeathmatchModeConfiguration
+  map: {fileID: 11400000, guid: a73314022d1a123449957fe89067bbff, type: 2}
+  mode: 2
+  variantName: Default
+  teamCount: 2
+  teamSize: 4
+  teams:
+  - teamId: Team 1
+    spawnPosition: {x: 87.282974, y: 0, z: -22.414406}
+    radius: 8
+  - teamId: Team 2
+    spawnPosition: {x: -90.09986, y: 0, z: -111.71108}
+    radius: 8
+  scoreLimit: 50
+  respawnSeconds: 3

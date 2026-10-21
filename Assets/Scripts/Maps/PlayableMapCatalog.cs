@@ -12,18 +12,6 @@ namespace BattleRoyale.Maps
             "Maps that are ready to run. Order is the fallback order when a game mode needs a map. Each map must already have a baked prefab.")]
         public List<MapDefinition> maps = new();
 
-        private static PlayableMapCatalog cached;
-
-        public static PlayableMapCatalog Load()
-        {
-            if (cached == null)
-            {
-                cached = Resources.Load<PlayableMapCatalog>("PlayableMaps");
-            }
-
-            return cached;
-        }
-
         public bool IsPlayable(MapDefinition definition, MapGameMode mode)
         {
             return definition != null &&

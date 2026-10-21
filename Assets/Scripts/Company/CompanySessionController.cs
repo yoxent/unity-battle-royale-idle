@@ -38,12 +38,14 @@ namespace BattleRoyale.Company
         [SerializeField] private Button leaveMatchControl;
         [SerializeField] private DeploymentPanel deployment;
         [SerializeField] private TournamentCatalog tournaments;
-        [SerializeField] private PlayableMapCatalog playableMaps;
         [SerializeField] private PlayableMapCatalog tutorialMaps;
         [SerializeField] private BattleRoyaleGameMode battleRoyale;
         [SerializeField] private ActiveMapManager mapManager;
         [SerializeField] private MatchOfferView[] matchOffers;
         [SerializeField] private TMP_Text rankLabel;
+
+        PlayableMapCatalog PlayableMaps =>
+            mapManager == null ? null : mapManager.PlayableMaps;
 
         EconomyTuning tuning;
         int balance;
@@ -994,7 +996,7 @@ namespace BattleRoyale.Company
                 return;
             }
 
-            if (playableMaps == null)
+            if (PlayableMaps == null)
             {
                 Debug.LogError("Mode select needs the playable map catalog.", this);
                 return;
@@ -1065,23 +1067,23 @@ namespace BattleRoyale.Company
                 return;
             }
 
-            if (tournaments == null || tournaments.Offers == null || playableMaps == null ||
-                playableMaps.maps == null)
+            if (tournaments == null || tournaments.Offers == null || PlayableMaps == null ||
+                PlayableMaps.maps == null)
             {
                 return;
             }
 
             var available = 0;
-            for (var mapIndex = 0; mapIndex < playableMaps.maps.Count; mapIndex++)
+            for (var mapIndex = 0; mapIndex < PlayableMaps.maps.Count; mapIndex++)
             {
-                available += CountListable(playableMaps.maps[mapIndex]);
+                available += CountListable(PlayableMaps.maps[mapIndex]);
             }
 
             listedModes = new MapModeConfiguration[available];
             var filled = 0;
-            for (var mapIndex = 0; mapIndex < playableMaps.maps.Count; mapIndex++)
+            for (var mapIndex = 0; mapIndex < PlayableMaps.maps.Count; mapIndex++)
             {
-                filled = CopyListable(playableMaps.maps[mapIndex], listedModes, filled);
+                filled = CopyListable(PlayableMaps.maps[mapIndex], listedModes, filled);
             }
 
             var slots = tournaments.Offers.Length;
@@ -1177,7 +1179,7 @@ namespace BattleRoyale.Company
         bool TryActivateOfferMap(TournamentOffer offer)
         {
             if (offer == null || offer.Configuration == null || offer.Configuration.map == null ||
-                mapManager == null || playableMaps == null)
+                mapManager == null || PlayableMaps == null)
             {
                 return false;
             }
@@ -1208,10 +1210,12 @@ namespace BattleRoyale.Company
             if (offer.Configuration.mode == MapGameMode.BattleRoyale)
             {
                 battleRoyale.UseConfiguration(offer.Configuration);
+                battleRoyale.BindMap(activated);
             }
             else
             {
                 match.UseConfiguration(offer.Configuration);
+                match.BindMap(activated);
             }
 
             return true;
@@ -1320,6 +1324,7 @@ namespace BattleRoyale.Company
             }
 
             battleRoyale.UseConfiguration(offer.Configuration);
+            battleRoyale.BindMap(activated);
             tutorialMapActive = true;
             return true;
         }
@@ -1332,13 +1337,19 @@ namespace BattleRoyale.Company
             }
 
             tutorialMapActive = false;
-            if (mapManager == null || playableMaps == null)
+            if (mapManager == null)
             {
                 Debug.LogError("Company day needs the playable map catalog.", this);
                 return;
             }
 
-            mapManager.SetPlayableMaps(playableMaps);
+            mapManager.UseAuthoredMaps();
+            if (mapManager.PlayableMaps == null)
+            {
+                Debug.LogError("Company day needs the playable map catalog.", this);
+                return;
+            }
+
             mapManager.ActivateForMode(MapGameMode.Deathmatch);
         }
 

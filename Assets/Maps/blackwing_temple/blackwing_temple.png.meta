@@ -1,0 +1,1560 @@
+fileFormatVersion: 2
+guid: 6c0faa8d2ffd73342b66e879c1d09b99
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1568625617900378857
+    second: blackwing_temple_0
+  - first:
+      213: -8193379706884607827
+    second: blackwing_temple_1
+  - first:
+      213: -7870334971205084250
+    second: blackwing_temple_2
+  - first:
+      213: 8799260413705955404
+    second: blackwing_temple_3
+  - first:
+      213: 4880119932903516913
+    second: blackwing_temple_4
+  - first:
+      213: 4406198235851945647
+    second: blackwing_temple_5
+  - first:
+      213: -7886453799582524675
+    second: blackwing_temple_6
+  - first:
+      213: -592418105203862113
+    second: blackwing_temple_7
+  - first:
+      213: -6142377269987414429
+    second: blackwing_temple_8
+  - first:
+      213: -6979692066505962730
+    second: blackwing_temple_9
+  - first:
+      213: -3793653435099515382
+    second: blackwing_temple_10
+  - first:
+      213: 5175307570042455569
+    second: blackwing_temple_11
+  - first:
+      213: 4342406191942807924
+    second: blackwing_temple_12
+  - first:
+      213: 5285831510393667974
+    second: blackwing_temple_13
+  - first:
+      213: 6959541250413988937
+    second: blackwing_temple_14
+  - first:
+      213: -7035577153336986493
+    second: blackwing_temple_15
+  - first:
+      213: 1934908360469413471
+    second: blackwing_temple_16
+  - first:
+      213: 4655732950008877998
+    second: blackwing_temple_17
+  - first:
+      213: -84873968875969932
+    second: blackwing_temple_18
+  - first:
+      213: 2978718323322043461
+    second: blackwing_temple_19
+  - first:
+      213: 3899781307411734671
+    second: blackwing_temple_20
+  - first:
+      213: 1541605052879296856
+    second: blackwing_temple_21
+  - first:
+      213: -4188448935895672712
+    second: blackwing_temple_22
+  - first:
+      213: 1733524163132097129
+    second: blackwing_temple_23
+  - first:
+      213: -553496135143782617
+    second: blackwing_temple_24
+  - first:
+      213: -569320937631097231
+    second: blackwing_temple_25
+  - first:
+      213: -4371339297299417335
+    second: blackwing_temple_26
+  - first:
+      213: 179989934484130643
+    second: blackwing_temple_27
+  - first:
+      213: 8809600146879199226
+    second: blackwing_temple_28
+  - first:
+      213: 6344915112738615170
+    second: blackwing_temple_29
+  - first:
+      213: 3653155897519223753
+    second: blackwing_temple_30
+  - first:
+      213: -393393431046369813
+    second: blackwing_temple_31
+  - first:
+      213: 9114870660608056608
+    second: blackwing_temple_32
+  - first:
+      213: -6309496167695091171
+    second: blackwing_temple_33
+  - first:
+      213: -7578126457632272377
+    second: blackwing_temple_34
+  - first:
+      213: -7878731839250796957
+    second: blackwing_temple_35
+  - first:
+      213: -951711894147310964
+    second: blackwing_temple_36
+  - first:
+      213: 6057437242711287136
+    second: blackwing_temple_37
+  - first:
+      213: 4134706255556546443
+    second: blackwing_temple_38
+  - first:
+      213: -1065803356106269140
+    second: blackwing_temple_39
+  - first:
+      213: 726028995372008272
+    second: blackwing_temple_40
+  - first:
+      213: 8815120780409058332
+    second: blackwing_temple_41
+  - first:
+      213: -620513381700018893
+    second: blackwing_temple_42
+  - first:
+      213: 5665349609832995835
+    second: blackwing_temple_43
+  - first:
+      213: -6486922500652619171
+    second: blackwing_temple_44
+  - first:
+      213: 539972972345603423
+    second: blackwing_temple_45
+  - first:
+      213: -4049195973011118923
+    second: blackwing_temple_46
+  - first:
+      213: -3669912512264959233
+    second: blackwing_temple_47
+  - first:
+      213: 5064179849772479042
+    second: blackwing_temple_48
+  - first:
+      213: 2824054246937557848
+    second: blackwing_temple_49
+  - first:
+      213: -2095040359890087150
+    second: blackwing_temple_50
+  - first:
+      213: 1489471093012653299
+    second: blackwing_temple_51
+  - first:
+      213: 7025682847274680473
+    second: blackwing_temple_52
+  - first:
+      213: 2640402600486074803
+    second: blackwing_temple_53
+  - first:
+      213: 9086906567332307805
+    second: blackwing_temple_54
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: blackwing_temple_0
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 55
+        width: 1964
+        height: 2491
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 715687bbf4f1b3ae0800000000000000
+      internalID: -1568625617900378857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_1
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 2520
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da0bf3521944b4e80800000000000000
+      internalID: -8193379706884607827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_2
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 2321
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ab9cf1ea04f6c290800000000000000
+      internalID: -7870334971205084250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_3
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 2305
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c48a91dc9b04d1a70800000000000000
+      internalID: 8799260413705955404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_4
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 2300
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fa6406193ba9b340800000000000000
+      internalID: 4880119932903516913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_5
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 2281
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa678e153f5f52d30800000000000000
+      internalID: 4406198235851945647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_6
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 2261
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfa9a52bd00bd8290800000000000000
+      internalID: -7886453799582524675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_7
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 2238
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9550d04fde47c7f0800000000000000
+      internalID: -592418105203862113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_8
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 2244
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36e67f9aa64e1caa0800000000000000
+      internalID: -6142377269987414429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_9
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 2223
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61bcc46ab07232f90800000000000000
+      internalID: -6979692066505962730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_10
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 2211
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a06f3f7ec4c3a5bc0800000000000000
+      internalID: -3793653435099515382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_11
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 2199
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11645c3a0d262d740800000000000000
+      internalID: 5175307570042455569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_12
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 2178
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 471353dac63534c30800000000000000
+      internalID: 4342406191942807924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_13
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 2155
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 681c49fc0cb0b5940800000000000000
+      internalID: 5285831510393667974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_14
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 2134
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94c8a9ed4e1459060800000000000000
+      internalID: 6959541250413988937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_15
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 2113
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 384be79eadb9c5e90800000000000000
+      internalID: -7035577153336986493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_16
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 2093
+        width: 29
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5e76baf6ec2ada10800000000000000
+      internalID: 1934908360469413471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_17
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 2073
+        width: 30
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea35c5e637c7c9040800000000000000
+      internalID: 4655732950008877998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_18
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 2044
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4726872339772def0800000000000000
+      internalID: -84873968875969932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_19
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 2024
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54cbe8b7888865920800000000000000
+      internalID: 2978718323322043461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_20
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 2005
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f802cf9ef6ece1630800000000000000
+      internalID: 3899781307411734671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_21
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 1989
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85951d8b0a1e46510800000000000000
+      internalID: 1541605052879296856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_22
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 1984
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 878531852e3afd5c0800000000000000
+      internalID: -4188448935895672712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_23
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 1965
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9628b01ba07be0810800000000000000
+      internalID: 1733524163132097129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_24
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 1944
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 727043892369158f0800000000000000
+      internalID: -553496135143782617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_25
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 1922
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17e5e45af9d5918f0800000000000000
+      internalID: -569320937631097231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_26
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 1927
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90733c7c112e553c0800000000000000
+      internalID: -4371339297299417335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_27
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 1907
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35b821c44e37f7200800000000000000
+      internalID: 179989934484130643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_28
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 1895
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af7b6f788acf14a70800000000000000
+      internalID: 8809600146879199226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_29
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 1883
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28feac0adaaad0850800000000000000
+      internalID: 6344915112738615170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_30
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 1861
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c3b1ccfeed92b230800000000000000
+      internalID: 3653155897519223753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_31
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1838
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bed428d32c26a8af0800000000000000
+      internalID: -393393431046369813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_32
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 1818
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02d5c2bb2968e7e70800000000000000
+      internalID: 9114870660608056608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_33
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 1797
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1a78d42aaa2078a0800000000000000
+      internalID: -6309496167695091171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_34
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 1776
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 700d6dd232615d690800000000000000
+      internalID: -7578126457632272377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_35
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 1780
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36e65e0b22f19a290800000000000000
+      internalID: -7878731839250796957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_36
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 1757
+        width: 30
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8ad5dc1317dac2f0800000000000000
+      internalID: -951711894147310964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_37
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 1728
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 065270d1417501450800000000000000
+      internalID: 6057437242711287136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_38
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 1708
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8f880dce6d616930800000000000000
+      internalID: 4134706255556546443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_39
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 1689
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2eddd69e718531f0800000000000000
+      internalID: -1065803356106269140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_40
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 1668
+        width: 28
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05348cd468f531a00800000000000000
+      internalID: 726028995372008272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_41
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 1649
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c14327035a9955a70800000000000000
+      internalID: 8815120780409058332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_42
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 1628
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33dd461fd5e7367f0800000000000000
+      internalID: -620513381700018893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_43
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 1579
+        width: 25
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfb5e7e247d5f9e40800000000000000
+      internalID: 5665349609832995835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_44
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 1611
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5aac17da52d9f5a0800000000000000
+      internalID: -6486922500652619171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_45
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 1568
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f55b8f4be8e5e7700800000000000000
+      internalID: 539972972345603423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_46
+      rect:
+        serializedVersion: 2
+        x: 2022
+        y: 491
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b4eab257bd5ec7c0800000000000000
+      internalID: -4049195973011118923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_47
+      rect:
+        serializedVersion: 2
+        x: 2032
+        y: 456
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffa8fad930ad11dc0800000000000000
+      internalID: -3669912512264959233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_48
+      rect:
+        serializedVersion: 2
+        x: 2017
+        y: 416
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24231600eb4974640800000000000000
+      internalID: 5064179849772479042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_49
+      rect:
+        serializedVersion: 2
+        x: 1171
+        y: 71
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85b7527006e013720800000000000000
+      internalID: 2824054246937557848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_50
+      rect:
+        serializedVersion: 2
+        x: 1192
+        y: 75
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21315a684ebece2e0800000000000000
+      internalID: -2095040359890087150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_51
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 78
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f46b3a411aaba410800000000000000
+      internalID: 1489471093012653299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_52
+      rect:
+        serializedVersion: 2
+        x: 1295
+        y: 71
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 990cc50735d308160800000000000000
+      internalID: 7025682847274680473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_53
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 58
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b97df9fc2894a420800000000000000
+      internalID: 2640402600486074803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blackwing_temple_54
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 64
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d53a105e06d2b1e70800000000000000
+      internalID: 9086906567332307805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      blackwing_temple_0: -1568625617900378857
+      blackwing_temple_1: -8193379706884607827
+      blackwing_temple_10: -3793653435099515382
+      blackwing_temple_11: 5175307570042455569
+      blackwing_temple_12: 4342406191942807924
+      blackwing_temple_13: 5285831510393667974
+      blackwing_temple_14: 6959541250413988937
+      blackwing_temple_15: -7035577153336986493
+      blackwing_temple_16: 1934908360469413471
+      blackwing_temple_17: 4655732950008877998
+      blackwing_temple_18: -84873968875969932
+      blackwing_temple_19: 2978718323322043461
+      blackwing_temple_2: -7870334971205084250
+      blackwing_temple_20: 3899781307411734671
+      blackwing_temple_21: 1541605052879296856
+      blackwing_temple_22: -4188448935895672712
+      blackwing_temple_23: 1733524163132097129
+      blackwing_temple_24: -553496135143782617
+      blackwing_temple_25: -569320937631097231
+      blackwing_temple_26: -4371339297299417335
+      blackwing_temple_27: 179989934484130643
+      blackwing_temple_28: 8809600146879199226
+      blackwing_temple_29: 6344915112738615170
+      blackwing_temple_3: 8799260413705955404
+      blackwing_temple_30: 3653155897519223753
+      blackwing_temple_31: -393393431046369813
+      blackwing_temple_32: 9114870660608056608
+      blackwing_temple_33: -6309496167695091171
+      blackwing_temple_34: -7578126457632272377
+      blackwing_temple_35: -7878731839250796957
+      blackwing_temple_36: -951711894147310964
+      blackwing_temple_37: 6057437242711287136
+      blackwing_temple_38: 4134706255556546443
+      blackwing_temple_39: -1065803356106269140
+      blackwing_temple_4: 4880119932903516913
+      blackwing_temple_40: 726028995372008272
+      blackwing_temple_41: 8815120780409058332
+      blackwing_temple_42: -620513381700018893
+      blackwing_temple_43: 5665349609832995835
+      blackwing_temple_44: -6486922500652619171
+      blackwing_temple_45: 539972972345603423
+      blackwing_temple_46: -4049195973011118923
+      blackwing_temple_47: -3669912512264959233
+      blackwing_temple_48: 5064179849772479042
+      blackwing_temple_49: 2824054246937557848
+      blackwing_temple_5: 4406198235851945647
+      blackwing_temple_50: -2095040359890087150
+      blackwing_temple_51: 1489471093012653299
+      blackwing_temple_52: 7025682847274680473
+      blackwing_temple_53: 2640402600486074803
+      blackwing_temple_54: 9086906567332307805
+      blackwing_temple_6: -7886453799582524675
+      blackwing_temple_7: -592418105203862113
+      blackwing_temple_8: -6142377269987414429
+      blackwing_temple_9: -6979692066505962730
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

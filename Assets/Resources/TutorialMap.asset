@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TutorialMap
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.PlayableMapCatalog
   maps:
-  - {fileID: 11400000, guid: 273ff9d1b8b444a48b068180413b55e1, type: 2}
+  - {fileID: 11400000, guid: a6a076f50687c0e4f90e3a2f47b6c8bf, type: 2}

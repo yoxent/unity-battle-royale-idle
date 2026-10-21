@@ -1,0 +1,2496 @@
+fileFormatVersion: 2
+guid: 10f23198e65bd7645b0c497603191268
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2936746163633154826
+    second: sunken_temple_of_mande_0
+  - first:
+      213: -5721996194433154125
+    second: sunken_temple_of_mande_1
+  - first:
+      213: -3500881739064149618
+    second: sunken_temple_of_mande_2
+  - first:
+      213: -1038936625445823144
+    second: sunken_temple_of_mande_3
+  - first:
+      213: 5833816395766057109
+    second: sunken_temple_of_mande_4
+  - first:
+      213: 7496843828608736589
+    second: sunken_temple_of_mande_5
+  - first:
+      213: -5535759444797902746
+    second: sunken_temple_of_mande_6
+  - first:
+      213: 4254862602213580344
+    second: sunken_temple_of_mande_7
+  - first:
+      213: -8477165791749294131
+    second: sunken_temple_of_mande_8
+  - first:
+      213: 1009173114380558191
+    second: sunken_temple_of_mande_9
+  - first:
+      213: -6633096537683047666
+    second: sunken_temple_of_mande_10
+  - first:
+      213: -820741818787757955
+    second: sunken_temple_of_mande_11
+  - first:
+      213: 4826920154746710307
+    second: sunken_temple_of_mande_12
+  - first:
+      213: 8674064575499361022
+    second: sunken_temple_of_mande_13
+  - first:
+      213: -5702079385518408620
+    second: sunken_temple_of_mande_14
+  - first:
+      213: -9217005391823280246
+    second: sunken_temple_of_mande_15
+  - first:
+      213: 8017832124707184042
+    second: sunken_temple_of_mande_16
+  - first:
+      213: -4876190589626451262
+    second: sunken_temple_of_mande_17
+  - first:
+      213: 6375384228134236512
+    second: sunken_temple_of_mande_18
+  - first:
+      213: 472236029898859377
+    second: sunken_temple_of_mande_19
+  - first:
+      213: 7723768148454619809
+    second: sunken_temple_of_mande_20
+  - first:
+      213: 8862855236915882080
+    second: sunken_temple_of_mande_21
+  - first:
+      213: -2604542156234405551
+    second: sunken_temple_of_mande_22
+  - first:
+      213: -546974238528905117
+    second: sunken_temple_of_mande_23
+  - first:
+      213: -8883377764984692603
+    second: sunken_temple_of_mande_24
+  - first:
+      213: -6958103469975887674
+    second: sunken_temple_of_mande_25
+  - first:
+      213: -6343734970870074702
+    second: sunken_temple_of_mande_26
+  - first:
+      213: 4887741983370649217
+    second: sunken_temple_of_mande_27
+  - first:
+      213: 3325015729039772215
+    second: sunken_temple_of_mande_28
+  - first:
+      213: 4649908520248115385
+    second: sunken_temple_of_mande_29
+  - first:
+      213: -1374078381985858535
+    second: sunken_temple_of_mande_30
+  - first:
+      213: 2446771967517123870
+    second: sunken_temple_of_mande_31
+  - first:
+      213: -3222307228489646844
+    second: sunken_temple_of_mande_32
+  - first:
+      213: -3783707084311541361
+    second: sunken_temple_of_mande_33
+  - first:
+      213: 8807831142143989219
+    second: sunken_temple_of_mande_34
+  - first:
+      213: 4283565865271604508
+    second: sunken_temple_of_mande_35
+  - first:
+      213: -1472176824577026661
+    second: sunken_temple_of_mande_36
+  - first:
+      213: -1960598568610069144
+    second: sunken_temple_of_mande_37
+  - first:
+      213: 800773444746199047
+    second: sunken_temple_of_mande_38
+  - first:
+      213: -4015756799685800499
+    second: sunken_temple_of_mande_39
+  - first:
+      213: 3220830015116672398
+    second: sunken_temple_of_mande_40
+  - first:
+      213: 6539162833835735107
+    second: sunken_temple_of_mande_41
+  - first:
+      213: 297916366058903369
+    second: sunken_temple_of_mande_42
+  - first:
+      213: 5922795551959295596
+    second: sunken_temple_of_mande_43
+  - first:
+      213: 2311869226353168745
+    second: sunken_temple_of_mande_44
+  - first:
+      213: -1498054860648743711
+    second: sunken_temple_of_mande_45
+  - first:
+      213: -2464643181161245396
+    second: sunken_temple_of_mande_46
+  - first:
+      213: -6468833994398752536
+    second: sunken_temple_of_mande_47
+  - first:
+      213: -5593548834886085379
+    second: sunken_temple_of_mande_48
+  - first:
+      213: -3358945549222976326
+    second: sunken_temple_of_mande_49
+  - first:
+      213: 6084209665546821083
+    second: sunken_temple_of_mande_50
+  - first:
+      213: 6230336408091917451
+    second: sunken_temple_of_mande_51
+  - first:
+      213: 578960596942902989
+    second: sunken_temple_of_mande_52
+  - first:
+      213: -7468974797402213875
+    second: sunken_temple_of_mande_53
+  - first:
+      213: 8878210951199776059
+    second: sunken_temple_of_mande_54
+  - first:
+      213: 6360670403853002025
+    second: sunken_temple_of_mande_55
+  - first:
+      213: 4354156449029489818
+    second: sunken_temple_of_mande_56
+  - first:
+      213: -4288827097242665226
+    second: sunken_temple_of_mande_57
+  - first:
+      213: 2733329813464072722
+    second: sunken_temple_of_mande_58
+  - first:
+      213: -4847258750608335876
+    second: sunken_temple_of_mande_59
+  - first:
+      213: -6882654256774456818
+    second: sunken_temple_of_mande_60
+  - first:
+      213: -878621941560012514
+    second: sunken_temple_of_mande_61
+  - first:
+      213: 9078381275569815658
+    second: sunken_temple_of_mande_62
+  - first:
+      213: -7032320400837665450
+    second: sunken_temple_of_mande_63
+  - first:
+      213: 2453459181091999022
+    second: sunken_temple_of_mande_64
+  - first:
+      213: -4582431868907242873
+    second: sunken_temple_of_mande_65
+  - first:
+      213: 5614971369831413414
+    second: sunken_temple_of_mande_66
+  - first:
+      213: -6358651599436017793
+    second: sunken_temple_of_mande_67
+  - first:
+      213: 5102233935339553171
+    second: sunken_temple_of_mande_68
+  - first:
+      213: 4759106638909595287
+    second: sunken_temple_of_mande_69
+  - first:
+      213: 7920729028811187035
+    second: sunken_temple_of_mande_70
+  - first:
+      213: 6561682830924485885
+    second: sunken_temple_of_mande_71
+  - first:
+      213: -7960425568088915917
+    second: sunken_temple_of_mande_72
+  - first:
+      213: -3794126707554065213
+    second: sunken_temple_of_mande_73
+  - first:
+      213: -3676168230831814032
+    second: sunken_temple_of_mande_74
+  - first:
+      213: -8425752029221713735
+    second: sunken_temple_of_mande_75
+  - first:
+      213: -6551002659982925917
+    second: sunken_temple_of_mande_76
+  - first:
+      213: -789099838208652327
+    second: sunken_temple_of_mande_77
+  - first:
+      213: -1743853245645658081
+    second: sunken_temple_of_mande_78
+  - first:
+      213: 3462199061665802548
+    second: sunken_temple_of_mande_79
+  - first:
+      213: 4678482540785115495
+    second: sunken_temple_of_mande_80
+  - first:
+      213: 6524398446740559408
+    second: sunken_temple_of_mande_81
+  - first:
+      213: 3203840313505649579
+    second: sunken_temple_of_mande_82
+  - first:
+      213: 8905095299992048618
+    second: sunken_temple_of_mande_83
+  - first:
+      213: 6985117937959889243
+    second: sunken_temple_of_mande_84
+  - first:
+      213: -1092461252588843960
+    second: sunken_temple_of_mande_85
+  - first:
+      213: -6880399517258668189
+    second: sunken_temple_of_mande_86
+  - first:
+      213: -3180973747745378467
+    second: sunken_temple_of_mande_87
+  - first:
+      213: 2563880728998091260
+    second: sunken_temple_of_mande_88
+  - first:
+      213: 7110510833229623306
+    second: sunken_temple_of_mande_89
+  - first:
+      213: 4019117826642302350
+    second: sunken_temple_of_mande_90
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_0
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 1217
+        width: 10
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f497297ce49e37d0800000000000000
+      internalID: -2936746163633154826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_1
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 1237
+        width: 24
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b3cca017c26790b0800000000000000
+      internalID: -5721996194433154125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_2
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 1223
+        width: 13
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e89fd665b9e5a6fc0800000000000000
+      internalID: -3500881739064149618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_3
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 1232
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85d9828c4a4f491f0800000000000000
+      internalID: -1038936625445823144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_4
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 1228
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5984c726a11e5f050800000000000000
+      internalID: 5833816395766057109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_5
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 1229
+        width: 38
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4d9dccfdb32a0860800000000000000
+      internalID: 7496843828608736589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_6
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 1230
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 660beca5d180d23b0800000000000000
+      internalID: -5535759444797902746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_7
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 1217
+        width: 9
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83ed8055efe4c0b30800000000000000
+      internalID: 4254862602213580344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_8
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 1221
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc7b0b850ae0b5a80800000000000000
+      internalID: -8477165791749294131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_9
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 1221
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6f1787c99d410e00800000000000000
+      internalID: 1009173114380558191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_10
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 1220
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0b4786b7d182f3a0800000000000000
+      internalID: -6633096537683047666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_11
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 1228
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7009de0aa32c94f0800000000000000
+      internalID: -820741818787757955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_12
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 1229
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 329e9de7e4aacf240800000000000000
+      internalID: 4826920154746710307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_13
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 1224
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efa507536c7706870800000000000000
+      internalID: 8674064575499361022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_14
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 49
+        width: 1396
+        height: 1174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45cf81182052ed0b0800000000000000
+      internalID: -5702079385518408620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_15
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 1219
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a87638f0e6e961080800000000000000
+      internalID: -9217005391823280246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_16
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 1215
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aad13ed46df054f60800000000000000
+      internalID: 8017832124707184042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_17
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 1213
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ca76307e7a445cb0800000000000000
+      internalID: -4876190589626451262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_18
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 1218
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 061b1906d2ae97850800000000000000
+      internalID: 6375384228134236512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_19
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 1194
+        width: 29
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 173234cca28bd8600800000000000000
+      internalID: 472236029898859377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_20
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 1174
+        width: 28
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1aa3d107536503b60800000000000000
+      internalID: 7723768148454619809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_21
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 1155
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 068e41c61ef2ffa70800000000000000
+      internalID: 8862855236915882080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_22
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 1117
+        width: 13
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1594e1755becadbd0800000000000000
+      internalID: -2604542156234405551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_23
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 1126
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 360e13bf3d1c868f0800000000000000
+      internalID: -546974238528905117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_24
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 1106
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 580eb782df6e7b480800000000000000
+      internalID: -8883377764984692603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_25
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 1074
+        width: 13
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c0aca972c9df6f90800000000000000
+      internalID: -6958103469975887674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_26
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 1071
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b2f01097a686f7a0800000000000000
+      internalID: -6343734970870074702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_27
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 1004
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18e1290007fb4d340800000000000000
+      internalID: 4887741983370649217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_28
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 977
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73a800a5034d42e20800000000000000
+      internalID: 3325015729039772215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_29
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 952
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b08373b92bc78040800000000000000
+      internalID: 4649908520248115385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_30
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 933
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91c7034edfa4eece0800000000000000
+      internalID: -1374078381985858535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_31
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 903
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e15ed32142ea4f120800000000000000
+      internalID: 2446771967517123870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_32
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 879
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40d73b0f5a01843d0800000000000000
+      internalID: -3222307228489646844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_33
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 688
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f894b7924729d7bc0800000000000000
+      internalID: -3783707084311541361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_34
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 661
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e59d1502c3bb3a70800000000000000
+      internalID: 8807831142143989219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_35
+      rect:
+        serializedVersion: 2
+        x: 1433
+        y: 648
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c15b08b8578427b30800000000000000
+      internalID: 4283565865271604508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_36
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 636
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b95168c5af6c19be0800000000000000
+      internalID: -1472176824577026661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_37
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 617
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8658bd25dfd8ac4e0800000000000000
+      internalID: -1960598568610069144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_38
+      rect:
+        serializedVersion: 2
+        x: 1426
+        y: 610
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 700c9af843bec1b00800000000000000
+      internalID: 800773444746199047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_39
+      rect:
+        serializedVersion: 2
+        x: 1426
+        y: 397
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcd4e52977a2548c0800000000000000
+      internalID: -4015756799685800499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_40
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 372
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8df1f485dfa2bc20800000000000000
+      internalID: 3220830015116672398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_41
+      rect:
+        serializedVersion: 2
+        x: 1431
+        y: 361
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 348373f83f5cfba50800000000000000
+      internalID: 6539162833835735107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_42
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 345
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94757b34b59622400800000000000000
+      internalID: 297916366058903369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_43
+      rect:
+        serializedVersion: 2
+        x: 1433
+        y: 332
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c662cc79c2ff13250800000000000000
+      internalID: 5922795551959295596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_44
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 320
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96110f300d8651020800000000000000
+      internalID: 2311869226353168745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_45
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 300
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ecfbf09a07d53be0800000000000000
+      internalID: -1498054860648743711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_46
+      rect:
+        serializedVersion: 2
+        x: 1426
+        y: 294
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c259bc0c514dbcdd0800000000000000
+      internalID: -2464643181161245396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_47
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 270
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e024e461c51a36a0800000000000000
+      internalID: -6468833994398752536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_48
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 246
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df490d678f8bf52b0800000000000000
+      internalID: -5593548834886085379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_49
+      rect:
+        serializedVersion: 2
+        x: 1423
+        y: 257
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab46fa6c1d0a261d0800000000000000
+      internalID: -3358945549222976326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_50
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 226
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdd9aed84747f6450800000000000000
+      internalID: 6084209665546821083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_51
+      rect:
+        serializedVersion: 2
+        x: 1436
+        y: 235
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8c708314f9967650800000000000000
+      internalID: 6230336408091917451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_52
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 223
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc6dabf6891e80800800000000000000
+      internalID: 578960596942902989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_53
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 206
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d02fe7c7efed85890800000000000000
+      internalID: -7468974797402213875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_54
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 188
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3dde3342ddb53b70800000000000000
+      internalID: 8878210951199776059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_55
+      rect:
+        serializedVersion: 2
+        x: 1421
+        y: 191
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 925aff23804a54850800000000000000
+      internalID: 6360670403853002025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_56
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 177
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9401e898321d6c30800000000000000
+      internalID: 4354156449029489818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_57
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 157
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fef7cd6a760b74c0800000000000000
+      internalID: -4288827097242665226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_58
+      rect:
+        serializedVersion: 2
+        x: 1421
+        y: 150
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 212c289cbfcbee520800000000000000
+      internalID: 2733329813464072722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_59
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 144
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfb169329d31bbcb0800000000000000
+      internalID: -4847258750608335876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_60
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 122
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0ad0295b66eb70a0800000000000000
+      internalID: -6882654256774456818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_61
+      rect:
+        serializedVersion: 2
+        x: 1432
+        y: 132
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e119371dff18ec3f0800000000000000
+      internalID: -878621941560012514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_62
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 78
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6085e9bba3ecfd70800000000000000
+      internalID: 9078381275569815658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_63
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 72
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65d9651badd286e90800000000000000
+      internalID: -7032320400837665450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_64
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 75
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2dc8ef40207c0220800000000000000
+      internalID: 2453459181091999022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_65
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 78
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78aba567e7ee760c0800000000000000
+      internalID: -4582431868907242873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_66
+      rect:
+        serializedVersion: 2
+        x: 1067
+        y: 72
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a63ac226b26ced40800000000000000
+      internalID: 5614971369831413414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_67
+      rect:
+        serializedVersion: 2
+        x: 1270
+        y: 75
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7f85255f0881c7a0800000000000000
+      internalID: -6358651599436017793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_68
+      rect:
+        serializedVersion: 2
+        x: 1346
+        y: 78
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3918bdc3bb6cec640800000000000000
+      internalID: 5102233935339553171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_69
+      rect:
+        serializedVersion: 2
+        x: 1383
+        y: 72
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79ed864f54ebb0240800000000000000
+      internalID: 4759106638909595287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_70
+      rect:
+        serializedVersion: 2
+        x: 1426
+        y: 80
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b536a6cf5151ced60800000000000000
+      internalID: 7920729028811187035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_71
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df4980af4c7cf0b50800000000000000
+      internalID: 6561682830924485885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_72
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 69
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3308f193f13e68190800000000000000
+      internalID: -7960425568088915917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_73
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 67
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c4ea639cdd885bc0800000000000000
+      internalID: -3794126707554065213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_74
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 64
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07a81b2a870abfcc0800000000000000
+      internalID: -3676168230831814032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_75
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 69
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b886b4cb27b11b80800000000000000
+      internalID: -8425752029221713735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_76
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 68
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3af14191ac92615a0800000000000000
+      internalID: -6551002659982925917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_77
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 64
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9db4143c0ed8c05f0800000000000000
+      internalID: -789099838208652327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_78
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 64
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f18e0e066b69cc7e0800000000000000
+      internalID: -1743853245645658081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_79
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 69
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 439e74cf3b33c0030800000000000000
+      internalID: 3462199061665802548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_80
+      rect:
+        serializedVersion: 2
+        x: 1148
+        y: 67
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7612d5b451f4de040800000000000000
+      internalID: 4678482540785115495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_81
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 64
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 036d41fc1d15b8a50800000000000000
+      internalID: 6524398446740559408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_82
+      rect:
+        serializedVersion: 2
+        x: 1212
+        y: 69
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba3949b5ac3567c20800000000000000
+      internalID: 3203840313505649579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_83
+      rect:
+        serializedVersion: 2
+        x: 1232
+        y: 68
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae3d60f7ef0459b70800000000000000
+      internalID: 8905095299992048618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_84
+      rect:
+        serializedVersion: 2
+        x: 1288
+        y: 64
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b59ee4e71cf10f060800000000000000
+      internalID: 6985117937959889243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_85
+      rect:
+        serializedVersion: 2
+        x: 1361
+        y: 64
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84c4094674cc6d0f0800000000000000
+      internalID: -1092461252588843960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_86
+      rect:
+        serializedVersion: 2
+        x: 1404
+        y: 69
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 367270dc719e380a0800000000000000
+      internalID: -6880399517258668189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_87
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 59
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5f2bcdda39ead3d0800000000000000
+      internalID: -3180973747745378467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_88
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 59
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf9966260fbb49320800000000000000
+      internalID: 2563880728998091260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_89
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 61
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a00f7320eeb9da260800000000000000
+      internalID: 7110510833229623306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sunken_temple_of_mande_90
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 61
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e85547f7e56c6c730800000000000000
+      internalID: 4019117826642302350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      sunken_temple_of_mande_0: -2936746163633154826
+      sunken_temple_of_mande_1: -5721996194433154125
+      sunken_temple_of_mande_10: -6633096537683047666
+      sunken_temple_of_mande_11: -820741818787757955
+      sunken_temple_of_mande_12: 4826920154746710307
+      sunken_temple_of_mande_13: 8674064575499361022
+      sunken_temple_of_mande_14: -5702079385518408620
+      sunken_temple_of_mande_15: -9217005391823280246
+      sunken_temple_of_mande_16: 8017832124707184042
+      sunken_temple_of_mande_17: -4876190589626451262
+      sunken_temple_of_mande_18: 6375384228134236512
+      sunken_temple_of_mande_19: 472236029898859377
+      sunken_temple_of_mande_2: -3500881739064149618
+      sunken_temple_of_mande_20: 7723768148454619809
+      sunken_temple_of_mande_21: 8862855236915882080
+      sunken_temple_of_mande_22: -2604542156234405551
+      sunken_temple_of_mande_23: -546974238528905117
+      sunken_temple_of_mande_24: -8883377764984692603
+      sunken_temple_of_mande_25: -6958103469975887674
+      sunken_temple_of_mande_26: -6343734970870074702
+      sunken_temple_of_mande_27: 4887741983370649217
+      sunken_temple_of_mande_28: 3325015729039772215
+      sunken_temple_of_mande_29: 4649908520248115385
+      sunken_temple_of_mande_3: -1038936625445823144
+      sunken_temple_of_mande_30: -1374078381985858535
+      sunken_temple_of_mande_31: 2446771967517123870
+      sunken_temple_of_mande_32: -3222307228489646844
+      sunken_temple_of_mande_33: -3783707084311541361
+      sunken_temple_of_mande_34: 8807831142143989219
+      sunken_temple_of_mande_35: 4283565865271604508
+      sunken_temple_of_mande_36: -1472176824577026661
+      sunken_temple_of_mande_37: -1960598568610069144
+      sunken_temple_of_mande_38: 800773444746199047
+      sunken_temple_of_mande_39: -4015756799685800499
+      sunken_temple_of_mande_4: 5833816395766057109
+      sunken_temple_of_mande_40: 3220830015116672398
+      sunken_temple_of_mande_41: 6539162833835735107
+      sunken_temple_of_mande_42: 297916366058903369
+      sunken_temple_of_mande_43: 5922795551959295596
+      sunken_temple_of_mande_44: 2311869226353168745
+      sunken_temple_of_mande_45: -1498054860648743711
+      sunken_temple_of_mande_46: -2464643181161245396
+      sunken_temple_of_mande_47: -6468833994398752536
+      sunken_temple_of_mande_48: -5593548834886085379
+      sunken_temple_of_mande_49: -3358945549222976326
+      sunken_temple_of_mande_5: 7496843828608736589
+      sunken_temple_of_mande_50: 6084209665546821083
+      sunken_temple_of_mande_51: 6230336408091917451
+      sunken_temple_of_mande_52: 578960596942902989
+      sunken_temple_of_mande_53: -7468974797402213875
+      sunken_temple_of_mande_54: 8878210951199776059
+      sunken_temple_of_mande_55: 6360670403853002025
+      sunken_temple_of_mande_56: 4354156449029489818
+      sunken_temple_of_mande_57: -4288827097242665226
+      sunken_temple_of_mande_58: 2733329813464072722
+      sunken_temple_of_mande_59: -4847258750608335876
+      sunken_temple_of_mande_6: -5535759444797902746
+      sunken_temple_of_mande_60: -6882654256774456818
+      sunken_temple_of_mande_61: -878621941560012514
+      sunken_temple_of_mande_62: 9078381275569815658
+      sunken_temple_of_mande_63: -7032320400837665450
+      sunken_temple_of_mande_64: 2453459181091999022
+      sunken_temple_of_mande_65: -4582431868907242873
+      sunken_temple_of_mande_66: 5614971369831413414
+      sunken_temple_of_mande_67: -6358651599436017793
+      sunken_temple_of_mande_68: 5102233935339553171
+      sunken_temple_of_mande_69: 4759106638909595287
+      sunken_temple_of_mande_7: 4254862602213580344
+      sunken_temple_of_mande_70: 7920729028811187035
+      sunken_temple_of_mande_71: 6561682830924485885
+      sunken_temple_of_mande_72: -7960425568088915917
+      sunken_temple_of_mande_73: -3794126707554065213
+      sunken_temple_of_mande_74: -3676168230831814032
+      sunken_temple_of_mande_75: -8425752029221713735
+      sunken_temple_of_mande_76: -6551002659982925917
+      sunken_temple_of_mande_77: -789099838208652327
+      sunken_temple_of_mande_78: -1743853245645658081
+      sunken_temple_of_mande_79: 3462199061665802548
+      sunken_temple_of_mande_8: -8477165791749294131
+      sunken_temple_of_mande_80: 4678482540785115495
+      sunken_temple_of_mande_81: 6524398446740559408
+      sunken_temple_of_mande_82: 3203840313505649579
+      sunken_temple_of_mande_83: 8905095299992048618
+      sunken_temple_of_mande_84: 6985117937959889243
+      sunken_temple_of_mande_85: -1092461252588843960
+      sunken_temple_of_mande_86: -6880399517258668189
+      sunken_temple_of_mande_87: -3180973747745378467
+      sunken_temple_of_mande_88: 2563880728998091260
+      sunken_temple_of_mande_89: 7110510833229623306
+      sunken_temple_of_mande_9: 1009173114380558191
+      sunken_temple_of_mande_90: 4019117826642302350
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

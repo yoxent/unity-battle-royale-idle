@@ -1121,19 +1121,14 @@ namespace BattleRoyale.Maps.EditorTools
             for (var i = 0; i < analyzedLayout.doors.Count; i++)
             {
                 var door = analyzedLayout.doors[i];
-                if (DungeonRotundaGeometry.TryOpening(
-                        door.x,
-                        door.y,
-                        door.direction.x,
-                        door.direction.y,
-                        rect.x,
-                        rect.y,
-                        rect.width,
-                        rect.height,
-                        out var opening))
-                {
-                    openings.Add(opening);
-                }
+                DungeonRotundaGeometry.CollectOpenings(
+                    door.x,
+                    door.y,
+                    rect.x,
+                    rect.y,
+                    rect.width,
+                    rect.height,
+                    openings);
             }
 
             var loop = new List<DungeonRotundaGeometry.OutlinePoint>();
@@ -2691,6 +2686,33 @@ namespace BattleRoyale.Maps.EditorTools
                 {
                     data.DoorBoundaries.Add(
                         new BoundaryKey(true, door.y, door.x));
+                }
+
+                for (var rectIndex = 0; rectIndex < data.rects.Count; rectIndex++)
+                {
+                    var rect = data.rects[rectIndex];
+                    if (!rect.rotunda)
+                    {
+                        continue;
+                    }
+
+                    var openings = new List<DungeonRotundaGeometry.Opening>();
+                    DungeonRotundaGeometry.CollectOpenings(
+                        door.x,
+                        door.y,
+                        rect.x,
+                        rect.y,
+                        rect.width,
+                        rect.height,
+                        openings);
+                    for (var openingIndex = 0; openingIndex < openings.Count; openingIndex++)
+                    {
+                        var opening = openings[openingIndex];
+                        data.DoorBoundaries.Add(new BoundaryKey(
+                            !opening.Vertical,
+                            Mathf.RoundToInt(opening.Edge),
+                            Mathf.RoundToInt(opening.SpanStart)));
+                    }
                 }
             }
 

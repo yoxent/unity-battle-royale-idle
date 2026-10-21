@@ -23,10 +23,9 @@ namespace BattleRoyale.GameModes.BattleRoyale
         [SerializeField] private float corpseDrop = 1f;
         [SerializeField] private bool isBot = true;
         [SerializeField] private int teamIndex = -1;
+        [SerializeField] private BattleRoyaleAgentBodyView bodyView;
 
         private static readonly Color FiringColor = new(1f, 0.45f, 0.1f);
-
-        private Renderer agentRenderer;
         private BattleRoyaleWeapon weapon;
         private IMatch match;
         private bool hasTeamColor;
@@ -173,7 +172,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
             stationaryDuration = 0f;
             State = BattleRoyaleAgentState.Spawned;
 
-            CreatePrimitiveVisual();
+            PlaceBodyVisual();
             ConfigureAgent();
             weapon = GetComponent<BattleRoyaleWeapon>();
             if (weapon == null)
@@ -336,10 +335,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
 
             State = BattleRoyaleAgentState.Eliminated;
             PresentCorpse();
-            if (agentRenderer != null)
-            {
-                agentRenderer.material.color = Color.gray;
-            }
+            ApplyBodyColor(Color.gray);
 
             Eliminated?.Invoke(this, damageSource);
             match?.NotifyAgentEliminated(this, damageSource);
@@ -348,15 +344,26 @@ namespace BattleRoyale.GameModes.BattleRoyale
 
         private void ApplyStateColor()
         {
-            if (agentRenderer == null || profile == null)
+            if (profile == null)
             {
                 return;
             }
 
             var bodyColor = hasTeamColor ? teamColor : profile.visualColor;
-            agentRenderer.material.color = State == BattleRoyaleAgentState.Engaging
+            ApplyBodyColor(State == BattleRoyaleAgentState.Engaging
                 ? FiringColor
-                : bodyColor;
+                : bodyColor);
+        }
+
+        private void ApplyBodyColor(Color color)
+        {
+            if (bodyView == null)
+            {
+                Debug.LogError("BattleRoyaleAgent is missing its body view.", this);
+                return;
+            }
+
+            bodyView.ApplyColor(color);
         }
 
         void PresentCorpse()
@@ -369,11 +376,21 @@ namespace BattleRoyale.GameModes.BattleRoyale
             }
 
             SetBodyColliders(false);
+            if (bodyView != null)
+            {
+                bodyView.PresentEliminated();
+            }
+
             DropVisuals();
         }
 
         void PresentLivingBody()
         {
+            if (bodyView != null)
+            {
+                bodyView.PresentLiving();
+            }
+
             RaiseVisuals();
             SetBodyColliders(true);
             var body = GetComponent<CapsuleCollider>();
@@ -391,9 +408,15 @@ namespace BattleRoyale.GameModes.BattleRoyale
             }
 
             var drop = Mathf.Max(0f, corpseDrop);
+            var body = bodyView == null ? null : bodyView.Visual;
             for (var i = 0; i < transform.childCount; i++)
             {
                 var child = transform.GetChild(i);
+                if (child == body)
+                {
+                    continue;
+                }
+
                 var local = child.localPosition;
                 local.y -= drop;
                 child.localPosition = local;
@@ -410,9 +433,15 @@ namespace BattleRoyale.GameModes.BattleRoyale
             }
 
             var drop = Mathf.Max(0f, corpseDrop);
+            var body = bodyView == null ? null : bodyView.Visual;
             for (var i = 0; i < transform.childCount; i++)
             {
                 var child = transform.GetChild(i);
+                if (child == body)
+                {
+                    continue;
+                }
+
                 var local = child.localPosition;
                 local.y += drop;
                 child.localPosition = local;
@@ -543,68 +572,35 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 return;
             }
 
-            var destination = transform.position + push;
-            if (agent != null && agent.enabled && agent.isOnNavMesh)
+            if (agent == null || !agent.enabled || !agent.isOnNavMesh)
             {
-                if (NavMesh.SamplePosition(
-                        destination,
-                        out var hit,
-                        push.magnitude + 1f,
-                        NavMesh.AllAreas) &&
-                    agent.Warp(hit.position))
-                {
-                    return;
-                }
+                return;
             }
 
-            transform.position = destination;
+            var destination = transform.position + push;
+            if (NavMesh.SamplePosition(
+                    destination,
+                    out var hit,
+                    push.magnitude + 1f,
+                    NavMesh.AllAreas))
+            {
+                agent.Warp(hit.position);
+            }
         }
 
-        private void CreatePrimitiveVisual()
+        private void PlaceBodyVisual()
         {
-            var existingVisual = transform.Find("AgentCapsule");
-            Transform visual;
-            if (existingVisual != null)
+            var scale = profile == null
+                ? 1f
+                : Mathf.Max(0.1f, Mathf.Abs(profile.visualScale));
+            if (bodyView == null)
             {
-                visual = existingVisual;
-                agentRenderer = existingVisual.GetComponent<Renderer>();
+                Debug.LogError("BattleRoyaleAgent is missing its body view.", this);
             }
             else
             {
-                var created = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-                created.name = "AgentCapsule";
-                visual = created.transform;
-                visual.SetParent(transform, false);
-                visual.localScale = Vector3.one * profile.visualScale;
-                var visualCollider = created.GetComponent<Collider>();
-                if (visualCollider != null)
-                {
-                    Destroy(visualCollider);
-                }
-
-                agentRenderer = created.GetComponent<Renderer>();
-                if (agentRenderer != null)
-                {
-                    var shader = Shader.Find("Universal Render Pipeline/Lit") ??
-                                 Shader.Find("Standard");
-                    if (shader != null)
-                    {
-                        agentRenderer.material = new Material(shader)
-                        {
-                            color = profile.visualColor
-                        };
-                    }
-                }
+                bodyView.Place(scale);
             }
-
-            SeatOnPivot(visual);
-        }
-
-        private void SeatOnPivot(Transform visual)
-        {
-            var local = visual.localPosition;
-            local.y = CapsuleSeatOffset(visual.localScale.y);
-            visual.localPosition = local;
 
             var bodyCollider = GetComponent<CapsuleCollider>();
             if (bodyCollider == null)
@@ -612,7 +608,6 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 bodyCollider = gameObject.AddComponent<CapsuleCollider>();
             }
 
-            var scale = Mathf.Max(0.1f, Mathf.Abs(visual.localScale.y));
             bodyCollider.radius = 0.5f * scale;
             bodyCollider.height = 2f * scale;
             bodyCollider.center = SeatedColliderCenter(

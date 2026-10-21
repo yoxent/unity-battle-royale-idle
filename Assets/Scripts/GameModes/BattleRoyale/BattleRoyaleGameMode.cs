@@ -669,7 +669,9 @@ namespace BattleRoyale.GameModes.BattleRoyale
                     var offset = Random.insideUnitCircle * point.radius;
                     var localPosition = point.position +
                                          new Vector3(offset.x, 0f, offset.y);
-                    return SnapToNavigation(ActiveMap.WorldPoint(localPosition));
+                    return ResolveSpawn(
+                        ActiveMap.WorldPoint(localPosition),
+                        ActiveMap.WorldPoint(point.position));
                 }
             }
 
@@ -677,7 +679,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
                          Mathf.Max(1f, safeZoneStartRadius * 0.8f);
             var fallbackPosition = safeZoneCenter +
                                    new Vector3(random.x, 0f, random.y);
-            return SnapToNavigation(fallbackPosition);
+            return ResolveSpawn(fallbackPosition, safeZoneCenter);
         }
 
         private void OnDrawGizmosSelected()

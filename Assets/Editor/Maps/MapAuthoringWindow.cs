@@ -25,6 +25,7 @@ namespace BattleRoyale.Maps.EditorTools
         [SerializeField] private float wallHeight = 3f;
         [SerializeField] private float wallThickness = 0.7f;
         [SerializeField] private float unitScale = DungeonMapGeometry.DefaultUnitScale;
+        [SerializeField] private bool unitScaleDefaultIsOne;
         [SerializeField] private bool generateBuildingWalls = true;
         [SerializeField] private bool generateTreeColliders;
         [SerializeField] private bool replaceGeneratedRoot = true;
@@ -66,6 +67,18 @@ namespace BattleRoyale.Maps.EditorTools
         public static void Open()
         {
             Open(null);
+        }
+
+        private void OnEnable()
+        {
+            if (unitScaleDefaultIsOne || mapDefinition != null)
+            {
+                unitScaleDefaultIsOne = true;
+                return;
+            }
+
+            unitScale = DungeonMapGeometry.DefaultUnitScale;
+            unitScaleDefaultIsOne = true;
         }
 
         public static void Open(MapDefinition definition)
@@ -119,11 +132,13 @@ namespace BattleRoyale.Maps.EditorTools
                             : mapDefinition != null
                                 ? mapDefinition.layoutJson
                                 : null));
-            }
-            finally
-            {
                 AuthoringSectionHeader.End();
                 EditorGUILayout.EndScrollView();
+            }
+            catch (Exception)
+            {
+                AuthoringSectionHeader.End();
+                throw;
             }
         }
 

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a3bc72a4df9a4f479a7b8c7d4368bcc, type: 3}
+  m_Name: blackwing_temple_Elimination_Default
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.EliminationModeConfiguration
+  map: {fileID: 11400000, guid: a0b10bbd7de206a4dbc95e8935b3a9e6, type: 2}
+  mode: 15
+  variantName: Default
+  teamCount: 2
+  teamSize: 5
+  teams:
+  - teamId: Team 1
+    spawnPosition: {x: 51.077255, y: 0, z: 230.57832}
+    radius: 8
+  - teamId: Team 2
+    spawnPosition: {x: -71.46988, y: 0, z: -150.8703}
+    radius: 8
+  roundWinLimit: 13
+  roundSeconds: 115
+  intermissionSeconds: 7

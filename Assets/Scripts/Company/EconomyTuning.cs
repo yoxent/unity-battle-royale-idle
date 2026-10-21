@@ -16,7 +16,7 @@ namespace BattleRoyale.Company
         public int EarlyRefreshRaise;
         public int FreeRefreshesPerDay = 3;
         public float RecruitRefreshSeconds = 14400f;
-        public float AbortWindowSeconds = 15f;
+        public float AbortWindowSeconds = 3f;
         public float SessionDaySeconds = 600f;
         public float OfflineEarningRate = 0.5f;
 
@@ -38,7 +38,7 @@ namespace BattleRoyale.Company
                 EarlyRefreshRaise = 3,
                 FreeRefreshesPerDay = 3,
                 RecruitRefreshSeconds = 14400f,
-                AbortWindowSeconds = 15f,
+                AbortWindowSeconds = 3f,
                 SessionDaySeconds = 600f,
                 OfflineEarningRate = 0.5f,
             };

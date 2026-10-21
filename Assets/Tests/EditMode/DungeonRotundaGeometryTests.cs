@@ -29,6 +29,37 @@ namespace BattleRoyale.Tests.EditMode
         }
 
         [Test]
+        public void DoorCellOutsideTheEllipseStillOpensTheTouchedSide()
+        {
+            var openings = new List<DungeonRotundaGeometry.Opening>();
+            DungeonRotundaGeometry.CollectOpenings(
+                doorX: 5,
+                doorY: 3,
+                roomX: 4,
+                roomY: 0,
+                roomWidth: 3,
+                roomHeight: 3,
+                openings);
+
+            Assert.AreEqual(1, openings.Count);
+            Assert.IsFalse(openings[0].Vertical);
+            Assert.AreEqual(3f, openings[0].Edge);
+            Assert.AreEqual(5f, openings[0].SpanStart);
+            Assert.AreEqual(6f, openings[0].SpanEnd);
+
+            var loop = new List<DungeonRotundaGeometry.OutlinePoint>();
+            DungeonRotundaGeometry.BuildOutline(5.5f, 1.5f, 1.5f, 1.5f, openings, 48, loop);
+            var starts = new List<Vector2>();
+            var ends = new List<Vector2>();
+            DungeonRotundaGeometry.AppendWallSegments(loop, starts, ends);
+            for (var i = 0; i < starts.Count; i++)
+            {
+                var crossesMouth = CrossesHorizontal(starts[i], ends[i], 3f, 5f, 6f);
+                Assert.IsFalse(crossesMouth);
+            }
+        }
+
+        [Test]
         public void DoorOnAnotherRoomIsIgnored()
         {
             var found = DungeonRotundaGeometry.TryOpening(
@@ -134,6 +165,23 @@ namespace BattleRoyale.Tests.EditMode
                    Mathf.Abs(end.x - 3f) <= 0.001f &&
                    Mathf.Abs(start.y - 1f) <= 0.001f &&
                    Mathf.Abs(end.y - 2f) <= 0.001f;
+        }
+
+        private static bool CrossesHorizontal(
+            Vector2 start,
+            Vector2 end,
+            float y,
+            float x0,
+            float x1)
+        {
+            if (Mathf.Abs(start.y - y) > 0.02f || Mathf.Abs(end.y - y) > 0.02f)
+            {
+                return false;
+            }
+
+            var min = Mathf.Min(start.x, end.x);
+            var max = Mathf.Max(start.x, end.x);
+            return Mathf.Min(max, x1) - Mathf.Max(min, x0) > 0.05f;
         }
     }
 }

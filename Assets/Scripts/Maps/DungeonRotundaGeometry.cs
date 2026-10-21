@@ -90,6 +90,91 @@ namespace BattleRoyale.Maps
                 return false;
             }
 
+            return TryEdgeOpening(
+                vertical,
+                edge,
+                span,
+                roomX,
+                roomY,
+                roomWidth,
+                roomHeight,
+                out opening);
+        }
+
+        public static void CollectOpenings(
+            int doorX,
+            int doorY,
+            int roomX,
+            int roomY,
+            int roomWidth,
+            int roomHeight,
+            List<Opening> openings)
+        {
+            if (openings == null)
+            {
+                return;
+            }
+
+            TryAddCellEdge(openings, true, doorX, doorY, roomX, roomY, roomWidth, roomHeight);
+            TryAddCellEdge(openings, true, doorX + 1, doorY, roomX, roomY, roomWidth, roomHeight);
+            TryAddCellEdge(openings, false, doorY, doorX, roomX, roomY, roomWidth, roomHeight);
+            TryAddCellEdge(openings, false, doorY + 1, doorX, roomX, roomY, roomWidth, roomHeight);
+        }
+
+        private static void TryAddCellEdge(
+            List<Opening> openings,
+            bool vertical,
+            int edge,
+            int span,
+            int roomX,
+            int roomY,
+            int roomWidth,
+            int roomHeight)
+        {
+            if (!TryEdgeOpening(
+                    vertical,
+                    edge,
+                    span,
+                    roomX,
+                    roomY,
+                    roomWidth,
+                    roomHeight,
+                    out var opening))
+            {
+                return;
+            }
+
+            for (var i = 0; i < openings.Count; i++)
+            {
+                var existing = openings[i];
+                if (existing.Vertical == opening.Vertical &&
+                    Mathf.Abs(existing.Edge - opening.Edge) <= 0.001f &&
+                    Mathf.Abs(existing.SpanStart - opening.SpanStart) <= 0.001f &&
+                    Mathf.Abs(existing.SpanEnd - opening.SpanEnd) <= 0.001f)
+                {
+                    return;
+                }
+            }
+
+            openings.Add(opening);
+        }
+
+        private static bool TryEdgeOpening(
+            bool vertical,
+            float edge,
+            float span,
+            int roomX,
+            int roomY,
+            int roomWidth,
+            int roomHeight,
+            out Opening opening)
+        {
+            opening = default;
+            if (roomWidth <= 0 || roomHeight <= 0)
+            {
+                return false;
+            }
+
             var roomStart = vertical ? roomX : roomY;
             var roomEnd = roomStart + (vertical ? roomWidth : roomHeight);
             if (Mathf.Abs(edge - roomStart) > 0.001f &&

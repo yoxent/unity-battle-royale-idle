@@ -840,25 +840,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 }
             }
 
-            if (navigationAgent != null && navigationAgent.enabled)
-            {
-                navigationAgent.enabled = false;
-            }
-
-            var before = transform.position;
-            var nextPosition = Vector3.MoveTowards(
-                before,
-                destination,
-                agent.MoveSpeed * Time.deltaTime);
-            var movement = nextPosition - before;
-            if (movement.sqrMagnitude <= 0.001f)
-            {
-                return false;
-            }
-
-            transform.position = nextPosition;
-            FaceDirection(movement);
-            return true;
+            return false;
         }
 
         private void StopMoving()

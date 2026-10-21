@@ -127,6 +127,46 @@ namespace BattleRoyale.Tests.EditMode
         }
 
         [Test]
+        public void PlaceMaps_ReusesTheLoadedCatalogMap()
+        {
+            var definition = ReadyDefinition(MapGameMode.Deathmatch);
+            var sceneMap = definition.bakedPrefab.GetComponent<MapInstance>();
+            sceneMap.definition = definition;
+            var match = Create<DeathmatchGameMode>("Deathmatch");
+            match.UseConfiguration(definition.modeConfigurations[0]);
+            LogAssert.Expect(LogType.Error, "The simulation stage needs the active map's playable catalog.");
+            var stage = CreateStage(match);
+            var manager = CreateManager(stage, definition);
+            manager.SetActiveMap(sceneMap);
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            stage.GetType().GetField("mapManager", flags).SetValue(stage, manager);
+
+            LogAssert.Expect(LogType.Error, "The simulation stage needs a watch camera.");
+            stage.GetType().GetMethod("Awake", flags).Invoke(stage, null);
+
+            var placed = (MapInstance[])stage.GetType().GetField("placedMaps", flags).GetValue(stage);
+            Assert.AreSame(sceneMap, placed[0]);
+            Assert.AreEqual(1, CountMaps(definition));
+        }
+
+        private static int CountMaps(MapDefinition definition)
+        {
+            var maps = Object.FindObjectsByType<MapInstance>(
+                FindObjectsInactive.Include,
+                FindObjectsSortMode.None);
+            var count = 0;
+            for (var index = 0; index < maps.Length; index++)
+            {
+                if (maps[index] != null && maps[index].definition == definition)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        [Test]
         public void PlaceMaps_SkipsAnInactiveSlot()
         {
             var runningMap = ReadyDefinition(MapGameMode.Deathmatch);
@@ -134,13 +174,11 @@ namespace BattleRoyale.Tests.EditMode
             running.UseConfiguration(Configuration(runningMap, MapGameMode.Deathmatch));
             var idle = Create<DeathmatchGameMode>("Idle");
             idle.gameObject.SetActive(false);
+            LogAssert.Expect(LogType.Error, "The simulation stage needs the active map's playable catalog.");
             var stage = CreateStage(idle, running);
-            var catalog = ScriptableObject.CreateInstance<PlayableMapCatalog>();
-            catalog.hideFlags = HideFlags.HideAndDontSave;
-            created.Add(catalog);
-            catalog.maps.Add(runningMap);
+            var manager = CreateManager(stage, runningMap);
             var flags = BindingFlags.Instance | BindingFlags.NonPublic;
-            stage.GetType().GetField("playableMaps", flags).SetValue(stage, catalog);
+            stage.GetType().GetField("mapManager", flags).SetValue(stage, manager);
 
             LogAssert.Expect(LogType.Error, "The simulation stage needs a watch camera.");
             stage.GetType().GetMethod("Awake", flags).Invoke(stage, null);

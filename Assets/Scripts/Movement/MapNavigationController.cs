@@ -38,6 +38,17 @@ namespace BattleRoyale.Movement
             surface.BuildNavMesh();
         }
 
+        public void PublishPose()
+        {
+            if (!CacheSurface() || surface.navMeshData == null)
+            {
+                return;
+            }
+
+            surface.RemoveData();
+            surface.AddData();
+        }
+
         private bool CacheSurface()
         {
             if (surface == null)

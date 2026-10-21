@@ -13,7 +13,5 @@ MonoBehaviour:
   m_Name: PlayableMaps
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.PlayableMapCatalog
   maps:
-  - {fileID: 11400000, guid: 2f73855a16f81174da4d25f004f8c7a2, type: 2}
-  - {fileID: 11400000, guid: 2a056bffcfc033c499671bea51df534e, type: 2}
-  - {fileID: 11400000, guid: 011c2b03c6049a64790394a05c7cf2ad, type: 2}
-  - {fileID: 11400000, guid: 273ff9d1b8b444a48b068180413b55e1, type: 2}
+  - {fileID: 11400000, guid: a0b10bbd7de206a4dbc95e8935b3a9e6, type: 2}
+  - {fileID: 11400000, guid: a73314022d1a123449957fe89067bbff, type: 2}

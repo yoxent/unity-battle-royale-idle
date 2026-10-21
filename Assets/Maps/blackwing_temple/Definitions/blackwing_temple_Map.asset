@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3503e613d5c33349941d0854c67e07a, type: 3}
+  m_Name: blackwing_temple_Map
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.MapDefinition
+  layoutJson: {fileID: 4900000, guid: 6a65bbbedddddd24f91df66fe9499e26, type: 3}
+  narrativeMarkdown: {fileID: 4900000, guid: 873f6a330d5d28f48b8249e0f028dd7a, type: 3}
+  visualMap: {fileID: 2800000, guid: 6c0faa8d2ffd73342b66e879c1d09b99, type: 3}
+  visualSprite: {fileID: -1568625617900378857, guid: 6c0faa8d2ffd73342b66e879c1d09b99, type: 3}
+  visualMaterial: {fileID: 2100000, guid: 24848af89713ba34099d2b7ba9cb1271, type: 2}
+  worldScale: 20
+  sourceMin: {x: -9, y: -11}
+  sourceMax: {x: 10, y: 13}
+  baseHeight: 0
+  heightScale: 0
+  wallHeight: 3
+  wallThickness: 2
+  unitScale: 10
+  generateBuildingWalls: 0
+  generateTreeColliders: 0
+  treeUpperLeft: {x: 0, y: 0}
+  treeLowerRight: {x: 0, y: 0}
+  editTreeCornersInScene: 0
+  treeRadiusMultiplier: 1
+  treeHeight: 2
+  useImageCornerFit: 1
+  imageUpperLeftUv: {x: 0.048239164, y: 0.9604618}
+  imageLowerRightUv: {x: 0.95372635, y: 0.036982752}
+  editImageCornersInScene: 1
+  columnSize: 6
+  columnOffset: {x: -0.5, y: -0.5}
+  overrideNavMeshVoxelSize: 0
+  navMeshVoxelSize: 0.16666667
+  replaceGeneratedRoot: 1
+  disableOtherGeneratedMaps: 1
+  setAsActiveCameraMap: 1
+  editPointsInSceneView: 1
+  bakedPrefab: {fileID: 1278082536010938380, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+  generator: dungeon
+  generatorVersion: 1.2.7
+  features:
+  - id: rects
+    type: Rooms
+    geometryCount: 23
+    coordinateCount: 92
+  - id: doors
+    type: Doors
+    geometryCount: 12
+    coordinateCount: 12
+  - id: water
+    type: BlockedCells
+    geometryCount: 0
+    coordinateCount: 0
+  - id: columns
+    type: Columns
+    geometryCount: 12
+    coordinateCount: 12
+  tacticalAnchors: []
+  supportedGameModes: 0f00000002000000
+  modeConfigurations:
+  - {fileID: 11400000, guid: 462fbe7d5cd2fd04d81a8458ab60649a, type: 2}
+  - {fileID: 11400000, guid: 4d7f4c4824936124d9eb6f345aa3b07a, type: 2}

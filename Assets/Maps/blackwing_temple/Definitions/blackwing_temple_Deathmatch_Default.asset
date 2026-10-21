@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96bb8df985600dc469f9fd4e71d30c52, type: 3}
+  m_Name: blackwing_temple_Deathmatch_Default
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.DeathmatchModeConfiguration
+  map: {fileID: 11400000, guid: a0b10bbd7de206a4dbc95e8935b3a9e6, type: 2}
+  mode: 2
+  variantName: Default
+  teamCount: 2
+  teamSize: 4
+  teams:
+  - teamId: Team 1
+    spawnPosition: {x: 51.07727, y: 0, z: 230.57834}
+    radius: 8
+  - teamId: Team 2
+    spawnPosition: {x: -70.10063, y: 0, z: -150.1857}
+    radius: 8
+  scoreLimit: 50
+  respawnSeconds: 3

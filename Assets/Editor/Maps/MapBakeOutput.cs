@@ -715,14 +715,14 @@ namespace BattleRoyale.Maps.EditorTools
                 serializedObject.FindProperty("playableMaps"),
                 new GUIContent(
                     "Playable Catalog",
-                    "Ready maps. Empty uses the PlayableMaps asset in Resources."));
+                    "The only playable-map list. Mode select and the simulation stage read this."));
             serializedObject.ApplyModifiedProperties();
 
             var catalog = manager.PlayableMaps;
             if (catalog == null || catalog.maps == null)
             {
                 EditorGUILayout.HelpBox(
-                    "Add a Playable Map Catalog named PlayableMaps under Resources.",
+                    "Assign the playable map catalog on Active Map.",
                     MessageType.Info);
                 return;
             }

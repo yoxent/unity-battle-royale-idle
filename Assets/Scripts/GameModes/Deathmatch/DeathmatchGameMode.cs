@@ -98,16 +98,19 @@ namespace BattleRoyale.GameModes.Deathmatch
             BattleRoyaleAgentProfile[] playerProfiles,
             BattleRoyaleAgentProfile[] opponentProfiles)
         {
+            var teamSize = ModeConfiguration == null ? 0 : ModeConfiguration.teamSize;
             if (player == null ||
                 opponent == null ||
                 player.Agents == null ||
                 opponent.Agents == null ||
                 playerProfiles == null ||
                 opponentProfiles == null ||
-                player.Agents.Length == 0 ||
-                player.Agents.Length != opponent.Agents.Length ||
                 playerProfiles.Length != player.Agents.Length ||
-                opponentProfiles.Length != opponent.Agents.Length)
+                opponentProfiles.Length != opponent.Agents.Length ||
+                !DeathmatchRules.CanFieldCompanySides(
+                    player.Agents.Length,
+                    opponent.Agents.Length,
+                    teamSize))
             {
                 return false;
             }
@@ -154,8 +157,19 @@ namespace BattleRoyale.GameModes.Deathmatch
 
         bool SpawnCompanySides(int teamCount)
         {
-            var teamSize = Mathf.Max(1, ModeConfiguration.teamSize);
-            if (teamCount < 2 || companyPlayer.Agents.Length != teamSize)
+            var teamSize = ModeConfiguration == null ? 0 : ModeConfiguration.teamSize;
+            if (teamCount < 2 ||
+                companyPlayer.Agents == null ||
+                companyOpponent == null ||
+                companyOpponent.Agents == null ||
+                companyPlayerProfiles == null ||
+                companyOpponentProfiles == null ||
+                companyPlayerProfiles.Length < teamSize ||
+                companyOpponentProfiles.Length < teamSize ||
+                !DeathmatchRules.CanFieldCompanySides(
+                    companyPlayer.Agents.Length,
+                    companyOpponent.Agents.Length,
+                    teamSize))
             {
                 Debug.LogError(
                     "The company match does not match this Deathmatch's side size.",
@@ -516,7 +530,20 @@ namespace BattleRoyale.GameModes.Deathmatch
                 return false;
             }
 
-            if (ModeConfiguration == null ||
+            if (companyPlayer != null)
+            {
+                if (ModeConfiguration == null ||
+                    ActiveMap.definition == null ||
+                    ModeConfiguration.map != ActiveMap.definition ||
+                    ModeConfiguration is not DeathmatchModeConfiguration)
+                {
+                    Debug.LogError(
+                        "The company match is not on the selected Deathmatch map.",
+                        this);
+                    return false;
+                }
+            }
+            else if (ModeConfiguration == null ||
                 ModeConfiguration.map != ActiveMap.definition ||
                 ModeConfiguration is not DeathmatchModeConfiguration)
             {
@@ -572,11 +599,14 @@ namespace BattleRoyale.GameModes.Deathmatch
                 var offset = Random.insideUnitCircle * Mathf.Max(0f, point.radius);
                 var localPosition = point.spawnPosition +
                                     new Vector3(offset.x, 0f, offset.y);
-                return SnapToNavigation(ActiveMap.WorldPoint(localPosition));
+                return ResolveSpawn(
+                    ActiveMap.WorldPoint(localPosition),
+                    ActiveMap.WorldPoint(point.spawnPosition));
             }
 
             var center = ActiveMap.definition.WorldCenter;
-            return SnapToNavigation(ActiveMap.WorldPoint(center));
+            var worldCenter = ActiveMap.WorldPoint(center);
+            return ResolveSpawn(worldCenter, worldCenter);
         }
     }
 }

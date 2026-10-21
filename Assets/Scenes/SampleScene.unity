@@ -5586,7 +5586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.754717, g: 0.73098373, b: 0.66571736, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5610,67 +5610,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293284112}
   m_CullTransparentMesh: 1
---- !u!1001 &308954258
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 67199255575725645, guid: d001b092b50cd91439081775bfd4e1a7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -27.43415
-      objectReference: {fileID: 0}
-    - target: {fileID: 67199255575725645, guid: d001b092b50cd91439081775bfd4e1a7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 67199255575725645, guid: d001b092b50cd91439081775bfd4e1a7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 48.630386
-      objectReference: {fileID: 0}
-    - target: {fileID: 67199255575725645, guid: d001b092b50cd91439081775bfd4e1a7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 67199255575725645, guid: d001b092b50cd91439081775bfd4e1a7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 67199255575725645, guid: d001b092b50cd91439081775bfd4e1a7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 67199255575725645, guid: d001b092b50cd91439081775bfd4e1a7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 67199255575725645, guid: d001b092b50cd91439081775bfd4e1a7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 67199255575725645, guid: d001b092b50cd91439081775bfd4e1a7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 67199255575725645, guid: d001b092b50cd91439081775bfd4e1a7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 839197789433060599, guid: d001b092b50cd91439081775bfd4e1a7, type: 3}
-      propertyPath: m_Name
-      value: characterLargeFemale
-      objectReference: {fileID: 0}
-    - target: {fileID: 5155179188514757470, guid: d001b092b50cd91439081775bfd4e1a7, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: b32f799f198179940a125f0d4ec340be, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d001b092b50cd91439081775bfd4e1a7, type: 3}
 --- !u!1 &317891667
 GameObject:
   m_ObjectHideFlags: 0
@@ -7512,63 +7451,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c8f22ec5599f349b844ea055d81bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Company.CompanyRosterCardView
---- !u!1001 &491349842
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 41ce1c0d3a919004e8cb550822db969b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -74.37765
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 41ce1c0d3a919004e8cb550822db969b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 41ce1c0d3a919004e8cb550822db969b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -378.397
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 41ce1c0d3a919004e8cb550822db969b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 41ce1c0d3a919004e8cb550822db969b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 41ce1c0d3a919004e8cb550822db969b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 41ce1c0d3a919004e8cb550822db969b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 41ce1c0d3a919004e8cb550822db969b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 41ce1c0d3a919004e8cb550822db969b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 41ce1c0d3a919004e8cb550822db969b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 41ce1c0d3a919004e8cb550822db969b, type: 3}
-      propertyPath: m_Name
-      value: characterLargeMale
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 41ce1c0d3a919004e8cb550822db969b, type: 3}
 --- !u!1 &496017288
 GameObject:
   m_ObjectHideFlags: 0
@@ -8126,7 +8008,7 @@ Camera:
   far clip plane: 50
   field of view: 34
   orthographic: 1
-  orthographic size: 112.21874
+  orthographic size: 251.99998
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -8151,7 +8033,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 10, y: 16, z: 40}
+  m_LocalPosition: {x: 10, y: 16, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8169,7 +8051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4c9f0710cd0f12498af2c8698fe2e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.CameraSystems.SimulationCameraController
-  activeMap: {fileID: 621317199}
+  activeMap: {fileID: 1540003789}
   mapPaddingPercent: 5
   minimumOrthographicSize: 6
   maximumOrthographicSize: 2000
@@ -11330,94 +11212,6 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!1001 &621317198
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1180222080683407942, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 1180222080683407942, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3740991718051478714, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_Name
-      value: Map
-      objectReference: {fileID: 0}
-    - target: {fileID: 8634939716666900849, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8634939716666900849, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8634939716666900849, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8634939716666900849, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8634939716666900849, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8634939716666900849, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8634939716666900849, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8634939716666900849, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8634939716666900849, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8634939716666900849, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8872406040448402548, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -180
-      objectReference: {fileID: 0}
-    - target: {fileID: 8872406040448402548, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 8938857721254962272, guid: 502f0196087272f4288c4899178f512b, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 1011906740}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 502f0196087272f4288c4899178f512b, type: 3}
---- !u!114 &621317199 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4808377972622113163, guid: 502f0196087272f4288c4899178f512b, type: 3}
-  m_PrefabInstance: {fileID: 621317198}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68643f08154c6bd40b0f2798f649ff39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.MapInstance
 --- !u!1 &632576264
 GameObject:
   m_ObjectHideFlags: 0
@@ -12846,7 +12640,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &740827043
 Transform:
   m_ObjectHideFlags: 0
@@ -12875,8 +12669,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82cf3b744400a484d8fd1ad3473119f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.GameModes.BattleRoyale.BattleRoyaleGameMode
-  activeMap: {fileID: 621317199}
-  modeConfiguration: {fileID: 11400000, guid: 83abf21180b8db447aa8f6c7bb806e39, type: 2}
+  activeMap: {fileID: 1540003789}
+  modeConfiguration: {fileID: 0}
   teamPlaystyle: 1
   coachDirective:
     type: 0
@@ -15175,184 +14969,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45eebd797a291ae41989a8c6e2404692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Company.TutorialPanelView
---- !u!43 &1011906740
-Mesh:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: temple_of_the_deep_Map_Visual
-  serializedVersion: 12
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 6
-    topology: 0
-    baseVertex: 0
-    firstVertex: 0
-    vertexCount: 4
-    localAABB:
-      m_Center: {x: 9.570686, y: 0, z: 30.131926}
-      m_Extent: {x: 208.60254, y: 0, z: 50.495903}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_BonesAABB: []
-  m_VariableBoneCountWeights:
-    m_Data: 
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexFormat: 0
-  m_IndexBuffer: 000001000200000002000300
-  m_VertexData:
-    serializedVersion: 3
-    m_VertexCount: 4
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 24
-      format: 0
-      dimension: 2
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 128
-    _typelessdata: 270847c3000000006ee9a2c1000000000000803f000000000000000000000000270847c3000000007341a142000000000000803f00000000000000000000803f582c5a43000000007341a142000000000000803f000000000000803f0000803f582c5a43000000006ee9a2c1000000000000803f000000000000803f00000000
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: 9.570686, y: 0, z: 30.131926}
-    m_Extent: {x: 208.60254, y: 0, z: 50.495903}
-  m_MeshUsageFlags: 0
-  m_CookingOptions: 30
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  'm_MeshMetrics[0]': 1
-  'm_MeshMetrics[1]': 1
-  m_MeshOptimizationFlags: 1
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
-  m_MeshLodInfo:
-    serializedVersion: 2
-    m_LodSelectionCurve:
-      serializedVersion: 1
-      m_LodSlope: 0
-      m_LodBias: 0
-    m_NumLevels: 1
-    m_SubMeshes:
-    - serializedVersion: 2
-      m_Levels:
-      - serializedVersion: 1
-        m_IndexStart: 0
-        m_IndexCount: 0
 --- !u!1 &1012930972
 GameObject:
   m_ObjectHideFlags: 0
@@ -18291,7 +17907,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1382141250
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20134,11 +19750,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842caf5692687d94ab12fbc1c0366c2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.ActiveMapManager
-  playableMaps: {fileID: 11400000, guid: e7b2c9a14d6f4c8e0b5a3d7f9c184625, type: 2}
+  playableMaps: {fileID: 11400000, guid: d035f244b4d354e44994f8a57bba706a, type: 2}
   stage: {fileID: 1942640136}
-  slotIndex: 1
-  activeMapPrefab: {fileID: 3740991718051478714, guid: 502f0196087272f4288c4899178f512b, type: 3}
-  activeMap: {fileID: 621317199}
+  slotIndex: 0
+  activeMapPrefab: {fileID: 1278082536010938380, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+  activeMap: {fileID: 1540003789}
 --- !u!4 &1485297972
 Transform:
   m_ObjectHideFlags: 0
@@ -21384,6 +21000,74 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
   m_ShowMaskGraphic: 1
+--- !u!1001 &1540003788
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1278082536010938380, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+      propertyPath: m_Name
+      value: Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089914652555778744, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089914652555778744, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089914652555778744, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089914652555778744, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089914652555778744, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089914652555778744, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089914652555778744, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089914652555778744, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089914652555778744, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089914652555778744, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+--- !u!114 &1540003789 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3353658090547987462, guid: e46a3f8e77c831e4cae84f29df54c2e4, type: 3}
+  m_PrefabInstance: {fileID: 1540003788}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68643f08154c6bd40b0f2798f649ff39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.MapInstance
 --- !u!134 &1541756563
 PhysicsMaterial:
   m_ObjectHideFlags: 0
@@ -22104,7 +21788,6 @@ MonoBehaviour:
   leaveMatchControl: {fileID: 978660392}
   deployment: {fileID: 820102}
   tournaments: {fileID: 11400000, guid: c2d3e4f5a6b74890b1c2d3e4f5061728, type: 2}
-  playableMaps: {fileID: 11400000, guid: e7b2c9a14d6f4c8e0b5a3d7f9c184625, type: 2}
   tutorialMaps: {fileID: 11400000, guid: 8f37c6837c6e61d43bbda11055d20b24, type: 2}
   battleRoyale: {fileID: 740827044}
   mapManager: {fileID: 1485297971}
@@ -22329,8 +22012,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c9e7b4a1d8f46e0b3a5c7d9e1f60482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.GameModes.Deathmatch.DeathmatchGameMode
-  activeMap: {fileID: 621317199}
-  modeConfiguration: {fileID: 11400000, guid: 1eeb07eb0a0b4b448b7ec3601c0047d7, type: 2}
+  activeMap: {fileID: 1540003789}
+  modeConfiguration: {fileID: 11400000, guid: 5b64ee167ca39cf48b25352441b6a86e, type: 2}
   teamPlaystyle: 1
   coachDirective:
     type: 0
@@ -26972,16 +26655,12 @@ MonoBehaviour:
   - match: {fileID: 1579452447}
   - match: {fileID: 740827044}
   - match: {fileID: 2100455003}
-  barriers:
-  - {fileID: 2050906503}
-  - {fileID: 1382141250}
-  playableMaps: {fileID: 11400000, guid: e7b2c9a14d6f4c8e0b5a3d7f9c184625, type: 2}
   gap: 400
-  barrierThickness: 4
-  barrierClearance: 4
   watchCamera: {fileID: 519420033}
+  mapManager: {fileID: 1485297971}
   sceneMapToDisable: {fileID: 0}
-  matchTimeScale: 4
+  previewMap: {fileID: 0}
+  matchTimeScale: 2
 --- !u!4 &1942640137
 Transform:
   m_ObjectHideFlags: 0
@@ -27522,9 +27201,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
   m_IgnoreLayout: 0
   m_MinWidth: -1
-  m_MinHeight: 220
+  m_MinHeight: 420
   m_PreferredWidth: -1
-  m_PreferredHeight: -1
+  m_PreferredHeight: 420
   m_FlexibleWidth: 1
   m_FlexibleHeight: 1
   m_LayoutPriority: 1
@@ -27610,7 +27289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &2050906503
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29552,7 +29231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2100455002
 Transform:
   m_ObjectHideFlags: 0
@@ -29581,8 +29260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82cf3b744400a484d8fd1ad3473119f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.GameModes.BattleRoyale.BattleRoyaleGameMode
-  activeMap: {fileID: 621317199}
-  modeConfiguration: {fileID: 11400000, guid: fc1bfc6aee798164c8e327420d6b8579, type: 2}
+  activeMap: {fileID: 1540003789}
+  modeConfiguration: {fileID: 0}
   teamPlaystyle: 1
   coachDirective:
     type: 0
@@ -31723,6 +31402,4 @@ SceneRoots:
   - {fileID: 1942640137}
   - {fileID: 8453764088120247016}
   - {fileID: 663188373}
-  - {fileID: 491349842}
-  - {fileID: 621317198}
-  - {fileID: 308954258}
+  - {fileID: 1540003788}
