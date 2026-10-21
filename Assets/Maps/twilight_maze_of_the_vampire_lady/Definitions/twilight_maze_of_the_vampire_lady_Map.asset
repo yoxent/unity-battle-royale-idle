@@ -16,15 +16,12 @@ MonoBehaviour:
   narrativeMarkdown: {fileID: 4900000, guid: e0c80c9086826d9478a84b8230517956, type: 3}
   visualMap: {fileID: 2800000, guid: 8d2cfb8abcd46214a8c4a66e7c4a13c5, type: 3}
   visualSprite: {fileID: 21300000, guid: 8d2cfb8abcd46214a8c4a66e7c4a13c5, type: 3}
-  heightMap: {fileID: 0}
   visualMaterial: {fileID: 2100000, guid: 03b53d8e4a455de4b928dd30502a352d, type: 2}
   worldScale: 20
-  flipHeightY: 0
   sourceMin: {x: -21, y: -20}
   sourceMax: {x: 12, y: 18}
   baseHeight: 0
   heightScale: 0
-  heightResolution: 2
   wallHeight: 20
   wallThickness: 10
   generateBuildingWalls: 0
@@ -34,6 +31,7 @@ MonoBehaviour:
   imageLowerRightUv: {x: 0.9726448, y: 0.024544828}
   editImageCornersInScene: 1
   columnSize: 1.5
+  columnOffset: {x: 0, y: 0}
   dungeonUnitScale: 10
   overrideNavMeshVoxelSize: 0
   navMeshVoxelSize: 0.16666667

@@ -14,21 +14,23 @@ namespace BattleRoyale.Tests.EditMode
             try
             {
                 Assert.AreEqual(20f, definition.worldScale);
-                Assert.AreEqual(20f, definition.wallHeight);
+                Assert.AreEqual(3f, definition.wallHeight);
                 Assert.AreEqual(1f, definition.wallThickness);
-                Assert.AreEqual(1.5f, definition.columnSize);
-                Assert.AreEqual(Vector2.zero, definition.columnOffset);
-                Assert.AreEqual(10f, definition.unitScale);
+                Assert.AreEqual(6f, definition.columnSize);
+                Assert.AreEqual(new Vector2(-0.5f, -0.5f), definition.columnOffset);
+                Assert.AreEqual(1f, definition.unitScale);
+                Assert.IsTrue(definition.useImageCornerFit);
+                Assert.IsTrue(definition.editImageCornersInScene);
 
                 var geometry = DungeonMapGeometry.Read(definition);
 
                 Assert.AreEqual(20f, geometry.CellWorldSize);
                 Assert.AreEqual(0f, geometry.BaseHeight);
-                Assert.AreEqual(20f, geometry.WallHeight);
+                Assert.AreEqual(3f, geometry.WallHeight);
                 Assert.AreEqual(1f, geometry.WallThickness);
-                Assert.AreEqual(1.5f, geometry.ColumnSize);
-                Assert.AreEqual(Vector2.zero, geometry.ColumnOffset);
-                Assert.AreEqual(10f, geometry.UnitScale);
+                Assert.AreEqual(6f, geometry.ColumnSize);
+                Assert.AreEqual(new Vector2(-0.5f, -0.5f), geometry.ColumnOffset);
+                Assert.AreEqual(1f, geometry.UnitScale);
             }
             finally
             {

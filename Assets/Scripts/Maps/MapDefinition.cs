@@ -15,13 +15,11 @@ namespace BattleRoyale.Maps
         public TextAsset narrativeMarkdown;
         public Texture2D visualMap;
         public Sprite visualSprite;
-        public Texture2D heightMap;
         public Material visualMaterial;
 
         [Header("World Mapping")]
         [Min(0.0001f)]
         public float worldScale = DungeonMapGeometry.DefaultCellWorldSize;
-        public bool flipHeightY;
         public Vector2 sourceMin;
         public Vector2 sourceMax;
 
@@ -30,9 +28,6 @@ namespace BattleRoyale.Maps
 
         [Min(0f)]
         public float heightScale = 20f;
-
-        [Min(2)]
-        public int heightResolution = 129;
 
         [Header("Collision")]
         [Min(0f)]
@@ -58,13 +53,13 @@ namespace BattleRoyale.Maps
         public float treeHeight = 2f;
 
         [Header("Image Fit")]
-        public bool useImageCornerFit;
+        public bool useImageCornerFit = true;
 
         public Vector2 imageUpperLeftUv = new(0f, 1f);
 
         public Vector2 imageLowerRightUv = new(1f, 0f);
 
-        public bool editImageCornersInScene;
+        public bool editImageCornersInScene = true;
 
         [Header("Dungeon Authoring")]
         [Min(0.01f)]

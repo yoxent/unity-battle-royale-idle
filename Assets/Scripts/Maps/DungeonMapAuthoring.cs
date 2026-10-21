@@ -55,10 +55,10 @@ namespace BattleRoyale.Maps
             true,
             true,
             true,
-            false,
+            true,
             DefaultImageUpperLeftUv,
             DefaultImageLowerRightUv,
-            false,
+            true,
             true);
 
         public static DungeonMapAuthoringSettings Read(MapDefinition definition)

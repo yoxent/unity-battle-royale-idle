@@ -35,11 +35,11 @@ namespace BattleRoyale.Maps
     {
         public const float DefaultCellWorldSize = 20f;
         public const float DefaultBaseHeight = 0f;
-        public const float DefaultWallHeight = 20f;
+        public const float DefaultWallHeight = 3f;
         public const float DefaultWallThickness = 1f;
-        public const float DefaultColumnSize = 1.5f;
-        public const float DefaultUnitScale = 10f;
-        public static readonly Vector2 DefaultColumnOffset = Vector2.zero;
+        public const float DefaultColumnSize = 6f;
+        public const float DefaultUnitScale = 1f;
+        public static readonly Vector2 DefaultColumnOffset = new(-0.5f, -0.5f);
 
         public static DungeonMapGeometrySettings Defaults { get; } = new(
             DefaultCellWorldSize,

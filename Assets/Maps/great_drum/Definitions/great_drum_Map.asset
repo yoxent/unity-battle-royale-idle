@@ -16,15 +16,12 @@ MonoBehaviour:
   narrativeMarkdown: {fileID: 0}
   visualMap: {fileID: 2800000, guid: 43a17f5111a6a3d42a02a013d5195baa, type: 3}
   visualSprite: {fileID: 7137472484386193171, guid: 43a17f5111a6a3d42a02a013d5195baa, type: 3}
-  heightMap: {fileID: 0}
   visualMaterial: {fileID: 2100000, guid: ad78ad57893526f428ef3353b63264a0, type: 2}
   worldScale: 1
-  flipHeightY: 0
   sourceMin: {x: -392, y: -392}
   sourceMax: {x: 392, y: 392}
   baseHeight: 0
   heightScale: 20
-  heightResolution: 129
   wallHeight: 20
   wallThickness: 2
   unitScale: 10
@@ -40,6 +37,7 @@ MonoBehaviour:
   imageLowerRightUv: {x: 1.0467567, y: -0.04588836}
   editImageCornersInScene: 1
   columnSize: 1.5
+  columnOffset: {x: 0, y: 0}
   overrideNavMeshVoxelSize: 0
   navMeshVoxelSize: 0.16666667
   replaceGeneratedRoot: 1

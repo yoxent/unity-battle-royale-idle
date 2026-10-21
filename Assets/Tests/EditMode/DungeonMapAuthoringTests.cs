@@ -40,6 +40,8 @@ namespace BattleRoyale.Tests.EditMode
                 Assert.AreEqual(DungeonMapGeometry.DefaultColumnOffset, geometry.ColumnOffset);
                 Assert.AreEqual(DungeonMapGeometry.DefaultUnitScale, geometry.UnitScale);
                 AssertAuthoringEquals(DungeonMapAuthoring.Defaults, authoring);
+                Assert.IsTrue(authoring.UseImageCornerFit);
+                Assert.IsTrue(authoring.EditImageCornersInScene);
                 Assert.AreEqual(0, definition.supportedGameModes.Count);
                 Assert.AreEqual(0, definition.modeConfigurations.Count);
             }

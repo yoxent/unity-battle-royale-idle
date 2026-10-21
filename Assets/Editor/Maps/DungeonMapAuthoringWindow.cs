@@ -38,12 +38,14 @@ namespace BattleRoyale.Maps.EditorTools
         [SerializeField] private bool replaceGeneratedRoot = true;
         [SerializeField] private bool disableOtherGeneratedMaps = true;
         [SerializeField] private bool setAsActiveCameraMap = true;
-        [SerializeField] private bool useImageCornerFit;
+        [SerializeField] private bool useImageCornerFit = true;
         [SerializeField] private Vector2 imageUpperLeftUv = new(0f, 1f);
         [SerializeField] private Vector2 imageLowerRightUv = new(1f, 0f);
-        [SerializeField] private bool editImageCornersInScene;
+        [SerializeField] private bool editImageCornersInScene = true;
         [SerializeField] private bool usesCurrentGeometryDefaults;
         [SerializeField] private bool wallThicknessDefaultIsOne;
+        [SerializeField] private bool usesWallColumnAndImageDefaults;
+        [SerializeField] private bool unitScaleDefaultIsOne;
 
         private DungeonLayoutData analyzedLayout;
         private DungeonVisualMapping visualMapping;
@@ -87,7 +89,15 @@ namespace BattleRoyale.Maps.EditorTools
                 CopyDefinitionToWindow();
                 usesCurrentGeometryDefaults = true;
                 wallThicknessDefaultIsOne = true;
+                usesWallColumnAndImageDefaults = true;
+                unitScaleDefaultIsOne = true;
                 return;
+            }
+
+            if (!unitScaleDefaultIsOne)
+            {
+                unitScale = DungeonMapGeometry.DefaultUnitScale;
+                unitScaleDefaultIsOne = true;
             }
 
             if (!usesCurrentGeometryDefaults)
@@ -96,16 +106,24 @@ namespace BattleRoyale.Maps.EditorTools
                 wallThickness = DungeonMapGeometry.DefaultWallThickness;
                 usesCurrentGeometryDefaults = true;
                 wallThicknessDefaultIsOne = true;
-                return;
+            }
+            else if (!wallThicknessDefaultIsOne)
+            {
+                wallThickness = DungeonMapGeometry.DefaultWallThickness;
+                wallThicknessDefaultIsOne = true;
             }
 
-            if (wallThicknessDefaultIsOne)
+            if (usesWallColumnAndImageDefaults)
             {
                 return;
             }
 
-            wallThickness = DungeonMapGeometry.DefaultWallThickness;
-            wallThicknessDefaultIsOne = true;
+            wallHeight = DungeonMapGeometry.DefaultWallHeight;
+            columnSize = DungeonMapGeometry.DefaultColumnSize;
+            columnOffset = DungeonMapGeometry.DefaultColumnOffset;
+            useImageCornerFit = true;
+            editImageCornersInScene = true;
+            usesWallColumnAndImageDefaults = true;
         }
 
         private void OnDisable()
@@ -314,7 +332,11 @@ namespace BattleRoyale.Maps.EditorTools
             EditorGUI.BeginChangeCheck();
             columnSize = Mathf.Max(
                 0.01f,
-                EditorGUILayout.FloatField("Column Size", columnSize));
+                EditorGUILayout.FloatField(
+                    new GUIContent(
+                        "Column Size",
+                        "Cylinder diameter in world units. A cell is World Scale units wide. 6 on a scale of 20 covers 0.3 of a cell."),
+                    columnSize));
             columnOffset = EditorGUILayout.Vector2Field(
                 new GUIContent(
                     "Grid Offset",
@@ -331,7 +353,7 @@ namespace BattleRoyale.Maps.EditorTools
 
                 if (GUILayout.Button("Grid Point"))
                 {
-                    columnOffset = new Vector2(-0.5f, -0.5f);
+                    columnOffset = DungeonMapGeometry.DefaultColumnOffset;
                     changed = true;
                 }
             }
