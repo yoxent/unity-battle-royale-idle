@@ -66,10 +66,22 @@ namespace BattleRoyale.GameModes.BattleRoyale
 
             length = Mathf.Max(0.5f, length);
             var radius = Mathf.Tan(viewAngle * 0.5f * Mathf.Deg2Rad);
-            transform.localScale = new Vector3(
-                length * radius,
-                length * radius,
-                length);
+            var parentScale = transform.parent == null
+                ? 1f
+                : transform.parent.lossyScale.x;
+            transform.localScale = LocalScaleForWorldLength(length, radius, parentScale);
+        }
+
+        public static Vector3 LocalScaleForWorldLength(
+            float length,
+            float radius,
+            float parentScale)
+        {
+            var divisor = Mathf.Max(0.01f, Mathf.Abs(parentScale));
+            return new Vector3(
+                length * radius / divisor,
+                length * radius / divisor,
+                length / divisor);
         }
     }
 }

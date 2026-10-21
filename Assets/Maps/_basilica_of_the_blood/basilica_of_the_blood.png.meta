@@ -1,0 +1,3458 @@
+fileFormatVersion: 2
+guid: bf96136512971904a86dde7d42ec3e11
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3337699502318062799
+    second: basilica_of_the_blood_0
+  - first:
+      213: 4373607533848017819
+    second: basilica_of_the_blood_1
+  - first:
+      213: 6142600624426260208
+    second: basilica_of_the_blood_2
+  - first:
+      213: 4970706535071417710
+    second: basilica_of_the_blood_3
+  - first:
+      213: -1969283173555221014
+    second: basilica_of_the_blood_4
+  - first:
+      213: -909335703511106329
+    second: basilica_of_the_blood_5
+  - first:
+      213: -1663824092357880962
+    second: basilica_of_the_blood_6
+  - first:
+      213: -5051498331258132675
+    second: basilica_of_the_blood_7
+  - first:
+      213: -9143383514505532659
+    second: basilica_of_the_blood_8
+  - first:
+      213: -3984496833661229503
+    second: basilica_of_the_blood_9
+  - first:
+      213: 7299717116190409971
+    second: basilica_of_the_blood_10
+  - first:
+      213: 1171879835105633772
+    second: basilica_of_the_blood_11
+  - first:
+      213: -879333318612151687
+    second: basilica_of_the_blood_12
+  - first:
+      213: -8261653545179909757
+    second: basilica_of_the_blood_13
+  - first:
+      213: 7197853393860263776
+    second: basilica_of_the_blood_14
+  - first:
+      213: 752750539576540429
+    second: basilica_of_the_blood_15
+  - first:
+      213: -5200903095167895878
+    second: basilica_of_the_blood_16
+  - first:
+      213: 7104584299151492147
+    second: basilica_of_the_blood_17
+  - first:
+      213: -6716541492778929753
+    second: basilica_of_the_blood_18
+  - first:
+      213: -3218120434492317894
+    second: basilica_of_the_blood_19
+  - first:
+      213: 7077013483933666927
+    second: basilica_of_the_blood_20
+  - first:
+      213: 5231579394612986594
+    second: basilica_of_the_blood_21
+  - first:
+      213: 4976412628614950217
+    second: basilica_of_the_blood_22
+  - first:
+      213: -5668007096507323384
+    second: basilica_of_the_blood_23
+  - first:
+      213: 7605846890456382436
+    second: basilica_of_the_blood_24
+  - first:
+      213: -1485034533386302807
+    second: basilica_of_the_blood_25
+  - first:
+      213: 4607753419510783812
+    second: basilica_of_the_blood_26
+  - first:
+      213: 5362332305752963822
+    second: basilica_of_the_blood_27
+  - first:
+      213: 5409186663461301031
+    second: basilica_of_the_blood_28
+  - first:
+      213: 8317258357161929137
+    second: basilica_of_the_blood_29
+  - first:
+      213: -590706528818963732
+    second: basilica_of_the_blood_30
+  - first:
+      213: 8700687240422548942
+    second: basilica_of_the_blood_31
+  - first:
+      213: 8647442711851245920
+    second: basilica_of_the_blood_32
+  - first:
+      213: 8180707793670945247
+    second: basilica_of_the_blood_33
+  - first:
+      213: -2615275544678244009
+    second: basilica_of_the_blood_34
+  - first:
+      213: -3158595800415380965
+    second: basilica_of_the_blood_35
+  - first:
+      213: -5153817524185463764
+    second: basilica_of_the_blood_36
+  - first:
+      213: -4812021896510711695
+    second: basilica_of_the_blood_37
+  - first:
+      213: -8311925736205105688
+    second: basilica_of_the_blood_38
+  - first:
+      213: 6764755020261785026
+    second: basilica_of_the_blood_39
+  - first:
+      213: 3895484362968537797
+    second: basilica_of_the_blood_40
+  - first:
+      213: -7764659510914848063
+    second: basilica_of_the_blood_41
+  - first:
+      213: -6291613929741692671
+    second: basilica_of_the_blood_42
+  - first:
+      213: -5678586600183289414
+    second: basilica_of_the_blood_43
+  - first:
+      213: -6591340908731998930
+    second: basilica_of_the_blood_44
+  - first:
+      213: 4072984203042938813
+    second: basilica_of_the_blood_45
+  - first:
+      213: 5343915199856135241
+    second: basilica_of_the_blood_46
+  - first:
+      213: -2106186000590185374
+    second: basilica_of_the_blood_47
+  - first:
+      213: -6802794535565589836
+    second: basilica_of_the_blood_48
+  - first:
+      213: 3613441570138437955
+    second: basilica_of_the_blood_49
+  - first:
+      213: -7763369498433817213
+    second: basilica_of_the_blood_50
+  - first:
+      213: -9040870294490091822
+    second: basilica_of_the_blood_51
+  - first:
+      213: -5095888288138806472
+    second: basilica_of_the_blood_52
+  - first:
+      213: 7950458096413915552
+    second: basilica_of_the_blood_53
+  - first:
+      213: -8932165023554578994
+    second: basilica_of_the_blood_54
+  - first:
+      213: -8136075841040436321
+    second: basilica_of_the_blood_55
+  - first:
+      213: 2930275184666693735
+    second: basilica_of_the_blood_56
+  - first:
+      213: 811565752806267969
+    second: basilica_of_the_blood_57
+  - first:
+      213: 7513125879585699282
+    second: basilica_of_the_blood_58
+  - first:
+      213: -9145970625709098747
+    second: basilica_of_the_blood_59
+  - first:
+      213: 8370581373080994737
+    second: basilica_of_the_blood_60
+  - first:
+      213: 7312837879290021504
+    second: basilica_of_the_blood_61
+  - first:
+      213: -4466794481116573003
+    second: basilica_of_the_blood_62
+  - first:
+      213: 4818863693950161699
+    second: basilica_of_the_blood_63
+  - first:
+      213: -2811795075423974355
+    second: basilica_of_the_blood_64
+  - first:
+      213: 1044431702640605905
+    second: basilica_of_the_blood_65
+  - first:
+      213: -5594773083097382536
+    second: basilica_of_the_blood_66
+  - first:
+      213: 4810962039408577414
+    second: basilica_of_the_blood_67
+  - first:
+      213: -8146361139125540643
+    second: basilica_of_the_blood_68
+  - first:
+      213: 6306212806596672461
+    second: basilica_of_the_blood_69
+  - first:
+      213: -3691697705159187933
+    second: basilica_of_the_blood_70
+  - first:
+      213: -183916677849556226
+    second: basilica_of_the_blood_71
+  - first:
+      213: 2468894309087781360
+    second: basilica_of_the_blood_72
+  - first:
+      213: 3214081642692038980
+    second: basilica_of_the_blood_73
+  - first:
+      213: -3243586254351169552
+    second: basilica_of_the_blood_74
+  - first:
+      213: -7515329075057797497
+    second: basilica_of_the_blood_75
+  - first:
+      213: -6567139597407494182
+    second: basilica_of_the_blood_76
+  - first:
+      213: -7706509465485294424
+    second: basilica_of_the_blood_77
+  - first:
+      213: 1585140467201532224
+    second: basilica_of_the_blood_78
+  - first:
+      213: 9096390568902923695
+    second: basilica_of_the_blood_79
+  - first:
+      213: -4759176392497233417
+    second: basilica_of_the_blood_80
+  - first:
+      213: -6145935083547212919
+    second: basilica_of_the_blood_81
+  - first:
+      213: -9090171439115624771
+    second: basilica_of_the_blood_82
+  - first:
+      213: 4494313692539483140
+    second: basilica_of_the_blood_83
+  - first:
+      213: 4290825366642425438
+    second: basilica_of_the_blood_84
+  - first:
+      213: 8820293833626381081
+    second: basilica_of_the_blood_85
+  - first:
+      213: 8085063570010839618
+    second: basilica_of_the_blood_86
+  - first:
+      213: -8498550525129858340
+    second: basilica_of_the_blood_87
+  - first:
+      213: 8150356129798345096
+    second: basilica_of_the_blood_88
+  - first:
+      213: -3635324783985535596
+    second: basilica_of_the_blood_89
+  - first:
+      213: 3238261234497238129
+    second: basilica_of_the_blood_90
+  - first:
+      213: -5408039336459484376
+    second: basilica_of_the_blood_91
+  - first:
+      213: 2574893367068816191
+    second: basilica_of_the_blood_92
+  - first:
+      213: -111889318746262227
+    second: basilica_of_the_blood_93
+  - first:
+      213: 1810820123331593491
+    second: basilica_of_the_blood_94
+  - first:
+      213: 3785076415797973124
+    second: basilica_of_the_blood_95
+  - first:
+      213: -4698128145627728412
+    second: basilica_of_the_blood_96
+  - first:
+      213: 7175911254593193275
+    second: basilica_of_the_blood_97
+  - first:
+      213: -697582416847267821
+    second: basilica_of_the_blood_98
+  - first:
+      213: -4532379421328192624
+    second: basilica_of_the_blood_99
+  - first:
+      213: 2110641449645857059
+    second: basilica_of_the_blood_100
+  - first:
+      213: -4388185252476241454
+    second: basilica_of_the_blood_101
+  - first:
+      213: -4931676556278091747
+    second: basilica_of_the_blood_102
+  - first:
+      213: 3526799762560147349
+    second: basilica_of_the_blood_103
+  - first:
+      213: -6430036858973294068
+    second: basilica_of_the_blood_104
+  - first:
+      213: 8011315703620499921
+    second: basilica_of_the_blood_105
+  - first:
+      213: -3107434748176427334
+    second: basilica_of_the_blood_106
+  - first:
+      213: -1555933842385377237
+    second: basilica_of_the_blood_107
+  - first:
+      213: -6216164314678292237
+    second: basilica_of_the_blood_108
+  - first:
+      213: 2640064308536261542
+    second: basilica_of_the_blood_109
+  - first:
+      213: 5762100163046317436
+    second: basilica_of_the_blood_110
+  - first:
+      213: 5559545026050206214
+    second: basilica_of_the_blood_111
+  - first:
+      213: 1962994574872732110
+    second: basilica_of_the_blood_112
+  - first:
+      213: 1029473773098989084
+    second: basilica_of_the_blood_113
+  - first:
+      213: -6231941273827943511
+    second: basilica_of_the_blood_114
+  - first:
+      213: 328978875902816465
+    second: basilica_of_the_blood_115
+  - first:
+      213: 5900231987029256677
+    second: basilica_of_the_blood_116
+  - first:
+      213: 5201345996438659231
+    second: basilica_of_the_blood_117
+  - first:
+      213: -1294804476908880601
+    second: basilica_of_the_blood_118
+  - first:
+      213: 3933213876747964265
+    second: basilica_of_the_blood_119
+  - first:
+      213: 9152963254584598232
+    second: basilica_of_the_blood_120
+  - first:
+      213: 50527626251431520
+    second: basilica_of_the_blood_121
+  - first:
+      213: 2165830990615380799
+    second: basilica_of_the_blood_122
+  - first:
+      213: -8681058081975879857
+    second: basilica_of_the_blood_123
+  - first:
+      213: -3207970794519964646
+    second: basilica_of_the_blood_124
+  - first:
+      213: 2846088120577095529
+    second: basilica_of_the_blood_125
+  - first:
+      213: 1378619299072065817
+    second: basilica_of_the_blood_126
+  - first:
+      213: -6981912119665915955
+    second: basilica_of_the_blood_127
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: basilica_of_the_blood_0
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 79
+        width: 1994
+        height: 1762
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 133755d8cfb1ea1d0800000000000000
+      internalID: -3337699502318062799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_1
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 1823
+        width: 10
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9bbbf131ec22bc30800000000000000
+      internalID: 4373607533848017819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_2
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 1837
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f6150819b6ee3550800000000000000
+      internalID: 6142600624426260208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_3
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 1818
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6505a9f14f7bf440800000000000000
+      internalID: 4970706535071417710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_4
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 1837
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aed461a2363bba4e0800000000000000
+      internalID: -1969283173555221014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_5
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 1820
+        width: 13
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ecf3aadef36163f0800000000000000
+      internalID: -909335703511106329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_6
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 1841
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e739546adc8e8e8e0800000000000000
+      internalID: -1663824092357880962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_7
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 1836
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3761ed180975e9b0800000000000000
+      internalID: -5051498331258132675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_8
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1836
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0b2cb4232d2c1180800000000000000
+      internalID: -9143383514505532659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_9
+      rect:
+        serializedVersion: 2
+        x: 1462
+        y: 1836
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14624f49d3934b8c0800000000000000
+      internalID: -3984496833661229503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_10
+      rect:
+        serializedVersion: 2
+        x: 1513
+        y: 1836
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f44e57aa0ecd4560800000000000000
+      internalID: 7299717116190409971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_11
+      rect:
+        serializedVersion: 2
+        x: 1641
+        y: 1823
+        width: 10
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce52aea408a534010800000000000000
+      internalID: 1171879835105633772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_12
+      rect:
+        serializedVersion: 2
+        x: 1665
+        y: 1837
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97215f0710bfbc3f0800000000000000
+      internalID: -879333318612151687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_13
+      rect:
+        serializedVersion: 2
+        x: 1695
+        y: 1818
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 381743e6fd5b85d80800000000000000
+      internalID: -8261653545179909757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_14
+      rect:
+        serializedVersion: 2
+        x: 1716
+        y: 1837
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06f716e9689e3e360800000000000000
+      internalID: 7197853393860263776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_15
+      rect:
+        serializedVersion: 2
+        x: 1737
+        y: 1820
+        width: 26
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0d71f3a0ae427a00800000000000000
+      internalID: 752750539576540429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_16
+      rect:
+        serializedVersion: 2
+        x: 1779
+        y: 1836
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab6b945c03ea2d7b0800000000000000
+      internalID: -5200903095167895878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_17
+      rect:
+        serializedVersion: 2
+        x: 1829
+        y: 1836
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3340eb347cd889260800000000000000
+      internalID: 7104584299151492147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_18
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 1830
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a17dbb191d0ac2a0800000000000000
+      internalID: -6716541492778929753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_19
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 1825
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3fd8a1e380f653d0800000000000000
+      internalID: -3218120434492317894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_20
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 1833
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6e048c944a963260800000000000000
+      internalID: 7077013483933666927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_21
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 1833
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e20926cdbd4a9840800000000000000
+      internalID: 5231579394612986594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_22
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 1830
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94dac586be4cf0540800000000000000
+      internalID: 4976412628614950217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_23
+      rect:
+        serializedVersion: 2
+        x: 589
+        y: 1830
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80ca94c73913751b0800000000000000
+      internalID: -5668007096507323384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_24
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 1825
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4eb79a903756d8960800000000000000
+      internalID: 7605846890456382436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_25
+      rect:
+        serializedVersion: 2
+        x: 1491
+        y: 1830
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aa425eb5f8146be0800000000000000
+      internalID: -1485034533386302807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_26
+      rect:
+        serializedVersion: 2
+        x: 1537
+        y: 1830
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44f1886725702ff30800000000000000
+      internalID: 4607753419510783812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_27
+      rect:
+        serializedVersion: 2
+        x: 1569
+        y: 1825
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eeab10c32d4da6a40800000000000000
+      internalID: 5362332305752963822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_28
+      rect:
+        serializedVersion: 2
+        x: 1588
+        y: 1833
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72b246f7c9a411b40800000000000000
+      internalID: 5409186663461301031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_29
+      rect:
+        serializedVersion: 2
+        x: 1619
+        y: 1833
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b929cbb866dc6370800000000000000
+      internalID: 8317258357161929137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_30
+      rect:
+        serializedVersion: 2
+        x: 1808
+        y: 1830
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceadd3faa836dc7f0800000000000000
+      internalID: -590706528818963732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_31
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 1811
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec5e82b62fc0fb870800000000000000
+      internalID: 8700687240422548942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_32
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 1815
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0612f6f8453e10870800000000000000
+      internalID: 8647442711851245920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_33
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 1814
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd9b6052566b78170800000000000000
+      internalID: 8180707793670945247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_34
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 1815
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 751efa99fbca4bbd0800000000000000
+      internalID: -2615275544678244009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_35
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 1813
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1a533fbad96a24d0800000000000000
+      internalID: -3158595800415380965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_36
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 1809
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c240eb19446f978b0800000000000000
+      internalID: -5153817524185463764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_37
+      rect:
+        serializedVersion: 2
+        x: 1466
+        y: 1816
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 178d31f8493483db0800000000000000
+      internalID: -4812021896510711695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_38
+      rect:
+        serializedVersion: 2
+        x: 1505
+        y: 1813
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e54116d49b16ac80800000000000000
+      internalID: -8311925736205105688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_39
+      rect:
+        serializedVersion: 2
+        x: 1525
+        y: 1809
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cd7e3789dc31ed50800000000000000
+      internalID: 6764755020261785026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_40
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 1811
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ca14d2936a8f0630800000000000000
+      internalID: 3895484362968537797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_41
+      rect:
+        serializedVersion: 2
+        x: 1605
+        y: 1816
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1caef0250536e3490800000000000000
+      internalID: -7764659510914848063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_42
+      rect:
+        serializedVersion: 2
+        x: 1720
+        y: 1814
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 101d8dd1772bfa8a0800000000000000
+      internalID: -6291613929741692671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_43
+      rect:
+        serializedVersion: 2
+        x: 1781
+        y: 1815
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab928c5d29b9131b0800000000000000
+      internalID: -5678586600183289414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_44
+      rect:
+        serializedVersion: 2
+        x: 1822
+        y: 1814
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2d578dad5ad684a0800000000000000
+      internalID: -6591340908731998930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_45
+      rect:
+        serializedVersion: 2
+        x: 2038
+        y: 1225
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbfd6269d85268830800000000000000
+      internalID: 4072984203042938813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_46
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 1211
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94c4c3d9f86692a40800000000000000
+      internalID: 5343915199856135241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_47
+      rect:
+        serializedVersion: 2
+        x: 2032
+        y: 1204
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26cdbe3ddf255c2e0800000000000000
+      internalID: -2106186000590185374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_48
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 1191
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b205a3a96e9791a0800000000000000
+      internalID: -6802794535565589836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_49
+      rect:
+        serializedVersion: 2
+        x: 2015
+        y: 1185
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3493bb496f5852230800000000000000
+      internalID: 3613441570138437955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_50
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 1172
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 385ffb1c298f24490800000000000000
+      internalID: -7763369498433817213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_51
+      rect:
+        serializedVersion: 2
+        x: 2017
+        y: 1164
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2de69842e50688280800000000000000
+      internalID: -9040870294490091822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_52
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 1156
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83bb962e994c749b0800000000000000
+      internalID: -5095888288138806472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_53
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 1151
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a9316ee383b55e60800000000000000
+      internalID: 7950458096413915552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_54
+      rect:
+        serializedVersion: 2
+        x: 2028
+        y: 1146
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec55cd75c339a0480800000000000000
+      internalID: -8932165023554578994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_55
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 1132
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f93b52d112ad61f80800000000000000
+      internalID: -8136075841040436321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_56
+      rect:
+        serializedVersion: 2
+        x: 2025
+        y: 1125
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 760533451cd6aa820800000000000000
+      internalID: 2930275184666693735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_57
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 1112
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14cd3e790c2434b00800000000000000
+      internalID: 811565752806267969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_58
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 1095
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d5ff756e2cf34860800000000000000
+      internalID: 7513125879585699282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_59
+      rect:
+        serializedVersion: 2
+        x: 2020
+        y: 1102
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 509b3706c2cf21180800000000000000
+      internalID: -9145970625709098747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_60
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 1089
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b38ef9d8674a2470800000000000000
+      internalID: 8370581373080994737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_61
+      rect:
+        serializedVersion: 2
+        x: 2018
+        y: 1081
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0864a1f5e4b6c7560800000000000000
+      internalID: 7312837879290021504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_62
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 1074
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b21f54e512c202c0800000000000000
+      internalID: -4466794481116573003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_63
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 1062
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3231dea8ffa00e240800000000000000
+      internalID: 4818863693950161699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_64
+      rect:
+        serializedVersion: 2
+        x: 2013
+        y: 1059
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2c4924c64f7af8d0800000000000000
+      internalID: -2811795075423974355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_65
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 1050
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dabc0499119e7e00800000000000000
+      internalID: 1044431702640605905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_66
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 1029
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8714017f58f5b52b0800000000000000
+      internalID: -5594773083097382536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_67
+      rect:
+        serializedVersion: 2
+        x: 2031
+        y: 1036
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68b46da3c78f3c240800000000000000
+      internalID: 4810962039408577414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_68
+      rect:
+        serializedVersion: 2
+        x: 2019
+        y: 1016
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd8206a84bf42fe80800000000000000
+      internalID: -8146361139125540643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_69
+      rect:
+        serializedVersion: 2
+        x: 2043
+        y: 1011
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcbb637c22b248750800000000000000
+      internalID: 6306212806596672461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_70
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1006
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 322acd12f7474ccc0800000000000000
+      internalID: -3691697705159187933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_71
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 985
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efad18481c8927df0800000000000000
+      internalID: -183916677849556226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_72
+      rect:
+        serializedVersion: 2
+        x: 2025
+        y: 988
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f129291b46434220800000000000000
+      internalID: 2468894309087781360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_73
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 964
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44153cf9936ba9c20800000000000000
+      internalID: 3214081642692038980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_74
+      rect:
+        serializedVersion: 2
+        x: 2021
+        y: 963
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f70f07ac777cf2d0800000000000000
+      internalID: -3243586254351169552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_75
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 944
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 786d30f260034b790800000000000000
+      internalID: -7515329075057797497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_76
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 948
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adfdf129455dcd4a0800000000000000
+      internalID: -6567139597407494182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_77
+      rect:
+        serializedVersion: 2
+        x: 2011
+        y: 941
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a44093d87afc0590800000000000000
+      internalID: -7706509465485294424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_78
+      rect:
+        serializedVersion: 2
+        x: 2034
+        y: 941
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 041e4a24bdc8ff510800000000000000
+      internalID: 1585140467201532224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_79
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 924
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa51ca5170fdc3e70800000000000000
+      internalID: 9096390568902923695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_80
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 927
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f107c5494204fdb0800000000000000
+      internalID: -4759176392497233417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_81
+      rect:
+        serializedVersion: 2
+        x: 2021
+        y: 922
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 983ce84aa9045baa0800000000000000
+      internalID: -6145935083547212919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_82
+      rect:
+        serializedVersion: 2
+        x: 2038
+        y: 908
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbe9c18ec3939d180800000000000000
+      internalID: -9090171439115624771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_83
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 895
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4047df0dd720f5e30800000000000000
+      internalID: 4494313692539483140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_84
+      rect:
+        serializedVersion: 2
+        x: 2032
+        y: 888
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5ef4fbefe21c8b30800000000000000
+      internalID: 4290825366642425438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_85
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 875
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91b6edf728af76a70800000000000000
+      internalID: 8820293833626381081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_86
+      rect:
+        serializedVersion: 2
+        x: 2015
+        y: 869
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24a92fcfa7ae33070800000000000000
+      internalID: 8085063570010839618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_87
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 856
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd2eceb13551f0a80800000000000000
+      internalID: -8498550525129858340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_88
+      rect:
+        serializedVersion: 2
+        x: 2017
+        y: 847
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 881de85b7b1eb1170800000000000000
+      internalID: 8150356129798345096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_89
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 840
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4955e57ae5bbc8dc0800000000000000
+      internalID: -3635324783985535596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_90
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 835
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 174302c8f6d90fc20800000000000000
+      internalID: 3238261234497238129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_91
+      rect:
+        serializedVersion: 2
+        x: 2028
+        y: 829
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8234ef260e8c2f4b0800000000000000
+      internalID: -5408039336459484376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_92
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 816
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3375aeffdbdbb320800000000000000
+      internalID: 2574893367068816191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_93
+      rect:
+        serializedVersion: 2
+        x: 2025
+        y: 808
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d25f7f5e14d727ef0800000000000000
+      internalID: -111889318746262227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_94
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 795
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3150f4bde43512910800000000000000
+      internalID: 1810820123331593491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_95
+      rect:
+        serializedVersion: 2
+        x: 2020
+        y: 785
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 480d85b22fa478430800000000000000
+      internalID: 3785076415797973124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_96
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 773
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e53892e755ecceb0800000000000000
+      internalID: -4698128145627728412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_97
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 778
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3541c53445f59360800000000000000
+      internalID: 7175911254593193275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_98
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 758
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3189242ec70b156f0800000000000000
+      internalID: -697582416847267821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_99
+      rect:
+        serializedVersion: 2
+        x: 2018
+        y: 765
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09b417c0ee0c911c0800000000000000
+      internalID: -4532379421328192624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_100
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 746
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3295b5e37318a4d10800000000000000
+      internalID: 2110641449645857059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_101
+      rect:
+        serializedVersion: 2
+        x: 2013
+        y: 743
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d9bb8133c80a13c0800000000000000
+      internalID: -4388185252476241454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_102
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 734
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d103ceb1d4a2f8bb0800000000000000
+      internalID: -4931676556278091747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_103
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 712
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59f5451c2b5b1f030800000000000000
+      internalID: 3526799762560147349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_104
+      rect:
+        serializedVersion: 2
+        x: 2031
+        y: 720
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c027a386b8be3c6a0800000000000000
+      internalID: -6430036858973294068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_105
+      rect:
+        serializedVersion: 2
+        x: 2019
+        y: 700
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d9fec9cf29ed2f60800000000000000
+      internalID: 8011315703620499921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_106
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 689
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab61d387f8c20e4d0800000000000000
+      internalID: -3107434748176427334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_107
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 669
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b286c9ef966386ae0800000000000000
+      internalID: -1555933842385377237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_108
+      rect:
+        serializedVersion: 2
+        x: 2025
+        y: 672
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f0142e8d7fbbb9a0800000000000000
+      internalID: -6216164314678292237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_109
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 78
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6abbd7e308463a420800000000000000
+      internalID: 2640064308536261542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_110
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 77
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7d9892c19717ff40800000000000000
+      internalID: 5762100163046317436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_111
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 75
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60a2386deb8772d40800000000000000
+      internalID: 5559545026050206214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_112
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 52
+        width: 8
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec1ee4b5a25fd3b10800000000000000
+      internalID: 1962994574872732110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_113
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 61
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c16752731fc694e00800000000000000
+      internalID: 1029473773098989084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_114
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 53
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9abd3600e62b389a0800000000000000
+      internalID: -6231941273827943511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_115
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 49
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d07bcc6b84c09400800000000000000
+      internalID: 328978875902816465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_116
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 50
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e9a64f3bb5d1e150800000000000000
+      internalID: 5900231987029256677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_117
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 62
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9060a730a4ee2840800000000000000
+      internalID: 5201345996438659231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_118
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 68
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72db24c303ee70ee0800000000000000
+      internalID: -1294804476908880601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_119
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 62
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96f033d8e25959630800000000000000
+      internalID: 3933213876747964265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_120
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 67
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ded7b7e59bd50f70800000000000000
+      internalID: 9152963254584598232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_121
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 49
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06e6f0ebb9283b000800000000000000
+      internalID: 50527626251431520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_122
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 61
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3389279fc39e0e10800000000000000
+      internalID: 2165830990615380799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_123
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 49
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f473b4d2bafa68780800000000000000
+      internalID: -8681058081975879857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_124
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 49
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a145fc61f8ffa73d0800000000000000
+      internalID: -3207970794519964646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_125
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 57
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 967f47201165f7720800000000000000
+      internalID: 2846088120577095529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_126
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 56
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91140b1c2f6d12310800000000000000
+      internalID: 1378619299072065817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basilica_of_the_blood_127
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 48
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc7815e3be34b1f90800000000000000
+      internalID: -6981912119665915955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      basilica_of_the_blood_0: -3337699502318062799
+      basilica_of_the_blood_1: 4373607533848017819
+      basilica_of_the_blood_10: 7299717116190409971
+      basilica_of_the_blood_100: 2110641449645857059
+      basilica_of_the_blood_101: -4388185252476241454
+      basilica_of_the_blood_102: -4931676556278091747
+      basilica_of_the_blood_103: 3526799762560147349
+      basilica_of_the_blood_104: -6430036858973294068
+      basilica_of_the_blood_105: 8011315703620499921
+      basilica_of_the_blood_106: -3107434748176427334
+      basilica_of_the_blood_107: -1555933842385377237
+      basilica_of_the_blood_108: -6216164314678292237
+      basilica_of_the_blood_109: 2640064308536261542
+      basilica_of_the_blood_11: 1171879835105633772
+      basilica_of_the_blood_110: 5762100163046317436
+      basilica_of_the_blood_111: 5559545026050206214
+      basilica_of_the_blood_112: 1962994574872732110
+      basilica_of_the_blood_113: 1029473773098989084
+      basilica_of_the_blood_114: -6231941273827943511
+      basilica_of_the_blood_115: 328978875902816465
+      basilica_of_the_blood_116: 5900231987029256677
+      basilica_of_the_blood_117: 5201345996438659231
+      basilica_of_the_blood_118: -1294804476908880601
+      basilica_of_the_blood_119: 3933213876747964265
+      basilica_of_the_blood_12: -879333318612151687
+      basilica_of_the_blood_120: 9152963254584598232
+      basilica_of_the_blood_121: 50527626251431520
+      basilica_of_the_blood_122: 2165830990615380799
+      basilica_of_the_blood_123: -8681058081975879857
+      basilica_of_the_blood_124: -3207970794519964646
+      basilica_of_the_blood_125: 2846088120577095529
+      basilica_of_the_blood_126: 1378619299072065817
+      basilica_of_the_blood_127: -6981912119665915955
+      basilica_of_the_blood_13: -8261653545179909757
+      basilica_of_the_blood_14: 7197853393860263776
+      basilica_of_the_blood_15: 752750539576540429
+      basilica_of_the_blood_16: -5200903095167895878
+      basilica_of_the_blood_17: 7104584299151492147
+      basilica_of_the_blood_18: -6716541492778929753
+      basilica_of_the_blood_19: -3218120434492317894
+      basilica_of_the_blood_2: 6142600624426260208
+      basilica_of_the_blood_20: 7077013483933666927
+      basilica_of_the_blood_21: 5231579394612986594
+      basilica_of_the_blood_22: 4976412628614950217
+      basilica_of_the_blood_23: -5668007096507323384
+      basilica_of_the_blood_24: 7605846890456382436
+      basilica_of_the_blood_25: -1485034533386302807
+      basilica_of_the_blood_26: 4607753419510783812
+      basilica_of_the_blood_27: 5362332305752963822
+      basilica_of_the_blood_28: 5409186663461301031
+      basilica_of_the_blood_29: 8317258357161929137
+      basilica_of_the_blood_3: 4970706535071417710
+      basilica_of_the_blood_30: -590706528818963732
+      basilica_of_the_blood_31: 8700687240422548942
+      basilica_of_the_blood_32: 8647442711851245920
+      basilica_of_the_blood_33: 8180707793670945247
+      basilica_of_the_blood_34: -2615275544678244009
+      basilica_of_the_blood_35: -3158595800415380965
+      basilica_of_the_blood_36: -5153817524185463764
+      basilica_of_the_blood_37: -4812021896510711695
+      basilica_of_the_blood_38: -8311925736205105688
+      basilica_of_the_blood_39: 6764755020261785026
+      basilica_of_the_blood_4: -1969283173555221014
+      basilica_of_the_blood_40: 3895484362968537797
+      basilica_of_the_blood_41: -7764659510914848063
+      basilica_of_the_blood_42: -6291613929741692671
+      basilica_of_the_blood_43: -5678586600183289414
+      basilica_of_the_blood_44: -6591340908731998930
+      basilica_of_the_blood_45: 4072984203042938813
+      basilica_of_the_blood_46: 5343915199856135241
+      basilica_of_the_blood_47: -2106186000590185374
+      basilica_of_the_blood_48: -6802794535565589836
+      basilica_of_the_blood_49: 3613441570138437955
+      basilica_of_the_blood_5: -909335703511106329
+      basilica_of_the_blood_50: -7763369498433817213
+      basilica_of_the_blood_51: -9040870294490091822
+      basilica_of_the_blood_52: -5095888288138806472
+      basilica_of_the_blood_53: 7950458096413915552
+      basilica_of_the_blood_54: -8932165023554578994
+      basilica_of_the_blood_55: -8136075841040436321
+      basilica_of_the_blood_56: 2930275184666693735
+      basilica_of_the_blood_57: 811565752806267969
+      basilica_of_the_blood_58: 7513125879585699282
+      basilica_of_the_blood_59: -9145970625709098747
+      basilica_of_the_blood_6: -1663824092357880962
+      basilica_of_the_blood_60: 8370581373080994737
+      basilica_of_the_blood_61: 7312837879290021504
+      basilica_of_the_blood_62: -4466794481116573003
+      basilica_of_the_blood_63: 4818863693950161699
+      basilica_of_the_blood_64: -2811795075423974355
+      basilica_of_the_blood_65: 1044431702640605905
+      basilica_of_the_blood_66: -5594773083097382536
+      basilica_of_the_blood_67: 4810962039408577414
+      basilica_of_the_blood_68: -8146361139125540643
+      basilica_of_the_blood_69: 6306212806596672461
+      basilica_of_the_blood_7: -5051498331258132675
+      basilica_of_the_blood_70: -3691697705159187933
+      basilica_of_the_blood_71: -183916677849556226
+      basilica_of_the_blood_72: 2468894309087781360
+      basilica_of_the_blood_73: 3214081642692038980
+      basilica_of_the_blood_74: -3243586254351169552
+      basilica_of_the_blood_75: -7515329075057797497
+      basilica_of_the_blood_76: -6567139597407494182
+      basilica_of_the_blood_77: -7706509465485294424
+      basilica_of_the_blood_78: 1585140467201532224
+      basilica_of_the_blood_79: 9096390568902923695
+      basilica_of_the_blood_8: -9143383514505532659
+      basilica_of_the_blood_80: -4759176392497233417
+      basilica_of_the_blood_81: -6145935083547212919
+      basilica_of_the_blood_82: -9090171439115624771
+      basilica_of_the_blood_83: 4494313692539483140
+      basilica_of_the_blood_84: 4290825366642425438
+      basilica_of_the_blood_85: 8820293833626381081
+      basilica_of_the_blood_86: 8085063570010839618
+      basilica_of_the_blood_87: -8498550525129858340
+      basilica_of_the_blood_88: 8150356129798345096
+      basilica_of_the_blood_89: -3635324783985535596
+      basilica_of_the_blood_9: -3984496833661229503
+      basilica_of_the_blood_90: 3238261234497238129
+      basilica_of_the_blood_91: -5408039336459484376
+      basilica_of_the_blood_92: 2574893367068816191
+      basilica_of_the_blood_93: -111889318746262227
+      basilica_of_the_blood_94: 1810820123331593491
+      basilica_of_the_blood_95: 3785076415797973124
+      basilica_of_the_blood_96: -4698128145627728412
+      basilica_of_the_blood_97: 7175911254593193275
+      basilica_of_the_blood_98: -697582416847267821
+      basilica_of_the_blood_99: -4532379421328192624
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

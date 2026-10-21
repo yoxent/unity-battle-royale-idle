@@ -13,7 +13,8 @@ namespace BattleRoyale.GameModes.Elimination
             IReadOnlyList<int> roundWins,
             float clockSeconds,
             bool intermission,
-            IReadOnlyList<bool> alive)
+            IReadOnlyList<bool> alive,
+            List<DeathmatchAgentLine> reusableLines = null)
         {
             if (board == null)
             {
@@ -50,7 +51,7 @@ namespace BattleRoyale.GameModes.Elimination
                 latest.ActorTeam,
                 latest.SubjectName,
                 latest.SubjectTeam);
-            WriteRows(board, stats);
+            WriteRows(board, stats, reusableLines);
         }
 
         static void NoteLiving(DeathmatchCombatStats stats, IReadOnlyList<bool> alive)
@@ -62,9 +63,12 @@ namespace BattleRoyale.GameModes.Elimination
             }
         }
 
-        static void WriteRows(MatchStatBoard board, DeathmatchCombatStats stats)
+        static void WriteRows(
+            MatchStatBoard board,
+            DeathmatchCombatStats stats,
+            List<DeathmatchAgentLine> reusableLines)
         {
-            var lines = new List<DeathmatchAgentLine>();
+            var lines = reusableLines ?? new List<DeathmatchAgentLine>();
             stats.CopyAgents(lines);
             for (var pass = 0; pass < 2; pass++)
             {
@@ -76,7 +80,7 @@ namespace BattleRoyale.GameModes.Elimination
                         continue;
                     }
 
-                    board.AddRow(new MatchStatRow(
+                    board.AddRow(
                         line.DisplayName,
                         line.TeamIndex,
                         line.Alive,
@@ -86,7 +90,7 @@ namespace BattleRoyale.GameModes.Elimination
                         line.Assists,
                         DeathmatchCombatStats.RoundHalfUp(line.DamageDealt),
                         DeathmatchCombatStats.AccuracyPercent(line.Hits, line.ShotsFired),
-                        0));
+                        0);
                 }
             }
         }

@@ -14,6 +14,11 @@ namespace BattleRoyale.Settings
 
         void OnEnable()
         {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
             if (button == null)
             {
                 Debug.LogError("SettingsTabButton: assign a button.", this);

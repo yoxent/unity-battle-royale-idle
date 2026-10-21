@@ -6,7 +6,8 @@
         "Unity.InputSystem",
         "Unity.TextMeshPro",
         "LitMotion",
-        "LitMotion.Extensions"
+        "LitMotion.Extensions",
+        "KevinIglesias"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

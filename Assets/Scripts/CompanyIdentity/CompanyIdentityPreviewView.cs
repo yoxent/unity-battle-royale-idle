@@ -39,30 +39,38 @@ namespace BattleRoyale.CompanyIdentity
             _primaryColorBar = bindings.PrimaryColorBar;
             _secondaryColorBar = bindings.SecondaryColorBar;
             _accentColorBar = bindings.AccentColorBar;
-            if (_companyNameText == null ||
-                _emblemPanel == null ||
-                _shapeLabel == null ||
-                _iconLabel == null ||
-                _flagLabel == null ||
-                _primaryColorBar == null ||
-                _secondaryColorBar == null ||
-                _accentColorBar == null)
+            if (_emblemPanel == null && _emblem == null)
             {
                 Debug.LogError(
-                    "CompanyIdentityPreviewView: The scene binding has missing references.");
+                    "CompanyIdentityPreviewView: An emblem panel or graphic is required.");
+                return;
+            }
+
+            if (_emblem != null &&
+                (_shapeSprites == null ||
+                 _shapeBorderSprites == null ||
+                 _shapeSprites.Count == 0 ||
+                 _shapeSprites.Count != _shapeBorderSprites.Count))
+            {
+                Debug.LogError(
+                    "CompanyIdentityPreviewView: Full previews need paired emblem body lists.");
                 return;
             }
         }
 
         public void Render(CompanyIdentityData identity)
         {
-            if (_companyNameText == null)
+            if (_emblemPanel == null && _emblem == null)
             {
-                Debug.LogError("CompanyIdentityPreviewView: Build must be called before Render");
+                Debug.LogError(
+                    "CompanyIdentityPreviewView: Initialize must succeed before Render.");
                 return;
             }
 
-            _companyNameText.text = identity.companyName;
+            if (_companyNameText != null)
+            {
+                _companyNameText.text = identity.companyName;
+            }
 
             if (_emblem != null)
             {

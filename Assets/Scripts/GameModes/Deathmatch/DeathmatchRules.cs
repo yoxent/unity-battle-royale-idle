@@ -19,6 +19,16 @@ namespace BattleRoyale.GameModes.Deathmatch
             return SideRules.RequiredTeamCount(teamCount);
         }
 
+        public static bool CanFieldCompanySides(
+            int fieldedAgents,
+            int opponentAgents,
+            int teamSize)
+        {
+            return teamSize > 0 &&
+                fieldedAgents == teamSize &&
+                opponentAgents >= teamSize;
+        }
+
         public static bool SharesTeam(int teamA, int teamB)
         {
             return SideRules.SharesTeam(teamA, teamB);

@@ -2,17 +2,30 @@ using UnityEngine;
 
 namespace BattleRoyale.GameModes
 {
-    public static class SpawnFit
+    public static class SpawnPlacement
     {
-        public const float DefaultBakedRadius = 0.5f;
+        public const float CapsuleRadius = 0.5f;
+        public const float BakedAgentRadius = 0.5f;
+        public const int Rings = 3;
 
-        // The navmesh edge is already the baked agent radius away from the wall face.
-        // Clearance is the rest of the body radius. Wall thickness and the full unit
-        // scale are not added; adding both pushes a spawn through a narrow floor
-        // into the opposite wall.
-        public static float EdgeClearance(float bodyRadius, float bakedAgentRadius)
+        // Body radius past the baked navmesh edge. Wall thickness and the full
+        // unit scale are not added. Unit scale 1 matches the bake, so the
+        // clearance is zero and the authored point stays put.
+        public static float Clearance(float unitScale, float visualScale)
         {
-            return Mathf.Max(0f, bodyRadius - Mathf.Max(0f, bakedAgentRadius));
+            var scale = unitScale < 0.01f ? 0.01f : unitScale;
+            var visual = visualScale < 0.1f ? 0.1f : visualScale;
+            return Mathf.Max(0f, CapsuleRadius * visual * scale - BakedAgentRadius);
+        }
+
+        public static float ClearanceFromBody(float bodyRadius, float bakedRadius)
+        {
+            return Mathf.Max(0f, bodyRadius - Mathf.Max(0f, bakedRadius));
+        }
+
+        public static float Step(float clearance)
+        {
+            return Mathf.Max(BakedAgentRadius, clearance / Rings);
         }
 
         public static Vector3 MoveInside(
@@ -61,6 +74,15 @@ namespace BattleRoyale.GameModes
             return probed;
         }
 
+        public static bool LiesBetween(Vector3 position, Vector3 nearEdge, Vector3 farEdge)
+        {
+            var toPosition = position - nearEdge;
+            var toFar = farEdge - position;
+            toPosition.y = 0f;
+            toFar.y = 0f;
+            return Vector3.Dot(toPosition, toFar) > 0f;
+        }
+
         public static Vector3 FitBetweenEdges(
             Vector3 nearEdge,
             Vector3 farEdge,
@@ -79,15 +101,6 @@ namespace BattleRoyale.GameModes
             var fitted = nearEdge + delta / span * inset;
             fitted.y = height;
             return fitted;
-        }
-
-        public static bool LiesBetween(Vector3 position, Vector3 nearEdge, Vector3 farEdge)
-        {
-            var toPosition = position - nearEdge;
-            var toFar = farEdge - position;
-            toPosition.y = 0f;
-            toFar.y = 0f;
-            return Vector3.Dot(toPosition, toFar) > 0f;
         }
     }
 }

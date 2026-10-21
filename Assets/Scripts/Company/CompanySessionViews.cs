@@ -188,6 +188,11 @@ namespace BattleRoyale.Company
 
         void OnEnable()
         {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
             if (dismissButton == null || company == null)
             {
                 Debug.LogError("The offline report needs a dismiss button.", this);

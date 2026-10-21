@@ -503,10 +503,6 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 return;
             }
 
-            var scale = body.transform.lossyScale;
-            navigation.radius = body.radius *
-                                Mathf.Max(Mathf.Abs(scale.x), Mathf.Abs(scale.z));
-            navigation.height = body.height * Mathf.Abs(scale.y);
             navigation.obstacleAvoidanceType =
                 ObstacleAvoidanceType.HighQualityObstacleAvoidance;
         }
@@ -542,7 +538,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
             }
 
             var push = Vector3.zero;
-            var radius = BodyRadius;
+            var radius = agent == null ? 0.5f : agent.radius;
             foreach (var other in match.Agents)
             {
                 if (other == null || other == this || !other.IsAlive)
@@ -559,11 +555,12 @@ namespace BattleRoyale.GameModes.BattleRoyale
                         : Vector3.left;
                 }
 
+                var otherAgent = other.Agent;
                 push += SeparationOffset(
                     selfPosition,
                     radius,
                     otherPosition,
-                    other.BodyRadius,
+                    otherAgent == null ? 0.5f : otherAgent.radius,
                     other.IsAlive);
             }
 

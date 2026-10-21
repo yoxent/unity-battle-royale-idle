@@ -11,6 +11,11 @@ namespace BattleRoyale.Settings
 
         void OnEnable()
         {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
             if (button == null)
             {
                 Debug.LogError("SettingsQuitButton: assign a button.", this);

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace BattleRoyale.Company
@@ -8,6 +9,7 @@ namespace BattleRoyale.Company
         [SerializeField] CompanySessionController company;
         [SerializeField] CompanyRosterCardView[] cards;
 
+        UnityAction[] releaseActions;
         bool subscribed;
 
         void OnEnable()
@@ -23,6 +25,11 @@ namespace BattleRoyale.Company
                 return;
             }
 
+            if (releaseActions == null || releaseActions.Length != cards.Length)
+            {
+                releaseActions = new UnityAction[cards.Length];
+            }
+
             for (var i = 0; i < cards.Length; i++)
             {
                 var slot = i;
@@ -32,7 +39,8 @@ namespace BattleRoyale.Company
                     return;
                 }
 
-                cards[i].ReleaseButton.onClick.AddListener(() => company.ReleaseAgent(slot));
+                releaseActions[i] = () => company.ReleaseAgent(slot);
+                cards[i].ReleaseButton.onClick.AddListener(releaseActions[i]);
             }
 
             subscribed = true;
@@ -47,7 +55,15 @@ namespace BattleRoyale.Company
 
             for (var i = 0; i < cards.Length; i++)
             {
-                cards[i].ReleaseButton.onClick.RemoveAllListeners();
+                if (cards[i] != null &&
+                    cards[i].ReleaseButton != null &&
+                    releaseActions != null &&
+                    i < releaseActions.Length &&
+                    releaseActions[i] != null)
+                {
+                    cards[i].ReleaseButton.onClick.RemoveListener(releaseActions[i]);
+                    releaseActions[i] = null;
+                }
             }
 
             subscribed = false;

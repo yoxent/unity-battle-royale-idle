@@ -1,0 +1,2860 @@
+fileFormatVersion: 2
+guid: 2a1ec9c66106ade48a6d53f90b54a446
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2707920800386468549
+    second: frozen_basilica_of_uadjit_0
+  - first:
+      213: 5879677734635625293
+    second: frozen_basilica_of_uadjit_1
+  - first:
+      213: 5364387722203168740
+    second: frozen_basilica_of_uadjit_2
+  - first:
+      213: -5652693801326080640
+    second: frozen_basilica_of_uadjit_3
+  - first:
+      213: 3657269260279467757
+    second: frozen_basilica_of_uadjit_4
+  - first:
+      213: -4855000671821877818
+    second: frozen_basilica_of_uadjit_5
+  - first:
+      213: 7444819887418222464
+    second: frozen_basilica_of_uadjit_6
+  - first:
+      213: 6656895232599325137
+    second: frozen_basilica_of_uadjit_7
+  - first:
+      213: -3067109397755466414
+    second: frozen_basilica_of_uadjit_8
+  - first:
+      213: 8287237040100685022
+    second: frozen_basilica_of_uadjit_9
+  - first:
+      213: 8920201504152961980
+    second: frozen_basilica_of_uadjit_10
+  - first:
+      213: -4944090815528895007
+    second: frozen_basilica_of_uadjit_11
+  - first:
+      213: 6477529854050124680
+    second: frozen_basilica_of_uadjit_12
+  - first:
+      213: -104260361470459617
+    second: frozen_basilica_of_uadjit_13
+  - first:
+      213: -4269925185475849935
+    second: frozen_basilica_of_uadjit_14
+  - first:
+      213: -41986045988605160
+    second: frozen_basilica_of_uadjit_15
+  - first:
+      213: -6565629861063643784
+    second: frozen_basilica_of_uadjit_16
+  - first:
+      213: 810482498567012348
+    second: frozen_basilica_of_uadjit_17
+  - first:
+      213: -7041942806755115331
+    second: frozen_basilica_of_uadjit_18
+  - first:
+      213: -2913938109275103597
+    second: frozen_basilica_of_uadjit_19
+  - first:
+      213: 9046029564741872743
+    second: frozen_basilica_of_uadjit_20
+  - first:
+      213: -3091124515731574535
+    second: frozen_basilica_of_uadjit_21
+  - first:
+      213: -8188705121287573451
+    second: frozen_basilica_of_uadjit_22
+  - first:
+      213: 6764850838986417198
+    second: frozen_basilica_of_uadjit_23
+  - first:
+      213: -2343606070850282958
+    second: frozen_basilica_of_uadjit_24
+  - first:
+      213: -6761943936761956774
+    second: frozen_basilica_of_uadjit_25
+  - first:
+      213: 3861971591580595925
+    second: frozen_basilica_of_uadjit_26
+  - first:
+      213: 5559156882663925524
+    second: frozen_basilica_of_uadjit_27
+  - first:
+      213: 7218330246259083928
+    second: frozen_basilica_of_uadjit_28
+  - first:
+      213: 7552416051772340382
+    second: frozen_basilica_of_uadjit_29
+  - first:
+      213: 2657257218902326876
+    second: frozen_basilica_of_uadjit_30
+  - first:
+      213: 7757494233121210480
+    second: frozen_basilica_of_uadjit_31
+  - first:
+      213: 5706007702343302189
+    second: frozen_basilica_of_uadjit_32
+  - first:
+      213: 8269545525930860944
+    second: frozen_basilica_of_uadjit_33
+  - first:
+      213: 975223777546908815
+    second: frozen_basilica_of_uadjit_34
+  - first:
+      213: -8760828380241907901
+    second: frozen_basilica_of_uadjit_35
+  - first:
+      213: -2916121718162093414
+    second: frozen_basilica_of_uadjit_36
+  - first:
+      213: -5734252584173891700
+    second: frozen_basilica_of_uadjit_37
+  - first:
+      213: 2194760621881213100
+    second: frozen_basilica_of_uadjit_38
+  - first:
+      213: 8808049303306325557
+    second: frozen_basilica_of_uadjit_39
+  - first:
+      213: -6030847930365736273
+    second: frozen_basilica_of_uadjit_40
+  - first:
+      213: 4993206658878966
+    second: frozen_basilica_of_uadjit_41
+  - first:
+      213: -1428223246081035253
+    second: frozen_basilica_of_uadjit_42
+  - first:
+      213: 4533643627143821969
+    second: frozen_basilica_of_uadjit_43
+  - first:
+      213: 3624349481501740233
+    second: frozen_basilica_of_uadjit_44
+  - first:
+      213: -1964779860784592657
+    second: frozen_basilica_of_uadjit_45
+  - first:
+      213: -1794817110226870302
+    second: frozen_basilica_of_uadjit_46
+  - first:
+      213: -3034706734180204169
+    second: frozen_basilica_of_uadjit_47
+  - first:
+      213: -1061352351461114454
+    second: frozen_basilica_of_uadjit_48
+  - first:
+      213: -668687962070562455
+    second: frozen_basilica_of_uadjit_49
+  - first:
+      213: 4060286264270490406
+    second: frozen_basilica_of_uadjit_50
+  - first:
+      213: -6357631622335585462
+    second: frozen_basilica_of_uadjit_51
+  - first:
+      213: -8196846739943182224
+    second: frozen_basilica_of_uadjit_52
+  - first:
+      213: -6350547689507700179
+    second: frozen_basilica_of_uadjit_53
+  - first:
+      213: 9055957237502101189
+    second: frozen_basilica_of_uadjit_54
+  - first:
+      213: 7344663930613054098
+    second: frozen_basilica_of_uadjit_55
+  - first:
+      213: -5263711206724350869
+    second: frozen_basilica_of_uadjit_56
+  - first:
+      213: -61093667511900989
+    second: frozen_basilica_of_uadjit_57
+  - first:
+      213: -8729643519436977460
+    second: frozen_basilica_of_uadjit_58
+  - first:
+      213: -8899976275787996198
+    second: frozen_basilica_of_uadjit_59
+  - first:
+      213: 3189824641733679553
+    second: frozen_basilica_of_uadjit_60
+  - first:
+      213: -8248769728665036257
+    second: frozen_basilica_of_uadjit_61
+  - first:
+      213: 3202752064949594061
+    second: frozen_basilica_of_uadjit_62
+  - first:
+      213: -4374910467589146428
+    second: frozen_basilica_of_uadjit_63
+  - first:
+      213: -7163361241309063743
+    second: frozen_basilica_of_uadjit_64
+  - first:
+      213: 6249476959661529837
+    second: frozen_basilica_of_uadjit_65
+  - first:
+      213: -4947847041233375153
+    second: frozen_basilica_of_uadjit_66
+  - first:
+      213: -3747435300909948404
+    second: frozen_basilica_of_uadjit_67
+  - first:
+      213: -691347724670090116
+    second: frozen_basilica_of_uadjit_68
+  - first:
+      213: 4970803401765758555
+    second: frozen_basilica_of_uadjit_69
+  - first:
+      213: -1036566800013003939
+    second: frozen_basilica_of_uadjit_70
+  - first:
+      213: 8336008874647552578
+    second: frozen_basilica_of_uadjit_71
+  - first:
+      213: -6239950414329411131
+    second: frozen_basilica_of_uadjit_72
+  - first:
+      213: -4920328476477917770
+    second: frozen_basilica_of_uadjit_73
+  - first:
+      213: 5970847324236996837
+    second: frozen_basilica_of_uadjit_74
+  - first:
+      213: 3031573451138298505
+    second: frozen_basilica_of_uadjit_75
+  - first:
+      213: -5946717752655496444
+    second: frozen_basilica_of_uadjit_76
+  - first:
+      213: -3622794641523831026
+    second: frozen_basilica_of_uadjit_77
+  - first:
+      213: -3674217992277644132
+    second: frozen_basilica_of_uadjit_78
+  - first:
+      213: 584296037212343037
+    second: frozen_basilica_of_uadjit_79
+  - first:
+      213: -1767347597313369455
+    second: frozen_basilica_of_uadjit_80
+  - first:
+      213: -7177349165114298215
+    second: frozen_basilica_of_uadjit_81
+  - first:
+      213: 5382971428384817623
+    second: frozen_basilica_of_uadjit_82
+  - first:
+      213: -708065690543399998
+    second: frozen_basilica_of_uadjit_83
+  - first:
+      213: 8236550847825743106
+    second: frozen_basilica_of_uadjit_84
+  - first:
+      213: -5461475003861983797
+    second: frozen_basilica_of_uadjit_85
+  - first:
+      213: -2206200995967430435
+    second: frozen_basilica_of_uadjit_86
+  - first:
+      213: 4392152796259546509
+    second: frozen_basilica_of_uadjit_87
+  - first:
+      213: 2862208891147683311
+    second: frozen_basilica_of_uadjit_88
+  - first:
+      213: -6362244644423785890
+    second: frozen_basilica_of_uadjit_89
+  - first:
+      213: 8960877338648940482
+    second: frozen_basilica_of_uadjit_90
+  - first:
+      213: 8419441440071124087
+    second: frozen_basilica_of_uadjit_91
+  - first:
+      213: -3957705992428543286
+    second: frozen_basilica_of_uadjit_92
+  - first:
+      213: -8297789113427117175
+    second: frozen_basilica_of_uadjit_93
+  - first:
+      213: -6023317515106063501
+    second: frozen_basilica_of_uadjit_94
+  - first:
+      213: -4241253064170201797
+    second: frozen_basilica_of_uadjit_95
+  - first:
+      213: 2327981583879312870
+    second: frozen_basilica_of_uadjit_96
+  - first:
+      213: 1539523464297241605
+    second: frozen_basilica_of_uadjit_97
+  - first:
+      213: -6521623031042213765
+    second: frozen_basilica_of_uadjit_98
+  - first:
+      213: 6035622455133979013
+    second: frozen_basilica_of_uadjit_99
+  - first:
+      213: 4860941338251556762
+    second: frozen_basilica_of_uadjit_100
+  - first:
+      213: -5176906623676038805
+    second: frozen_basilica_of_uadjit_101
+  - first:
+      213: 8770522935454326498
+    second: frozen_basilica_of_uadjit_102
+  - first:
+      213: 5519506236884257009
+    second: frozen_basilica_of_uadjit_103
+  - first:
+      213: 4927190589627119668
+    second: frozen_basilica_of_uadjit_104
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_0
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 1412
+        width: 39
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b35b21511688b6ad0800000000000000
+      internalID: -2707920800386468549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_1
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 1421
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4bdabe6fbfc89150800000000000000
+      internalID: 5879677734635625293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_2
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 1427
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4eff26b2632227a40800000000000000
+      internalID: 5364387722203168740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_3
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 1434
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08d08ebdfe89d81b0800000000000000
+      internalID: -5652693801326080640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_4
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 1427
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deec9e2e30b31c230800000000000000
+      internalID: 3657269260279467757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_5
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 1414
+        width: 10
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cd26c3ac929f9cb0800000000000000
+      internalID: -4855000671821877818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_6
+      rect:
+        serializedVersion: 2
+        x: 662
+        y: 1433
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 087a3564e30515760800000000000000
+      internalID: 7444819887418222464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_7
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 1430
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d9f21eb1fa026c50800000000000000
+      internalID: 6656895232599325137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_8
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 1425
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25de583c0407f65d0800000000000000
+      internalID: -3067109397755466414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_9
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 1432
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed439a82e2e220370800000000000000
+      internalID: 8287237040100685022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_10
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 1428
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb341fbb10ceacb70800000000000000
+      internalID: 8920201504152961980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_11
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 1433
+        width: 23
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1edf023299f036bb0800000000000000
+      internalID: -4944090815528895007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_12
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 1427
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88345a4351fc4e950800000000000000
+      internalID: 6477529854050124680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_13
+      rect:
+        serializedVersion: 2
+        x: 886
+        y: 1419
+        width: 8
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f11466ee0c79d8ef0800000000000000
+      internalID: -104260361470459617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_14
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 1434
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 131d736baad2eb4c0800000000000000
+      internalID: -4269925185475849935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_15
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 1426
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8137353e9e5da6ff0800000000000000
+      internalID: -41986045988605160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_16
+      rect:
+        serializedVersion: 2
+        x: 951
+        y: 1414
+        width: 10
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87daa947d6232e4a0800000000000000
+      internalID: -6565629861063643784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_17
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 1433
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfff1cfc9896f3b00800000000000000
+      internalID: 810482498567012348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_18
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 1430
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbe7ebab35ef54e90800000000000000
+      internalID: -7041942806755115331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_19
+      rect:
+        serializedVersion: 2
+        x: 1060
+        y: 1432
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39e1f237abc9f87d0800000000000000
+      internalID: -2913938109275103597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_20
+      rect:
+        serializedVersion: 2
+        x: 1090
+        y: 1428
+        width: 58
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76cee1216f3f98d70800000000000000
+      internalID: 9046029564741872743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_21
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 1419
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f0715361ae1a15d0800000000000000
+      internalID: -3091124515731574535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_22
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 1416
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5307b3be310eb5e80800000000000000
+      internalID: -8188705121287573451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_23
+      rect:
+        serializedVersion: 2
+        x: 845
+        y: 1421
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e24e9401ff391ed50800000000000000
+      internalID: 6764850838986417198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_24
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 1425
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23a158d02b6d97fd0800000000000000
+      internalID: -2343606070850282958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_25
+      rect:
+        serializedVersion: 2
+        x: 1072
+        y: 1416
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a56723ad0dfb822a0800000000000000
+      internalID: -6761943936761956774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_26
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 81
+        width: 1298
+        height: 1337
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d6bfc073ba789530800000000000000
+      internalID: 3861971591580595925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_27
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 1412
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 417e9d92bb7162d40800000000000000
+      internalID: 5559156882663925524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_28
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 1411
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89a0bb75d19ac2460800000000000000
+      internalID: 7218330246259083928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_29
+      rect:
+        serializedVersion: 2
+        x: 677
+        y: 1411
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9839d972629fc860800000000000000
+      internalID: 7552416051772340382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_30
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 1411
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5ef381ac5970e420800000000000000
+      internalID: 2657257218902326876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_31
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 1411
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 070c45077e728ab60800000000000000
+      internalID: 7757494233121210480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_32
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 1412
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2cb0d706cfcf2f40800000000000000
+      internalID: 5706007702343302189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_33
+      rect:
+        serializedVersion: 2
+        x: 971
+        y: 1411
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 091a70787d353c270800000000000000
+      internalID: 8269545525930860944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_34
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 1411
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f84b235dbd0b88d00800000000000000
+      internalID: 975223777546908815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_35
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 1411
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34f258941094b6680800000000000000
+      internalID: -8760828380241907901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_36
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 1411
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9a85236fbad787d0800000000000000
+      internalID: -2916121718162093414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_37
+      rect:
+        serializedVersion: 2
+        x: 1125
+        y: 1413
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8f03f3f7a7db60b0800000000000000
+      internalID: -5734252584173891700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_38
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 1217
+        width: 15
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca0ce32482b557e10800000000000000
+      internalID: 2194760621881213100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_39
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 1197
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53e43bf9c2a7c3a70800000000000000
+      internalID: 8808049303306325557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_40
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 1200
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faa862892cf1e4ca0800000000000000
+      internalID: -6030847930365736273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_41
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 1144
+        width: 24
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fd41358b4db11000800000000000000
+      internalID: 4993206658878966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_42
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 1180
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b047265568eed2ce0800000000000000
+      internalID: -1428223246081035253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_43
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 1131
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19afe1ecbdcbaee30800000000000000
+      internalID: 4533643627143821969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_44
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 1115
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cc48ca96a64c4230800000000000000
+      internalID: 3624349481501740233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_45
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 1092
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe8c7106023bbb4e0800000000000000
+      internalID: -1964779860784592657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_46
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 1047
+        width: 36
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ef522cf8578717e0800000000000000
+      internalID: -1794817110226870302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_47
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 1043
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77104b7cd4e82e5d0800000000000000
+      internalID: -3034706734180204169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_48
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 1001
+        width: 28
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aad72add8a15541f0800000000000000
+      internalID: -1061352351461114454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_49
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 1024
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 969443367d758b6f0800000000000000
+      internalID: -668687962070562455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_50
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 985
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62b8d3458d8095830800000000000000
+      internalID: 4060286264270490406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_51
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 965
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a43a5e149b725c7a0800000000000000
+      internalID: -6357631622335585462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_52
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 943
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0703e5b9153fe3e80800000000000000
+      internalID: -8196846739943182224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_53
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 922
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2247b5e5825ed7a0800000000000000
+      internalID: -6350547689507700179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_54
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 900
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c6c07280293dad70800000000000000
+      internalID: 9055957237502101189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_55
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 881
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29ab0d26eec7de560800000000000000
+      internalID: 7344663930613054098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_56
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 884
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6cc3fabb8a83f6b0800000000000000
+      internalID: -5263711206724350869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_57
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 865
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c46de112a3f62ff0800000000000000
+      internalID: -61093667511900989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_58
+      rect:
+        serializedVersion: 2
+        x: 1315
+        y: 623
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cca0b2088731ad680800000000000000
+      internalID: -8729643519436977460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_59
+      rect:
+        serializedVersion: 2
+        x: 1319
+        y: 602
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad3a0443bbeec7480800000000000000
+      internalID: -8899976275787996198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_60
+      rect:
+        serializedVersion: 2
+        x: 1329
+        y: 584
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c9d25a7c98844c20800000000000000
+      internalID: 3189824641733679553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_61
+      rect:
+        serializedVersion: 2
+        x: 1324
+        y: 564
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1adce8b2ab768d80800000000000000
+      internalID: -8248769728665036257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_62
+      rect:
+        serializedVersion: 2
+        x: 1319
+        y: 543
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc728feb806727c20800000000000000
+      internalID: 3202752064949594061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_63
+      rect:
+        serializedVersion: 2
+        x: 1315
+        y: 509
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c8f537eb123943c0800000000000000
+      internalID: -4374910467589146428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_64
+      rect:
+        serializedVersion: 2
+        x: 1323
+        y: 481
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c5d8f577e0a69c90800000000000000
+      internalID: -7163361241309063743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_65
+      rect:
+        serializedVersion: 2
+        x: 1331
+        y: 460
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dea1d940f2a9ab650800000000000000
+      internalID: 6249476959661529837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_66
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 432
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f403150b457b55bb0800000000000000
+      internalID: -4947847041233375153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_67
+      rect:
+        serializedVersion: 2
+        x: 1311
+        y: 412
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c02e086d27f6efbc0800000000000000
+      internalID: -3747435300909948404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_68
+      rect:
+        serializedVersion: 2
+        x: 1319
+        y: 391
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c74c3c648e6d766f0800000000000000
+      internalID: -691347724670090116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_69
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 365
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b562d828b57dbf440800000000000000
+      internalID: 4970803401765758555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_70
+      rect:
+        serializedVersion: 2
+        x: 1324
+        y: 348
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d53f243ccff5d91f0800000000000000
+      internalID: -1036566800013003939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_71
+      rect:
+        serializedVersion: 2
+        x: 1318
+        y: 326
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2420fd9c7e37fa370800000000000000
+      internalID: 8336008874647552578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_72
+      rect:
+        serializedVersion: 2
+        x: 1314
+        y: 306
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c908d9a82e3769a0800000000000000
+      internalID: -6239950414329411131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_73
+      rect:
+        serializedVersion: 2
+        x: 1319
+        y: 286
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b57b45d15b77bbb0800000000000000
+      internalID: -4920328476477917770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_74
+      rect:
+        serializedVersion: 2
+        x: 1329
+        y: 268
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e0ec39a106bcd250800000000000000
+      internalID: 5970847324236996837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_75
+      rect:
+        serializedVersion: 2
+        x: 1324
+        y: 247
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9827a99edff421a20800000000000000
+      internalID: 3031573451138298505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_76
+      rect:
+        serializedVersion: 2
+        x: 1319
+        y: 227
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40bb57506b3097da0800000000000000
+      internalID: -5946717752655496444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_77
+      rect:
+        serializedVersion: 2
+        x: 1334
+        y: 213
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0f88c9c77f39bdc0800000000000000
+      internalID: -3622794641523831026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_78
+      rect:
+        serializedVersion: 2
+        x: 1315
+        y: 192
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9c21fee33e820dc0800000000000000
+      internalID: -3674217992277644132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_79
+      rect:
+        serializedVersion: 2
+        x: 1323
+        y: 165
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfac5bd6626db1800800000000000000
+      internalID: 584296037212343037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_80
+      rect:
+        serializedVersion: 2
+        x: 1331
+        y: 144
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19a1f7b59be1977e0800000000000000
+      internalID: -1767347597313369455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_81
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 116
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9907a6826fee46c90800000000000000
+      internalID: -7177349165114298215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_82
+      rect:
+        serializedVersion: 2
+        x: 1311
+        y: 95
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d144f07ef724ba40800000000000000
+      internalID: 5382971428384817623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_83
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 60
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cbd48581027c26f0800000000000000
+      internalID: -708065690543399998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_84
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 73
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20d88136b5b1e4270800000000000000
+      internalID: 8236550847825743106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_85
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 59
+        width: 23
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcd912d8b61f434b0800000000000000
+      internalID: -5461475003861983797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_86
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 68
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd09f3412eff161e0800000000000000
+      internalID: -2206200995967430435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_87
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 52
+        width: 22
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d85f94492bf04fc30800000000000000
+      internalID: 4392152796259546509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_88
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 75
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe582d562db98b720800000000000000
+      internalID: 2862208891147683311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_89
+      rect:
+        serializedVersion: 2
+        x: 1019
+        y: 61
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e522dfa5434c4b7a0800000000000000
+      internalID: -6362244644423785890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_90
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 76
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cf8406767e6b5c70800000000000000
+      internalID: 8960877338648940482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_91
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 54
+        width: 25
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77484a2b16dd7d470800000000000000
+      internalID: 8419441440071124087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_92
+      rect:
+        serializedVersion: 2
+        x: 1074
+        y: 50
+        width: 15
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac2acd36e576319c0800000000000000
+      internalID: -3957705992428543286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_93
+      rect:
+        serializedVersion: 2
+        x: 1093
+        y: 78
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98bb211d3c458dc80800000000000000
+      internalID: -8297789113427117175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_94
+      rect:
+        serializedVersion: 2
+        x: 1102
+        y: 60
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37be6b602a0e86ca0800000000000000
+      internalID: -6023317515106063501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_95
+      rect:
+        serializedVersion: 2
+        x: 1118
+        y: 77
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3d199b2fca0425c0800000000000000
+      internalID: -4241253064170201797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_96
+      rect:
+        serializedVersion: 2
+        x: 1124
+        y: 52
+        width: 35
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e517c69ae6ae4020800000000000000
+      internalID: 2327981583879312870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_97
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 78
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50cd0dc1f6c7d5510800000000000000
+      internalID: 1539523464297241605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_98
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 60
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b78f8b3086a8e75a0800000000000000
+      internalID: -6521623031042213765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_99
+      rect:
+        serializedVersion: 2
+        x: 1221
+        y: 73
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 581c1a415a6d2c350800000000000000
+      internalID: 6035622455133979013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_100
+      rect:
+        serializedVersion: 2
+        x: 1238
+        y: 59
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a97fe7c8468857340800000000000000
+      internalID: 4860941338251556762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_101
+      rect:
+        serializedVersion: 2
+        x: 1254
+        y: 69
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b614c6caadee728b0800000000000000
+      internalID: -5176906623676038805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_102
+      rect:
+        serializedVersion: 2
+        x: 1276
+        y: 68
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2eedb2e342827b970800000000000000
+      internalID: 8770522935454326498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_103
+      rect:
+        serializedVersion: 2
+        x: 1296
+        y: 63
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f80a09cda9399c40800000000000000
+      internalID: 5519506236884257009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_basilica_of_uadjit_104
+      rect:
+        serializedVersion: 2
+        x: 1314
+        y: 52
+        width: 27
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4383f536cb5e06440800000000000000
+      internalID: 4927190589627119668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      frozen_basilica_of_uadjit_0: -2707920800386468549
+      frozen_basilica_of_uadjit_1: 5879677734635625293
+      frozen_basilica_of_uadjit_10: 8920201504152961980
+      frozen_basilica_of_uadjit_100: 4860941338251556762
+      frozen_basilica_of_uadjit_101: -5176906623676038805
+      frozen_basilica_of_uadjit_102: 8770522935454326498
+      frozen_basilica_of_uadjit_103: 5519506236884257009
+      frozen_basilica_of_uadjit_104: 4927190589627119668
+      frozen_basilica_of_uadjit_11: -4944090815528895007
+      frozen_basilica_of_uadjit_12: 6477529854050124680
+      frozen_basilica_of_uadjit_13: -104260361470459617
+      frozen_basilica_of_uadjit_14: -4269925185475849935
+      frozen_basilica_of_uadjit_15: -41986045988605160
+      frozen_basilica_of_uadjit_16: -6565629861063643784
+      frozen_basilica_of_uadjit_17: 810482498567012348
+      frozen_basilica_of_uadjit_18: -7041942806755115331
+      frozen_basilica_of_uadjit_19: -2913938109275103597
+      frozen_basilica_of_uadjit_2: 5364387722203168740
+      frozen_basilica_of_uadjit_20: 9046029564741872743
+      frozen_basilica_of_uadjit_21: -3091124515731574535
+      frozen_basilica_of_uadjit_22: -8188705121287573451
+      frozen_basilica_of_uadjit_23: 6764850838986417198
+      frozen_basilica_of_uadjit_24: -2343606070850282958
+      frozen_basilica_of_uadjit_25: -6761943936761956774
+      frozen_basilica_of_uadjit_26: 3861971591580595925
+      frozen_basilica_of_uadjit_27: 5559156882663925524
+      frozen_basilica_of_uadjit_28: 7218330246259083928
+      frozen_basilica_of_uadjit_29: 7552416051772340382
+      frozen_basilica_of_uadjit_3: -5652693801326080640
+      frozen_basilica_of_uadjit_30: 2657257218902326876
+      frozen_basilica_of_uadjit_31: 7757494233121210480
+      frozen_basilica_of_uadjit_32: 5706007702343302189
+      frozen_basilica_of_uadjit_33: 8269545525930860944
+      frozen_basilica_of_uadjit_34: 975223777546908815
+      frozen_basilica_of_uadjit_35: -8760828380241907901
+      frozen_basilica_of_uadjit_36: -2916121718162093414
+      frozen_basilica_of_uadjit_37: -5734252584173891700
+      frozen_basilica_of_uadjit_38: 2194760621881213100
+      frozen_basilica_of_uadjit_39: 8808049303306325557
+      frozen_basilica_of_uadjit_4: 3657269260279467757
+      frozen_basilica_of_uadjit_40: -6030847930365736273
+      frozen_basilica_of_uadjit_41: 4993206658878966
+      frozen_basilica_of_uadjit_42: -1428223246081035253
+      frozen_basilica_of_uadjit_43: 4533643627143821969
+      frozen_basilica_of_uadjit_44: 3624349481501740233
+      frozen_basilica_of_uadjit_45: -1964779860784592657
+      frozen_basilica_of_uadjit_46: -1794817110226870302
+      frozen_basilica_of_uadjit_47: -3034706734180204169
+      frozen_basilica_of_uadjit_48: -1061352351461114454
+      frozen_basilica_of_uadjit_49: -668687962070562455
+      frozen_basilica_of_uadjit_5: -4855000671821877818
+      frozen_basilica_of_uadjit_50: 4060286264270490406
+      frozen_basilica_of_uadjit_51: -6357631622335585462
+      frozen_basilica_of_uadjit_52: -8196846739943182224
+      frozen_basilica_of_uadjit_53: -6350547689507700179
+      frozen_basilica_of_uadjit_54: 9055957237502101189
+      frozen_basilica_of_uadjit_55: 7344663930613054098
+      frozen_basilica_of_uadjit_56: -5263711206724350869
+      frozen_basilica_of_uadjit_57: -61093667511900989
+      frozen_basilica_of_uadjit_58: -8729643519436977460
+      frozen_basilica_of_uadjit_59: -8899976275787996198
+      frozen_basilica_of_uadjit_6: 7444819887418222464
+      frozen_basilica_of_uadjit_60: 3189824641733679553
+      frozen_basilica_of_uadjit_61: -8248769728665036257
+      frozen_basilica_of_uadjit_62: 3202752064949594061
+      frozen_basilica_of_uadjit_63: -4374910467589146428
+      frozen_basilica_of_uadjit_64: -7163361241309063743
+      frozen_basilica_of_uadjit_65: 6249476959661529837
+      frozen_basilica_of_uadjit_66: -4947847041233375153
+      frozen_basilica_of_uadjit_67: -3747435300909948404
+      frozen_basilica_of_uadjit_68: -691347724670090116
+      frozen_basilica_of_uadjit_69: 4970803401765758555
+      frozen_basilica_of_uadjit_7: 6656895232599325137
+      frozen_basilica_of_uadjit_70: -1036566800013003939
+      frozen_basilica_of_uadjit_71: 8336008874647552578
+      frozen_basilica_of_uadjit_72: -6239950414329411131
+      frozen_basilica_of_uadjit_73: -4920328476477917770
+      frozen_basilica_of_uadjit_74: 5970847324236996837
+      frozen_basilica_of_uadjit_75: 3031573451138298505
+      frozen_basilica_of_uadjit_76: -5946717752655496444
+      frozen_basilica_of_uadjit_77: -3622794641523831026
+      frozen_basilica_of_uadjit_78: -3674217992277644132
+      frozen_basilica_of_uadjit_79: 584296037212343037
+      frozen_basilica_of_uadjit_8: -3067109397755466414
+      frozen_basilica_of_uadjit_80: -1767347597313369455
+      frozen_basilica_of_uadjit_81: -7177349165114298215
+      frozen_basilica_of_uadjit_82: 5382971428384817623
+      frozen_basilica_of_uadjit_83: -708065690543399998
+      frozen_basilica_of_uadjit_84: 8236550847825743106
+      frozen_basilica_of_uadjit_85: -5461475003861983797
+      frozen_basilica_of_uadjit_86: -2206200995967430435
+      frozen_basilica_of_uadjit_87: 4392152796259546509
+      frozen_basilica_of_uadjit_88: 2862208891147683311
+      frozen_basilica_of_uadjit_89: -6362244644423785890
+      frozen_basilica_of_uadjit_9: 8287237040100685022
+      frozen_basilica_of_uadjit_90: 8960877338648940482
+      frozen_basilica_of_uadjit_91: 8419441440071124087
+      frozen_basilica_of_uadjit_92: -3957705992428543286
+      frozen_basilica_of_uadjit_93: -8297789113427117175
+      frozen_basilica_of_uadjit_94: -6023317515106063501
+      frozen_basilica_of_uadjit_95: -4241253064170201797
+      frozen_basilica_of_uadjit_96: 2327981583879312870
+      frozen_basilica_of_uadjit_97: 1539523464297241605
+      frozen_basilica_of_uadjit_98: -6521623031042213765
+      frozen_basilica_of_uadjit_99: 6035622455133979013
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

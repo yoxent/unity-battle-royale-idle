@@ -109,6 +109,17 @@ namespace BattleRoyale.Tests.EditMode
         }
 
         [Test]
+        public void CompanySidesFieldWhenTheOpponentHasEnoughAgents()
+        {
+            Assert.IsTrue(DeathmatchRules.CanFieldCompanySides(5, 5, 5));
+            Assert.IsTrue(DeathmatchRules.CanFieldCompanySides(4, 5, 4));
+            Assert.IsTrue(DeathmatchRules.CanFieldCompanySides(3, 5, 3));
+            Assert.IsFalse(DeathmatchRules.CanFieldCompanySides(5, 5, 3));
+            Assert.IsFalse(DeathmatchRules.CanFieldCompanySides(3, 2, 3));
+            Assert.IsFalse(DeathmatchRules.CanFieldCompanySides(0, 5, 0));
+        }
+
+        [Test]
         public void KillsScoreUntilATeamReachesTheLimit()
         {
             var scores = new List<int> { 0, 0 };

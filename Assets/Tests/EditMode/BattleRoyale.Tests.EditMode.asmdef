@@ -4,6 +4,7 @@
     "references": [
         "BattleRoyale",
         "BattleRoyale.Editor",
+        "KevinIglesias",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "UnityEditor",

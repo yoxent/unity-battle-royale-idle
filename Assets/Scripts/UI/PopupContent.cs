@@ -113,6 +113,18 @@ namespace BattleRoyale.UI
                 "Not now").WithDoNotShowAgain("Don't ask again today");
         }
 
+        public static PopupContent Release(string agentName)
+        {
+            return Create(
+                "Release this agent?",
+                $"{agentName} will leave the roster. The contract is not refunded.",
+                "Release",
+                "Keep agent",
+                true,
+                null,
+                0f);
+        }
+
         public static PopupContent EntryCommit()
         {
             return Create(

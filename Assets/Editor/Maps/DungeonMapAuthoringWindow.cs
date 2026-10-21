@@ -82,6 +82,33 @@ namespace BattleRoyale.Maps.EditorTools
             window.Repaint();
         }
 
+        internal static bool RegenerateRoot(MapDefinition definition, out string message)
+        {
+            message = "Missing map.";
+            if (definition == null)
+            {
+                return false;
+            }
+
+            var window = CreateInstance<DungeonMapAuthoringWindow>();
+            try
+            {
+                window.mapDefinition = definition;
+                window.LoadDefinitionIntoWindow();
+                window.modeAuthoring?.BindSavedSettings(definition);
+                var saved = window.GenerateMapRoot(replaceExisting: true, placeInScene: false);
+                message = window.statusMessage;
+                return saved;
+            }
+            finally
+            {
+                if (window != null)
+                {
+                    DestroyImmediate(window);
+                }
+            }
+        }
+
         private void OnEnable()
         {
             if (mapDefinition != null)
@@ -665,16 +692,21 @@ namespace BattleRoyale.Maps.EditorTools
 
         private void GenerateMapRoot()
         {
+            GenerateMapRoot(replaceGeneratedRoot, setAsActiveCameraMap);
+        }
+
+        private bool GenerateMapRoot(bool replaceExisting, bool placeInScene)
+        {
             if (EditorApplication.isPlaying)
             {
                 SetStatus("Stop Play Mode before generating a dungeon map root.", MessageType.Error);
-                return;
+                return false;
             }
 
             if (!IsMapReady())
             {
                 SetStatus("Create a map definition before generating a dungeon map root.", MessageType.Error);
-                return;
+                return false;
             }
 
             if (analyzedLayout == null ||
@@ -688,19 +720,21 @@ namespace BattleRoyale.Maps.EditorTools
 
             if (analyzedLayout == null)
             {
-                return;
+                return false;
             }
 
-            if (!modeAuthoring.ValidateForGeneration(
+            var modeValidationError = "Map mode authoring is missing.";
+            if (modeAuthoring == null ||
+                !modeAuthoring.ValidateForGeneration(
                     mapDefinition,
-                    out var modeValidationError))
+                    out modeValidationError))
             {
                 SetStatus(modeValidationError, MessageType.Error);
-                return;
+                return false;
             }
 
             var prefabPath = MapBakeOutput.GetPrefabPath(mapDefinition);
-            if (!replaceGeneratedRoot &&
+            if (!replaceExisting &&
                 !string.IsNullOrEmpty(prefabPath) &&
                 AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath) != null)
             {
@@ -708,7 +742,7 @@ namespace BattleRoyale.Maps.EditorTools
                     $"A map prefab already exists at {prefabPath}.",
                     MessageType.Warning);
                 Selection.activeObject = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-                return;
+                return false;
             }
 
             var root = new GameObject("Map");
@@ -739,23 +773,31 @@ namespace BattleRoyale.Maps.EditorTools
             CreateFloorCollider(root.transform);
             modeAuthoring.GenerateMarkers(root.transform, mapDefinition);
             var scaledUnitCount = MapGeometrySection.ApplyToLoadedUnits(unitScale);
-            var placed = MapBakeOutput.Commit(root, mapDefinition, setAsActiveCameraMap);
-            if (setAsActiveCameraMap && placed == null)
+            var placed = MapBakeOutput.Commit(root, mapDefinition, placeInScene);
+            if (root != null)
+            {
+                Undo.DestroyObjectImmediate(root);
+                SetStatus("Could not save the dungeon map prefab.", MessageType.Error);
+                return false;
+            }
+
+            if (placeInScene && placed == null)
             {
                 SetStatus(
                     "The dungeon was built, but its prefab was not placed as the active map.",
                     MessageType.Error);
-                return;
+                return false;
             }
 
             SetStatus(
-                setAsActiveCameraMap
+                placeInScene
                     ? $"Saved {prefabPath} and placed it as the active map. " +
                       $"{analyzedLayout.FloorCells.Count} walkable cells. " +
                       $"Applied unit scale {unitScale:0.##} to {scaledUnitCount} unit(s)."
                     : $"Saved {prefabPath}. The scene map was left unchanged. " +
                       $"{analyzedLayout.FloorCells.Count} walkable cells.",
                 MessageType.Info);
+            return true;
         }
 
         private void CreateVisualMap(Transform parent)

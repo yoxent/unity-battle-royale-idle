@@ -1,4 +1,5 @@
 using TMPro;
+using LitMotion;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +35,8 @@ namespace BattleRoyale.UI
         [SerializeField] Sprite filledHighlighted;
         [SerializeField] Sprite filledPressed;
         [SerializeField] Sprite filledDisabled;
+        [Tooltip("Optional persistent selected state. Falls back to the serialized Button state.")]
+        [SerializeField] Sprite filledSelected;
         [SerializeField] Color filledContentColor = Color.white;
         [SerializeField] Color filledDisabledContentColor = Color.white;
 
@@ -41,8 +44,34 @@ namespace BattleRoyale.UI
         [SerializeField] Sprite outlinedHighlighted;
         [SerializeField] Sprite outlinedPressed;
         [SerializeField] Sprite outlinedDisabled;
+        [Tooltip("Optional persistent selected state. Falls back to the serialized Button state.")]
+        [SerializeField] Sprite outlinedSelected;
         [SerializeField] Color outlinedContentColor = Color.white;
         [SerializeField] Color outlinedDisabledContentColor = Color.white;
+
+        [Header("Feedback")]
+        [Min(0.01f)]
+        [SerializeField] float feedbackDuration = 0.12f;
+        [Min(1f)]
+        [SerializeField] float highlightedScale = 1.02f;
+        [Range(0.9f, 1f)]
+        [SerializeField] float pressedScale = 0.98f;
+        [Min(1f)]
+        [SerializeField] float selectedScale = 1.01f;
+
+        MotionHandle feedbackMotion;
+        RectTransform rectTransform;
+        Vector3 baseScale = Vector3.one;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            rectTransform = transform as RectTransform;
+            if (rectTransform != null)
+            {
+                baseScale = rectTransform.localScale;
+            }
+        }
 
         protected override void OnEnable()
         {
@@ -50,9 +79,24 @@ namespace BattleRoyale.UI
             Apply(true);
         }
 
+        protected override void OnDisable()
+        {
+            CancelFeedback();
+            if (rectTransform != null)
+            {
+                rectTransform.localScale = baseScale;
+            }
+
+            base.OnDisable();
+        }
+
         protected override void OnValidate()
         {
             base.OnValidate();
+            feedbackDuration = Mathf.Max(0.01f, feedbackDuration);
+            highlightedScale = Mathf.Max(1f, highlightedScale);
+            pressedScale = Mathf.Clamp(pressedScale, 0.9f, 1f);
+            selectedScale = Mathf.Max(1f, selectedScale);
             Apply(false);
         }
 
@@ -60,6 +104,7 @@ namespace BattleRoyale.UI
         {
             base.DoStateTransition(state, instant);
             ApplyContentColor(state == SelectionState.Disabled);
+            ApplyScale(state, instant);
         }
 
         void Apply(bool logMissing)
@@ -101,7 +146,10 @@ namespace BattleRoyale.UI
             var sprites = spriteState;
             sprites.highlightedSprite = filled ? filledHighlighted : outlinedHighlighted;
             sprites.pressedSprite = filled ? filledPressed : outlinedPressed;
-            sprites.selectedSprite = filled ? filledHighlighted : outlinedHighlighted;
+            var selected = filled ? filledSelected : outlinedSelected;
+            sprites.selectedSprite = selected != null
+                ? selected
+                : (filled ? filledHighlighted : outlinedHighlighted);
             sprites.disabledSprite = filled ? filledDisabled : outlinedDisabled;
             spriteState = sprites;
 
@@ -167,6 +215,66 @@ namespace BattleRoyale.UI
             {
                 icon.color = color;
             }
+        }
+
+        void ApplyScale(SelectionState state, bool instant)
+        {
+            if (rectTransform == null)
+            {
+                return;
+            }
+
+            var multiplier = 1f;
+            switch (state)
+            {
+                case SelectionState.Highlighted:
+                    multiplier = highlightedScale;
+                    break;
+                case SelectionState.Pressed:
+                    multiplier = pressedScale;
+                    break;
+                case SelectionState.Selected:
+                    multiplier = selectedScale;
+                    break;
+            }
+
+            var target = baseScale * multiplier;
+            if (instant || !Application.isPlaying || feedbackDuration <= 0f)
+            {
+                CancelFeedback();
+                rectTransform.localScale = target;
+                return;
+            }
+
+            if ((rectTransform.localScale - target).sqrMagnitude <= 0.000001f)
+            {
+                return;
+            }
+
+            CancelFeedback();
+            feedbackMotion = LMotion.Create(
+                    rectTransform.localScale.x / Mathf.Max(0.0001f, baseScale.x),
+                    multiplier,
+                    feedbackDuration)
+                .WithEase(Ease.OutCubic)
+                .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)
+                .Bind(value =>
+                {
+                    if (rectTransform != null)
+                    {
+                        rectTransform.localScale = baseScale * value;
+                    }
+                });
+        }
+
+        void CancelFeedback()
+        {
+            if (feedbackMotion.IsActive())
+            {
+                feedbackMotion.Cancel();
+            }
+
+            feedbackMotion = default;
         }
 
         bool HasSprites()

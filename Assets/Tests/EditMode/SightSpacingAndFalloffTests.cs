@@ -82,7 +82,7 @@ namespace BattleRoyale.Tests.EditMode
         }
 
         [Test]
-        public void NavigationRadiusMatchesBodyCollider()
+        public void NavigationClearanceStaysAtTheBakedAgentSize()
         {
             var host = new GameObject("body");
             try
@@ -92,11 +92,12 @@ namespace BattleRoyale.Tests.EditMode
                 body.radius = 5f;
                 body.height = 20f;
                 agent.radius = 0.5f;
+                agent.height = 2f;
 
                 BattleRoyaleAgent.ApplyClearance(agent, body);
 
-                Assert.AreEqual(5f, agent.radius);
-                Assert.AreEqual(20f, agent.height);
+                Assert.AreEqual(0.5f, agent.radius);
+                Assert.AreEqual(2f, agent.height);
             }
             finally
             {

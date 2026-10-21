@@ -6,12 +6,11 @@ namespace BattleRoyale.GameModes
     public static class SpawnSnapCandidates
     {
         public const int Directions = 8;
-        public const int Rings = 3;
 
         public static void Fill(
             Vector3 anchor,
             Vector3 preferred,
-            float snapDistance,
+            float step,
             List<Vector3> candidates)
         {
             if (candidates == null)
@@ -25,11 +24,11 @@ namespace BattleRoyale.GameModes
                 candidates.Add(anchor);
             }
 
-            var step = Mathf.Max(0.1f, snapDistance) * 0.5f;
+            var ringStep = Mathf.Max(0.01f, step);
             var turn = Mathf.PI * 2f / Directions;
-            for (var ring = 1; ring <= Rings; ring++)
+            for (var ring = 1; ring <= SpawnPlacement.Rings; ring++)
             {
-                var radius = step * ring;
+                var radius = ringStep * ring;
                 for (var direction = 0; direction < Directions; direction++)
                 {
                     var angle = turn * direction;

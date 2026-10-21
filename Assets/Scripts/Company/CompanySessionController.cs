@@ -1388,6 +1388,15 @@ namespace BattleRoyale.Company
             var matches = page == modeSelect || page == matchSetupPage || page == resultPage;
             if (matches)
             {
+                if (page == modeSelect)
+                {
+                    RefreshMatchOffer();
+                    if (committedOffer == null && !MapHasStarted(viewedCard))
+                    {
+                        viewedCard = 0;
+                    }
+                }
+
                 var joining = !MapHasStarted(viewedCard) &&
                     (page == modeSelect || page == matchSetupPage);
                 ShowMatchPreview();
@@ -1400,11 +1409,6 @@ namespace BattleRoyale.Company
                 if (joining)
                 {
                     RefreshDeployment();
-                }
-
-                if (page == modeSelect)
-                {
-                    RefreshMatchOffer();
                 }
             }
             else

@@ -85,21 +85,46 @@ namespace BattleRoyale.Company
             }
 
             var band = CompanyRankRules.Band(rankPoints);
-            nameLabel.text = companyName ?? "";
-            tierLabel.text = band.Tier;
-            pointsLabel.text = band.Points.ToString();
-            nextLabel.text = band.HasNext
+            SetTextIfChanged(nameLabel, companyName);
+            SetTextIfChanged(tierLabel, band.Tier);
+            SetTextIfChanged(pointsLabel, band.Points.ToString());
+            SetTextIfChanged(nextLabel, band.HasNext
                 ? band.Remaining + " to " + band.NextTier
-                : "Highest tier";
-            rankFill.fillAmount = band.Fill;
-            goldLabel.text = gold ?? "";
-            fansLabel.text = "Fans " + fans;
-            dayLabel.text = "Day " + day;
-            stanceLabel.text = stance ?? "";
-            rosterCountLabel.text = rosterCount + " / " + rosterCap;
+                : "Highest tier");
+            if (!Mathf.Approximately(rankFill.fillAmount, band.Fill))
+            {
+                rankFill.fillAmount = band.Fill;
+            }
+
+            SetTextIfChanged(goldLabel, gold);
+            SetTextIfChanged(fansLabel, "Fans " + fans);
+            SetTextIfChanged(dayLabel, "Day " + day);
+            SetTextIfChanged(stanceLabel, stance);
+            SetTextIfChanged(rosterCountLabel, rosterCount + " / " + rosterCap);
             if (emblemSource != null)
             {
                 preview.Render(emblemSource);
+            }
+        }
+
+        public void PresentLiveValues(string gold, int fans, int day, string stance)
+        {
+            if (!subscribed)
+            {
+                return;
+            }
+
+            SetTextIfChanged(goldLabel, gold);
+            SetTextIfChanged(fansLabel, "Fans " + fans);
+            SetTextIfChanged(dayLabel, "Day " + day);
+            SetTextIfChanged(stanceLabel, stance);
+        }
+
+        static void SetTextIfChanged(TMP_Text label, string value)
+        {
+            if (label != null && label.text != value)
+            {
+                label.text = value ?? "";
             }
         }
     }

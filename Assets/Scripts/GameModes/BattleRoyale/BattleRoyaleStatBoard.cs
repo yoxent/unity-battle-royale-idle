@@ -31,7 +31,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
             for (var index = 0; index < order.Count; index++)
             {
                 var entry = order.EntryAt(index);
-                board.AddRow(new MatchStatRow(
+                board.AddRow(
                     entry.DisplayName,
                     entry.TeamIndex,
                     entry.Alive,
@@ -41,7 +41,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
                     0,
                     0,
                     0,
-                    0));
+                    0);
             }
         }
     }

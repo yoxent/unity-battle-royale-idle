@@ -22,6 +22,11 @@ namespace BattleRoyale.UI
 
         void OnEnable()
         {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
             if (resultLabel == null)
             {
                 Debug.LogError("PopupShowcase: assign the result label.", this);

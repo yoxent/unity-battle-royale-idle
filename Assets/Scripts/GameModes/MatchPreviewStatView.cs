@@ -33,10 +33,13 @@ namespace BattleRoyale.GameModes
         [SerializeField] private BattleRoyaleStatRow aliveRowPrefab;
         [SerializeField] private Button statsButton;
         [SerializeField] private TMP_Text statsButtonLabel;
+        [Min(0.05f)]
+        [SerializeField] private float refreshInterval = 0.1f;
 
         readonly MatchStatBoard board = new();
         readonly List<bool> alive = new();
         readonly List<int> respawnSeconds = new();
+        readonly List<DeathmatchAgentLine> reusableDeathmatchLines = new();
         readonly List<DeathmatchStatRow> compactRows = new();
         readonly List<DeathmatchStatRow> tableRows = new();
         readonly List<BattleRoyaleStatRow> aliveRows = new();
@@ -46,6 +49,8 @@ namespace BattleRoyale.GameModes
         bool tableOpen;
         bool holdFullTable;
         bool reportedTeamCount;
+        float refreshRemaining;
+        SimulationMatch lastWatchedMatch;
 
         void OnEnable()
         {
@@ -57,6 +62,8 @@ namespace BattleRoyale.GameModes
 
             statsButton.onClick.AddListener(ToggleTable);
             listening = true;
+            refreshRemaining = 0f;
+            lastWatchedMatch = null;
             tableOpen = false;
             ApplyButtonLabel();
         }
@@ -70,6 +77,8 @@ namespace BattleRoyale.GameModes
 
             statsButton.onClick.RemoveListener(ToggleTable);
             listening = false;
+            refreshRemaining = 0f;
+            lastWatchedMatch = null;
         }
 
         void Update()
@@ -80,6 +89,21 @@ namespace BattleRoyale.GameModes
             }
 
             var match = stage.WatchedMatch;
+            if (match != lastWatchedMatch)
+            {
+                lastWatchedMatch = match;
+                refreshRemaining = 0f;
+            }
+            else
+            {
+                refreshRemaining -= Time.unscaledDeltaTime;
+                if (refreshRemaining > 0f)
+                {
+                    return;
+                }
+            }
+
+            refreshRemaining = refreshInterval;
             if (match is DeathmatchGameMode deathmatch)
             {
                 FillPresence(deathmatch, deathmatch.CombatStats, true);
@@ -90,7 +114,8 @@ namespace BattleRoyale.GameModes
                     deathmatch.TeamScores,
                     deathmatch.ElapsedMatchTime,
                     alive,
-                    respawnSeconds);
+                    respawnSeconds,
+                    reusableDeathmatchLines);
             }
             else if (match is EliminationGameMode elimination)
             {
@@ -106,7 +131,8 @@ namespace BattleRoyale.GameModes
                     elimination.RoundWins,
                     clock,
                     intermission > 0f,
-                    alive);
+                    alive,
+                    reusableDeathmatchLines);
             }
             else if (match is BattleRoyaleGameMode battleRoyale)
             {
@@ -154,7 +180,16 @@ namespace BattleRoyale.GameModes
 
         void ApplyButtonLabel()
         {
-            statsButtonLabel.text = tableOpen ? "Close" : "Stats";
+            if (statsButtonLabel == null)
+            {
+                return;
+            }
+
+            var label = tableOpen ? "Close" : "Stats";
+            if (statsButtonLabel.text != label)
+            {
+                statsButtonLabel.text = label;
+            }
         }
 
         void FillPresence(SimulationMatch match, DeathmatchCombatStats stats, bool respawn)
@@ -206,36 +241,36 @@ namespace BattleRoyale.GameModes
                 return;
             }
 
-            scoresRoot.SetActive(true);
-            teamOne.SetActive(board.Teams);
-            teamTwo.SetActive(board.Teams);
+            SetActiveIfChanged(scoresRoot, true);
+            SetActiveIfChanged(teamOne, board.Teams);
+            SetActiveIfChanged(teamTwo, board.Teams);
             if (board.Teams)
             {
-                teamOneCaption.text = board.LeftName;
-                teamOneCaption.color = TeamColor(match, 0);
-                teamOneScore.text = board.LeftScore.ToString();
-                teamTwoCaption.text = board.RightName;
-                teamTwoCaption.color = TeamColor(match, 1);
-                teamTwoScore.text = board.RightScore.ToString();
+                SetTextIfChanged(teamOneCaption, board.LeftName);
+                SetColorIfChanged(teamOneCaption, TeamColor(match, 0));
+                SetTextIfChanged(teamOneScore, board.LeftScore.ToString());
+                SetTextIfChanged(teamTwoCaption, board.RightName);
+                SetColorIfChanged(teamTwoCaption, TeamColor(match, 1));
+                SetTextIfChanged(teamTwoScore, board.RightScore.ToString());
             }
 
             var showCaption = !string.IsNullOrEmpty(board.CenterCaption);
-            centerCaption.gameObject.SetActive(showCaption);
+            SetActiveIfChanged(centerCaption == null ? null : centerCaption.gameObject, showCaption);
             if (showCaption)
             {
-                centerCaption.text = board.CenterCaption;
+                SetTextIfChanged(centerCaption, board.CenterCaption);
             }
 
-            centerValue.text = board.CenterValue;
+            SetTextIfChanged(centerValue, board.CenterValue);
             PaintEvent(match);
             PaintRows(match);
         }
 
         void Hide()
         {
-            scoresRoot.SetActive(false);
-            eventChip.SetActive(false);
-            statsButton.gameObject.SetActive(false);
+            SetActiveIfChanged(scoresRoot, false);
+            SetActiveIfChanged(eventChip, false);
+            SetActiveIfChanged(statsButton == null ? null : statsButton.gameObject, false);
             tableOpen = false;
             ApplyButtonLabel();
             HideTeamHeaders();
@@ -248,22 +283,22 @@ namespace BattleRoyale.GameModes
         {
             if (!board.ShowEvent)
             {
-                eventChip.SetActive(false);
+                SetActiveIfChanged(eventChip, false);
                 return;
             }
 
-            eventChip.SetActive(true);
+            SetActiveIfChanged(eventChip, true);
             if (!board.EventHasActor)
             {
-                eventLine.text = PaintName(
+                SetTextIfChanged(eventLine, PaintName(
                     board.SubjectName,
-                    TeamColor(match, board.SubjectTeam)) + " died";
+                    TeamColor(match, board.SubjectTeam)) + " died");
                 return;
             }
 
-            eventLine.text = PaintName(board.ActorName, TeamColor(match, board.ActorTeam))
+            SetTextIfChanged(eventLine, PaintName(board.ActorName, TeamColor(match, board.ActorTeam))
                 + " eliminated "
-                + PaintName(board.SubjectName, TeamColor(match, board.SubjectTeam));
+                + PaintName(board.SubjectName, TeamColor(match, board.SubjectTeam)));
         }
 
         void PaintRows(SimulationMatch match)
@@ -271,7 +306,7 @@ namespace BattleRoyale.GameModes
             var count = board.Rows.Count;
             if (count == 0)
             {
-                statsButton.gameObject.SetActive(false);
+                SetActiveIfChanged(statsButton == null ? null : statsButton.gameObject, false);
                 HideTeamHeaders();
                 HideSpare(compactRows, 0);
                 HideSpare(tableRows, 0);
@@ -285,7 +320,9 @@ namespace BattleRoyale.GameModes
                 tableOpen = true;
             }
 
-            statsButton.gameObject.SetActive(combat && !holdFullTable);
+            SetActiveIfChanged(
+                statsButton == null ? null : statsButton.gameObject,
+                combat && !holdFullTable);
             if (!combat)
             {
                 tableOpen = false;
@@ -348,23 +385,23 @@ namespace BattleRoyale.GameModes
         {
             if (match is DeathmatchGameMode)
             {
-                modeLabel.text = MapGameModes.Label(MapGameMode.Deathmatch);
+                SetTextIfChanged(modeLabel, MapGameModes.Label(MapGameMode.Deathmatch));
                 return;
             }
 
             if (match is EliminationGameMode)
             {
-                modeLabel.text = MapGameModes.Label(MapGameMode.Elimination);
+                SetTextIfChanged(modeLabel, MapGameModes.Label(MapGameMode.Elimination));
                 return;
             }
 
             if (match is BattleRoyaleGameMode)
             {
-                modeLabel.text = MapGameModes.Label(MapGameMode.BattleRoyale);
+                SetTextIfChanged(modeLabel, MapGameModes.Label(MapGameMode.BattleRoyale));
                 return;
             }
 
-            modeLabel.text = string.Empty;
+            SetTextIfChanged(modeLabel, string.Empty);
         }
 
         int PlaceTeamHeader(SimulationMatch match, int teamIndex, int sibling)
@@ -376,17 +413,17 @@ namespace BattleRoyale.GameModes
                 return sibling;
             }
 
-            header.gameObject.SetActive(true);
-            header.text = teamName;
-            header.color = TeamColor(match, teamIndex);
+            SetActiveIfChanged(header.gameObject, true);
+            SetTextIfChanged(header, teamName);
+            SetColorIfChanged(header, TeamColor(match, teamIndex));
             header.rectTransform.SetSiblingIndex(sibling);
             return sibling + 1;
         }
 
         void HideTeamHeaders()
         {
-            teamOneHeader.gameObject.SetActive(false);
-            teamTwoHeader.gameObject.SetActive(false);
+            SetActiveIfChanged(teamOneHeader == null ? null : teamOneHeader.gameObject, false);
+            SetActiveIfChanged(teamTwoHeader == null ? null : teamTwoHeader.gameObject, false);
         }
 
         void ShowCombat(
@@ -479,6 +516,36 @@ namespace BattleRoyale.GameModes
         {
             return "<color=#" + ColorUtility.ToHtmlStringRGB(color) + ">"
                 + agentName + "</color>";
+        }
+
+        static void SetTextIfChanged(TMP_Text label, string value)
+        {
+            if (label == null)
+            {
+                return;
+            }
+
+            var text = value ?? string.Empty;
+            if (label.text != text)
+            {
+                label.text = text;
+            }
+        }
+
+        static void SetColorIfChanged(TMP_Text label, Color color)
+        {
+            if (label != null && label.color != color)
+            {
+                label.color = color;
+            }
+        }
+
+        static void SetActiveIfChanged(GameObject target, bool active)
+        {
+            if (target != null && target.activeSelf != active)
+            {
+                target.SetActive(active);
+            }
         }
 
         bool HasReferences()

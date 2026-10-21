@@ -35,5 +35,5 @@ MonoBehaviour:
     turnSpeed: 540
   defaultWeapon: {fileID: 11400000, guid: af1f431a360af5947b9e280fd69d5769, type: 2}
   defaultStrategy: 2
-  visualScale: 10
+  visualScale: 1
   visualColor: {r: 1, g: 1, b: 1, a: 1}

@@ -64,7 +64,7 @@ namespace BattleRoyale.Company
             SetRoot(openRoot, true);
             if (releaseButton != null)
             {
-                releaseButton.gameObject.SetActive(false);
+                SetActiveIfChanged(releaseButton.gameObject, false);
             }
 
             shownAvatar = null;
@@ -84,14 +84,17 @@ namespace BattleRoyale.Company
             SetText(waivedLabel, slot.Waived > 0 ? "Waived " + slot.Waived : "");
             if (waivedLabel != null)
             {
-                waivedLabel.gameObject.SetActive(slot.Waived > 0);
+                SetActiveIfChanged(waivedLabel.gameObject, slot.Waived > 0);
             }
 
             SetText(availabilityLabel, slot.Availability);
             if (releaseButton != null)
             {
-                releaseButton.gameObject.SetActive(true);
-                releaseButton.interactable = slot.CanRelease;
+                SetActiveIfChanged(releaseButton.gameObject, true);
+                if (releaseButton.interactable != slot.CanRelease)
+                {
+                    releaseButton.interactable = slot.CanRelease;
+                }
             }
 
             ApplyRarity(slot.Rarity);
@@ -107,12 +110,18 @@ namespace BattleRoyale.Company
 
             if (rarityLabel != null)
             {
-                rarityLabel.color = color;
+                if (rarityLabel.color != color)
+                {
+                    rarityLabel.color = color;
+                }
             }
 
             if (rarityStripe != null)
             {
-                rarityStripe.color = color;
+                if (rarityStripe.color != color)
+                {
+                    rarityStripe.color = color;
+                }
             }
 
             if (avatar != null)
@@ -142,17 +151,23 @@ namespace BattleRoyale.Company
 
         static void SetRoot(GameObject root, bool active)
         {
-            if (root != null)
+            SetActiveIfChanged(root, active);
+        }
+
+        static void SetActiveIfChanged(GameObject target, bool active)
+        {
+            if (target != null && target.activeSelf != active)
             {
-                root.SetActive(active);
+                target.SetActive(active);
             }
         }
 
         static void SetText(TMP_Text label, string value)
         {
-            if (label != null)
+            var text = value ?? "";
+            if (label != null && label.text != text)
             {
-                label.text = value ?? "";
+                label.text = text;
             }
         }
     }

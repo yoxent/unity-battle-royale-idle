@@ -18,6 +18,11 @@ namespace BattleRoyale.Settings
 
         void OnEnable()
         {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
             if (!IsSupportedBinding())
             {
                 return;

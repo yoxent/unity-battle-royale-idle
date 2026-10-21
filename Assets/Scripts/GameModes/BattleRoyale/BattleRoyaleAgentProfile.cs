@@ -14,7 +14,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
         public WeaponProfile defaultWeapon;
         public BattleRoyaleAIStrategy defaultStrategy =
             BattleRoyaleAIStrategy.NeutralOpportunist;
-        public float visualScale = 10f;
+        public float visualScale = 1f;
         public Color visualColor = Color.white;
     }
 }

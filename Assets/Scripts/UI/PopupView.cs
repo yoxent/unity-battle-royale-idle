@@ -33,6 +33,11 @@ namespace BattleRoyale.UI
         bool subscribed;
         bool finishing;
 
+        public bool IsBusy =>
+            gameObject.activeSelf ||
+            finishing ||
+            fade.IsActive();
+
         public bool DoNotShowAgain =>
             checkboxRow != null &&
             checkboxRow.activeSelf &&
@@ -41,6 +46,11 @@ namespace BattleRoyale.UI
 
         void OnEnable()
         {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
             if (!HasReferences())
             {
                 return;
@@ -56,6 +66,15 @@ namespace BattleRoyale.UI
         {
             CancelTimer();
             CancelFade();
+            finishing = false;
+
+            if (Application.isPlaying && gameObject.activeSelf && canvasGroup != null)
+            {
+                canvasGroup.alpha = 0f;
+                canvasGroup.interactable = false;
+                canvasGroup.blocksRaycasts = false;
+                gameObject.SetActive(false);
+            }
 
             if (!subscribed)
             {

@@ -6,6 +6,7 @@ namespace BattleRoyale.UI
         Preview = 1,
         HireConfirm = 2,
         RefreshConfirm = 3,
+        ReleaseConfirm = 4,
     }
 
     public readonly struct PopupRequested

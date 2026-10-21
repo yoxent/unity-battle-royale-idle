@@ -309,23 +309,6 @@ namespace BattleRoyale.CompanyIdentity
 
         private void OnPaletteClicked(int paletteIndex)
         {
-            if (_emblemPaint)
-            {
-                if (_currentIdentity == null ||
-                    paletteIndex < 0 ||
-                    paletteIndex >= CompanyIdentityRules.Palette.Length)
-                {
-                    return;
-                }
-
-                CompanyIdentityRules.Paint(
-                    _currentIdentity,
-                    ActivePaint,
-                    CompanyIdentityRules.Palette[paletteIndex]);
-                _onEmblemEdited?.Invoke();
-                return;
-            }
-
             _onColorSelected?.Invoke(_activeColorSlot, paletteIndex);
         }
 
@@ -471,9 +454,7 @@ namespace BattleRoyale.CompanyIdentity
                 return;
             }
 
-            var activeColor = _emblemPaint
-                ? CompanyIdentityRules.PaintedColor(_currentIdentity, ActivePaint)
-                : _currentIdentity.GetColor(_activeColorSlot);
+            var activeColor = _currentIdentity.GetColor(_activeColorSlot);
             for (var paletteIndex = 0;
                  paletteIndex < CompanyIdentityRules.Palette.Length;
                  paletteIndex++)

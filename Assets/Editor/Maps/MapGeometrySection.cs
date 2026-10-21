@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using BattleRoyale.GameModes.BattleRoyale;
 using BattleRoyale.Movement;
 using UnityEditor;
 using UnityEngine;
@@ -48,7 +49,7 @@ namespace BattleRoyale.Maps.EditorTools
                 EditorGUILayout.FloatField(
                     new GUIContent(
                         "Unit Scale",
-                        "Local scale applied to every UnitMovement object in the loaded scene."),
+                        "Saved on the map by either authoring window. A match applies it to each spawned agent's root, and the spawn clearance grows with it. Apply also writes it onto UnitMovement and BattleRoyaleAgent objects in the loaded scene."),
                     values.UnitScale));
             changed = EditorGUI.EndChangeCheck();
             applyRequested = GUILayout.Button("Apply Unit Scale To Loaded Scene");
@@ -57,8 +58,14 @@ namespace BattleRoyale.Maps.EditorTools
 
         public static int ApplyToLoadedUnits(float unitScale)
         {
+            var scale = DungeonMapGeometry.UnitLocalScale(unitScale);
+            return ApplyScale<UnitMovement>(scale) + ApplyScale<BattleRoyaleAgent>(scale);
+        }
+
+        static int ApplyScale<T>(Vector3 scale) where T : Component
+        {
             var scaledUnitCount = 0;
-            foreach (var unit in Resources.FindObjectsOfTypeAll<UnitMovement>())
+            foreach (var unit in Resources.FindObjectsOfTypeAll<T>())
             {
                 if (!unit.gameObject.scene.IsValid() ||
                     !unit.gameObject.scene.isLoaded)
@@ -67,7 +74,7 @@ namespace BattleRoyale.Maps.EditorTools
                 }
 
                 Undo.RecordObject(unit.transform, "Set Unit Scale");
-                unit.transform.localScale = Vector3.one * unitScale;
+                unit.transform.localScale = scale;
                 EditorUtility.SetDirty(unit.transform);
                 scaledUnitCount++;
             }

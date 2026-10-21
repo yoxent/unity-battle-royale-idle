@@ -1,0 +1,2236 @@
+fileFormatVersion: 2
+guid: d6fdf359bb98cff4b802ed8c5243783f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3536305623684118064
+    second: frozen_hall_of_az_0
+  - first:
+      213: -475980905385218523
+    second: frozen_hall_of_az_1
+  - first:
+      213: -8680372254016892073
+    second: frozen_hall_of_az_2
+  - first:
+      213: -229267626345676697
+    second: frozen_hall_of_az_3
+  - first:
+      213: 4418246169146071395
+    second: frozen_hall_of_az_4
+  - first:
+      213: -7644429579660420685
+    second: frozen_hall_of_az_5
+  - first:
+      213: 261007958758442024
+    second: frozen_hall_of_az_6
+  - first:
+      213: 4222243950512006763
+    second: frozen_hall_of_az_7
+  - first:
+      213: 6830691359218977748
+    second: frozen_hall_of_az_8
+  - first:
+      213: -8595130638812740258
+    second: frozen_hall_of_az_9
+  - first:
+      213: -4187526850415008277
+    second: frozen_hall_of_az_10
+  - first:
+      213: -936166595106610914
+    second: frozen_hall_of_az_11
+  - first:
+      213: 6766026178064899463
+    second: frozen_hall_of_az_12
+  - first:
+      213: 1209916114733025492
+    second: frozen_hall_of_az_13
+  - first:
+      213: 8355691471819999362
+    second: frozen_hall_of_az_14
+  - first:
+      213: -997375986374676240
+    second: frozen_hall_of_az_15
+  - first:
+      213: -8602163660552527041
+    second: frozen_hall_of_az_16
+  - first:
+      213: 5245493790995014802
+    second: frozen_hall_of_az_17
+  - first:
+      213: 8563554791101869109
+    second: frozen_hall_of_az_18
+  - first:
+      213: 8331619986791021110
+    second: frozen_hall_of_az_19
+  - first:
+      213: -7792720219268249359
+    second: frozen_hall_of_az_20
+  - first:
+      213: 7738357676611319836
+    second: frozen_hall_of_az_21
+  - first:
+      213: -1863542802131770419
+    second: frozen_hall_of_az_22
+  - first:
+      213: -2309995893888870552
+    second: frozen_hall_of_az_23
+  - first:
+      213: -3937380515167589223
+    second: frozen_hall_of_az_24
+  - first:
+      213: -452273825560098476
+    second: frozen_hall_of_az_25
+  - first:
+      213: -9009939383711399000
+    second: frozen_hall_of_az_26
+  - first:
+      213: -8441923851838748759
+    second: frozen_hall_of_az_27
+  - first:
+      213: -3015570630022795067
+    second: frozen_hall_of_az_28
+  - first:
+      213: 7121130964073602937
+    second: frozen_hall_of_az_29
+  - first:
+      213: -7200974726168088055
+    second: frozen_hall_of_az_30
+  - first:
+      213: -4582662397632998651
+    second: frozen_hall_of_az_31
+  - first:
+      213: -3285482787158220415
+    second: frozen_hall_of_az_32
+  - first:
+      213: -84318525071297935
+    second: frozen_hall_of_az_33
+  - first:
+      213: -5509691893192587847
+    second: frozen_hall_of_az_34
+  - first:
+      213: 9123381224995999964
+    second: frozen_hall_of_az_35
+  - first:
+      213: 7863772232997002118
+    second: frozen_hall_of_az_36
+  - first:
+      213: -4409741835340309968
+    second: frozen_hall_of_az_37
+  - first:
+      213: 4701279628874961629
+    second: frozen_hall_of_az_38
+  - first:
+      213: -3364861158728647972
+    second: frozen_hall_of_az_39
+  - first:
+      213: 6981401182069669832
+    second: frozen_hall_of_az_40
+  - first:
+      213: -6130173947340380796
+    second: frozen_hall_of_az_41
+  - first:
+      213: 148523737625339794
+    second: frozen_hall_of_az_42
+  - first:
+      213: 4557464129539435733
+    second: frozen_hall_of_az_43
+  - first:
+      213: 302615528049942764
+    second: frozen_hall_of_az_44
+  - first:
+      213: 2303328310747849770
+    second: frozen_hall_of_az_45
+  - first:
+      213: -3243676286841960333
+    second: frozen_hall_of_az_46
+  - first:
+      213: 6717503822343963859
+    second: frozen_hall_of_az_47
+  - first:
+      213: -1963060232702384632
+    second: frozen_hall_of_az_48
+  - first:
+      213: 4590533132891457891
+    second: frozen_hall_of_az_49
+  - first:
+      213: -2163312275234169107
+    second: frozen_hall_of_az_50
+  - first:
+      213: -5434031434405698797
+    second: frozen_hall_of_az_51
+  - first:
+      213: 8443634484442108301
+    second: frozen_hall_of_az_52
+  - first:
+      213: 1719841480901223840
+    second: frozen_hall_of_az_53
+  - first:
+      213: -7219403677348613274
+    second: frozen_hall_of_az_54
+  - first:
+      213: 5683521368274226516
+    second: frozen_hall_of_az_55
+  - first:
+      213: 684674110899421334
+    second: frozen_hall_of_az_56
+  - first:
+      213: -5129199627988788170
+    second: frozen_hall_of_az_57
+  - first:
+      213: 2885891773878627248
+    second: frozen_hall_of_az_58
+  - first:
+      213: -8461101149412208885
+    second: frozen_hall_of_az_59
+  - first:
+      213: 8252442937629748817
+    second: frozen_hall_of_az_60
+  - first:
+      213: 389768974838045357
+    second: frozen_hall_of_az_61
+  - first:
+      213: -168727442184989420
+    second: frozen_hall_of_az_62
+  - first:
+      213: 5934782459749352474
+    second: frozen_hall_of_az_63
+  - first:
+      213: -2643664809958809041
+    second: frozen_hall_of_az_64
+  - first:
+      213: 5424771689572841069
+    second: frozen_hall_of_az_65
+  - first:
+      213: -1631693339071252347
+    second: frozen_hall_of_az_66
+  - first:
+      213: 6891966112491069237
+    second: frozen_hall_of_az_67
+  - first:
+      213: 5433500194246762410
+    second: frozen_hall_of_az_68
+  - first:
+      213: -3312102243836105404
+    second: frozen_hall_of_az_69
+  - first:
+      213: -2106671247447636738
+    second: frozen_hall_of_az_70
+  - first:
+      213: 1331378901705588021
+    second: frozen_hall_of_az_71
+  - first:
+      213: 5119271526552259167
+    second: frozen_hall_of_az_72
+  - first:
+      213: 921511823889029011
+    second: frozen_hall_of_az_73
+  - first:
+      213: 4641099378576709971
+    second: frozen_hall_of_az_74
+  - first:
+      213: -4127710107105718570
+    second: frozen_hall_of_az_75
+  - first:
+      213: 5035008424029915110
+    second: frozen_hall_of_az_76
+  - first:
+      213: 6404947568439895562
+    second: frozen_hall_of_az_77
+  - first:
+      213: -1636581530945728593
+    second: frozen_hall_of_az_78
+  - first:
+      213: -2019881407457507811
+    second: frozen_hall_of_az_79
+  - first:
+      213: -5915912546168309895
+    second: frozen_hall_of_az_80
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: frozen_hall_of_az_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 49
+        width: 1349
+        height: 1093
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d9871b75c48ceec0800000000000000
+      internalID: -3536305623684118064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_1
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 1133
+        width: 26
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52e25ae63e9f469f0800000000000000
+      internalID: -475980905385218523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_2
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 1122
+        width: 29
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7539a21fc6f198780800000000000000
+      internalID: -8680372254016892073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_3
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 1124
+        width: 13
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7604b2dfe4a71dcf0800000000000000
+      internalID: -229267626345676697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_4
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 1131
+        width: 43
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3699e226b73c05d30800000000000000
+      internalID: 4418246169146071395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_5
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 1124
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b91ad99cc789e590800000000000000
+      internalID: -7644429579660420685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_6
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 1125
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 824c8590b594f9300800000000000000
+      internalID: 261007958758442024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_7
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 1116
+        width: 10
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b666f49a08c689a30800000000000000
+      internalID: 4222243950512006763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_8
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1133
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dbc394c99d7bce50800000000000000
+      internalID: 6830691359218977748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_9
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 1122
+        width: 29
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e558d731936f7b880800000000000000
+      internalID: -8595130638812740258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_10
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 1131
+        width: 43
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be56a99148ae2e5c0800000000000000
+      internalID: -4187526850415008277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_11
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 1124
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e11651811711203f0800000000000000
+      internalID: -936166595106610914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_12
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 1125
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78d5d8406f0c5ed50800000000000000
+      internalID: 6766026178064899463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_13
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 1119
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d8cea2cb4c7ac010800000000000000
+      internalID: 1209916114733025492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_14
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 1124
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 288879e8f1165f370800000000000000
+      internalID: 8355691471819999362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_15
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 1119
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f0f1a023db9822f0800000000000000
+      internalID: -997375986374676240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_16
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 1119
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f332ef81ab9fe9880800000000000000
+      internalID: -8602163660552527041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_17
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1124
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29466c3afccbbc840800000000000000
+      internalID: 5245493790995014802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_18
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 1124
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53ca83af5bbd7d670800000000000000
+      internalID: 8563554791101869109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_19
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 1119
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63a39343c3cdf9370800000000000000
+      internalID: 8331619986791021110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_20
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 1110
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f803888f32bad390800000000000000
+      internalID: -7792720219268249359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_21
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 1113
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c18b55bae4b246b60800000000000000
+      internalID: 7738357676611319836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_22
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 1111
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc32337e1bd5326e0800000000000000
+      internalID: -1863542802131770419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_23
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 1111
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 867942039fe31ffd0800000000000000
+      internalID: -2309995893888870552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_24
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 1111
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99c24e7584d9b59c0800000000000000
+      internalID: -3937380515167589223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_25
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 1110
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45988461a5339b9f0800000000000000
+      internalID: -452273825560098476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_26
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 1113
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a384120ed346f280800000000000000
+      internalID: -9009939383711399000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_27
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 1111
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a70146ebf248da80800000000000000
+      internalID: -8441923851838748759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_28
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1111
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c0f36a3d7a8626d0800000000000000
+      internalID: -3015570630022795067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_29
+      rect:
+        serializedVersion: 2
+        x: 1318
+        y: 506
+        width: 29
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97f54a8e1e653d260800000000000000
+      internalID: 7121130964073602937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_30
+      rect:
+        serializedVersion: 2
+        x: 1321
+        y: 499
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9027f2293aff01c90800000000000000
+      internalID: -7200974726168088055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_31
+      rect:
+        serializedVersion: 2
+        x: 1316
+        y: 475
+        width: 28
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5039b8f44dc1760c0800000000000000
+      internalID: -4582662397632998651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_32
+      rect:
+        serializedVersion: 2
+        x: 1329
+        y: 440
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18126c3ffce9762d0800000000000000
+      internalID: -3285482787158220415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_33
+      rect:
+        serializedVersion: 2
+        x: 1315
+        y: 423
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 172f3298fb074def0800000000000000
+      internalID: -84318525071297935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_34
+      rect:
+        serializedVersion: 2
+        x: 1327
+        y: 406
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b5086c2a64a983b0800000000000000
+      internalID: -5509691893192587847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_35
+      rect:
+        serializedVersion: 2
+        x: 1333
+        y: 387
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd0da5ae2e2cc9e70800000000000000
+      internalID: 9123381224995999964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_36
+      rect:
+        serializedVersion: 2
+        x: 1321
+        y: 324
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68bdd5e8e2bb12d60800000000000000
+      internalID: 7863772232997002118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_37
+      rect:
+        serializedVersion: 2
+        x: 1315
+        y: 304
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03a9c512a237dc2c0800000000000000
+      internalID: -4409741835340309968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_38
+      rect:
+        serializedVersion: 2
+        x: 1313
+        y: 283
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd25fdcf9ec4e3140800000000000000
+      internalID: 4701279628874961629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_39
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 283
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cda387b9a9c9d41d0800000000000000
+      internalID: -3364861158728647972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_40
+      rect:
+        serializedVersion: 2
+        x: 1331
+        y: 260
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cf31c3d26be2e060800000000000000
+      internalID: 6981401182069669832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_41
+      rect:
+        serializedVersion: 2
+        x: 1316
+        y: 244
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4852c61264f3deaa0800000000000000
+      internalID: -6130173947340380796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_42
+      rect:
+        serializedVersion: 2
+        x: 1316
+        y: 223
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2972fdd6d89af0200800000000000000
+      internalID: 148523737625339794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_43
+      rect:
+        serializedVersion: 2
+        x: 1318
+        y: 203
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5dc68c5ba7d5f3f30800000000000000
+      internalID: 4557464129539435733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_44
+      rect:
+        serializedVersion: 2
+        x: 1321
+        y: 183
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce02fec283b133400800000000000000
+      internalID: 302615528049942764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_45
+      rect:
+        serializedVersion: 2
+        x: 1318
+        y: 160
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a24e93325e017ff10800000000000000
+      internalID: 2303328310747849770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_46
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 70
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3784d645a952cf2d0800000000000000
+      internalID: -3243676286841960333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_47
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 71
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d40424b22e593d50800000000000000
+      internalID: 6717503822343963859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_48
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 76
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 806241d7e1fc1c4e0800000000000000
+      internalID: -1963060232702384632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_49
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 68
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36908ab0099d4bf30800000000000000
+      internalID: 4590533132891457891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_50
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 73
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deedc6882fe5af1e0800000000000000
+      internalID: -2163312275234169107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_51
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 69
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31321fd73317694b0800000000000000
+      internalID: -5434031434405698797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_52
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 71
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d81196ac3d0dd2570800000000000000
+      internalID: 8443634484442108301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_53
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 76
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a5691bf6ba1ed710800000000000000
+      internalID: 1719841480901223840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_54
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 68
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 663bc710b968fcb90800000000000000
+      internalID: -7219403677348613274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_55
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 74
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45dc355629cefde40800000000000000
+      internalID: 5683521368274226516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_56
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 69
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 690011fe973708900800000000000000
+      internalID: 684674110899421334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_57
+      rect:
+        serializedVersion: 2
+        x: 741
+        y: 71
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63c99af2d1c61d8b0800000000000000
+      internalID: -5129199627988788170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_58
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 67
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bbe14a374fbc0820800000000000000
+      internalID: 2885891773878627248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_59
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 61
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0fc2ac5551249a80800000000000000
+      internalID: -8461101149412208885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_60
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 67
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15e2a92e021968270800000000000000
+      internalID: 8252442937629748817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_61
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 60
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daa90b941dcb86500800000000000000
+      internalID: 389768974838045357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_62
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 66
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41514b8094f88adf0800000000000000
+      internalID: -168727442184989420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_63
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 62
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a14449c04359c5250800000000000000
+      internalID: 5934782459749352474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_64
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 64
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f226431bcd0df4bd0800000000000000
+      internalID: -2643664809958809041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_65
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 61
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d66b5982c19a84b40800000000000000
+      internalID: 5424771689572841069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_66
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 67
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 588794e9d8f0b59e0800000000000000
+      internalID: -1631693339071252347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_67
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 61
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53f5f030aae25af50800000000000000
+      internalID: 6891966112491069237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_68
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 67
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaf181583aba76b40800000000000000
+      internalID: 5433500194246762410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_69
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 60
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44def58be8c0902d0800000000000000
+      internalID: -3312102243836105404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_70
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 66
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef4ca5d79a993c2e0800000000000000
+      internalID: -2106671247447636738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_71
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 62
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53d7c91ae020a7210800000000000000
+      internalID: 1331378901705588021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_72
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 64
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5a4be0945e4b0740800000000000000
+      internalID: 5119271526552259167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_73
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 61
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3975a371f1ed9cc00800000000000000
+      internalID: 921511823889029011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_74
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 62
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 359d9539b4f786040800000000000000
+      internalID: 4641099378576709971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_75
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 67
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6de8c22f68d67b6c0800000000000000
+      internalID: -4127710107105718570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_76
+      rect:
+        serializedVersion: 2
+        x: 763
+        y: 61
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e7076b2c71ffd540800000000000000
+      internalID: 5035008424029915110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_77
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 67
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a06acdde0e1f2e850800000000000000
+      internalID: 6404947568439895562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_78
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 60
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fafc302c4c1b949e0800000000000000
+      internalID: -1636581530945728593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_79
+      rect:
+        serializedVersion: 2
+        x: 823
+        y: 66
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d16441ccf80f7f3e0800000000000000
+      internalID: -2019881407457507811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frozen_hall_of_az_80
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 58
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9777c5312e476eda0800000000000000
+      internalID: -5915912546168309895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      frozen_hall_of_az_0: -3536305623684118064
+      frozen_hall_of_az_1: -475980905385218523
+      frozen_hall_of_az_10: -4187526850415008277
+      frozen_hall_of_az_11: -936166595106610914
+      frozen_hall_of_az_12: 6766026178064899463
+      frozen_hall_of_az_13: 1209916114733025492
+      frozen_hall_of_az_14: 8355691471819999362
+      frozen_hall_of_az_15: -997375986374676240
+      frozen_hall_of_az_16: -8602163660552527041
+      frozen_hall_of_az_17: 5245493790995014802
+      frozen_hall_of_az_18: 8563554791101869109
+      frozen_hall_of_az_19: 8331619986791021110
+      frozen_hall_of_az_2: -8680372254016892073
+      frozen_hall_of_az_20: -7792720219268249359
+      frozen_hall_of_az_21: 7738357676611319836
+      frozen_hall_of_az_22: -1863542802131770419
+      frozen_hall_of_az_23: -2309995893888870552
+      frozen_hall_of_az_24: -3937380515167589223
+      frozen_hall_of_az_25: -452273825560098476
+      frozen_hall_of_az_26: -9009939383711399000
+      frozen_hall_of_az_27: -8441923851838748759
+      frozen_hall_of_az_28: -3015570630022795067
+      frozen_hall_of_az_29: 7121130964073602937
+      frozen_hall_of_az_3: -229267626345676697
+      frozen_hall_of_az_30: -7200974726168088055
+      frozen_hall_of_az_31: -4582662397632998651
+      frozen_hall_of_az_32: -3285482787158220415
+      frozen_hall_of_az_33: -84318525071297935
+      frozen_hall_of_az_34: -5509691893192587847
+      frozen_hall_of_az_35: 9123381224995999964
+      frozen_hall_of_az_36: 7863772232997002118
+      frozen_hall_of_az_37: -4409741835340309968
+      frozen_hall_of_az_38: 4701279628874961629
+      frozen_hall_of_az_39: -3364861158728647972
+      frozen_hall_of_az_4: 4418246169146071395
+      frozen_hall_of_az_40: 6981401182069669832
+      frozen_hall_of_az_41: -6130173947340380796
+      frozen_hall_of_az_42: 148523737625339794
+      frozen_hall_of_az_43: 4557464129539435733
+      frozen_hall_of_az_44: 302615528049942764
+      frozen_hall_of_az_45: 2303328310747849770
+      frozen_hall_of_az_46: -3243676286841960333
+      frozen_hall_of_az_47: 6717503822343963859
+      frozen_hall_of_az_48: -1963060232702384632
+      frozen_hall_of_az_49: 4590533132891457891
+      frozen_hall_of_az_5: -7644429579660420685
+      frozen_hall_of_az_50: -2163312275234169107
+      frozen_hall_of_az_51: -5434031434405698797
+      frozen_hall_of_az_52: 8443634484442108301
+      frozen_hall_of_az_53: 1719841480901223840
+      frozen_hall_of_az_54: -7219403677348613274
+      frozen_hall_of_az_55: 5683521368274226516
+      frozen_hall_of_az_56: 684674110899421334
+      frozen_hall_of_az_57: -5129199627988788170
+      frozen_hall_of_az_58: 2885891773878627248
+      frozen_hall_of_az_59: -8461101149412208885
+      frozen_hall_of_az_6: 261007958758442024
+      frozen_hall_of_az_60: 8252442937629748817
+      frozen_hall_of_az_61: 389768974838045357
+      frozen_hall_of_az_62: -168727442184989420
+      frozen_hall_of_az_63: 5934782459749352474
+      frozen_hall_of_az_64: -2643664809958809041
+      frozen_hall_of_az_65: 5424771689572841069
+      frozen_hall_of_az_66: -1631693339071252347
+      frozen_hall_of_az_67: 6891966112491069237
+      frozen_hall_of_az_68: 5433500194246762410
+      frozen_hall_of_az_69: -3312102243836105404
+      frozen_hall_of_az_7: 4222243950512006763
+      frozen_hall_of_az_70: -2106671247447636738
+      frozen_hall_of_az_71: 1331378901705588021
+      frozen_hall_of_az_72: 5119271526552259167
+      frozen_hall_of_az_73: 921511823889029011
+      frozen_hall_of_az_74: 4641099378576709971
+      frozen_hall_of_az_75: -4127710107105718570
+      frozen_hall_of_az_76: 5035008424029915110
+      frozen_hall_of_az_77: 6404947568439895562
+      frozen_hall_of_az_78: -1636581530945728593
+      frozen_hall_of_az_79: -2019881407457507811
+      frozen_hall_of_az_8: 6830691359218977748
+      frozen_hall_of_az_80: -5915912546168309895
+      frozen_hall_of_az_9: -8595130638812740258
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

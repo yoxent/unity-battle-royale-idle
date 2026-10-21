@@ -727,6 +727,17 @@ namespace BattleRoyale.Maps.EditorTools
                 return;
             }
 
+            using (new EditorGUI.DisabledScope(EditorApplication.isPlaying))
+            {
+                if (GUILayout.Button(
+                        new GUIContent(
+                            "Regenerate Catalog Map Roots",
+                            "Rebuilds the baked prefab for every map in this playable catalog. The scene's active map stays where it is.")))
+                {
+                    PlayableMapRootRegenerator.Regenerate(catalog);
+                }
+            }
+
             var ready = new List<MapDefinition>();
             foreach (var definition in catalog.maps)
             {

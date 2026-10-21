@@ -18,7 +18,7 @@ namespace BattleRoyale.Tests.EditMode
         public void SetUp()
         {
             var prefab = LoadPrefab(
-                "Assets/CompanyIdentity/UI/CompanyIdentity.prefab");
+                "Assets/UI/Identity/CompanyIdentity.prefab");
             _companyIdentityObject = Object.Instantiate(prefab);
             _companyIdentityObject.name = prefab.name;
 
@@ -224,7 +224,7 @@ namespace BattleRoyale.Tests.EditMode
         public void PreviewHousesEmblemLayers()
         {
             var preview = InstantiatePrefab(
-                "Assets/CompanyIdentity/UI/CompanyIdentityPreview.prefab");
+                "Assets/UI/Identity/CompanyIdentityPreview.prefab");
             try
             {
                 AssertEmblemLayers(preview.transform);

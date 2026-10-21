@@ -14,13 +14,13 @@ namespace BattleRoyale.Tests.EditMode
             var preferred = anchor + new Vector3(3f, 0f, 0f);
             var candidates = new List<Vector3>();
 
-            SpawnSnapCandidates.Fill(anchor, preferred, 20f, candidates);
+            SpawnSnapCandidates.Fill(anchor, preferred, 1.5f, candidates);
 
-            Assert.AreEqual(1 + SpawnSnapCandidates.Rings * SpawnSnapCandidates.Directions, candidates.Count);
+            Assert.AreEqual(1 + SpawnPlacement.Rings * SpawnSnapCandidates.Directions, candidates.Count);
             Assert.AreEqual(anchor, candidates[0]);
             Assert.IsFalse(candidates.Contains(preferred));
-            Assert.AreEqual(10f, Vector3.Distance(anchor, candidates[1]), 0.001f);
-            Assert.AreEqual(30f, Vector3.Distance(anchor, candidates[candidates.Count - 1]), 0.001f);
+            Assert.AreEqual(1.5f, Vector3.Distance(anchor, candidates[1]), 0.001f);
+            Assert.AreEqual(4.5f, Vector3.Distance(anchor, candidates[candidates.Count - 1]), 0.001f);
             Assert.AreEqual(0f, candidates[1].y, 0.001f);
         }
 
@@ -30,40 +30,39 @@ namespace BattleRoyale.Tests.EditMode
             var anchor = new Vector3(2f, 0f, 2f);
             var candidates = new List<Vector3>();
 
-            SpawnSnapCandidates.Fill(anchor, anchor, 20f, candidates);
+            SpawnSnapCandidates.Fill(anchor, anchor, 1.5f, candidates);
 
-            Assert.AreEqual(SpawnSnapCandidates.Rings * SpawnSnapCandidates.Directions, candidates.Count);
-            Assert.Greater(Vector3.Distance(anchor, candidates[0]), 1f);
+            Assert.AreEqual(SpawnPlacement.Rings * SpawnSnapCandidates.Directions, candidates.Count);
+            Assert.AreEqual(1.5f, Vector3.Distance(anchor, candidates[0]), 0.001f);
         }
     }
 
-    public sealed class SpawnFitTests
+    public sealed class SpawnPlacementTests
     {
         [Test]
-        public void ClearanceIsTheBodyPastTheBakedRadius()
+        public void ClearanceFollowsUnitScaleAndStopsAtTheBakedRadius()
         {
-            Assert.AreEqual(0f, SpawnFit.EdgeClearance(0.5f, 0.5f), 0.0001f);
-            Assert.AreEqual(4.5f, SpawnFit.EdgeClearance(5f, 0.5f), 0.0001f);
-            Assert.Less(SpawnFit.EdgeClearance(5f, 0.5f), 2f + 10f);
+            Assert.AreEqual(0f, SpawnPlacement.Clearance(1f, 1f), 0.0001f);
+            Assert.AreEqual(2.5f, SpawnPlacement.Clearance(6f, 1f), 0.0001f);
+            Assert.AreEqual(4.5f, SpawnPlacement.Clearance(10f, 1f), 0.0001f);
+            Assert.Less(SpawnPlacement.Clearance(10f, 1f), 2f + 10f);
         }
 
         [Test]
-        public void AWideFloorSitsOneClearanceOffTheNearEdge()
+        public void ALargerScaleTakesALongerStepButTheSearchStaysInsideOneClearance()
         {
-            var fitted = SpawnFit.FitBetweenEdges(
-                Vector3.zero,
-                new Vector3(20f, 0f, 0f),
-                4.5f,
-                0f);
+            var clearance = SpawnPlacement.Clearance(10f, 1f);
+            var step = SpawnPlacement.Step(clearance);
 
-            Assert.AreEqual(4.5f, fitted.x, 0.001f);
-            Assert.AreEqual(0f, fitted.z, 0.001f);
+            Assert.AreEqual(1.5f, step, 0.0001f);
+            Assert.AreEqual(clearance, step * SpawnPlacement.Rings, 0.0001f);
+            Assert.AreEqual(0.5f, SpawnPlacement.Step(0f), 0.0001f);
         }
 
         [Test]
-        public void ANarrowFloorStopsAtTheMiddleInsteadOfTheFarWall()
+        public void ANarrowFloorStopsAtTheMiddle()
         {
-            var fitted = SpawnFit.FitBetweenEdges(
+            var fitted = SpawnPlacement.FitBetweenEdges(
                 Vector3.zero,
                 new Vector3(6f, 0f, 0f),
                 4.5f,
@@ -71,26 +70,6 @@ namespace BattleRoyale.Tests.EditMode
 
             Assert.AreEqual(3f, fitted.x, 0.001f);
             Assert.AreEqual(1f, fitted.y, 0.001f);
-        }
-
-        [Test]
-        public void AnOpenEdgeMovesByTheMissingClearanceOnly()
-        {
-            var moved = SpawnFit.MoveInside(
-                new Vector3(1f, 0f, 0f),
-                Vector3.zero,
-                1f,
-                4.5f);
-
-            Assert.AreEqual(4.5f, moved.x, 0.001f);
-            Assert.IsFalse(SpawnFit.LiesBetween(
-                new Vector3(1f, 0f, 0f),
-                Vector3.zero,
-                new Vector3(0f, 0f, 8f)));
-            Assert.IsTrue(SpawnFit.LiesBetween(
-                new Vector3(1f, 0f, 0f),
-                Vector3.zero,
-                new Vector3(8f, 0f, 0f)));
         }
     }
 }

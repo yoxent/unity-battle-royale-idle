@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace BattleRoyale.Company
@@ -10,8 +11,17 @@ namespace BattleRoyale.Company
         [SerializeField] Button autoFillButton;
         [SerializeField] CompanySessionController company;
 
+        UnityAction[] clearActions;
+        UnityAction[] toggleActions;
+        bool subscribed;
+
         void OnEnable()
         {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
             if (!HasReferences())
             {
                 Debug.LogError(
@@ -20,29 +30,49 @@ namespace BattleRoyale.Company
                 return;
             }
 
+            if (clearActions == null || clearActions.Length != slots.Length)
+            {
+                clearActions = new UnityAction[slots.Length];
+            }
+
+            if (toggleActions == null || toggleActions.Length != agents.Length)
+            {
+                toggleActions = new UnityAction[agents.Length];
+            }
+
             for (var i = 0; i < slots.Length; i++)
             {
                 var slot = i;
-                slots[i].Button.onClick.AddListener(() => Clear(slot));
+                clearActions[i] = () => Clear(slot);
+                slots[i].Button.onClick.AddListener(clearActions[i]);
             }
 
             for (var i = 0; i < agents.Length; i++)
             {
                 var agent = i;
-                agents[i].Button.onClick.AddListener(() => Toggle(agent));
+                toggleActions[i] = () => Toggle(agent);
+                agents[i].Button.onClick.AddListener(toggleActions[i]);
             }
 
             autoFillButton.onClick.AddListener(Fill);
+            subscribed = true;
         }
 
         void OnDisable()
         {
-            ClearListeners(slots);
-            ClearListeners(agents);
+            if (!subscribed)
+            {
+                return;
+            }
+
+            RemoveListeners(slots, clearActions);
+            RemoveListeners(agents, toggleActions);
             if (autoFillButton != null)
             {
                 autoFillButton.onClick.RemoveListener(Fill);
             }
+
+            subscribed = false;
         }
 
         public void ShowLineup(string[] slotText, string[] agentText, bool[] chosen)
@@ -131,18 +161,22 @@ namespace BattleRoyale.Company
             company.AutoFillDeployment();
         }
 
-        static void ClearListeners(DeploymentChoice[] rows)
+        static void RemoveListeners(DeploymentChoice[] rows, UnityAction[] actions)
         {
-            if (rows == null)
+            if (rows == null || actions == null)
             {
                 return;
             }
 
             for (var i = 0; i < rows.Length; i++)
             {
-                if (rows[i] != null && rows[i].Button != null)
+                if (rows[i] != null &&
+                    rows[i].Button != null &&
+                    i < actions.Length &&
+                    actions[i] != null)
                 {
-                    rows[i].Button.onClick.RemoveAllListeners();
+                    rows[i].Button.onClick.RemoveListener(actions[i]);
+                    actions[i] = null;
                 }
             }
         }

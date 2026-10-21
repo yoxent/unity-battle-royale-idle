@@ -435,7 +435,10 @@ namespace BattleRoyale.GameModes
             Action<BattleRoyaleAgent> configure = null,
             BattleRoyaleAgentProfile profileOverride = null)
         {
-            var placedOnNavMesh = TrySnapToNavigation(position, out var snappedPosition);
+            var placedOnNavMesh = TrySampleSpawn(
+                position,
+                SpawnPlacement.Step(SpawnClearance(1f)),
+                out var snappedPosition);
             var agentObject = CreateAgentObject(objectName, snappedPosition);
             agentObject.transform.SetParent(agentParent, true);
             agentObject.transform.position = snappedPosition;
@@ -481,7 +484,13 @@ namespace BattleRoyale.GameModes
 
             if (placedOnNavMesh)
             {
-                snappedPosition = FitSpawnToBody(snappedPosition, agent.BodyRadius);
+                var settings = NavMesh.GetSettingsByIndex(0);
+                var bakedRadius = settings.agentRadius > 0f
+                    ? settings.agentRadius
+                    : SpawnPlacement.BakedAgentRadius;
+                snappedPosition = FitSpawn(
+                    snappedPosition,
+                    SpawnPlacement.ClearanceFromBody(agent.BodyRadius, bakedRadius));
                 agentObject.transform.position = snappedPosition;
                 navigationAgent.enabled = true;
                 navigationAgent.Warp(snappedPosition);
@@ -520,7 +529,8 @@ namespace BattleRoyale.GameModes
                 activeMap.PublishNavigation();
             }
 
-            if (TrySampleNavigation(preferred, out var snapped))
+            var step = SpawnPlacement.Step(SpawnClearance(1f));
+            if (TrySampleSpawn(preferred, step, out var snapped))
             {
                 return snapped;
             }
@@ -528,11 +538,11 @@ namespace BattleRoyale.GameModes
             SpawnSnapCandidates.Fill(
                 anchor,
                 preferred,
-                navMeshSnapDistance,
+                step,
                 spawnCandidates);
             for (var i = 0; i < spawnCandidates.Count; i++)
             {
-                if (TrySampleNavigation(spawnCandidates[i], out snapped))
+                if (TrySampleSpawn(spawnCandidates[i], step, out snapped))
                 {
                     return snapped;
                 }
@@ -541,13 +551,17 @@ namespace BattleRoyale.GameModes
             return preferred;
         }
 
-        private Vector3 FitSpawnToBody(Vector3 sampled, float bodyRadius)
+        private float SpawnClearance(float visualScale)
         {
-            var settings = NavMesh.GetSettingsByIndex(0);
-            var bakedRadius = settings.agentRadius > 0f
-                ? settings.agentRadius
-                : SpawnFit.DefaultBakedRadius;
-            var clearance = SpawnFit.EdgeClearance(bodyRadius, bakedRadius);
+            var definition = activeMap == null ? null : activeMap.definition;
+            var unitScale = definition == null
+                ? DungeonMapGeometry.DefaultUnitScale
+                : definition.unitScale;
+            return SpawnPlacement.Clearance(unitScale, visualScale);
+        }
+
+        private Vector3 FitSpawn(Vector3 sampled, float clearance)
+        {
             if (clearance <= 0.001f ||
                 !NavMesh.FindClosestEdge(sampled, out var first, NavMesh.AllAreas) ||
                 first.distance >= clearance)
@@ -555,7 +569,7 @@ namespace BattleRoyale.GameModes
                 return sampled;
             }
 
-            var probe = SpawnFit.ProbeAcross(
+            var probe = SpawnPlacement.ProbeAcross(
                 sampled,
                 first.position,
                 first.distance,
@@ -566,18 +580,14 @@ namespace BattleRoyale.GameModes
                     first.distance + clearance + 0.5f,
                     NavMesh.AllAreas) &&
                 NavMesh.FindClosestEdge(probeHit.position, out var second, NavMesh.AllAreas) &&
-                SpawnFit.LiesBetween(sampled, first.position, second.position))
+                SpawnPlacement.LiesBetween(sampled, first.position, second.position))
             {
-                var fitted = SpawnFit.FitBetweenEdges(
+                var fitted = SpawnPlacement.FitBetweenEdges(
                     first.position,
                     second.position,
                     clearance,
                     sampled.y);
-                if (NavMesh.SamplePosition(
-                        fitted,
-                        out var fittedHit,
-                        Mathf.Max(1f, clearance),
-                        NavMesh.AllAreas))
+                if (NavMesh.SamplePosition(fitted, out var fittedHit, clearance, NavMesh.AllAreas))
                 {
                     return fittedHit.position;
                 }
@@ -585,21 +595,33 @@ namespace BattleRoyale.GameModes
                 return fitted;
             }
 
-            var moved = SpawnFit.MoveInside(
+            var moved = SpawnPlacement.MoveInside(
                 sampled,
                 first.position,
                 first.distance,
                 clearance);
-            if (NavMesh.SamplePosition(
-                    moved,
-                    out var movedHit,
-                    Mathf.Max(1f, clearance),
-                    NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(moved, out var movedHit, clearance, NavMesh.AllAreas))
             {
                 return movedHit.position;
             }
 
             return moved;
+        }
+
+        private bool TrySampleSpawn(Vector3 position, float distance, out Vector3 snapped)
+        {
+            if (NavMesh.SamplePosition(
+                    position,
+                    out var hit,
+                    Mathf.Max(0.01f, distance),
+                    NavMesh.AllAreas))
+            {
+                snapped = hit.position;
+                return true;
+            }
+
+            snapped = position;
+            return false;
         }
 
         private bool TrySampleNavigation(Vector3 position, out Vector3 snapped)

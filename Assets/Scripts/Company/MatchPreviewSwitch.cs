@@ -12,6 +12,11 @@ namespace BattleRoyale.Company
 
         void OnEnable()
         {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
             EventBus.Subscribe<MatchCardViewed>(Apply);
         }
 

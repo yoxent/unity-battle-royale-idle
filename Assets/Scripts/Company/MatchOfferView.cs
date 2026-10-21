@@ -28,6 +28,11 @@ namespace BattleRoyale.Company
 
         void OnEnable()
         {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
             if (!HasReferences())
             {
                 Debug.LogError("Match offer needs its map, labels, and button.", this);
@@ -65,20 +70,33 @@ namespace BattleRoyale.Company
             }
 
             offerIndex = index;
-            gameObject.SetActive(true);
-            modeLabel.text = mode;
-            difficultyLabel.text = difficulty;
-            totalTeamsValue.text = teams.ToString();
-            totalTeamLabel.text = Plural(teams, "team", "teams");
-            teamSizeValue.text = agents.ToString();
-            teamSizeLabel.text = Plural(agents, "agent", "agents");
-            suggestedTeamPowerValue.text = suggestedRating.ToString();
-            entryValue.text = entry.ToString();
-            prizeValue.text = prize + "g";
-            chooseButton.interactable = enterable;
-            mapName.text = string.IsNullOrEmpty(mapTitle) ? "" : mapTitle;
-            mapPicture.sprite = mapSprite;
-            mapPicture.enabled = mapSprite != null;
+            SetActiveIfChanged(gameObject, true);
+            SetTextIfChanged(modeLabel, mode);
+            SetTextIfChanged(difficultyLabel, difficulty);
+            SetTextIfChanged(totalTeamsValue, teams.ToString());
+            SetTextIfChanged(totalTeamLabel, Plural(teams, "team", "teams"));
+            SetTextIfChanged(teamSizeValue, agents.ToString());
+            SetTextIfChanged(teamSizeLabel, Plural(agents, "agent", "agents"));
+            SetTextIfChanged(suggestedTeamPowerValue, suggestedRating.ToString());
+            SetTextIfChanged(entryValue, entry.ToString());
+            SetTextIfChanged(prizeValue, prize + "g");
+            if (chooseButton.interactable != enterable)
+            {
+                chooseButton.interactable = enterable;
+            }
+
+            SetTextIfChanged(
+                mapName,
+                string.IsNullOrEmpty(mapTitle) ? "Map unavailable" : mapTitle);
+            if (mapPicture.sprite != mapSprite)
+            {
+                mapPicture.sprite = mapSprite;
+            }
+
+            if (mapPicture.enabled != (mapSprite != null))
+            {
+                mapPicture.enabled = mapSprite != null;
+            }
         }
 
         public void Hide()
@@ -101,6 +119,28 @@ namespace BattleRoyale.Company
         static string Plural(int count, string singular, string plural)
         {
             return count == 1 ? singular : plural;
+        }
+
+        static void SetTextIfChanged(TMP_Text label, string value)
+        {
+            if (label == null)
+            {
+                return;
+            }
+
+            var text = value ?? string.Empty;
+            if (label.text != text)
+            {
+                label.text = text;
+            }
+        }
+
+        static void SetActiveIfChanged(GameObject target, bool active)
+        {
+            if (target != null && target.activeSelf != active)
+            {
+                target.SetActive(active);
+            }
         }
 
         bool HasReferences()

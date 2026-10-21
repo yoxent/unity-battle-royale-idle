@@ -12,7 +12,8 @@ namespace BattleRoyale.GameModes.Deathmatch
             IReadOnlyList<int> teamScores,
             float matchSeconds,
             IReadOnlyList<bool> alive,
-            IReadOnlyList<int> respawnSeconds)
+            IReadOnlyList<int> respawnSeconds,
+            List<DeathmatchAgentLine> reusableLines = null)
         {
             if (board == null)
             {
@@ -47,7 +48,7 @@ namespace BattleRoyale.GameModes.Deathmatch
                 latest.ActorTeam,
                 latest.SubjectName,
                 latest.SubjectTeam);
-            WriteRows(board, stats, respawnSeconds);
+            WriteRows(board, stats, respawnSeconds, reusableLines);
         }
 
         static void NoteLiving(DeathmatchCombatStats stats, IReadOnlyList<bool> alive)
@@ -62,9 +63,10 @@ namespace BattleRoyale.GameModes.Deathmatch
         static void WriteRows(
             MatchStatBoard board,
             DeathmatchCombatStats stats,
-            IReadOnlyList<int> respawnSeconds)
+            IReadOnlyList<int> respawnSeconds,
+            List<DeathmatchAgentLine> reusableLines)
         {
-            var lines = new List<DeathmatchAgentLine>();
+            var lines = reusableLines ?? new List<DeathmatchAgentLine>();
             stats.CopyAgents(lines);
             for (var pass = 0; pass < 2; pass++)
             {
@@ -85,7 +87,7 @@ namespace BattleRoyale.GameModes.Deathmatch
                         respawn = respawnSeconds[line.RosterIndex];
                     }
 
-                    board.AddRow(new MatchStatRow(
+                    board.AddRow(
                         line.DisplayName,
                         line.TeamIndex,
                         line.Alive,
@@ -95,7 +97,7 @@ namespace BattleRoyale.GameModes.Deathmatch
                         line.Assists,
                         DeathmatchCombatStats.RoundHalfUp(line.DamageDealt),
                         DeathmatchCombatStats.AccuracyPercent(line.Hits, line.ShotsFired),
-                        respawn));
+                        respawn);
                 }
             }
         }

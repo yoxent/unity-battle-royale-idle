@@ -1,4 +1,5 @@
 using System;
+using LitMotion;
 using UnityEngine;
 
 namespace BattleRoyale.Company
@@ -18,6 +19,9 @@ namespace BattleRoyale.Company
         CompanyIdentity.CompanyIdentityPreviewView summaryPreview;
         CompanyIdentity.CompanyIdentityPreviewView dashboardPreview;
         CompanyIdentity.CompanyIdentityData identity;
+        [SerializeField, Min(0f)] float identitySaveDebounceSeconds = 0.15f;
+        MotionHandle identitySaveMotion;
+        bool identitySavePending;
         bool ready;
 
         public void Show(CompanyIdentity.CompanyIdentityData next)
@@ -81,7 +85,7 @@ namespace BattleRoyale.Company
                 OnColor,
                 OnBodyStep,
                 OnEmblemEdited,
-                company.ShowDashboard);
+                OnDoneRequested);
             if (summaryBindings != null)
             {
                 summary = new CompanyIdentity.CompanyIdentitySummaryView();
@@ -94,6 +98,11 @@ namespace BattleRoyale.Company
 
             ready = true;
             return true;
+        }
+
+        void OnDisable()
+        {
+            FlushPendingIdentitySave();
         }
 
         public void OpenEditor()
@@ -139,7 +148,7 @@ namespace BattleRoyale.Company
             }
 
             Show(identity);
-            company.SaveIdentity(identity);
+            SaveIdentityImmediately();
         }
 
         void OnBodyStep(int direction)
@@ -156,7 +165,7 @@ namespace BattleRoyale.Company
                 direction,
                 editorPreviewBindings.BodyPairCount);
             Show(identity);
-            company.SaveIdentity(identity);
+            SaveIdentityImmediately();
         }
 
         void OnColor(CompanyIdentity.CompanyIdentityColorSlot slot, int paletteIndex)
@@ -174,7 +183,7 @@ namespace BattleRoyale.Company
 
             identity.SetColor(slot, palette[paletteIndex]);
             Show(identity);
-            company.SaveIdentity(identity);
+            SaveIdentityImmediately();
         }
 
         void OnEmblemEdited()
@@ -185,7 +194,86 @@ namespace BattleRoyale.Company
             }
 
             Show(identity);
-            company.SaveIdentity(identity);
+            QueueIdentitySave();
+        }
+
+        void OnDoneRequested()
+        {
+            FlushPendingIdentitySave();
+            if (company != null)
+            {
+                company.ShowDashboard();
+            }
+        }
+
+        void SaveIdentityImmediately()
+        {
+            FlushPendingIdentitySave();
+            if (identity != null && company != null)
+            {
+                company.SaveIdentity(identity);
+            }
+        }
+
+        void QueueIdentitySave()
+        {
+            if (identity == null || company == null)
+            {
+                return;
+            }
+
+            identitySavePending = true;
+            if (identitySaveMotion.IsActive())
+            {
+                identitySaveMotion.Cancel();
+            }
+
+            identitySaveMotion = default;
+            if (identitySaveDebounceSeconds <= 0f)
+            {
+                CommitPendingIdentitySave();
+                return;
+            }
+
+            identitySaveMotion = LMotion.Create(0f, 1f, identitySaveDebounceSeconds)
+                .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)
+                .WithOnComplete(CommitPendingIdentitySave)
+                .RunWithoutBinding();
+        }
+
+        void CommitPendingIdentitySave()
+        {
+            identitySaveMotion = default;
+            if (!identitySavePending)
+            {
+                return;
+            }
+
+            identitySavePending = false;
+            if (identity != null && company != null)
+            {
+                company.SaveIdentity(identity);
+            }
+        }
+
+        void FlushPendingIdentitySave()
+        {
+            if (identitySaveMotion.IsActive())
+            {
+                identitySaveMotion.Cancel();
+            }
+
+            identitySaveMotion = default;
+            if (!identitySavePending)
+            {
+                return;
+            }
+
+            identitySavePending = false;
+            if (identity != null && company != null)
+            {
+                company.SaveIdentity(identity);
+            }
         }
     }
 }

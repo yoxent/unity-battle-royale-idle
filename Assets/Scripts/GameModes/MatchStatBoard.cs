@@ -16,6 +16,42 @@ namespace BattleRoyale.GameModes
             int accuracy,
             int respawnSeconds)
         {
+            Set(
+                name,
+                teamIndex,
+                alive,
+                combat,
+                kills,
+                deaths,
+                assists,
+                damage,
+                accuracy,
+                respawnSeconds);
+        }
+
+        public string Name { get; private set; }
+        public int TeamIndex { get; private set; }
+        public bool Alive { get; private set; }
+        public bool Combat { get; private set; }
+        public int Kills { get; private set; }
+        public int Deaths { get; private set; }
+        public int Assists { get; private set; }
+        public int Damage { get; private set; }
+        public int Accuracy { get; private set; }
+        public int RespawnSeconds { get; private set; }
+
+        public void Set(
+            string name,
+            int teamIndex,
+            bool alive,
+            bool combat,
+            int kills,
+            int deaths,
+            int assists,
+            int damage,
+            int accuracy,
+            int respawnSeconds)
+        {
             Name = name ?? string.Empty;
             TeamIndex = teamIndex;
             Alive = alive;
@@ -27,22 +63,12 @@ namespace BattleRoyale.GameModes
             Accuracy = accuracy;
             RespawnSeconds = respawnSeconds;
         }
-
-        public string Name { get; }
-        public int TeamIndex { get; }
-        public bool Alive { get; }
-        public bool Combat { get; }
-        public int Kills { get; }
-        public int Deaths { get; }
-        public int Assists { get; }
-        public int Damage { get; }
-        public int Accuracy { get; }
-        public int RespawnSeconds { get; }
     }
 
     public sealed class MatchStatBoard
     {
         readonly List<MatchStatRow> rows = new();
+        readonly List<MatchStatRow> recycledRows = new();
 
         public bool Visible { get; private set; }
         public bool Teams { get; private set; }
@@ -63,6 +89,12 @@ namespace BattleRoyale.GameModes
 
         public void Clear()
         {
+            for (var index = 0; index < rows.Count; index++)
+            {
+                recycledRows.Add(rows[index]);
+            }
+
+            rows.Clear();
             Visible = false;
             Teams = false;
             RejectedTeamCount = false;
@@ -78,7 +110,6 @@ namespace BattleRoyale.GameModes
             ActorTeam = -1;
             SubjectName = string.Empty;
             SubjectTeam = -1;
-            rows.Clear();
         }
 
         public void ShowTeams(
@@ -134,6 +165,54 @@ namespace BattleRoyale.GameModes
             {
                 rows.Add(row);
             }
+        }
+
+        public void AddRow(
+            string name,
+            int teamIndex,
+            bool alive,
+            bool combat,
+            int kills,
+            int deaths,
+            int assists,
+            int damage,
+            int accuracy,
+            int respawnSeconds)
+        {
+            MatchStatRow row;
+            if (recycledRows.Count > 0)
+            {
+                var last = recycledRows.Count - 1;
+                row = recycledRows[last];
+                recycledRows.RemoveAt(last);
+                row.Set(
+                    name,
+                    teamIndex,
+                    alive,
+                    combat,
+                    kills,
+                    deaths,
+                    assists,
+                    damage,
+                    accuracy,
+                    respawnSeconds);
+            }
+            else
+            {
+                row = new MatchStatRow(
+                    name,
+                    teamIndex,
+                    alive,
+                    combat,
+                    kills,
+                    deaths,
+                    assists,
+                    damage,
+                    accuracy,
+                    respawnSeconds);
+            }
+
+            rows.Add(row);
         }
     }
 }

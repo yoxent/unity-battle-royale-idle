@@ -20,6 +20,7 @@ namespace BattleRoyale.Company
         MotionHandle lineMotion;
         Action onClosed;
         bool listening;
+        int lineVersion;
 
         void Awake()
         {
@@ -37,6 +38,11 @@ namespace BattleRoyale.Company
 
         void OnEnable()
         {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
             if (!HasReferences() || listening)
             {
                 return;
@@ -48,11 +54,8 @@ namespace BattleRoyale.Company
 
         void OnDisable()
         {
-            if (onClosed != null)
-            {
-                CancelLine();
-                onClosed = null;
-            }
+            CancelLine();
+            onClosed = null;
 
             if (!listening)
             {
@@ -85,6 +88,7 @@ namespace BattleRoyale.Company
 
         public void Release()
         {
+            CancelLine();
             onClosed = null;
             if (closeButton != null)
             {
@@ -105,11 +109,17 @@ namespace BattleRoyale.Company
                 closeButton.gameObject.SetActive(false);
             }
 
-            PlayLine(0);
+            var version = ++lineVersion;
+            PlayLine(0, version);
         }
 
-        void PlayLine(int index)
+        void PlayLine(int index, int version)
         {
+            if (version != lineVersion)
+            {
+                return;
+            }
+
             if (lines == null || index >= lines.Length)
             {
                 var closed = onClosed;
@@ -131,7 +141,13 @@ namespace BattleRoyale.Company
                 .WithDelay(index == 0 ? 0f : lineGap)
                 .WithEase(Ease.OutCubic)
                 .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)
-                .WithOnComplete(() => PlayLine(index + 1))
+                .WithOnComplete(() =>
+                {
+                    if (version == lineVersion)
+                    {
+                        PlayLine(index + 1, version);
+                    }
+                })
                 .BindToAlpha(group);
         }
 
@@ -172,6 +188,7 @@ namespace BattleRoyale.Company
 
         void CancelLine()
         {
+            lineVersion++;
             if (lineMotion.IsActive())
             {
                 lineMotion.Cancel();

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace BattleRoyale.Company
@@ -14,10 +15,16 @@ namespace BattleRoyale.Company
         [SerializeField] Button refreshButton;
         [SerializeField] Button backButton;
 
+        UnityAction[] hireActions;
         bool subscribed;
 
         void OnEnable()
         {
+            if (!Application.isPlaying)
+            {
+                return;
+            }
+
             if (company == null || cards == null || cards.Length != RecruitBoardRules.BoardSize)
             {
                 Debug.LogError("Recruit board needs the company and five cards.", this);
@@ -26,14 +33,23 @@ namespace BattleRoyale.Company
 
             for (var i = 0; i < cards.Length; i++)
             {
-                var slot = i;
                 if (cards[i] == null || cards[i].HireButton == null)
                 {
                     Debug.LogError("Recruit board is missing a card.", this);
                     return;
                 }
+            }
 
-                cards[i].HireButton.onClick.AddListener(() => company.RequestHire(slot));
+            if (hireActions == null || hireActions.Length != cards.Length)
+            {
+                hireActions = new UnityAction[cards.Length];
+            }
+
+            for (var i = 0; i < cards.Length; i++)
+            {
+                var slot = i;
+                hireActions[i] = () => company.RequestHire(slot);
+                cards[i].HireButton.onClick.AddListener(hireActions[i]);
             }
 
             if (refreshButton != null)
@@ -58,7 +74,15 @@ namespace BattleRoyale.Company
 
             for (var i = 0; i < cards.Length; i++)
             {
-                cards[i].HireButton.onClick.RemoveAllListeners();
+                if (cards[i] != null &&
+                    cards[i].HireButton != null &&
+                    hireActions != null &&
+                    i < hireActions.Length &&
+                    hireActions[i] != null)
+                {
+                    cards[i].HireButton.onClick.RemoveListener(hireActions[i]);
+                    hireActions[i] = null;
+                }
             }
 
             if (refreshButton != null)
@@ -89,23 +113,27 @@ namespace BattleRoyale.Company
         {
             if (balanceLabel != null)
             {
-                balanceLabel.text = $"Gold {balance}";
+                SetTextIfChanged(balanceLabel, $"Gold {balance}");
             }
 
             if (spotsLabel != null)
             {
                 var open = RecruitBoardRules.RosterCap - rosterCount;
-                spotsLabel.text = $"Open spots {open}";
+                SetTextIfChanged(spotsLabel, $"Open spots {open}");
             }
 
             if (refreshLabel != null)
             {
-                refreshLabel.text = RecruitBoardRules.FormatRefreshCost(fee);
+                SetTextIfChanged(refreshLabel, RecruitBoardRules.FormatRefreshCost(fee));
             }
 
             if (refreshButton != null)
             {
-                refreshButton.interactable = board != null && board.Rolled && (fee <= 0 || balance >= fee);
+                var canRefresh = board != null && board.Rolled && (fee <= 0 || balance >= fee);
+                if (refreshButton.interactable != canRefresh)
+                {
+                    refreshButton.interactable = canRefresh;
+                }
             }
 
             if (cards == null || board == null || board.Slots == null)
@@ -148,6 +176,15 @@ namespace BattleRoyale.Company
                     card.Avatar,
                     block,
                     canHire);
+            }
+        }
+
+        static void SetTextIfChanged(TMP_Text label, string value)
+        {
+            var text = value ?? "";
+            if (label != null && label.text != text)
+            {
+                label.text = text;
             }
         }
     }
