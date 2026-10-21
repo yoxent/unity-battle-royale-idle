@@ -19,6 +19,7 @@ namespace BattleRoyale.Tests.EditMode
                 Assert.AreEqual(6f, definition.columnSize);
                 Assert.AreEqual(new Vector2(-0.5f, -0.5f), definition.columnOffset);
                 Assert.AreEqual(1f, definition.unitScale);
+                Assert.AreEqual(Vector3.one, DungeonMapGeometry.UnitLocalScale(definition.unitScale));
                 Assert.IsTrue(definition.useImageCornerFit);
                 Assert.IsTrue(definition.editImageCornersInScene);
 
@@ -62,6 +63,8 @@ namespace BattleRoyale.Tests.EditMode
                 Assert.AreEqual(3f, geometry.ColumnSize);
                 Assert.AreEqual(new Vector2(0.25f, -0.5f), geometry.ColumnOffset);
                 Assert.AreEqual(6f, geometry.UnitScale);
+                Assert.AreEqual(new Vector3(6f, 6f, 6f), DungeonMapGeometry.UnitLocalScale(6f));
+                Assert.AreEqual(new Vector3(0.01f, 0.01f, 0.01f), DungeonMapGeometry.UnitLocalScale(0f));
             }
             finally
             {
