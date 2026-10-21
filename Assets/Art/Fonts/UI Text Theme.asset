@@ -14,106 +14,126 @@ MonoBehaviour:
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.UI.UITextTheme
   styles:
   - id: heading-1
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 56
     font: {fileID: 11400000, guid: 99fc6a7dc29ebba468827aef1a0b717b, type: 2}
   - id: heading-2
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
-    fontSize: 48
-    font: {fileID: 11400000, guid: 99fc6a7dc29ebba468827aef1a0b717b, type: 2}
-  - id: heading-3
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 40
     font: {fileID: 11400000, guid: 99fc6a7dc29ebba468827aef1a0b717b, type: 2}
-  - id: heading-4
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+  - id: heading-3
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 32
     font: {fileID: 11400000, guid: 99fc6a7dc29ebba468827aef1a0b717b, type: 2}
-  - id: heading-5
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+  - id: heading-4
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 24
-    font: {fileID: 11400000, guid: 99fc6a7dc29ebba468827aef1a0b717b, type: 2}
-  - id: heading-6
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    font: {fileID: 11400000, guid: 8f5244d3b26066040b19c58daa5c357f, type: 2}
+  - id: heading-5
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 20
-    font: {fileID: 11400000, guid: 99fc6a7dc29ebba468827aef1a0b717b, type: 2}
+    font: {fileID: 11400000, guid: 8f5244d3b26066040b19c58daa5c357f, type: 2}
+  - id: heading-6
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
+    fontSize: 18
+    font: {fileID: 11400000, guid: 593af597901530a499633b2055ef1fe6, type: 2}
   - id: large-extra-bold
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 20
     font: {fileID: 11400000, guid: 99fc6a7dc29ebba468827aef1a0b717b, type: 2}
   - id: large-bold
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 20
     font: {fileID: 11400000, guid: 8f5244d3b26066040b19c58daa5c357f, type: 2}
   - id: large-semi-bold
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 20
     font: {fileID: 11400000, guid: 593af597901530a499633b2055ef1fe6, type: 2}
   - id: large-regular
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.3254902, g: 0.38431373, b: 0.4627451, a: 1}
     fontSize: 20
     font: {fileID: 11400000, guid: 0c37ff66bd4bcbe4c9be250db8bd86d7, type: 2}
   - id: medium-extra-bold
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 18
     font: {fileID: 11400000, guid: 99fc6a7dc29ebba468827aef1a0b717b, type: 2}
   - id: medium-bold
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 18
     font: {fileID: 11400000, guid: 8f5244d3b26066040b19c58daa5c357f, type: 2}
   - id: medium-semi-bold
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 18
     font: {fileID: 11400000, guid: 593af597901530a499633b2055ef1fe6, type: 2}
   - id: medium-regular
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.3254902, g: 0.38431373, b: 0.4627451, a: 1}
     fontSize: 18
     font: {fileID: 11400000, guid: 0c37ff66bd4bcbe4c9be250db8bd86d7, type: 2}
   - id: normal-extra-bold
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 16
     font: {fileID: 11400000, guid: 99fc6a7dc29ebba468827aef1a0b717b, type: 2}
   - id: normal-bold
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 16
     font: {fileID: 11400000, guid: 8f5244d3b26066040b19c58daa5c357f, type: 2}
   - id: normal-semi-bold
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 16
     font: {fileID: 11400000, guid: 593af597901530a499633b2055ef1fe6, type: 2}
   - id: normal-regular
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.3254902, g: 0.38431373, b: 0.4627451, a: 1}
     fontSize: 16
     font: {fileID: 11400000, guid: 0c37ff66bd4bcbe4c9be250db8bd86d7, type: 2}
   - id: small-extra-bold
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 14
     font: {fileID: 11400000, guid: 99fc6a7dc29ebba468827aef1a0b717b, type: 2}
   - id: small-bold
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 14
     font: {fileID: 11400000, guid: 8f5244d3b26066040b19c58daa5c357f, type: 2}
   - id: small-semi-bold
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
     fontSize: 14
     font: {fileID: 11400000, guid: 593af597901530a499633b2055ef1fe6, type: 2}
   - id: small-regular
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
+    color: {r: 0.3254902, g: 0.38431373, b: 0.4627451, a: 1}
     fontSize: 14
     font: {fileID: 11400000, guid: 0c37ff66bd4bcbe4c9be250db8bd86d7, type: 2}
   - id: very-small-bold
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
-    fontSize: 10
+    color: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
+    fontSize: 12
     font: {fileID: 11400000, guid: 8f5244d3b26066040b19c58daa5c357f, type: 2}
   - id: very-small-regular
-    color: {r: 0.03529412, g: 0.17254902, b: 0.29803923, a: 1}
-    fontSize: 10
+    color: {r: 0.3254902, g: 0.38431373, b: 0.4627451, a: 1}
+    fontSize: 12
     font: {fileID: 11400000, guid: 0c37ff66bd4bcbe4c9be250db8bd86d7, type: 2}
   - id: placeholder
-    color: {r: 0.50980395, g: 0.50980395, b: 0.50980395, a: 1}
+    color: {r: 0.3254902, g: 0.38431373, b: 0.4627451, a: 1}
     fontSize: 14
     font: {fileID: 11400000, guid: 0c37ff66bd4bcbe4c9be250db8bd86d7, type: 2}
   - id: error
-    color: {r: 0.8, g: 0.2, b: 0.2, a: 1}
+    color: {r: 0.7137255, g: 0.27058825, b: 0.29411766, a: 1}
     fontSize: 14
     font: {fileID: 11400000, guid: 0c37ff66bd4bcbe4c9be250db8bd86d7, type: 2}
+  - id: resource-gold
+    color: {r: 0.83137256, g: 0.60784316, b: 0.16862746, a: 1}
+    fontSize: 18
+    font: {fileID: 11400000, guid: 99fc6a7dc29ebba468827aef1a0b717b, type: 2}
+  - id: success
+    color: {r: 0.16862746, g: 0.45490196, b: 0.3529412, a: 1}
+    fontSize: 14
+    font: {fileID: 11400000, guid: 593af597901530a499633b2055ef1fe6, type: 2}
+  - id: warning
+    color: {r: 0.6039216, g: 0.3529412, b: 0.07058824, a: 1}
+    fontSize: 14
+    font: {fileID: 11400000, guid: 593af597901530a499633b2055ef1fe6, type: 2}
+  - id: danger
+    color: {r: 0.7137255, g: 0.27058825, b: 0.29411766, a: 1}
+    fontSize: 14
+    font: {fileID: 11400000, guid: 593af597901530a499633b2055ef1fe6, type: 2}
+  - id: on-command
+    color: {r: 0.9607843, g: 0.94509804, b: 0.9098039, a: 1}
+    fontSize: 18
+    font: {fileID: 11400000, guid: 593af597901530a499633b2055ef1fe6, type: 2}
