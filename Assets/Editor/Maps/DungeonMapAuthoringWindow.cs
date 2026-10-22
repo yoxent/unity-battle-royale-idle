@@ -769,7 +769,12 @@ namespace BattleRoyale.Maps.EditorTools
 
             CreateWalls(root.transform);
             CreateBoundaryWalls(root.transform);
-            CreateNavigation(root);
+            if (!TryCreateNavigation(root, out var navigationError))
+            {
+                Undo.DestroyObjectImmediate(root);
+                SetStatus(navigationError, MessageType.Error);
+                return false;
+            }
             CreateFloorCollider(root.transform);
             modeAuthoring.GenerateMarkers(root.transform, mapDefinition);
             var scaledUnitCount = MapGeometrySection.ApplyToLoadedUnits(unitScale);
@@ -1139,13 +1144,7 @@ namespace BattleRoyale.Maps.EditorTools
                     uvs.Add(ToBoundsUv(point, sourceSize));
                 }
 
-                for (var i = 0; i < loop.Count; i++)
-                {
-                    var next = (i + 1) % loop.Count;
-                    triangles.Add(centerIndex);
-                    triangles.Add(rimStart + next);
-                    triangles.Add(rimStart + i);
-                }
+                DungeonFloorFacing.AddGridFan(triangles, centerIndex, rimStart, loop.Count);
             }
         }
 
@@ -1185,9 +1184,20 @@ namespace BattleRoyale.Maps.EditorTools
             return loop;
         }
 
-        private void CreateNavigation(GameObject root)
+        private bool TryCreateNavigation(GameObject root, out string error)
         {
+            error = null;
             var floorMesh = BuildFloorMesh();
+            var downward = DungeonFloorFacing.CountDownward(
+                floorMesh.vertices,
+                floorMesh.triangles);
+            if (downward > 0)
+            {
+                DestroyImmediate(floorMesh);
+                error = DungeonFloorFacing.DescribeDownward(downward);
+                return false;
+            }
+
             var navigationFloor = new GameObject("DungeonFloorNav");
             navigationFloor.transform.SetParent(root.transform, false);
             navigationFloor.layer = LayerMask.NameToLayer("MapGround");
@@ -1223,6 +1233,8 @@ namespace BattleRoyale.Maps.EditorTools
                 DestroyImmediate(navigationFloor);
                 DestroyImmediate(floorMesh);
             }
+
+            return true;
         }
 
         private float GetSafeNavMeshVoxelSize()

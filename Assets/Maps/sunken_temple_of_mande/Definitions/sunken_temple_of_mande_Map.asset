@@ -24,7 +24,7 @@ MonoBehaviour:
   heightScale: 0
   wallHeight: 3
   wallThickness: 2
-  unitScale: 10
+  unitScale: 5
   generateBuildingWalls: 0
   generateTreeColliders: 0
   treeUpperLeft: {x: 0, y: 0}
@@ -64,7 +64,19 @@ MonoBehaviour:
     type: Columns
     geometryCount: 6
     coordinateCount: 6
-  tacticalAnchors: []
+  tacticalAnchors:
+  - id: Center
+    position: {x: 9.587986, y: 0, z: 2.3950577}
+    weight: 5
+  - id: Room01
+    position: {x: 109.81236, y: 0, z: 27.773138}
+    weight: 2
+  - id: Room02
+    position: {x: -90.943474, y: 0, z: -47.04663}
+    weight: 2
+  - id: Room03
+    position: {x: -90.1, y: 0, z: 30.5}
+    weight: 1
   supportedGameModes: 020000000f000000
   modeConfigurations:
   - {fileID: 11400000, guid: dc14c3eeff8d35d46bf72ab33b55ad42, type: 2}
