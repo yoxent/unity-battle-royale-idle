@@ -20,6 +20,12 @@ namespace BattleRoyale.Maps
                 markers[i].gameObject.SetActive(false);
             }
 
+            var anchors = root.GetComponentsInChildren<MapTacticalAnchorMarker>(true);
+            for (var i = 0; i < anchors.Length; i++)
+            {
+                anchors[i].gameObject.SetActive(false);
+            }
+
             var transforms = root.GetComponentsInChildren<Transform>(true);
             HideTransforms(transforms);
         }
@@ -50,6 +56,14 @@ namespace BattleRoyale.Maps
             for (var i = 0; i < markers.Length; i++)
             {
                 markers[i].gameObject.SetActive(false);
+            }
+
+            var anchors = Object.FindObjectsByType<MapTacticalAnchorMarker>(
+                FindObjectsInactive.Include,
+                FindObjectsSortMode.None);
+            for (var i = 0; i < anchors.Length; i++)
+            {
+                anchors[i].gameObject.SetActive(false);
             }
 
             var transforms = Object.FindObjectsByType<Transform>(

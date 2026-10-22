@@ -10,10 +10,11 @@ namespace BattleRoyale.Maps
         public MapModePointType pointType;
         public int index;
         public int teamIndex = -1;
+        public Color color;
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = GetColor(pointType);
+            Gizmos.color = color.a > 0f ? color : GetColor(pointType);
             Gizmos.DrawSphere(transform.position, 1.25f);
         }
 

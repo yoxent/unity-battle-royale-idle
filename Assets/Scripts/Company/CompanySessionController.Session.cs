@@ -23,8 +23,8 @@ namespace BattleRoyale.Company
         [SerializeField] CompanyDashboardView dashboardView;
         [SerializeField] OfflineReportView offlineReport;
         [SerializeField] TutorialPanelView tutorialPanel;
-        [Tooltip("Off hides the tour card and the tutorial match. The company file keeps its step.")]
-        [SerializeField] bool tutorialEnabled = true;
+        [Tooltip("Off hides the tour card and the tutorial match. The company file keeps its step. The tour stays off until this is turned back on.")]
+        [SerializeField] bool tutorialEnabled;
         [SerializeField] RectTransform recruitTab;
         [SerializeField] RectTransform newSimulation;
         [SerializeField] string titleSceneName = "MainMenu";

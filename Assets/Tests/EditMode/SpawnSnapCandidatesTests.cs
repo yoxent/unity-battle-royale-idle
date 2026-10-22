@@ -16,7 +16,9 @@ namespace BattleRoyale.Tests.EditMode
 
             SpawnSnapCandidates.Fill(anchor, preferred, 1.5f, candidates);
 
-            Assert.AreEqual(1 + SpawnPlacement.Rings * SpawnSnapCandidates.Directions, candidates.Count);
+            Assert.AreEqual(
+                SpawnPlacement.Rings * SpawnSnapCandidates.Directions,
+                candidates.Count);
             Assert.AreEqual(anchor, candidates[0]);
             Assert.IsFalse(candidates.Contains(preferred));
             Assert.AreEqual(1.5f, Vector3.Distance(anchor, candidates[1]), 0.001f);

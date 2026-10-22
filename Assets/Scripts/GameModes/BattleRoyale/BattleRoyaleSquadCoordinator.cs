@@ -74,6 +74,17 @@ namespace BattleRoyale.GameModes.BattleRoyale
         void ReleaseTargetClaim(
             BattleRoyaleAgent claimer,
             BattleRoyaleAgent target);
+
+        int CountPlaceClaims(
+            int teamIndex,
+            string anchorId,
+            BattleRoyaleAgent except);
+
+        bool TryClaimPlace(
+            BattleRoyaleAgent claimer,
+            string anchorId,
+            float duration,
+            int slots);
     }
 
     public sealed class BattleRoyaleSquadCoordinator : ITeamTacticalPicture
@@ -89,6 +100,15 @@ namespace BattleRoyale.GameModes.BattleRoyale
         private readonly Func<float> getTime;
         private readonly List<BattleRoyaleTeamObservation> observations = new();
         private readonly List<TargetClaim> claims = new();
+        private readonly List<PlaceClaim> placeClaims = new();
+
+        private sealed class PlaceClaim
+        {
+            public BattleRoyaleAgent claimer;
+            public int teamIndex;
+            public string anchorId;
+            public float expiresAt;
+        }
 
         public BattleRoyaleSquadCoordinator(Func<float> timeProvider)
         {
@@ -266,6 +286,100 @@ namespace BattleRoyale.GameModes.BattleRoyale
             return true;
         }
 
+        public int CountPlaceClaims(
+            int teamIndex,
+            string anchorId,
+            BattleRoyaleAgent except)
+        {
+            if (teamIndex < 0 || string.IsNullOrEmpty(anchorId))
+            {
+                return 0;
+            }
+
+            PruneExpiredClaims();
+            var count = 0;
+            for (var index = 0; index < placeClaims.Count; index++)
+            {
+                var claim = placeClaims[index];
+                if (claim.teamIndex == teamIndex &&
+                    claim.anchorId == anchorId &&
+                    claim.claimer != except)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        public bool TryClaimPlace(
+            BattleRoyaleAgent claimer,
+            string anchorId,
+            float duration,
+            int slots)
+        {
+            if (claimer == null ||
+                claimer.TeamIndex < 0 ||
+                string.IsNullOrEmpty(anchorId))
+            {
+                return false;
+            }
+
+            PruneExpiredClaims();
+            var allowed = Mathf.Max(1, slots);
+            var now = getTime();
+            for (var index = placeClaims.Count - 1; index >= 0; index--)
+            {
+                if (placeClaims[index].claimer == claimer &&
+                    placeClaims[index].anchorId != anchorId)
+                {
+                    placeClaims.RemoveAt(index);
+                }
+            }
+
+            var others = 0;
+            PlaceClaim own = null;
+            for (var index = 0; index < placeClaims.Count; index++)
+            {
+                var claim = placeClaims[index];
+                if (claim.teamIndex != claimer.TeamIndex ||
+                    claim.anchorId != anchorId)
+                {
+                    continue;
+                }
+
+                if (claim.claimer == claimer)
+                {
+                    own = claim;
+                }
+                else
+                {
+                    others++;
+                }
+            }
+
+            if (own != null)
+            {
+                own.expiresAt = now + Mathf.Max(0f, duration);
+                return true;
+            }
+
+            if (others >= allowed)
+            {
+                return false;
+            }
+
+            placeClaims.Add(
+                new PlaceClaim
+                {
+                    claimer = claimer,
+                    teamIndex = claimer.TeamIndex,
+                    anchorId = anchorId,
+                    expiresAt = now + Mathf.Max(0f, duration)
+                });
+            return true;
+        }
+
         public void ReleaseTargetClaim(
             BattleRoyaleAgent claimer,
             BattleRoyaleAgent target)
@@ -288,6 +402,14 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 if (claims[index].expiresAt <= now)
                 {
                     claims.RemoveAt(index);
+                }
+            }
+
+            for (var index = placeClaims.Count - 1; index >= 0; index--)
+            {
+                if (placeClaims[index].expiresAt <= now)
+                {
+                    placeClaims.RemoveAt(index);
                 }
             }
         }

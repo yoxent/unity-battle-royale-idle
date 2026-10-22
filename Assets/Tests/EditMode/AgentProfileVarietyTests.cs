@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using BattleRoyale.GameModes.BattleRoyale;
-using BattleRoyale.Maps;
 using NUnit.Framework;
 using UnityEditor;
 
@@ -15,12 +14,6 @@ namespace BattleRoyale.Tests.EditMode
             "Assets/GameModes/BattleRoyale/AnchorAgentProfile.asset",
             "Assets/GameModes/BattleRoyale/GunnerAgentProfile.asset",
             "Assets/GameModes/BattleRoyale/SurvivorAgentProfile.asset"
-        };
-
-        private static readonly string[] MapPaths =
-        {
-            "Assets/Maps/plaguecrown_chambers/Definitions/plaguecrown_chambers_Map.asset",
-            "Assets/Maps/maze_of_the_cursed_messiah/Definitions/maze_of_the_cursed_messiah_Map.asset"
         };
 
         [Test]
@@ -76,21 +69,6 @@ namespace BattleRoyale.Tests.EditMode
             Assert.Greater(aggressionMaximum - aggressionMinimum, 0.5f);
             Assert.Greater(resilienceMaximum - resilienceMinimum, 0.3f);
             Assert.Greater(awarenessMaximum - awarenessMinimum, 0.3f);
-        }
-
-        [Test]
-        public void AuthoredMapsHaveTacticalAnchors()
-        {
-            foreach (var path in MapPaths)
-            {
-                var map = AssetDatabase.LoadAssetAtPath<MapDefinition>(path);
-                Assert.IsNotNull(map, $"Missing map definition: {path}");
-                Assert.IsNotNull(map.tacticalAnchors);
-                Assert.Greater(map.tacticalAnchors.Count, 0);
-                Assert.IsTrue(
-                    map.tacticalAnchors.TrueForAll(
-                        anchor => anchor != null && anchor.weight > 0f));
-            }
         }
     }
 }

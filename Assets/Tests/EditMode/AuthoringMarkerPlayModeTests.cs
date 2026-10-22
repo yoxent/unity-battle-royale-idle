@@ -33,6 +33,9 @@ namespace BattleRoyale.Tests.EditMode
             var marker = new GameObject("DeathmatchSpawn");
             marker.transform.SetParent(root.transform, false);
             marker.AddComponent<MapModePointMarker>();
+            var anchor = new GameObject("Anchor");
+            anchor.transform.SetParent(root.transform, false);
+            anchor.AddComponent<MapTacticalAnchorMarker>();
             var corner = new GameObject("ImageCornerUpperLeft");
             corner.transform.SetParent(root.transform, false);
 
@@ -46,6 +49,7 @@ namespace BattleRoyale.Tests.EditMode
                 Assert.IsTrue(visualRenderer.enabled);
                 Assert.IsTrue(buildingRenderer.enabled);
                 Assert.IsFalse(marker.activeSelf);
+                Assert.IsFalse(anchor.activeSelf);
                 Assert.IsFalse(corner.activeSelf);
             }
             finally

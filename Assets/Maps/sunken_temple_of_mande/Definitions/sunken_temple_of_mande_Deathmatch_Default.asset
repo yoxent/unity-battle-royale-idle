@@ -22,7 +22,7 @@ MonoBehaviour:
     spawnPosition: {x: -93.64729, y: 0, z: 109.9237}
     radius: 8
   - teamId: Team 2
-    spawnPosition: {x: 109.22333, y: 0, z: -45.499725}
+    spawnPosition: {x: 109.73678, y: 0, z: -44.6757}
     radius: 8
   scoreLimit: 50
   respawnSeconds: 3

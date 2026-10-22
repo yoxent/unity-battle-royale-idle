@@ -26,7 +26,7 @@ Read the docs repo before assuming a decision is missing. For other references a
 
 ### Before working
 
-- Inspect the existing Unity project and the relevant code before proposing changes.
+- Follow the advisor rule before proposing a new type, list, or system.
 - Read `PROJECT_CONTEXT.md` for the current state.
 - Read `GDD.md` when a task affects gameplay.
 - Read `TECHNICAL_DESIGN.md` when a task affects architecture or system boundaries.

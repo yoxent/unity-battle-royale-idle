@@ -18,11 +18,20 @@ namespace BattleRoyale.Maps.EditorTools
 
         void DrawImageCornerSection()
         {
-            if (!AuthoringSectionHeader.Draw("Image Alignment"))
+            var upperLeft = AuthoringMarkerColor.ImageUpperLeft;
+            var lowerRight = AuthoringMarkerColor.ImageLowerRight;
+            var cornerColors = new[] { upperLeft, lowerRight };
+            if (!AuthoringSectionHeader.Draw(
+                    "Image Alignment",
+                    cornerColors,
+                    new[] { "Upper Left", "Lower Right" }))
             {
+                CommitImageCornerColors(cornerColors);
                 StopCornerSceneGui();
                 return;
             }
+
+            CommitImageCornerColors(cornerColors);
 
             var previousFit = useImageCornerFit;
             useImageCornerFit = EditorGUILayout.Toggle(
@@ -339,7 +348,7 @@ namespace BattleRoyale.Maps.EditorTools
             DrawImageCornerHandle(
                 "Upper Left",
                 UpperLeftMarkerName,
-                new Color(1f, 0.85f, 0.2f),
+                AuthoringMarkerColor.ImageUpperLeft,
                 ref draggingUpperLeft,
                 ref draggedUpperLeft,
                 imageUpperLeftUv,
@@ -347,7 +356,7 @@ namespace BattleRoyale.Maps.EditorTools
             DrawImageCornerHandle(
                 "Lower Right",
                 LowerRightMarkerName,
-                new Color(0.3f, 0.75f, 1f),
+                AuthoringMarkerColor.ImageLowerRight,
                 ref draggingLowerRight,
                 ref draggedLowerRight,
                 imageLowerRightUv,
@@ -373,7 +382,7 @@ namespace BattleRoyale.Maps.EditorTools
                 Quaternion.identity,
                 HandleUtility.GetHandleSize(position) * 0.15f,
                 EventType.Repaint);
-            Handles.Label(position + Vector3.up * 1.5f, label);
+            AuthoringMarkerColor.DrawLabel(position + Vector3.up * 1.5f, label, color);
 
             EditorGUI.BeginChangeCheck();
             var moved = Handles.PositionHandle(position, Quaternion.identity);
@@ -462,12 +471,12 @@ namespace BattleRoyale.Maps.EditorTools
                 root,
                 UpperLeftMarkerName,
                 ImageUvToWorld(imageUpperLeftUv, visual),
-                new Color(1f, 0.85f, 0.2f));
+                AuthoringMarkerColor.ImageUpperLeft);
             changed |= PlaceImageCornerMarker(
                 root,
                 LowerRightMarkerName,
                 ImageUvToWorld(imageLowerRightUv, visual),
-                new Color(0.3f, 0.75f, 1f));
+                AuthoringMarkerColor.ImageLowerRight);
             if (!changed)
             {
                 return;
@@ -494,8 +503,17 @@ namespace BattleRoyale.Maps.EditorTools
                 var markerObject = new GameObject(markerName);
                 Undo.RegisterCreatedObjectUndo(markerObject, "Show Image Corner");
                 markerObject.transform.SetParent(root, true);
-                AddCornerDisc(markerObject.transform, color);
                 marker = markerObject.transform;
+            }
+
+            var disc = marker.Find(CornerDiscName);
+            if (disc == null)
+            {
+                AddCornerDisc(marker, color);
+            }
+            else
+            {
+                AuthoringMarkerColor.Apply(disc.GetComponent<MeshRenderer>(), color);
             }
 
             var moved = marker.position != worldPosition;
@@ -505,6 +523,25 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             return created || moved;
+        }
+
+        void CommitImageCornerColors(Color[] colors)
+        {
+            var changed = AuthoringMarkerColor.StoreIfChanged(
+                AuthoringMarkerColor.ImageUpperLeftKey,
+                AuthoringMarkerColor.ImageUpperLeft,
+                colors[0]);
+            changed |= AuthoringMarkerColor.StoreIfChanged(
+                AuthoringMarkerColor.ImageLowerRightKey,
+                AuthoringMarkerColor.ImageLowerRight,
+                colors[1]);
+            if (!changed)
+            {
+                return;
+            }
+
+            SceneView.RepaintAll();
+            SyncImageCornerMarkers();
         }
 
         void RemoveImageCornerMarkers()

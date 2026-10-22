@@ -275,16 +275,19 @@ namespace BattleRoyale.Tests.EditMode
 
         private static int CountInstances(MapDefinition definition)
         {
-            var maps = Object.FindObjectsByType<MapInstance>(
-                FindObjectsInactive.Include,
-                FindObjectsSortMode.None);
+            var maps = Resources.FindObjectsOfTypeAll<MapInstance>();
             var count = 0;
             for (var i = 0; i < maps.Length; i++)
             {
-                if (maps[i] != null && maps[i].definition == definition)
+                var map = maps[i];
+                if (map == null ||
+                    map.definition != definition ||
+                    EditorUtility.IsPersistent(map))
                 {
-                    count++;
+                    continue;
                 }
+
+                count++;
             }
 
             return count;

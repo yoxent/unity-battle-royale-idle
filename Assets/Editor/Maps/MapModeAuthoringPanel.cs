@@ -55,12 +55,15 @@ namespace BattleRoyale.Maps.EditorTools
             if (mapDefinition == null)
             {
                 StopSceneGui();
+                TacticalAnchorAuthoring.StopSceneGui();
                 return;
             }
 
             mapDefinition.supportedGameModes ??= new List<MapGameMode>();
             mapDefinition.modeConfigurations ??= new List<MapModeConfiguration>();
             editPointsInSceneView = mapDefinition.editPointsInSceneView;
+            TacticalAnchorAuthoring.Draw(mapDefinition);
+            ApplyModeMarkerColors();
 
             if (AuthoringSectionHeader.Draw("Game Modes"))
             {
@@ -147,6 +150,7 @@ namespace BattleRoyale.Maps.EditorTools
         public void Dispose()
         {
             StopSceneGui();
+            TacticalAnchorAuthoring.StopSceneGui();
         }
 
         public bool ValidateForGeneration(
@@ -218,6 +222,8 @@ namespace BattleRoyale.Maps.EditorTools
             {
                 return;
             }
+
+            TacticalAnchorAuthoring.Sync(mapRoot, mapDefinition);
 
             var existingMarkerRoot = mapRoot.Find(MarkerRootName);
             if (existingMarkerRoot != null)
@@ -421,11 +427,15 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             battleRoyale.spawnPoints ??= new List<MapModePoint>();
-            if (!AuthoringSectionHeader.Draw("Starting Spawn Points"))
+            var spawnColor = AuthoringMarkerColor.For(MapModePointType.BattleRoyaleSpawn);
+            if (!AuthoringSectionHeader.Draw("Starting Spawn Points", ref spawnColor))
             {
+                CommitPointColor(MapModePointType.BattleRoyaleSpawn, spawnColor);
                 StopSceneGui();
                 return;
             }
+
+            CommitPointColor(MapModePointType.BattleRoyaleSpawn, spawnColor);
 
 
             for (var i = 0; i < battleRoyale.spawnPoints.Count; i++)
@@ -507,11 +517,25 @@ namespace BattleRoyale.Maps.EditorTools
 
             captureTheFlag.teams ??= new List<MapModeTeamPoints>();
             EnsureCaptureTheFlagTeams(captureTheFlag);
-            if (!AuthoringSectionHeader.Draw("Team Points"))
+            var spawnColor = AuthoringMarkerColor.For(MapModePointType.TeamSpawn);
+            var baseColor = AuthoringMarkerColor.For(MapModePointType.TeamBase);
+            var flagColor = AuthoringMarkerColor.For(MapModePointType.TeamFlag);
+            var pointColors = new[] { spawnColor, baseColor, flagColor };
+            if (!AuthoringSectionHeader.Draw(
+                    "Team Points",
+                    pointColors,
+                    new[] { "Spawn", "Base", "Flag" }))
             {
+                CommitPointColor(MapModePointType.TeamSpawn, pointColors[0]);
+                CommitPointColor(MapModePointType.TeamBase, pointColors[1]);
+                CommitPointColor(MapModePointType.TeamFlag, pointColors[2]);
                 StopSceneGui();
                 return;
             }
+
+            CommitPointColor(MapModePointType.TeamSpawn, pointColors[0]);
+            CommitPointColor(MapModePointType.TeamBase, pointColors[1]);
+            CommitPointColor(MapModePointType.TeamFlag, pointColors[2]);
 
 
             for (var i = 0; i < captureTheFlag.teams.Count; i++)
@@ -587,11 +611,15 @@ namespace BattleRoyale.Maps.EditorTools
 
             deathmatch.teams ??= new List<MapTeamSpawn>();
             DeathmatchRules.EnsureTeamSpawns(deathmatch);
-            if (!AuthoringSectionHeader.Draw("Team Spawns"))
+            var spawnColor = AuthoringMarkerColor.For(MapModePointType.DeathmatchSpawn);
+            if (!AuthoringSectionHeader.Draw("Team Spawns", ref spawnColor))
             {
+                CommitPointColor(MapModePointType.DeathmatchSpawn, spawnColor);
                 StopSceneGui();
                 return;
             }
+
+            CommitPointColor(MapModePointType.DeathmatchSpawn, spawnColor);
 
 
             for (var i = 0; i < deathmatch.teams.Count; i++)
@@ -711,11 +739,15 @@ namespace BattleRoyale.Maps.EditorTools
 
             elimination.teams ??= new List<MapTeamSpawn>();
             EliminationRules.EnsureTeamSpawns(elimination);
-            if (!AuthoringSectionHeader.Draw("Team Spawns"))
+            var spawnColor = AuthoringMarkerColor.For(MapModePointType.EliminationSpawn);
+            if (!AuthoringSectionHeader.Draw("Team Spawns", ref spawnColor))
             {
+                CommitPointColor(MapModePointType.EliminationSpawn, spawnColor);
                 StopSceneGui();
                 return;
             }
+
+            CommitPointColor(MapModePointType.EliminationSpawn, spawnColor);
 
 
             for (var i = 0; i < elimination.teams.Count; i++)
@@ -1297,7 +1329,7 @@ namespace BattleRoyale.Maps.EditorTools
                     i,
                     -1,
                     $"BR Spawn {i + 1}",
-                    Color.cyan,
+                    AuthoringMarkerColor.For(MapModePointType.BattleRoyaleSpawn),
                     ref point.position);
             }
         }
@@ -1329,7 +1361,7 @@ namespace BattleRoyale.Maps.EditorTools
                     i,
                     i,
                     $"{team.teamId} Spawn",
-                    Color.green,
+                    AuthoringMarkerColor.For(MapModePointType.TeamSpawn),
                     ref team.spawnPosition);
                 DrawPositionHandle(
                     mapRoot,
@@ -1338,7 +1370,7 @@ namespace BattleRoyale.Maps.EditorTools
                     i,
                     i,
                     $"{team.teamId} Base",
-                    Color.yellow,
+                    AuthoringMarkerColor.For(MapModePointType.TeamBase),
                     ref team.basePosition);
                 DrawPositionHandle(
                     mapRoot,
@@ -1347,7 +1379,7 @@ namespace BattleRoyale.Maps.EditorTools
                     i,
                     i,
                     $"{team.teamId} Flag",
-                    Color.red,
+                    AuthoringMarkerColor.For(MapModePointType.TeamFlag),
                     ref team.flagPosition);
             }
         }
@@ -1379,7 +1411,7 @@ namespace BattleRoyale.Maps.EditorTools
                     i,
                     i,
                     $"{team.teamId} Spawn",
-                    new Color(0.65f, 0.35f, 1f),
+                    AuthoringMarkerColor.For(MapModePointType.DeathmatchSpawn),
                     ref team.spawnPosition);
             }
         }
@@ -1411,7 +1443,7 @@ namespace BattleRoyale.Maps.EditorTools
                     i,
                     i,
                     $"{team.teamId} Spawn",
-                    new Color(1f, 0.72f, 0.15f),
+                    AuthoringMarkerColor.For(MapModePointType.EliminationSpawn),
                     ref team.spawnPosition);
             }
         }
@@ -1434,7 +1466,7 @@ namespace BattleRoyale.Maps.EditorTools
                 Quaternion.identity,
                 HandleUtility.GetHandleSize(worldPosition) * 0.2f,
                 EventType.Repaint);
-            Handles.Label(worldPosition + Vector3.up * 2f, label);
+            AuthoringMarkerColor.DrawLabel(worldPosition + Vector3.up * 2f, label, color);
 
             EditorGUI.BeginChangeCheck();
             var newWorldPosition = Handles.PositionHandle(
@@ -1645,7 +1677,7 @@ namespace BattleRoyale.Maps.EditorTools
             AddMarkerDisc(
                 markerObject.transform,
                 scatterRadius,
-                MapModePointMarker.GetColor(pointType));
+                AuthoringMarkerColor.For(pointType));
         }
 
         private void SaveScenePointsToConfiguration()
@@ -2036,7 +2068,7 @@ namespace BattleRoyale.Maps.EditorTools
                 AddMarkerDisc(
                     marker.transform,
                     radius,
-                    MapModePointMarker.GetColor(marker.pointType));
+                    AuthoringMarkerColor.For(marker.pointType));
                 Undo.RegisterCreatedObjectUndo(
                     marker.transform.Find(MarkerDiscName).gameObject,
                     "Show Spawn Marker");
@@ -2112,6 +2144,56 @@ namespace BattleRoyale.Maps.EditorTools
         }
 
         private static Mesh discMesh;
+
+        private static void CommitPointColor(MapModePointType type, Color picked)
+        {
+            if (!AuthoringMarkerColor.StoreIfChanged(
+                    AuthoringMarkerColor.Key(type),
+                    AuthoringMarkerColor.For(type),
+                    picked))
+            {
+                return;
+            }
+
+            SceneView.RepaintAll();
+            ApplyModeMarkerColors();
+        }
+
+        private static void ApplyModeMarkerColors()
+        {
+            var markers = Resources.FindObjectsOfTypeAll<MapModePointMarker>();
+            for (var index = 0; index < markers.Length; index++)
+            {
+                var marker = markers[index];
+                if (!marker.gameObject.scene.IsValid() ||
+                    !marker.gameObject.scene.isLoaded)
+                {
+                    continue;
+                }
+
+                var color = AuthoringMarkerColor.For(marker.pointType);
+                if (!Approximately(marker.color, color))
+                {
+                    marker.color = color;
+                }
+
+                var disc = marker.transform.Find(MarkerDiscName);
+                if (disc == null)
+                {
+                    continue;
+                }
+
+                AuthoringMarkerColor.Apply(disc.GetComponent<MeshRenderer>(), color);
+            }
+        }
+
+        private static bool Approximately(Color a, Color b)
+        {
+            return Mathf.Abs(a.r - b.r) < 0.001f &&
+                   Mathf.Abs(a.g - b.g) < 0.001f &&
+                   Mathf.Abs(a.b - b.b) < 0.001f &&
+                   Mathf.Abs(a.a - b.a) < 0.001f;
+        }
 
         private static void AddMarkerDisc(
             Transform marker,

@@ -348,7 +348,7 @@ namespace BattleRoyale.Maps.EditorTools
             DrawTreeCornerHandle(
                 "Trees Upper Left",
                 TreeUpperLeftMarkerName,
-                new Color(0.4f, 0.9f, 0.35f),
+                AuthoringMarkerColor.TreeUpperLeft,
                 ref draggingTreeUpperLeft,
                 ref draggedTreeUpperLeft,
                 treeUpperLeft,
@@ -356,7 +356,7 @@ namespace BattleRoyale.Maps.EditorTools
             DrawTreeCornerHandle(
                 "Trees Lower Right",
                 TreeLowerRightMarkerName,
-                new Color(0.95f, 0.45f, 0.2f),
+                AuthoringMarkerColor.TreeLowerRight,
                 ref draggingTreeLowerRight,
                 ref draggedTreeLowerRight,
                 treeLowerRight,
@@ -382,7 +382,7 @@ namespace BattleRoyale.Maps.EditorTools
                 Quaternion.identity,
                 HandleUtility.GetHandleSize(position) * 0.15f,
                 EventType.Repaint);
-            Handles.Label(position + Vector3.up * 1.5f, label);
+            AuthoringMarkerColor.DrawLabel(position + Vector3.up * 1.5f, label, color);
 
             EditorGUI.BeginChangeCheck();
             var moved = Handles.PositionHandle(position, Quaternion.identity);
@@ -445,6 +445,25 @@ namespace BattleRoyale.Maps.EditorTools
             Repaint();
         }
 
+        void CommitTreeCornerColors(Color[] colors)
+        {
+            var changed = AuthoringMarkerColor.StoreIfChanged(
+                AuthoringMarkerColor.TreeUpperLeftKey,
+                AuthoringMarkerColor.TreeUpperLeft,
+                colors[0]);
+            changed |= AuthoringMarkerColor.StoreIfChanged(
+                AuthoringMarkerColor.TreeLowerRightKey,
+                AuthoringMarkerColor.TreeLowerRight,
+                colors[1]);
+            if (!changed)
+            {
+                return;
+            }
+
+            SceneView.RepaintAll();
+            SyncTreeCornerMarkers();
+        }
+
         void SyncTreeCornerMarkers()
         {
             if (!generateTreeColliders ||
@@ -463,12 +482,12 @@ namespace BattleRoyale.Maps.EditorTools
                 root,
                 TreeUpperLeftMarkerName,
                 TreeSourceToWorld(treeUpperLeft),
-                new Color(0.4f, 0.9f, 0.35f));
+                AuthoringMarkerColor.TreeUpperLeft);
             changed |= PlaceImageCornerMarker(
                 root,
                 TreeLowerRightMarkerName,
                 TreeSourceToWorld(treeLowerRight),
-                new Color(0.95f, 0.45f, 0.2f));
+                AuthoringMarkerColor.TreeLowerRight);
             if (!changed)
             {
                 return;

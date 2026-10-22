@@ -317,7 +317,22 @@ namespace BattleRoyale.Maps.EditorTools
 
         private void DrawSettingsSection()
         {
-            if (!AuthoringSectionHeader.Draw("Map Settings"))
+            var treesOpen = generateTreeColliders;
+            var upperLeft = AuthoringMarkerColor.TreeUpperLeft;
+            var lowerRight = AuthoringMarkerColor.TreeLowerRight;
+            var treeColors = new[] { upperLeft, lowerRight };
+            var open = treesOpen
+                ? AuthoringSectionHeader.Draw(
+                    "Map Settings",
+                    treeColors,
+                    new[] { "Trees Upper Left", "Trees Lower Right" })
+                : AuthoringSectionHeader.Draw("Map Settings");
+            if (treesOpen)
+            {
+                CommitTreeCornerColors(treeColors);
+            }
+
+            if (!open)
             {
                 StopTreeSceneGui();
                 return;

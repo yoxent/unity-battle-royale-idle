@@ -22,7 +22,9 @@ namespace BattleRoyale.Editor.GameModes
 
         public static void Wire()
         {
-            if (EditorApplication.isPlayingOrWillChangePlaymode || AlreadyWired())
+            if (EditorApplication.isPlayingOrWillChangePlaymode ||
+                ShowsCapsule() ||
+                AlreadyWired())
             {
                 return;
             }
@@ -95,6 +97,31 @@ namespace BattleRoyale.Editor.GameModes
             {
                 PrefabUtility.UnloadPrefabContents(root);
             }
+        }
+
+        static bool ShowsCapsule()
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AgentPath);
+            if (prefab == null)
+            {
+                return false;
+            }
+
+            var capsule = prefab.transform.Find("BodyCapsule");
+            if (capsule == null || !capsule.gameObject.activeSelf)
+            {
+                return false;
+            }
+
+            var soldier = prefab.transform.Find(BodyName);
+            if (soldier != null && soldier.gameObject.activeSelf)
+            {
+                return false;
+            }
+
+            var gun = prefab.transform.Find("GunCube");
+            var gunRenderer = gun == null ? null : gun.GetComponent<MeshRenderer>();
+            return gunRenderer == null || !gunRenderer.enabled;
         }
 
         static bool AlreadyWired()

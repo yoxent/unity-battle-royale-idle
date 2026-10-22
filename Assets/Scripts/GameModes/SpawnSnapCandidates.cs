@@ -19,7 +19,7 @@ namespace BattleRoyale.GameModes
             }
 
             candidates.Clear();
-            if ((anchor - preferred).sqrMagnitude > 0.01f)
+            if (!SamePoint(anchor, preferred))
             {
                 candidates.Add(anchor);
             }
@@ -32,12 +32,23 @@ namespace BattleRoyale.GameModes
                 for (var direction = 0; direction < Directions; direction++)
                 {
                     var angle = turn * direction;
-                    candidates.Add(anchor + new Vector3(
+                    var point = anchor + new Vector3(
                         Mathf.Cos(angle) * radius,
                         0f,
-                        Mathf.Sin(angle) * radius));
+                        Mathf.Sin(angle) * radius);
+                    if (SamePoint(point, preferred))
+                    {
+                        continue;
+                    }
+
+                    candidates.Add(point);
                 }
             }
+        }
+
+        static bool SamePoint(Vector3 a, Vector3 b)
+        {
+            return (a - b).sqrMagnitude <= 0.01f;
         }
     }
 }

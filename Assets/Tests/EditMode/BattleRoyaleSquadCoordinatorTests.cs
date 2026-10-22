@@ -141,6 +141,42 @@ namespace BattleRoyale.Tests.EditMode
                 coordinator.TryClaimTarget(secondAgent, target, 1.5f));
         }
 
+        [Test]
+        public void PlaceClaimKeepsTwoSlotsPerTeamAndExpires()
+        {
+            var now = 0f;
+            var coordinator = new BattleRoyaleSquadCoordinator(() => now);
+            var first = CreateAgent(1);
+            var second = CreateAgent(1);
+            var third = CreateAgent(1);
+            var otherTeam = CreateAgent(2);
+
+            Assert.IsTrue(coordinator.TryClaimPlace(first, "Hot", 1.5f, 2));
+            Assert.IsTrue(coordinator.TryClaimPlace(second, "Hot", 1.5f, 2));
+            Assert.AreEqual(2, coordinator.CountPlaceClaims(1, "Hot", null));
+            Assert.AreEqual(1, coordinator.CountPlaceClaims(1, "Hot", second));
+            Assert.IsFalse(coordinator.TryClaimPlace(third, "Hot", 1.5f, 2));
+            Assert.IsTrue(coordinator.TryClaimPlace(otherTeam, "Hot", 1.5f, 2));
+            Assert.IsTrue(coordinator.TryClaimPlace(first, "Hot", 1.5f, 2));
+
+            now = 1.5f;
+
+            Assert.AreEqual(0, coordinator.CountPlaceClaims(1, "Hot", null));
+            Assert.IsTrue(coordinator.TryClaimPlace(third, "Hot", 1.5f, 2));
+        }
+
+        [Test]
+        public void PlaceClaimReleasesTheAgentsPreviousAnchor()
+        {
+            var coordinator = new BattleRoyaleSquadCoordinator(() => 0f);
+            var agent = CreateAgent(1);
+
+            Assert.IsTrue(coordinator.TryClaimPlace(agent, "Hot", 1.5f, 2));
+            Assert.IsTrue(coordinator.TryClaimPlace(agent, "Side", 1.5f, 1));
+            Assert.AreEqual(0, coordinator.CountPlaceClaims(1, "Hot", null));
+            Assert.AreEqual(1, coordinator.CountPlaceClaims(1, "Side", null));
+        }
+
         private BattleRoyaleAgent CreateAgent(int teamIndex)
         {
             var gameObject = new GameObject($"Squad Test Agent {createdObjects.Count}");

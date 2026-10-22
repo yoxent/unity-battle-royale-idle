@@ -324,9 +324,7 @@ namespace BattleRoyale.GameModes.BattleRoyale
             }
 
             agent.SetState(BattleRoyaleAgentState.Exploring);
-            currentDestination = navigation == null
-                ? transform.position
-                : navigation.GetWanderPoint();
+            currentDestination = ResolveExploreDestination();
             wanderTimeRemaining = agent.Profile == null ||
                                   agent.Profile.ai == null
                 ? 3f
@@ -684,6 +682,30 @@ namespace BattleRoyale.GameModes.BattleRoyale
                 : Mathf.Max(
                     0f,
                     agent.Profile.ai.targetMemoryDuration);
+        }
+
+        private Vector3 ResolveExploreDestination()
+        {
+            if (match is SimulationMatch simulation &&
+                simulation.TryGetExploreDestination(
+                    agent,
+                    GetExploreClaimDuration(),
+                    out var destination))
+            {
+                return destination;
+            }
+
+            return navigation == null
+                ? transform.position
+                : navigation.GetWanderPoint();
+        }
+
+        private float GetExploreClaimDuration()
+        {
+            return agent.Profile == null ||
+                   agent.Profile.ai == null
+                ? 3f
+                : Mathf.Max(0.1f, agent.Profile.ai.wanderInterval);
         }
 
         private float GetTargetClaimDuration()

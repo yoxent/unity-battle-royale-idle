@@ -5974,78 +5974,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 353619992}
   m_CullTransparentMesh: 1
---- !u!1001 &368303045
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2988467429339862164, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 1011081091}
-    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7821814225631517951, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
-      propertyPath: m_Name
-      value: Map
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
---- !u!114 &368303046 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5084453592734915920, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
-  m_PrefabInstance: {fileID: 368303045}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68643f08154c6bd40b0f2798f649ff39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.MapInstance
 --- !u!1 &379323948
 GameObject:
   m_ObjectHideFlags: 0
@@ -8123,7 +8051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4c9f0710cd0f12498af2c8698fe2e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleRoyale.CameraSystems.SimulationCameraController
-  activeMap: {fileID: 368303046}
+  activeMap: {fileID: 1230507419}
   mapPaddingPercent: 5
   minimumOrthographicSize: 6
   maximumOrthographicSize: 2000
@@ -12741,7 +12669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82cf3b744400a484d8fd1ad3473119f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.GameModes.BattleRoyale.BattleRoyaleGameMode
-  activeMap: {fileID: 368303046}
+  activeMap: {fileID: 1230507419}
   modeConfiguration: {fileID: 0}
   teamPlaystyle: 1
   coachDirective:
@@ -15041,184 +14969,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45eebd797a291ae41989a8c6e2404692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Company.TutorialPanelView
---- !u!43 &1011081091
-Mesh:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: sunken_temple_of_mande_Map_Visual
-  serializedVersion: 12
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 6
-    topology: 0
-    baseVertex: 0
-    firstVertex: 0
-    vertexCount: 4
-    localAABB:
-      m_Center: {x: 9.893303, y: 0, z: 30.328129}
-      m_Extent: {x: 150.14029, y: 0, z: 129.87236}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_BonesAABB: []
-  m_VariableBoneCountWeights:
-    m_Data: 
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexFormat: 0
-  m_IndexBuffer: 000001000200000002000300
-  m_VertexData:
-    serializedVersion: 3
-    m_VertexCount: 4
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 24
-      format: 0
-      dimension: 2
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 128
-    _typelessdata: 3a3f0cc300000000a516c7c2000000000000803f0000000000000000000000003a3f0cc30000000053332043000000000000803f00000000000000000000803f990820430000000053332043000000000000803f000000000000803f0000803f9908204300000000a516c7c2000000000000803f000000000000803f00000000
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: 9.893303, y: 0, z: 30.328129}
-    m_Extent: {x: 150.14029, y: 0, z: 129.87236}
-  m_MeshUsageFlags: 0
-  m_CookingOptions: 30
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  'm_MeshMetrics[0]': 1
-  'm_MeshMetrics[1]': 1
-  m_MeshOptimizationFlags: 1
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
-  m_MeshLodInfo:
-    serializedVersion: 2
-    m_LodSelectionCurve:
-      serializedVersion: 1
-      m_LodSlope: 0
-      m_LodBias: 0
-    m_NumLevels: 1
-    m_SubMeshes:
-    - serializedVersion: 2
-      m_Levels:
-      - serializedVersion: 1
-        m_IndexStart: 0
-        m_IndexCount: 0
 --- !u!1 &1012930972
 GameObject:
   m_ObjectHideFlags: 0
@@ -16589,6 +16339,74 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5497494033242011991, guid: 06293da5ef22cbc408a1aa33b8a6c70f, type: 3}
   m_PrefabInstance: {fileID: 1852842091716535496}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1230507418
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6159246247860248723, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7821814225631517951, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
+      propertyPath: m_Name
+      value: Map
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
+--- !u!114 &1230507419 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5084453592734915920, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
+  m_PrefabInstance: {fileID: 1230507418}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68643f08154c6bd40b0f2798f649ff39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: BattleRoyale::BattleRoyale.Maps.MapInstance
 --- !u!1 &1247820726
 GameObject:
   m_ObjectHideFlags: 0
@@ -18385,7 +18203,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -50, y: 0, z: 30}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1761042876}
@@ -20004,7 +19822,7 @@ MonoBehaviour:
   stage: {fileID: 1942640136}
   slotIndex: 0
   activeMapPrefab: {fileID: 7821814225631517951, guid: 3f0497314ff577440b5bef05775452bc, type: 3}
-  activeMap: {fileID: 368303046}
+  activeMap: {fileID: 1230507419}
 --- !u!4 &1485297972
 Transform:
   m_ObjectHideFlags: 0
@@ -22194,7 +22012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c9e7b4a1d8f46e0b3a5c7d9e1f60482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.GameModes.Deathmatch.DeathmatchGameMode
-  activeMap: {fileID: 368303046}
+  activeMap: {fileID: 1230507419}
   modeConfiguration: {fileID: 11400000, guid: 5b64ee167ca39cf48b25352441b6a86e, type: 2}
   teamPlaystyle: 1
   coachDirective:
@@ -29442,7 +29260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82cf3b744400a484d8fd1ad3473119f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: BattleRoyale::BattleRoyale.GameModes.BattleRoyale.BattleRoyaleGameMode
-  activeMap: {fileID: 368303046}
+  activeMap: {fileID: 1230507419}
   modeConfiguration: {fileID: 0}
   teamPlaystyle: 1
   coachDirective:
@@ -31584,4 +31402,4 @@ SceneRoots:
   - {fileID: 1942640137}
   - {fileID: 8453764088120247016}
   - {fileID: 663188373}
-  - {fileID: 368303045}
+  - {fileID: 1230507418}

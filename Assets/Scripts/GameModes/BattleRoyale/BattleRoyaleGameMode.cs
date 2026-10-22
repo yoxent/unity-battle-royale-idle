@@ -423,6 +423,15 @@ namespace BattleRoyale.GameModes.BattleRoyale
             return SnapToNavigation(point);
         }
 
+        protected override bool TryGetExploreZone(
+            out Vector3 center,
+            out float radius)
+        {
+            center = safeZoneCenter;
+            radius = safeZoneRadius;
+            return safeZoneRadius > 0f;
+        }
+
         public override Vector3 GetWanderPoint()
         {
             return GetRandomPointWithinSafeZone();

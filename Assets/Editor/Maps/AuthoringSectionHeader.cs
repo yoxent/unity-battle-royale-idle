@@ -47,6 +47,74 @@ namespace BattleRoyale.Maps.EditorTools
 
         public static bool Draw(string title)
         {
+            var open = PrepareSection(title);
+            open = EditorGUILayout.BeginFoldoutHeaderGroup(open, title);
+            return CompleteSection(title, open);
+        }
+
+        public static bool Draw(string title, ref Color swatch)
+        {
+            var open = PrepareSection(title);
+            var rect = GUILayoutUtility.GetRect(
+                0f,
+                EditorGUIUtility.singleLineHeight,
+                GUILayout.ExpandWidth(true));
+            const float swatchWidth = 46f;
+            var foldRect = new Rect(rect.x, rect.y, rect.width - swatchWidth - 6f, rect.height);
+            var swatchRect = new Rect(rect.xMax - swatchWidth, rect.y, swatchWidth, rect.height);
+            open = EditorGUI.BeginFoldoutHeaderGroup(foldRect, open, title);
+            swatch = EditorGUI.ColorField(
+                swatchRect,
+                GUIContent.none,
+                swatch,
+                false,
+                false,
+                false);
+            return CompleteSection(title, open);
+        }
+
+        public static bool Draw(string title, Color[] swatches, string[] tooltips)
+        {
+            if (swatches == null || swatches.Length == 0)
+            {
+                return Draw(title);
+            }
+
+            var open = PrepareSection(title);
+            var rect = GUILayoutUtility.GetRect(
+                0f,
+                EditorGUIUtility.singleLineHeight,
+                GUILayout.ExpandWidth(true));
+            const float swatchWidth = 46f;
+            const float gap = 4f;
+            var count = swatches.Length;
+            var reserved = count * swatchWidth + (count - 1) * gap + 6f;
+            var foldRect = new Rect(rect.x, rect.y, Mathf.Max(0f, rect.width - reserved), rect.height);
+            open = EditorGUI.BeginFoldoutHeaderGroup(foldRect, open, title);
+            for (var index = 0; index < count; index++)
+            {
+                var swatchRect = new Rect(
+                    rect.xMax - reserved + 6f + index * (swatchWidth + gap),
+                    rect.y,
+                    swatchWidth,
+                    rect.height);
+                var tip = tooltips != null && index < tooltips.Length
+                    ? tooltips[index]
+                    : string.Empty;
+                swatches[index] = EditorGUI.ColorField(
+                    swatchRect,
+                    new GUIContent(string.Empty, tip),
+                    swatches[index],
+                    false,
+                    false,
+                    false);
+            }
+
+            return CompleteSection(title, open);
+        }
+
+        static bool PrepareSection(string title)
+        {
             EndGroup();
             if (hasSection)
             {
@@ -57,10 +125,12 @@ namespace BattleRoyale.Maps.EditorTools
             }
 
             hasSection = true;
-            var key = SectionKey(title);
-            var open = SectionIsOpen(key);
-            open = EditorGUILayout.BeginFoldoutHeaderGroup(open, title);
-            SessionState.SetBool(key, open);
+            return SectionIsOpen(SectionKey(title));
+        }
+
+        static bool CompleteSection(string title, bool open)
+        {
+            SessionState.SetBool(SectionKey(title), open);
             groupOpen = true;
             if (open)
             {

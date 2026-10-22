@@ -63,6 +63,7 @@ namespace BattleRoyale.GameModes
         private readonly List<Vector3> spawnCandidates = new();
         private BattleRoyaleProjectilePool projectilePool;
         private BattleRoyaleAgentProfile runtimeDefaultProfile;
+        private readonly List<ExploreAnchorRules.Anchor> exploreAnchorBuffer = new();
         private BattleRoyaleSquadCoordinator squadCoordinator;
         private bool mapBound;
         private bool startCalled;
@@ -252,6 +253,124 @@ namespace BattleRoyale.GameModes
         {
             EnsureSquadCoordinator();
             squadCoordinator.ReleaseTargetClaim(claimer, target);
+        }
+
+        public int CountPlaceClaims(
+            int teamIndex,
+            string anchorId,
+            BattleRoyaleAgent except)
+        {
+            EnsureSquadCoordinator();
+            return squadCoordinator.CountPlaceClaims(teamIndex, anchorId, except);
+        }
+
+        public bool TryClaimPlace(
+            BattleRoyaleAgent claimer,
+            string anchorId,
+            float duration,
+            int slots)
+        {
+            EnsureSquadCoordinator();
+            return squadCoordinator.TryClaimPlace(
+                claimer,
+                anchorId,
+                duration,
+                slots);
+        }
+
+        public bool TryGetExploreDestination(
+            BattleRoyaleAgent agent,
+            float claimDuration,
+            out Vector3 destination)
+        {
+            destination = agent == null
+                ? Vector3.zero
+                : agent.transform.position;
+            if (agent == null ||
+                activeMap == null ||
+                activeMap.definition == null ||
+                activeMap.definition.tacticalAnchors == null)
+            {
+                return false;
+            }
+
+            exploreAnchorBuffer.Clear();
+            var authored = activeMap.definition.tacticalAnchors;
+            for (var index = 0; index < authored.Count; index++)
+            {
+                var anchor = authored[index];
+                if (anchor == null)
+                {
+                    continue;
+                }
+
+                exploreAnchorBuffer.Add(
+                    new ExploreAnchorRules.Anchor(
+                        anchor.id,
+                        activeMap.WorldPoint(anchor.position),
+                        anchor.weight));
+            }
+
+            var restrictToZone = TryGetExploreZone(out var zoneCenter, out var zoneRadius);
+            if (!ExploreAnchorRules.TrySelect(
+                    exploreAnchorBuffer,
+                    restrictToZone,
+                    zoneCenter,
+                    zoneRadius,
+                    out var hot))
+            {
+                return false;
+            }
+
+            EnsureSquadCoordinator();
+            var hotClaims = squadCoordinator.CountPlaceClaims(
+                agent.TeamIndex,
+                hot.Id,
+                agent);
+            if (!ExploreAnchorRules.TryChoose(
+                    exploreAnchorBuffer,
+                    agent.transform.position,
+                    agent.SquadRole == BattleRoyaleSquadRole.Scout,
+                    hotClaims,
+                    restrictToZone,
+                    zoneCenter,
+                    zoneRadius,
+                    out var chosen,
+                    out var slots))
+            {
+                return false;
+            }
+
+            if (!squadCoordinator.TryClaimPlace(
+                    agent,
+                    chosen.Id,
+                    claimDuration,
+                    slots) &&
+                !TryClaimExploreFallback(
+                    agent,
+                    claimDuration,
+                    hot,
+                    chosen,
+                    hotClaims,
+                    restrictToZone,
+                    zoneCenter,
+                    zoneRadius,
+                    out chosen))
+            {
+                return false;
+            }
+
+            destination = SnapToNavigation(chosen.Position);
+            return true;
+        }
+
+        protected virtual bool TryGetExploreZone(
+            out Vector3 center,
+            out float radius)
+        {
+            center = Vector3.zero;
+            radius = 0f;
+            return false;
         }
 
         public void AdoptActiveMap(MapInstance map)
@@ -757,6 +876,45 @@ namespace BattleRoyale.GameModes
             }
 
             agentTransform.localScale = DungeonMapGeometry.UnitLocalScale(definition.unitScale);
+        }
+
+        private bool TryClaimExploreFallback(
+            BattleRoyaleAgent agent,
+            float claimDuration,
+            ExploreAnchorRules.Anchor hot,
+            ExploreAnchorRules.Anchor chosen,
+            int hotClaims,
+            bool restrictToZone,
+            Vector3 zoneCenter,
+            float zoneRadius,
+            out ExploreAnchorRules.Anchor fallback)
+        {
+            fallback = chosen;
+            if (chosen.Id != hot.Id ||
+                !ExploreAnchorRules.TrySelectFlank(
+                    exploreAnchorBuffer,
+                    agent.transform.position,
+                    hot.Id,
+                    hot.Position,
+                    restrictToZone,
+                    zoneCenter,
+                    zoneRadius,
+                    out var flank) ||
+                !squadCoordinator.TryClaimPlace(agent, flank.Id, claimDuration, 1))
+            {
+                if (chosen.Id == hot.Id ||
+                    hotClaims >= 2 ||
+                    !squadCoordinator.TryClaimPlace(agent, hot.Id, claimDuration, 2))
+                {
+                    return false;
+                }
+
+                fallback = hot;
+                return true;
+            }
+
+            fallback = flank;
+            return true;
         }
 
         private void EnsureSquadCoordinator()
