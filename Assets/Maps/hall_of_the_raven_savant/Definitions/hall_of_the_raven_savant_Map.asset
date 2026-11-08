@@ -68,6 +68,9 @@ MonoBehaviour:
   - id: Center
     position: {x: 8.085777, y: 0, z: -150.24838}
     weight: 5
+  - id: Gate
+    position: {x: 110, y: 0, z: -130}
+    weight: 2
   - id: Side
     position: {x: 109.702965, y: 0, z: -106.96304}
     weight: 2
