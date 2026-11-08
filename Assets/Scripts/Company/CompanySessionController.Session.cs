@@ -1113,9 +1113,10 @@ namespace BattleRoyale.Company
             }
 
             var count = SideSize();
-            if (lineup == null || lineup.Length != count)
+            var resized = LineupRules.Resize(lineup, count);
+            if (resized != null)
             {
-                lineup = EmptyLineup(count);
+                lineup = resized;
             }
 
             var busy = new bool[squad.Length];

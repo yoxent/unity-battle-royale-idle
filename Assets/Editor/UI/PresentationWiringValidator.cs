@@ -318,6 +318,7 @@ namespace BattleRoyale.UI.EditorTools
             var serialized = new SerializedObject(controller);
             var deploymentProperty =
                 RequireReference(serialized, "deployment", scope, report);
+            RequireReference(serialized, "countdown", scope, report);
             var offersProperty = serialized.FindProperty("matchOffers");
             if (offersProperty == null || !offersProperty.isArray)
             {
@@ -363,7 +364,45 @@ namespace BattleRoyale.UI.EditorTools
                     report);
             }
 
+            ValidateCountdown(serialized, scope, report);
             ValidateActiveMatchList(serialized, scope, report);
+        }
+
+        /// <summary>
+        /// The match-start countdown is a view the session drives. Its band must
+        /// be a separate object from the view host, because hiding the band must
+        /// not disable the component that shows it again.
+        /// </summary>
+        static void ValidateCountdown(
+            SerializedObject serialized,
+            string scope,
+            ValidationReport report)
+        {
+            var property = serialized.FindProperty("countdown");
+            if (property == null)
+            {
+                report.Error(scope, "countdown must be a serialized reference.");
+                return;
+            }
+
+            var view = property.objectReferenceValue as MatchStartCountdownView;
+            if (view == null)
+            {
+                report.Error(scope, "countdown is not assigned to a MatchStartCountdownView.");
+                return;
+            }
+
+            var viewSerialized = new SerializedObject(view);
+            var band = RequireReference(viewSerialized, "band", scope, report);
+            RequireReference(viewSerialized, "secondsLabel", scope, report);
+            RequireReference(viewSerialized, "fill", scope, report);
+
+            if (band != null && band.objectReferenceValue == view.gameObject)
+            {
+                report.Error(
+                    scope,
+                    "countdown band must not be the object that hosts the view; hiding the band would disable it.");
+            }
         }
 
         /// <summary>

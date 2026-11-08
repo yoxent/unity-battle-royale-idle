@@ -29,8 +29,8 @@ namespace BattleRoyale.Company
         [SerializeField] private TMP_Text balanceLabel;
         [SerializeField] private TMP_Text rosterLabel;
         [SerializeField] private TMP_Text stanceLabel;
-        [SerializeField] private TMP_Text opponentLabel;
-        [SerializeField] private TMP_Text windowLabel;
+        [Tooltip("The countdown shown while the entry window runs.")]
+        [SerializeField] private MatchStartCountdownView countdown;
         [SerializeField] private TMP_Text resultLabel;
         [SerializeField] private MatchResultPresenter matchResult;
         [SerializeField] private float goldCountDuration = 0.6f;
@@ -257,6 +257,8 @@ namespace BattleRoyale.Company
                 AdvanceWindow(elapsed);
             }
 
+            PresentCountdown();
+
             if (phase == TournamentEntryPhase.Running &&
                 !resultApplied &&
                 runningMatch != null &&
@@ -273,6 +275,26 @@ namespace BattleRoyale.Company
             }
 
             RefreshLivePresentation();
+        }
+
+        /// <summary>
+        /// Drains the countdown every frame of the entry window, because the bar
+        /// tracks a fraction of a second. Outside that window the band stays hidden.
+        /// </summary>
+        void PresentCountdown()
+        {
+            if (countdown == null)
+            {
+                return;
+            }
+
+            if (phase == TournamentEntryPhase.Window)
+            {
+                countdown.Show(windowRemaining, tuning.AbortWindowSeconds);
+                return;
+            }
+
+            countdown.Hide();
         }
 
         void PollWorldClock()
@@ -834,8 +856,6 @@ namespace BattleRoyale.Company
             var stanceId = (int)stance;
             var leaveButtonNeedsRefresh = leaveMatchButton != null &&
                 leaveMatchButton.activeSelf != leaveMatch;
-            var windowNeedsRefresh = windowLabel != null &&
-                windowLabel.gameObject.activeSelf != leaveMatch;
             var changed = !hasPresentedLiveState ||
                 spendable != presentedSpendable ||
                 reserved != presentedReserved ||
@@ -846,7 +866,6 @@ namespace BattleRoyale.Company
                 windowSecond != presentedWindowSecond ||
                 leaveMatch != presentedLeaveMatch ||
                 leaveButtonNeedsRefresh ||
-                windowNeedsRefresh ||
                 stanceId != presentedStanceId;
 
             if (!changed)
@@ -885,18 +904,6 @@ namespace BattleRoyale.Company
             if (stanceLabel != null)
             {
                 stanceLabel.text = presentedStance;
-            }
-
-            if (windowLabel != null)
-            {
-                var showWindow = phase == TournamentEntryPhase.Window;
-                windowLabel.text = showWindow
-                    ? $"Match starts in {windowSecond}s"
-                    : "";
-                if (windowLabel.gameObject.activeSelf != showWindow)
-                {
-                    windowLabel.gameObject.SetActive(showWindow);
-                }
             }
 
             if (leaveMatchButton != null)
@@ -947,23 +954,6 @@ namespace BattleRoyale.Company
             if (stanceLabel != null)
             {
                 stanceLabel.text = stance.ToString();
-            }
-
-            if (opponentLabel != null && setup != null)
-            {
-                opponentLabel.text = setup.opponentName;
-            }
-
-            if (windowLabel != null)
-            {
-                var showWindow = phase == TournamentEntryPhase.Window;
-                windowLabel.text = showWindow
-                    ? $"Match starts in {Mathf.CeilToInt(windowRemaining)}s"
-                    : "";
-                if (windowLabel.gameObject.activeSelf != showWindow)
-                {
-                    windowLabel.gameObject.SetActive(showWindow);
-                }
             }
 
             if (rosterLabel != null)
@@ -1497,6 +1487,11 @@ namespace BattleRoyale.Company
                         StateOfCard(viewedCard) == MatchCardState.None)
                     {
                         viewedCard = 0;
+                        // The lineup is sized at boot from the authored catalog
+                        // offer, but the card drawn may have rolled a different
+                        // team size. Reconcile before the deployment panel reads
+                        // it, so the slot count matches the card on screen.
+                        RefreshFielding();
                     }
                 }
 

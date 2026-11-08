@@ -74,5 +74,62 @@ namespace BattleRoyale.Tests.EditMode
             Assert.AreEqual(-1, slots[1]);
             Assert.AreEqual(3, slots[2]);
         }
+
+        [Test]
+        public void ResizeTrimsTheExtraPicksWhenTheSideShrinks()
+        {
+            var slots = new[] { 4, 2, 0, 6, 1 };
+
+            var resized = LineupRules.Resize(slots, 4);
+
+            Assert.IsNotNull(resized);
+            Assert.AreEqual(4, resized.Length);
+            Assert.AreEqual(4, resized[0]);
+            Assert.AreEqual(2, resized[1]);
+            Assert.AreEqual(0, resized[2]);
+            Assert.AreEqual(6, resized[3]);
+        }
+
+        [Test]
+        public void ResizePadsTheNewSlotsEmptyWhenTheSideGrows()
+        {
+            var slots = new[] { 2, 5 };
+
+            var resized = LineupRules.Resize(slots, 4);
+
+            Assert.IsNotNull(resized);
+            Assert.AreEqual(4, resized.Length);
+            Assert.AreEqual(2, resized[0]);
+            Assert.AreEqual(5, resized[1]);
+            Assert.AreEqual(-1, resized[2]);
+            Assert.AreEqual(-1, resized[3]);
+        }
+
+        [Test]
+        public void ResizeReturnsNullWhenTheSideAlreadyMatches()
+        {
+            var slots = new[] { 1, 3, 5, 7 };
+
+            Assert.IsNull(LineupRules.Resize(slots, 4));
+        }
+
+        [Test]
+        public void ResizeBuildsAWholeLineupFromNothing()
+        {
+            var resized = LineupRules.Resize(null, 3);
+
+            Assert.IsNotNull(resized);
+            Assert.AreEqual(3, resized.Length);
+            Assert.AreEqual(-1, resized[0]);
+            Assert.AreEqual(-1, resized[1]);
+            Assert.AreEqual(-1, resized[2]);
+        }
+
+        [Test]
+        public void ResizeIgnoresASideWithNoAgents()
+        {
+            Assert.IsNull(LineupRules.Resize(new[] { 1 }, 0));
+            Assert.IsNull(LineupRules.Resize(null, -2));
+        }
     }
 }

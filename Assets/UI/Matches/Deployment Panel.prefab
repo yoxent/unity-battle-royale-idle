@@ -69,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8f5a82f3770b59c48818a36e3cdc7d69, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 473f01e046f593343b7ab6d4f9a86806, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 6
+  m_PixelsPerUnitMultiplier: 8
 --- !u!114 &910005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,10 +92,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
   m_Padding:
-    m_Left: 24
-    m_Right: 24
-    m_Top: 16
-    m_Bottom: 16
+    m_Left: 16
+    m_Right: 16
+    m_Top: 12
+    m_Bottom: 12
   m_ChildAlignment: 1
   m_Spacing: 12
   m_ChildForceExpandWidth: 1
@@ -397,8 +397,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 63f372406c8b52743b964702ce97aebd, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -406,7 +406,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 4
 --- !u!114 &913004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,8 +546,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282131728
-  m_fontColor: {r: 0.0627451, g: 0.14509805, b: 0.23529412, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -624,7 +624,7 @@ MonoBehaviour:
   theme: {fileID: 11400000, guid: 1f8eb538c13312843a22a60eae3e3181, type: 2}
   styleId: heading-5
   label: {fileID: 913009}
-  applyColor: 1
+  applyColor: 0
 --- !u!1 &2756037210130801609
 GameObject:
   m_ObjectHideFlags: 0

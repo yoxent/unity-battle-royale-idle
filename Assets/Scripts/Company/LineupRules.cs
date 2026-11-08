@@ -140,6 +140,33 @@ namespace BattleRoyale.Company
             return true;
         }
 
+        /// <summary>
+        /// Resizes a lineup to the side the offer asks for. A shorter side drops
+        /// the extra picks from the end. A longer one keeps every existing pick
+        /// and pads the new slots empty. Returns null when the caller must not
+        /// resize, which keeps the array identity stable for a matching length.
+        /// </summary>
+        public static int[] Resize(int[] current, int count)
+        {
+            if (count <= 0)
+            {
+                return null;
+            }
+
+            if (current != null && current.Length == count)
+            {
+                return null;
+            }
+
+            var next = new int[count];
+            for (var i = 0; i < count; i++)
+            {
+                next[i] = current != null && i < current.Length ? current[i] : -1;
+            }
+
+            return next;
+        }
+
         public static void RemapRelease(int[] indexes, int removed)
         {
             if (indexes == null || removed < 0)
