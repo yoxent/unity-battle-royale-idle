@@ -10,6 +10,7 @@ namespace BattleRoyale.Company
         [SerializeField] TMP_Text mapName;
         [SerializeField] TMP_Text modeLabel;
         [SerializeField] TMP_Text difficultyLabel;
+        [SerializeField] TMP_Text stateLabel;
         [SerializeField] TMP_Text totalTeamLabel;
         [SerializeField] TMP_Text totalTeamsValue;
         [SerializeField] TMP_Text teamSizeLabel;
@@ -25,6 +26,8 @@ namespace BattleRoyale.Company
 
         public RectTransform ChooseTarget =>
             chooseButton == null ? null : chooseButton.transform as RectTransform;
+
+        public RectTransform Row => transform as RectTransform;
 
         void OnEnable()
         {
@@ -61,7 +64,9 @@ namespace BattleRoyale.Company
             int prize,
             bool enterable,
             string mapTitle,
-            Sprite mapSprite)
+            Sprite mapSprite,
+            MatchCardState state = MatchCardState.None,
+            int windowSecond = 0)
         {
             if (!HasReferences())
             {
@@ -73,6 +78,7 @@ namespace BattleRoyale.Company
             SetActiveIfChanged(gameObject, true);
             SetTextIfChanged(modeLabel, mode);
             SetTextIfChanged(difficultyLabel, difficulty);
+            SetStateLabel(state, windowSecond);
             SetTextIfChanged(totalTeamsValue, teams.ToString());
             SetTextIfChanged(totalTeamLabel, Plural(teams, "team", "teams"));
             SetTextIfChanged(teamSizeValue, agents.ToString());
@@ -97,6 +103,31 @@ namespace BattleRoyale.Company
             {
                 mapPicture.enabled = mapSprite != null;
             }
+        }
+
+        /// <summary>
+        /// The state chip on an active match card. It is hidden on an open card,
+        /// so one card prefab serves both groups.
+        /// </summary>
+        void SetStateLabel(MatchCardState state, int windowSecond)
+        {
+            if (stateLabel == null)
+            {
+                return;
+            }
+
+            var text = ActiveMatchListRules.Label(state, windowSecond);
+            SetTextIfChanged(stateLabel, text);
+            SetActiveIfChanged(stateLabel.gameObject, text.Length > 0);
+        }
+
+        /// <summary>
+        /// Repaints only the state chip. The countdown changes this often, so it
+        /// skips the rest of the card's values.
+        /// </summary>
+        public void ShowState(MatchCardState state, int windowSecond)
+        {
+            SetStateLabel(state, windowSecond);
         }
 
         public void Hide()

@@ -362,6 +362,88 @@ namespace BattleRoyale.UI.EditorTools
                     $"{scope} deployment",
                     report);
             }
+
+            ValidateActiveMatchList(serialized, scope, report);
+        }
+
+        /// <summary>
+        /// The active match list reuses the Mode Select cards, so the new
+        /// contracts are the two group headers and the optional state chip on
+        /// each card.
+        /// </summary>
+        static void ValidateActiveMatchList(
+            SerializedObject serialized,
+            string scope,
+            ValidationReport report)
+        {
+            var activeProperty =
+                RequireReference(serialized, "activeMatchDivider", scope, report);
+            var openProperty =
+                RequireReference(serialized, "openMatchDivider", scope, report);
+            var activeHeader =
+                activeProperty == null
+                    ? null
+                    : activeProperty.objectReferenceValue as GameObject;
+            var openHeader =
+                openProperty == null
+                    ? null
+                    : openProperty.objectReferenceValue as GameObject;
+            if (activeHeader != null && activeHeader.activeSelf)
+            {
+                report.Error(
+                    scope,
+                    "The active match header must start hidden; it shows only while a card is active.");
+            }
+
+            if (openHeader != null && !openHeader.activeSelf)
+            {
+                report.Error(
+                    scope,
+                    "The open match header must start visible; it shows while any offer card is shown.");
+            }
+
+            var offersProperty = serialized.FindProperty("matchOffers");
+            if (offersProperty == null || !offersProperty.isArray)
+            {
+                return;
+            }
+
+            if (activeHeader != null && offersProperty.arraySize > 0)
+            {
+                var firstOffer =
+                    offersProperty.GetArrayElementAtIndex(0).objectReferenceValue as Component;
+                if (firstOffer != null &&
+                    firstOffer.transform.parent != activeHeader.transform.parent)
+                {
+                    report.Error(
+                        scope,
+                        "The match group headers and the offer cards must share one list.");
+                }
+
+                if (openHeader != null &&
+                    openHeader.transform.parent != activeHeader.transform.parent)
+                {
+                    report.Error(
+                        scope,
+                        "Both match group headers must share the offer card list.");
+                }
+            }
+
+            for (var i = 0; i < offersProperty.arraySize; i++)
+            {
+                var offer =
+                    offersProperty.GetArrayElementAtIndex(i).objectReferenceValue as MatchOfferView;
+                if (offer == null || offer.Row == null)
+                {
+                    continue;
+                }
+
+                var stateProperty = new SerializedObject(offer).FindProperty("stateLabel");
+                if (stateProperty == null)
+                {
+                    report.Error(scope, $"matchOffers[{i}] has no stateLabel field.");
+                }
+            }
         }
 
         static void ValidateEditorBindings(

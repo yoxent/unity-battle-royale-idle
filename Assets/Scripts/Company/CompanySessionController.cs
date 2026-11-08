@@ -43,6 +43,10 @@ namespace BattleRoyale.Company
         [SerializeField] private ActiveMapManager mapManager;
         [SerializeField] private MatchOfferView[] matchOffers;
         [SerializeField] private TMP_Text rankLabel;
+        [Tooltip("Headers the active match cards. Hidden while no card is active.")]
+        [SerializeField] private GameObject activeMatchDivider;
+        [Tooltip("Headers the open offer cards. Hidden only when Mode Select has no cards.")]
+        [SerializeField] private GameObject openMatchDivider;
 
         PlayableMapCatalog PlayableMaps =>
             mapManager == null ? null : mapManager.PlayableMaps;
@@ -67,12 +71,12 @@ namespace BattleRoyale.Company
         int rankPoints;
         int selectedTournament;
         int viewedCard;
+        int entryCard = -1;
         TournamentOffer committedOffer;
         TournamentOffer[] listedOffers;
         MapModeConfiguration[] listedModes = System.Array.Empty<MapModeConfiguration>();
         SimulationMatch runningMatch;
         bool tutorialMapActive;
-        int startedCard = -1;
         AgentAvailability[] availability;
         bool resultApplied;
         bool ready;
@@ -90,6 +94,9 @@ namespace BattleRoyale.Company
         int presentedWindowSecond = int.MinValue;
         int presentedStanceId = int.MinValue;
         bool presentedLeaveMatch;
+        MatchCardState presentedEntryState = MatchCardState.None;
+        int presentedEntryCard = -1;
+        int presentedEntryWindowSecond = -1;
         string presentedStance;
         bool hasPresentedLiveState;
 
@@ -397,7 +404,7 @@ namespace BattleRoyale.Company
 
             ApplyEntry(aborted);
             NoteFreed();
-            startedCard = -1;
+            entryCard = -1;
             committedOffer = null;
             ClearListedOffers();
             RestorePlayableMaps();
@@ -426,7 +433,7 @@ namespace BattleRoyale.Company
             ClearListedOffers();
             RestorePlayableMaps();
             phase = TournamentEntryPhase.Open;
-            startedCard = -1;
+            entryCard = -1;
             result = TournamentResult.None;
             reserved = 0;
             resultApplied = false;
@@ -606,9 +613,10 @@ namespace BattleRoyale.Company
                 runningMatch = match;
             }
 
-            startedCard = selectedTournament;
+            entryCard = selectedTournament;
             viewedCard = selectedTournament;
-            HidePages();
+            Show(modeSelect);
+            RefreshActiveMatches();
         }
 
         void ApplyPlacement(bool draw)
@@ -858,6 +866,17 @@ namespace BattleRoyale.Company
             presentedStance = stance.ToString();
             hasPresentedLiveState = true;
 
+            var entryState = StateOfCard(entryCard);
+            if (entryState != presentedEntryState ||
+                entryCard != presentedEntryCard ||
+                windowSecond != presentedEntryWindowSecond)
+            {
+                presentedEntryState = entryState;
+                presentedEntryCard = entryCard;
+                presentedEntryWindowSecond = windowSecond;
+                RefreshActiveMatches();
+            }
+
             if (balanceLabel != null)
             {
                 balanceLabel.text = FormatTopBarResources(spendable, reserved, fans, companyDate);
@@ -1032,6 +1051,7 @@ namespace BattleRoyale.Company
                 }
 
                 var map = MapForCard(i);
+                var state = StateOfCard(i);
                 card.Show(
                     i,
                     string.IsNullOrWhiteSpace(offer.Name) ? "Match" : offer.Name,
@@ -1043,7 +1063,9 @@ namespace BattleRoyale.Company
                     offer.PrizePool,
                     offer.Configuration != null,
                     map == null ? "" : MapTitle.From(map),
-                    map == null ? null : map.visualSprite);
+                    map == null ? null : map.visualSprite,
+                    state,
+                    Mathf.CeilToInt(windowRemaining));
             }
         }
 
@@ -1262,7 +1284,9 @@ namespace BattleRoyale.Company
                 offer.PrizePool,
                 true,
                 MapTitle.From(map),
-                map.visualSprite);
+                map.visualSprite,
+                StateOfCard(0),
+                Mathf.CeilToInt(windowRemaining));
         }
 
         MapDefinition TutorialMap()
@@ -1360,19 +1384,95 @@ namespace BattleRoyale.Company
 
         void PresentSelectedOffer()
         {
-            var joining = !MapHasStarted(viewedCard);
-            PublishViewedCard();
-            if (deployment != null)
+            PresentViewedCard();
+        }
+
+        /// <summary>
+        /// Orders the existing Mode Select cards with any active match first, and
+        /// puts a header above each group. The active header appears only while a
+        /// card is active. The open header stays while any offer card is shown.
+        /// </summary>
+        void RefreshActiveMatches()
+        {
+            if (matchOffers == null || matchOffers.Length == 0)
             {
-                deployment.gameObject.SetActive(joining);
+                return;
             }
 
-            if (joining)
+            var cardCount = matchOffers.Length;
+            var order = new int[cardCount];
+            var activeCount = ActiveMatchListRules.Arrange(
+                phase,
+                entryCard,
+                cardCount,
+                order);
+
+            if (activeCount < 0)
             {
-                RefreshDeployment();
+                Debug.LogError("Mode select cannot order its cards.", this);
+                return;
             }
 
-            PresentTutorial();
+            var openCount = 0;
+            for (var slot = activeCount; slot < cardCount; slot++)
+            {
+                var card = matchOffers[order[slot]];
+                if (card != null && card.gameObject.activeSelf)
+                {
+                    openCount++;
+                }
+            }
+
+            SetHeaderVisible(activeMatchDivider, activeCount > 0);
+            SetHeaderVisible(openMatchDivider, openCount > 0);
+
+            var next = 0;
+            for (var slot = 0; slot < cardCount; slot++)
+            {
+                if (slot == 0 && activeCount > 0)
+                {
+                    next = PlaceHeader(activeMatchDivider, next);
+                }
+
+                if (slot == activeCount && openCount > 0)
+                {
+                    next = PlaceHeader(openMatchDivider, next);
+                }
+
+                var cardIndex = order[slot];
+                var card = matchOffers[cardIndex];
+                if (card == null)
+                {
+                    continue;
+                }
+
+                card.transform.SetSiblingIndex(next);
+                next++;
+
+                if (slot < activeCount)
+                {
+                    card.ShowState(StateOfCard(cardIndex), Mathf.CeilToInt(windowRemaining));
+                }
+            }
+        }
+
+        static int PlaceHeader(GameObject header, int index)
+        {
+            if (header == null)
+            {
+                return index;
+            }
+
+            header.transform.SetSiblingIndex(index);
+            return index + 1;
+        }
+
+        static void SetHeaderVisible(GameObject header, bool visible)
+        {
+            if (header != null && header.activeSelf != visible)
+            {
+                header.SetActive(visible);
+            }
         }
 
         void Show(UIPage page)
@@ -1391,7 +1491,10 @@ namespace BattleRoyale.Company
                 if (page == modeSelect)
                 {
                     RefreshMatchOffer();
-                    if (committedOffer == null && !MapHasStarted(viewedCard))
+                    RefreshActiveMatches();
+                    if (committedOffer == null &&
+                        phase == TournamentEntryPhase.Open &&
+                        StateOfCard(viewedCard) == MatchCardState.None)
                     {
                         viewedCard = 0;
                     }
@@ -1437,27 +1540,6 @@ namespace BattleRoyale.Company
             }
         }
 
-        void HidePages()
-        {
-            if (pageTransition == null)
-            {
-                Debug.LogError("Company day needs its page transition.", this);
-                return;
-            }
-
-            pageTransition.Hide();
-            ShowMatchPreview();
-            PublishViewedCard();
-            if (deployment != null)
-            {
-                deployment.gameObject.SetActive(false);
-            }
-            if (tabBar != null)
-            {
-                tabBar.SetVisible(false);
-            }
-        }
-
         void ShowMatchPreview()
         {
             if (matchPreview == null)
@@ -1499,9 +1581,12 @@ namespace BattleRoyale.Company
 
         bool MapHasStarted(int card)
         {
-            return card >= 0 && card == startedCard &&
-                (phase == TournamentEntryPhase.Running ||
-                 phase == TournamentEntryPhase.Resolved);
+            return ActiveMatchListRules.ShowsLiveMatch(StateOfCard(card));
+        }
+
+        MatchCardState StateOfCard(int card)
+        {
+            return ActiveMatchListRules.StateOf(phase, entryCard, card);
         }
 
         void PublishViewedCard()

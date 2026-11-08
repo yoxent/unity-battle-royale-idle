@@ -1137,10 +1137,13 @@ namespace BattleRoyale.Company
                 return;
             }
 
+            // While a match runs, the lineup belongs to the entered card. A
+            // different card shows the panel empty rather than that lineup.
+            var showLineup = phase == TournamentEntryPhase.Open;
             var slots = new string[lineup.Length];
             for (var i = 0; i < lineup.Length; i++)
             {
-                var index = lineup[i];
+                var index = showLineup ? lineup[i] : -1;
                 slots[i] = index >= 0 && index < squad.Length
                     ? AgentName(squad[index])
                     : "Empty";
@@ -1151,6 +1154,11 @@ namespace BattleRoyale.Company
             for (var i = 0; i < squad.Length; i++)
             {
                 names[i] = AgentName(squad[i]);
+                if (!showLineup)
+                {
+                    continue;
+                }
+
                 for (var slot = 0; slot < lineup.Length; slot++)
                 {
                     if (lineup[slot] == i)
@@ -1190,8 +1198,7 @@ namespace BattleRoyale.Company
             {
                 if (index != 0 || phase != TournamentEntryPhase.Open)
                 {
-                    viewedCard = index;
-                    PublishViewedCard();
+                    BrowseCard(index);
                     return;
                 }
 
@@ -1230,7 +1237,7 @@ namespace BattleRoyale.Company
             viewedCard = index;
             if (phase != TournamentEntryPhase.Open)
             {
-                PublishViewedCard();
+                BrowseCard(index);
                 return;
             }
 
@@ -1248,6 +1255,52 @@ namespace BattleRoyale.Company
             RefreshFielding();
             RefreshLabels();
             PresentSelectedOffer();
+        }
+
+        /// <summary>
+        /// Opens a card while another one already holds the entry. The right
+        /// column shows that card: the live fight for the entered card, the
+        /// deployment panel for any other. This never changes
+        /// <see cref="committedOffer"/> or the lineup, so the running entry keeps
+        /// its fee, prize, and waived appearances.
+        /// </summary>
+        public void SelectActiveMatch(int index)
+        {
+            if (!ready || index < 0)
+            {
+                return;
+            }
+
+            BrowseCard(index);
+        }
+
+        void BrowseCard(int index)
+        {
+            viewedCard = index;
+            PresentViewedCard();
+        }
+
+        /// <summary>
+        /// Presents the card the player last opened. The deployment panel shows
+        /// for every card that is not showing a live fight, including another
+        /// card chosen while a match runs. Deploy itself stays disabled then,
+        /// because <see cref="RequestDeploy"/> needs an open session.
+        /// </summary>
+        void PresentViewedCard()
+        {
+            var joining = !MapHasStarted(viewedCard);
+            PublishViewedCard();
+            if (deployment != null)
+            {
+                deployment.gameObject.SetActive(joining);
+            }
+
+            if (joining)
+            {
+                RefreshDeployment();
+            }
+
+            PresentTutorial();
         }
 
         TournamentOffer SelectedOffer()
